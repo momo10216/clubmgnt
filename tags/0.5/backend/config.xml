@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<params>
+		<param name="custom1" type="text" default="Custom field 1" label="CUSTOM 1" description="CUSTOM 1 DESCRIPTION"/>
+		<param name="custom2" type="text" default="Custom field 2" label="CUSTOM 2" description="CUSTOM 2 DESCRIPTION"/>
+		<param name="custom3" type="text" default="Custom field 3" label="CUSTOM 3" description="CUSTOM 3 DESCRIPTION"/>
+		<param name="custom4" type="text" default="Custom field 4" label="CUSTOM 4" description="CUSTOM 4 DESCRIPTION"/>
+		<param name="custom5" type="text" default="Custom field 5" label="CUSTOM 5" description="CUSTOM 5 DESCRIPTION"/>
+		<param name="image_dir" type="text" default="/images/member" label="IMAGE DIRECTORY" description="IMAGE DIRECTORY DESCRIPTION"/>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="member_types" type="text" default="ACTIVE=Active;PASSIVE=Passive;SUPPORTER=Supporter;SPONSOR=Sponsor" label="MEMBERSHIP TYPES" description="MEMBERSHIP TYPES DESCRIPTION"/>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="board_jobs" type="text" default="PRESIDENT=President;VICEPRESIDENT=Vice-President;TREASURE=Treasure;ACTUARY=Actuary;ASSESSOR=Assessor;CONTROLLER=Controller" label="BOARD JOBS" description="BOARD JOBS DESCRIPTION"/>
+	</params>
+</config>
