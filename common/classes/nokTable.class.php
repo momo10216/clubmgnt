@@ -1199,9 +1199,18 @@ CurrentIP
 				$strRet .= JHTML::_('select.booleanlist',  $strColumn, "class=\"" . $class . "\"", $strValue );
 				break;
 			case "date":
-				$date =& JFactory::getDate($strValue);
 				$cformat = str_replace("%y","%Y",JText::_('DATE_FORMAT_LC4'));
-				$strRet .= JHTML::_('calendar', $date->toFormat($cformat), $strColumn, $strColumn, $format = $cformat, array('class'=>$class, 'size'=>'10',  'maxlength'=>'10'))." (".$cformat.")";
+				$cformat_desc = $cformat;
+				$cformat_desc = str_replace("%d","dd",$cformat_desc);
+				$cformat_desc = str_replace("%m","mm",$cformat_desc);
+				$cformat_desc = str_replace("%y","yy",$cformat_desc);
+				$cformat_desc = str_replace("%Y","yyyy",$cformat_desc);
+				if ($strValue != "")
+				{
+					$date =& JFactory::getDate($strValue);
+					$strValue = $date->toFormat($cformat);
+				}
+				$strRet .= JHTML::_('calendar', $strValue, $strColumn, $strColumn, $format = $cformat, array('class'=>$class, 'size'=>'10',  'maxlength'=>'10'))." (".$cformat_desc.")";
 				break;
 			case "time":
 				$strRet .= "<input class=\"" . $class . "\" type=\"text\" name=\"" . $strColumn . "\" id=\"" . $strColumn . "\" value=\"" . $strValue . "\"";
