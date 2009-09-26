@@ -40,6 +40,9 @@ class nokCMBoard extends nokTable {
 		$this->addColumnRepresentation("sortorder", "text");
 		$this->addColumnRepresentation("begin", "date");
 		$this->addColumnRepresentation("end", "date");
+		$this->addColumnRepresentation("beginyear:YEAR(#__nokCM_board.`begin`)", "readonly", "text");
+		$this->addColumnRepresentation("endyear:YEAR(#__nokCM_board.`end`)", "readonly", "text");
+		$this->addColumnRepresentation("beginendyear:CONCAT(YEAR(#__nokCM_board.`begin`),'-',IFNULL(YEAR(#__nokCM_board.`end`),''))", "readonly", "text");
 		$this->addColumnRepresentation("createdby", "readonly", "text", "CurrentUser");
 		$this->addColumnRepresentation("createddate", "readonly", "datetime", "CurrentDate");
 		$this->addColumnRepresentation("modifiedby", "readonly", "text", "", "CurrentUser");
@@ -129,6 +132,9 @@ class nokCMBoard extends nokTable {
 		$this->addColumnDisplay("view", "job", JText::_( 'TABLE_NOKCM_BOARD.JOB'));
 		$this->addColumnDisplay("view", "begin", JText::_( 'TABLE_NOKCM_BOARD.BEGIN'));
 		$this->addColumnDisplay("view", "end", JText::_( 'TABLE_NOKCM_BOARD.END'));
+		$this->addColumnDisplay("view", "beginyear", JText::_( 'TABLE_NOKCM_BOARD.BEGINYEAR'));
+		$this->addColumnDisplay("view", "endyear", JText::_( 'TABLE_NOKCM_BOARD.ENDYEAR'));
+		$this->addColumnDisplay("view", "beginendyear", JText::_( 'TABLE_NOKCM_BOARD.BEGINENDYEAR'));
 		$this->addColumnDisplay("view", "sortorder", JText::_( 'TABLE_NOKCM_BOARD.SORTORDER'));
 		if (strtolower($picdir) != "none") {
 			$this->addColumnDisplay("view", "image", JText::_( 'TABLE_NOKCM_PERSONS.IMAGE'));

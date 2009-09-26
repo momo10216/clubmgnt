@@ -18,9 +18,9 @@ class nokCMMembership extends nokTable {
 
 		$params = &JComponentHelper::getParams( 'com_clubmanagement' );
 		$picdir = $params->get( 'image_dir' );
-		$col_beginyear = "YEAR(`begin`)";
-		$col_endyear = "YEAR(`end`)";
-		$col_duration = "CONCAT(YEAR(`begin`),'-',IFNULL(YEAR(`end`),''))";
+		$col_beginyear = 
+		$col_endyear = "YEAR(#__nokCM_memberships.`end` `endyear`)";
+		$col_beginendyear = " `beginendyear`";
 		
 		// Settings
 		$this->addSetting("Primary_Key","id");
@@ -43,11 +43,9 @@ class nokCMMembership extends nokTable {
 		$this->addColumnRepresentation("type", "textselect", $params->get( 'member_types' ));
 		$this->addColumnRepresentation("begin", "date");
 		$this->addColumnRepresentation("end", "date");
-/*
-		$this->addColumnRepresentation($col_beginyear, "readonly", "text");
-		$this->addColumnRepresentation($col_endyear, "readonly", "text");
-		$this->addColumnRepresentation($col_duration, "readonly", "text");
-*/
+		$this->addColumnRepresentation("beginyear:YEAR(#__nokCM_memberships.`begin`)", "readonly", "text");
+		$this->addColumnRepresentation("endyear:YEAR(#__nokCM_memberships.`end`)", "readonly", "text");
+		$this->addColumnRepresentation("beginendyear:CONCAT(YEAR(#__nokCM_memberships.`begin`),'-',IFNULL(YEAR(#__nokCM_memberships.`end`),''))", "readonly", "text");
 		$this->addColumnRepresentation("createdby", "readonly", "text", "CurrentUser");
 		$this->addColumnRepresentation("createddate", "readonly", "datetime", "CurrentDate");
 		$this->addColumnRepresentation("modifiedby", "readonly", "text", "", "CurrentUser");
@@ -141,11 +139,9 @@ class nokCMMembership extends nokTable {
 		$this->addColumnDisplay("view", "type", JText::_( 'TABLE_NOKCM_MEMBERSHIPS.TYPE'));
 		$this->addColumnDisplay("view", "begin", JText::_( 'TABLE_NOKCM_MEMBERSHIPS.BEGIN'));
 		$this->addColumnDisplay("view", "end", JText::_( 'TABLE_NOKCM_MEMBERSHIPS.END'));
-/*
-		$this->addColumnDisplay("view", $col_beginyear, JText::_( 'TABLE_NOKCM_MEMBERSHIPS.BEGINYEAR'));
-		$this->addColumnDisplay("view", $col_endyear, JText::_( 'TABLE_NOKCM_MEMBERSHIPS.ENDYEAR'));
-		$this->addColumnDisplay("view", $col_duration, JText::_( 'TABLE_NOKCM_MEMBERSHIPS.DURATION'));
-*/
+		$this->addColumnDisplay("view", "beginyear", JText::_( 'TABLE_NOKCM_MEMBERSHIPS.BEGINYEAR'));
+		$this->addColumnDisplay("view", "endyear", JText::_( 'TABLE_NOKCM_MEMBERSHIPS.ENDYEAR'));
+		$this->addColumnDisplay("view", "beginendyear", JText::_( 'TABLE_NOKCM_MEMBERSHIPS.BEGINENDYEAR'));
 		if (strtolower($picdir) != "none") {
 			$this->addColumnDisplay("view", "image", JText::_( 'TABLE_NOKCM_PERSONS.IMAGE'));
 		}

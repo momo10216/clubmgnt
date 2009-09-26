@@ -147,28 +147,21 @@ CurrentIP
 		{
 			//Name, Column, Table, Link, [Table-Alias]
 			$arrTemp = split($this->column_delimiter,$strColumn,5);
-			if (count($arrTemp) < 4)
+			switch (count($arrTemp))
 			{
-				//Error
-				nokCM_error(JText::sprintf( 'ERROR_INCORRECT_REPRESENTATION', $strColumn), false);
-			}
-			else
-			{
-				$strColumn = $arrTemp[0];
-				$extcol = $arrTemp[1];
-				$exttable = $arrTemp[2];
-				$extlink = $arrTemp[3];
-				if (count($arrTemp) > 4)
-				{
-					//Table alias set
-					$extalias = $arrTemp[4];
-				}
-				else
-				{
-					//Table alias not set
-					$extalias = $arrTemp[2];
-				}
-				$this->column_external[$strColumn] = array($extcol, $exttable, $extlink, $extalias);
+				case 2: //name:column
+					$this->column_external[$arrTemp[0]] = array($arrTemp[1], $this->table, "", $this->table);
+					break;
+				case 4: //name:column:table:join
+					$this->column_external[$arrTemp[0]] = array($arrTemp[1], $arrTemp[2], $arrTemp[3], $arrTemp[2]);
+					break;
+				case 5: //name:column:table:join:tablealias
+					$this->column_external[$arrTemp[0]] = array($arrTemp[1], $arrTemp[2], $arrTemp[3], $arrTemp[4]);
+					break;
+				default:
+					nokCM_error(JText::sprintf( 'ERROR_INCORRECT_REPRESENTATION', $strColumn), false);
+					return;
+					break;
 			}
 		}
 		$this->column_rep[$strColumn] = array($strType, $strParam1, $strParam2, $strParam3, $strParam4, $strParam5, $strParam6, $strParam7, $strParam8, $strParam9);
@@ -223,7 +216,7 @@ CurrentIP
 			if ($strColumnList != "") $strColumnList = $strColumnList . ", ";
 			if ($this->column_external[$strColumn])
 			{
-				//Column, Tab le, Link, Alias
+				//Column, Tab le, Link, Tablealias
 				$arrTemp = $this->column_external[$strColumn];
 				if (!$arrExternalTable[$arrTemp[3]])
 				{
@@ -236,11 +229,25 @@ CurrentIP
 					$strJoinList = $strJoinList.$arrTemp[2];
 					$arrExternalTable[$arrTemp[3]] = $strTablePrefix;
 				}
-				$strColumn = $arrTemp[3].".`".$arrTemp[0]."` `".$arrTemp[0]."`";
+				if (strpos($arrTemp[0],"`") === false)
+				{
+					$strColumn = $arrExternalTable[$arrTemp[3]].".`".$arrTemp[0]."` `".$strColumn."`";
+				}
+				else
+				{
+					$strColumn = str_replace($arrTemp[3].".`",$arrExternalTable[$arrTemp[3]].".`",$arrTemp[0])." `".$strColumn."`";
+				}
 			}
 			else
 			{
-				$strColumn = "T0.`".$strColumn."` `".$strColumn."`";
+				if (strpos($strColumn,"`") === false)
+				{
+					$strColumn = "T0.`".$strColumn."` `".$strColumn."`";
+				}
+				else
+				{
+					$strColumn = str_replace($this->table.".`","T0.`",$arrTemp[0])." `".$strColumn."`";
+				}
 			}
 			$strColumnList = $strColumnList.$strColumn;
 		}
@@ -262,13 +269,19 @@ CurrentIP
 					$strJoinList = $strJoinList.$arrTemp[2];
 					$arrExternalTable[$arrTemp[3]] = $strTablePrefix;
 				}
-				$where = str_replace("`".$arrTemp[0]."`",$arrTemp[3].".`".$arrTemp[0]."`",$where);
-				$order = str_replace("`".$arrTemp[0]."`",$arrTemp[3].".`".$arrTemp[0]."`",$order);
+				if (strpos($arrTemp[0],"`") === false)
+				{
+					$where = str_replace("`".$arrTemp[0]."`",$arrTemp[3].".`".$arrTemp[0]."`",$where);
+					$order = str_replace("`".$arrTemp[0]."`",$arrTemp[3].".`".$arrTemp[0]."`",$order);
+				}
 			}
 			else
 			{
-				$where = str_replace("`".$strColumn."`","T0.`".$strColumn."`",$where);
-				$order = str_replace("`".$strColumn."`","T0.`".$strColumn."`",$order);
+				if (strpos($strColumn,"`") === false)
+				{
+					$where = str_replace("`".$strColumn."`","T0.`".$strColumn."`",$where);
+					$order = str_replace("`".$strColumn."`","T0.`".$strColumn."`",$order);
+				}
 			}
 		}
 		$strSQL = "SELECT " . $strColumnList . " FROM ".$strTableList;
