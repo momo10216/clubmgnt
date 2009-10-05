@@ -98,6 +98,12 @@
 				<option value="right">Right</option>
 				<option value="center">Center</option>
 			</param>
+			<param name="@spacer" type="spacer" default="" label="" description="" />
+			<param name="detail_enable" type="radio" default="0" label="Enable Details" description="Enable Details Description">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</param>
+			<param name="detail_column_link" type="cmmembercolumn" columntype="view" default="" label="Detail Link Column" description="Detail Link Column description"/>
 		</advanced>
 	</state>
 </metadata>

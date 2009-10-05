@@ -11,6 +11,16 @@
 
 defined('_JEXEC') or die('Restricted access'); // no direct access
 
+$details = false;
+if ($this->params_menu->get( 'detail_enable' ) != "0")
+{
+	$details = true;
+	$uri = JFactory::getURI();
+	$uri->setVar("layout","detail");
+	$uri->setVar("tmpl","component");
+	$uri->setVar("Itemid","");
+}
+
 /*
  * Get columns
  */
@@ -63,14 +73,26 @@ if ($this->params_menu->get( 'show_header' ) != "0")
 {
 	$this->header = $this->cmobject->getViewHeader($cols);
 }
+if ($details)
+{
+	$cols[] = $this->cmobject->getSetting("Primary_Key");
+}
 $this->data = $this->cmobject->getViewData($cols,$where,$sort);
+
+
+/*
+ * Display
+ */
+if ($details)
+{
+	JHTML::_('behavior.modal');
+}
 $border="border-style:solid; border-width:1px";
 $width="";
 if ($this->params_menu->get( 'width' ) != "0")
 {
 	$width="width=\"".$this->params_menu->get( 'width' )."\" ";
 }
-
 if ($this->params->get( "table_center") == "1") echo "<center>\n";
 if ($this->params->get( "border_type") != "")
 {
@@ -96,6 +118,11 @@ foreach($this->data as $row)
 {
 	echo "<tr>\n";
 	$i=0;
+	if ($details)
+	{
+		$id = array_pop($row);
+		$uri->setVar("id",$id);
+	}
 	for($j=0;$j<$colcount;$j++)
 	{
 		if ($cols[$j] != "")
@@ -112,7 +139,16 @@ foreach($this->data as $row)
 					echo "<td>";
 					break;
 			}
-			echo $this->cmobject->_displayField($cols[$j], $row[$i])."</td>";
+			$field = $this->cmobject->_displayField($cols[$j], $row[$i]);
+			if ($details && (($this->params_menu->get( 'detail_column_link' ) == "") || ($this->params_menu->get( 'detail_column_link' ) == $cols[$j])))
+			{
+				echo "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$this->params->get( 'detail_width' ).", y: ".$this->params->get( 'detail_height' )."}}\">".$field."</a>";
+			}
+			else
+			{
+				echo $field;
+			}
+			echo "</td>";
 			$i++;
 		}
 	}
