@@ -91,6 +91,12 @@
 				<option value="grid">Grid</option>
 			</param>
 			<param name="@spacer" type="spacer" default="" label="" description="" />
+			<param name="detail_enable" type="radio" default="0" label="Enable Details" description="Enable Details Description">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</param>
+			<param name="detail_column_link" type="cmmembercolumn" columntype="view" default="" label="Detail Link Column" description="Detail Link Column description"/>
+ 			<param name="@spacer" type="spacer" default="" label="" description="" />
 			<param name="csv_encoding" type="list" default="UTF-8" label="CSV encoding" description="CSV encoding description">
 				<option value="ASCII">ASCII</option>
 				<option value="ISO-8859-1">ISO-8859-1</option>
