@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="DETAIL LAYOUT">
+		<message>
+			<![CDATA[DETAIL LAYOUT DESCRIPTION]]>
+		</message>
+	</layout>
+	<state>
+		<name>Club Management Membership Detail Layout</name>
+		<description>Club Management Membership Detail Layout Description</description>
+		<url addpath="/administrator/components/com_clubmanagement/elements">
+		</url>
+		<params />
+		<advanced />
+	</state>
+</metadata>
