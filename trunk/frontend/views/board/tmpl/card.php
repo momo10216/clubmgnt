@@ -13,6 +13,7 @@ defined('_JEXEC') or die('Restricted access'); // no direct access
 $FieldPerLine=4;
 $Line=5;
 $details = false;
+/*
 if ($this->params_menu->get( 'detail_enable' ) != "0")
 {
 	$details = true;
@@ -20,8 +21,8 @@ if ($this->params_menu->get( 'detail_enable' ) != "0")
 	$uri->setVar("layout","detail");
 	$uri->setVar("tmpl","component");
 	$uri->setVar("Itemid","");
-	$uri->setVar("view","member");
 }
+*/
 
 /*
  * Get columns
