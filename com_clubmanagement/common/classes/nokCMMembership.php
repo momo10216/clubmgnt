@@ -55,6 +55,7 @@ class nokCMMembership extends nokTable {
 		$this->addColumnRepresentation("firstname:firstname:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("middlename:middlename:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("nickname:nickname:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
+		$this->addColumnRepresentation("nickfirstname:IFNULL(#__nokCM_persons.`nickname`,#__nokCM_persons.`firstname`):#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("address:address:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("birthday:birthday:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "date");
 		$this->addColumnRepresentation("deceased:deceased:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "date");
@@ -119,6 +120,7 @@ class nokCMMembership extends nokTable {
 		$this->addColumnDisplay("view", "firstname", JText::_( 'TABLE_NOKCM_PERSONS.FIRSTNAME'));
 		$this->addColumnDisplay("view", "middlename", JText::_( 'TABLE_NOKCM_PERSONS.MIDDLENAME'));
 		$this->addColumnDisplay("view", "nickname", JText::_( 'TABLE_NOKCM_PERSONS.NICKNAME'));
+		$this->addColumnDisplay("view", "nickfirstname", JText::_( 'TABLE_NOKCM_PERSONS.NICKFIRSTNAME'));
 		$this->addColumnDisplay("view", "address", JText::_( 'TABLE_NOKCM_PERSONS.ADDRESS'));
 		$this->addColumnDisplay("view", "zip", JText::_( 'TABLE_NOKCM_PERSONS.ZIP'));
 		$this->addColumnDisplay("view", "city", JText::_( 'TABLE_NOKCM_PERSONS.CITY'));
