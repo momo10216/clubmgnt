@@ -81,6 +81,10 @@ if ($details)
 {
 	JHTML::_('behavior.modal');
 }
+if ($params->get("css") != "")
+{
+	echo "<style type=\"text/css\" media=\"screen\">\n".$params->get("css")."\n</style>\n";
+}
 echo "<div class=\"cmbirth\">\n";
 if (count($data_today) > 0)
 {
@@ -103,16 +107,33 @@ if (count($data_today) > 0)
 				$row[$j] = "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$cmparams->get( 'detail_width' ).", y: ".$cmparams->get( 'detail_height' )."}}\">".$row[$j]."</a>";
 			}
 		}
+		switch ($params->get('column_next'))
+		{
+			case "1": //(Weekday)
+				$birthday = " <span class=\"cmbirth_today_person_birthday\">(".JText::_("Today").")</span>";
+				break;
+			case "2": //(month/day)
+				//$birthday = " (".JHTML::_('date', $birthday, "???").")";
+				$birthday = " <span class=\"cmbirth_today_person_birthday\">(".JText::_("Today").")</span>";
+				break;
+			case "3": //(day.month)
+				//$birthday = " (".JHTML::_('date', $birthday, "???").")";
+				$birthday = " <span class=\"cmbirth_today_person_birthday\">(".JText::_("Today").")</span>";
+				break;
+			default:
+				$birthday = "";
+				break;
+		}
 		if ($details && ($params->get( 'detail_column_link' ) == ""))
 		{
-			$name[] = "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$cmparams->get( 'detail_width' ).", y: ".$cmparams->get( 'detail_height' )."}}\">".implode(" ",$row)."</a>";
+			$name[] = "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$cmparams->get( 'detail_width' ).", y: ".$cmparams->get( 'detail_height' )."}}\">".implode(" ",$row)."</a>".$birthday;
 		}
 		else
 		{
-			$name[] = implode(" ",$row);
+			$name[] = implode(" ",$row).$birthday;
 		}
 	}
-	echo "\t\t<div class=\"cmbirth_today_person\">".implode(", ",$name)."</div>\n";
+	echo "\t\t<div class=\"cmbirth_today_person\">".implode($params->get('delimiter'),$name)."</div>\n";
 	echo "\t</div>\n";
 }
 if (count($data_next) > 0)
@@ -136,16 +157,31 @@ if (count($data_next) > 0)
 				$row[$j] = "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$cmparams->get( 'detail_width' ).", y: ".$cmparams->get( 'detail_height' )."}}\">".$row[$j]."</a>";
 			}
 		}
+		switch ($params->get('column_next'))
+		{
+			case "1": //(Weekday)
+				$birthday = " <span class=\"cmbirth_today_person_birthday\">(".substr(JHTML::_('date', $birthday, "%a"),0,2).")</span>";
+				break;
+			case "2": //(month/day)
+				$birthday = " <span class=\"cmbirth_today_person_birthday\">(".JHTML::_('date', $birthday, "%m/%d").")</span>";
+				break;
+			case "3": //(day.month)
+				$birthday = " <span class=\"cmbirth_today_person_birthday\">(".JHTML::_('date', $birthday, "%d.%m").")</span>";
+				break;
+			default:
+				$birthday = "";
+				break;
+		}
 		if ($details && ($params->get( 'detail_column_link' ) == ""))
 		{
-			$name[] = "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$cmparams->get( 'detail_width' ).", y: ".$cmparams->get( 'detail_height' )."}}\">".implode(" ",$row)."</a>";
+			$name[] = "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$cmparams->get( 'detail_width' ).", y: ".$cmparams->get( 'detail_height' )."}}\">".implode(" ",$row)."</a>".$birthday;
 		}
 		else
 		{
-			$name[] = implode(" ",$row);
+			$name[] = implode(" ",$row).$birthday;
 		}
 	}
-	echo "\t\t<div class=\"cmbirth_today_person\">".implode(", ",$name)."</div>\n";
+	echo "\t\t<div class=\"cmbirth_today_person\">".implode($params->get('delimiter'),$name)."</div>\n";
 	echo "\t</div>\n";
 }
 echo "</div>\n";
