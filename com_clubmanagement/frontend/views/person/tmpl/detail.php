@@ -69,7 +69,7 @@ if (getparam($this,"detail_css") != "")
 {
 	echo "<style type=\"text/css\" media=\"screen\">\n".getparam($this,"detail_css")."\n</style>\n";
 }
-echo "<table class=\"cmdetail_table\">\n";
+echo "<div class=\"cmdetail\"><table class=\"cmdetail_table\">\n";
 for ($i=0;$i<$colcount;$i++)
 {
 	echo "\t<tr class=\"cmdetail_row\">\n";
@@ -84,92 +84,7 @@ for ($i=0;$i<$colcount;$i++)
 	echo "\t\t<td class=\"cmdetail_field_data\"><span class=\"cmdetail_data\">".$row{$i}."</span></td>\n";
 	echo "\t</tr>\n";
 }
-echo "</table>\n";
-
-/*
- * Get columns (boardlist)
- */
-$cols = array();
-for ($i=1;$i<=5;$i++)
-{
-	$field = "detail_board_column_".$i;
-	if (getparam($this,$field) != "")
-	{
-		$cols[] = getparam($this,$field);
-	}
-}
-$colcount = count($cols);
-
-/*
- * Calculate where (boardlist)
- */
-$where = "`person_id`=".$person_id;
-
-/*
- * Get sort (boardlist)
- */
-$sort = "";
-for ($i=1;$i<=2;$i++)
-{
-	$field1 = "detail_board_sort_column_".$i;
-	$field2 = "detail_board_sort_direction_".$i;
-	if (getparam($this,$field1) != "") {
-		$sort .= ",`".getparam($this,$field1)."` ".getparam($this,$field2);
-	}
-}
-if ($sort != "") $sort = substr($sort,1);
-
-/*
- * Get data  (boardlist)
- */
-require_once( JPATH_COMPONENT_ADMINISTRATOR.DS.'classes'.DS.'nokCMBoard.php');
-$cmobject = new nokCMBoard("com_clubmanagement");
-if ($colcount > 0)
-{
-	if ($label != "0")
-	{
-		$this->header = $cmobject->getViewHeader($cols);
-	}
-	$this->data = $cmobject->getViewData($cols,$where,$sort);
-}
-else
-{
-	$this->data = array();
-}
-if (count($this->data) > 0)
-{
-	echo "<p>&nbsp;</p>\n";
-	if (getparam($this,"detail_board_title") != "")
-	{
-		echo "<span class=\"cmdetail_board_title\">".getparam($this,"detail_board_title")."</span>\n";
-	}
-	echo "<table class=\"cmdetail_board_table\">\n";
-	if ($label != "0")
-	{
-		echo "<tr class=\"cmdetail_board_row_title\">";
-		foreach($this->header as $strSingle)
-		{
-			if ($strSingle != "")
-			{
-				echo "<th class=\"cmdetail_board_field_title\">".$strSingle."</th>";
-			}
-		}
-		echo "</tr>\n";
-	}
-	foreach($this->data as $row)
-	{
-		echo "<tr class=\"cmdetail_board_row_data\">\n";
-		for($j=0;$j<$colcount;$j++)
-		{
-			echo "<td class=\"cmdetail_board_field_data\">";
-			$field = $cmobject->_displayField($cols[$j], $row[$j]);
-			echo $field;
-			echo "</td>";
-		}
-		echo "</tr>\n";
-	}
-	echo "</table>\n";
-}
+echo "</table></div>\n";
 
 /*
  * Get columns (memberlist)
@@ -223,7 +138,8 @@ else
 }
 if (count($this->data) > 0)
 {
-	echo "<p>&nbsp;</p>\n";
+	//echo "<p>&nbsp;</p>\n";
+	echo "<div class=\"cmdetail_member\">\n";
 	if (getparam($this,"detail_member_title") != "")
 	{
 		echo "<span class=\"cmdetail_member_title\">".getparam($this,"detail_member_title")."</span>\n";
@@ -253,6 +169,91 @@ if (count($this->data) > 0)
 		}
 		echo "</tr>\n";
 	}
-	echo "</table>\n";
+	echo "</table></div>\n";
+}
+
+/*
+ * Get columns (boardlist)
+ */
+$cols = array();
+for ($i=1;$i<=5;$i++)
+{
+	$field = "detail_board_column_".$i;
+	if (getparam($this,$field) != "")
+	{
+		$cols[] = getparam($this,$field);
+	}
+}
+$colcount = count($cols);
+
+/*
+ * Calculate where (boardlist)
+ */
+$where = "`person_id`=".$person_id;
+
+/*
+ * Get sort (boardlist)
+ */
+$sort = "";
+for ($i=1;$i<=2;$i++)
+{
+	$field1 = "detail_board_sort_column_".$i;
+	$field2 = "detail_board_sort_direction_".$i;
+	if (getparam($this,$field1) != "") {
+		$sort .= ",`".getparam($this,$field1)."` ".getparam($this,$field2);
+	}
+}
+if ($sort != "") $sort = substr($sort,1);
+
+/*
+ * Get data  (boardlist)
+ */
+require_once( JPATH_COMPONENT_ADMINISTRATOR.DS.'classes'.DS.'nokCMBoard.php');
+$cmobject = new nokCMBoard("com_clubmanagement");
+if ($colcount > 0)
+{
+	if ($label != "0")
+	{
+		$this->header = $cmobject->getViewHeader($cols);
+	}
+	$this->data = $cmobject->getViewData($cols,$where,$sort);
+}
+else
+{
+	$this->data = array();
+}
+if (count($this->data) > 0)
+{
+	echo "<div class=\"cmdetail_board\">\n";
+	if (getparam($this,"detail_board_title") != "")
+	{
+		echo "<span class=\"cmdetail_board_title\">".getparam($this,"detail_board_title")."</span>\n";
+	}
+	echo "<table class=\"cmdetail_board_table\">\n";
+	if ($label != "0")
+	{
+		echo "<tr class=\"cmdetail_board_row_title\">";
+		foreach($this->header as $strSingle)
+		{
+			if ($strSingle != "")
+			{
+				echo "<th class=\"cmdetail_board_field_title\">".$strSingle."</th>";
+			}
+		}
+		echo "</tr>\n";
+	}
+	foreach($this->data as $row)
+	{
+		echo "<tr class=\"cmdetail_board_row_data\">\n";
+		for($j=0;$j<$colcount;$j++)
+		{
+			echo "<td class=\"cmdetail_board_field_data\">";
+			$field = $cmobject->_displayField($cols[$j], $row[$j]);
+			echo $field;
+			echo "</td>";
+		}
+		echo "</tr>\n";
+	}
+	echo "</table></div>\n";
 }
 ?>

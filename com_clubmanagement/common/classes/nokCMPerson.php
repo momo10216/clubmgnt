@@ -17,6 +17,7 @@ class nokCMPerson extends nokTable
 	function nokCMPerson($component)
 	{
 		$this->nokTable('#__nokCM_persons','person');
+
 		$params = &JComponentHelper::getParams( 'com_clubmanagement' );
 		$picdir = $params->get( 'image_dir' );
 
@@ -146,6 +147,40 @@ class nokCMPerson extends nokTable
 		$this->addColumnDisplay("edit", "createddate", JText::_( 'TABLE_NOKCM_PERSONS.CREATEDDATE'));
 		$this->addColumnDisplay("edit", "modifiedby", JText::_( 'TABLE_NOKCM_PERSONS.MODIFIEDBY'));
 		$this->addColumnDisplay("edit", "modifieddate", JText::_( 'TABLE_NOKCM_PERSONS.MODIFIEDDATE'));
+
+		// Define fields and lables for view
+		$this->addColumnDisplay("view", "salutation", JText::_( 'TABLE_NOKCM_PERSONS.SALUTATION'));
+		$this->addColumnDisplay("view", "name", JText::_( 'TABLE_NOKCM_PERSONS.NAME'));
+		$this->addColumnDisplay("view", "birthname", JText::_( 'TABLE_NOKCM_PERSONS.BIRTHNAME'));
+		$this->addColumnDisplay("view", "firstname", JText::_( 'TABLE_NOKCM_PERSONS.FIRSTNAME'));
+		$this->addColumnDisplay("view", "middlename", JText::_( 'TABLE_NOKCM_PERSONS.MIDDLENAME'));
+		$this->addColumnDisplay("view", "nickname", JText::_( 'TABLE_NOKCM_PERSONS.NICKNAME'));
+		$this->addColumnDisplay("view", "nickfirstname", JText::_( 'TABLE_NOKCM_PERSONS.NICKFIRSTNAME'));
+		$this->addColumnDisplay("view", "address", JText::_( 'TABLE_NOKCM_PERSONS.ADDRESS'));
+		$this->addColumnDisplay("view", "zip", JText::_( 'TABLE_NOKCM_PERSONS.ZIP'));
+		$this->addColumnDisplay("view", "city", JText::_( 'TABLE_NOKCM_PERSONS.CITY'));
+		$this->addColumnDisplay("view", "state", JText::_( 'TABLE_NOKCM_PERSONS.STATE'));
+		$this->addColumnDisplay("view", "country", JText::_( 'TABLE_NOKCM_PERSONS.COUNTRY'));
+		$this->addColumnDisplay("view", "birthday", JText::_( 'TABLE_NOKCM_PERSONS.BIRTHDAY'));
+		$this->addColumnDisplay("view", "deceased", JText::_( 'TABLE_NOKCM_PERSONS.DECEASED'));
+		$this->addColumnDisplay("view", "telephone", JText::_( 'TABLE_NOKCM_PERSONS.TELEPHONE'));
+		$this->addColumnDisplay("view", "mobile", JText::_( 'TABLE_NOKCM_PERSONS.MOBILE'));
+		$this->addColumnDisplay("view", "email", JText::_( 'TABLE_NOKCM_PERSONS.EMAIL'));
+		$this->addColumnDisplay("view", "url", JText::_( 'TABLE_NOKCM_PERSONS.URL'));
+		$this->addColumnDisplay("view", "user_id", JText::_( 'TABLE_NOKCM_PERSONS.USER_ID'));
+		if (strtolower($picdir) != "none") {
+			$this->addColumnDisplay("view", "image", JText::_( 'TABLE_NOKCM_PERSONS.IMAGE'));
+		}
+		$this->addColumnDisplay("view", "custom1", JText::_( $params->get( 'custom1' )));
+		$this->addColumnDisplay("view", "custom2", JText::_( $params->get( 'custom2' )));
+		$this->addColumnDisplay("view", "custom3", JText::_( $params->get( 'custom3' )));
+		$this->addColumnDisplay("view", "custom4", JText::_( $params->get( 'custom4' )));
+		$this->addColumnDisplay("view", "custom5", JText::_( $params->get( 'custom5' )));
+		$this->addColumnDisplay("view", "description", JText::_( 'TABLE_NOKCM_PERSONS.DESCRIPTION'));
+		$this->addColumnDisplay("view", "createdby", JText::_( 'TABLE_NOKCM_PERSONS.CREATEDBY'));
+		$this->addColumnDisplay("view", "createddate", JText::_( 'TABLE_NOKCM_PERSONS.CREATEDDATE'));
+		$this->addColumnDisplay("view", "modifiedby", JText::_( 'TABLE_NOKCM_PERSONS.MODIFIEDBY'));
+		$this->addColumnDisplay("view", "modifieddate", JText::_( 'TABLE_NOKCM_PERSONS.MODIFIEDDATE'));
 
 		// Define toolbar itemms
 		//$this->addToolbarEntry("publish");
