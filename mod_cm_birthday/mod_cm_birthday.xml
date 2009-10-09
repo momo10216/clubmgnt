@@ -11,6 +11,10 @@
     <files>
 		<filename module="mod_cm_birthday">mod_cm_birthday.php</filename>
     </files>
+	<languages>
+		<language tag="en-GB">en-GB.mod_cm_birthday.ini</language>
+		<language tag="de-DE">de-DE.mod_cm_birthday.ini</language>
+	</languages>
 	<media />
 	<params addpath="/administrator/components/com_clubmanagement/elements">
 		<param name="membertype" type="cmmembertype" label="Membership Type" description="Membership Type Description"/>
