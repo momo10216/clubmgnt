@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<install type="module" version="1.5.0" method="upgrade">
+    <name>ClubManagement Birthday</name>
+    <creationDate>10/07/2009</creationDate>
+    <author>Norbert Kuemin</author>
+	<authorEmail>momo_102@bluemail.ch</authorEmail>
+	<copyright>(C) 2009 Norbert Kuemin</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+    <version>0.1</version>
+    <description>Show birthday of members.</description>
+    <files>
+		<filename module="mod_cm_birthday">mod_cm_birthday.php</filename>
+    </files>
+	<media />
+	<params addpath="/administrator/components/com_clubmanagement/elements">
+		<param name="membertype" type="cmmembertype" label="Membership Type" description="Membership Type Description"/>
+		<param name="memberstate" type="list" default="current" label="Membership State" description="Membership State Description">
+			<option value="current">Current</option>
+			<option value="closed">Terminated</option>
+			<option value="all">All</option>
+		</param>
+		<param name="days_before" type="text" size="2" default="6" label="Days" description="Days Description."/>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="column_1" type="cmmembercolumn" columntype="view" default="" label="Field 1" description="Field 1 Description"/>
+		<param name="column_2" type="cmmembercolumn" columntype="view" default="" label="Field 2" description="Field 2 Description"/>
+		<param name="column_3" type="cmmembercolumn" columntype="view" default="" label="Field 3" description="Field 3 Description"/>
+		<param name="column_4" type="cmmembercolumn" columntype="view" default="" label="Field 4" description="Field 4 Description"/>
+		<param name="column_next" type="list" default="1" label="Field Upcoming" description="Field Upcoming Description">
+			<option value=""></option>
+			<option value="1">(Weekday)</option>
+			<option value="2">(month/day)</option>
+			<option value="3">(day.month)</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="title_today" type="text" size="50" default="" label="Title Now" description="Title Now Description"/>
+		<param name="title_next" type="text" size="50" default="" label="Title Next" description="Title Next Description"/>
+		<param name="delimiter" type="text" size="50" default=", " label="Delimiter" description="Delimiter Description."/>
+		<param name="css" type="textarea" default="" label="Detail CSS" description="Detail CSS description" rows="5" cols="50"/>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="detail_enable" type="radio" default="0" label="Enable Details" description="Enable Details Description">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="detail_column_link" type="cmmembercolumn" columntype="view" default="" label="Detail Link Column" description="Detail Link Column description"/>
+	</params>
+</install>
