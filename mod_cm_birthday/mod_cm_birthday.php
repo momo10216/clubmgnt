@@ -28,7 +28,7 @@ if ($params->get( 'detail_enable' ) != "0")
 	$uri->setVar("tmpl","component");
 	$uri->setVar("Itemid","");
 	$uri->setVar("option","com_clubmanagement");
-	$uri->setVar("view","member");
+	$uri->setVar("view","person");
 	$uri->setVar("format","html");
 }
 
@@ -44,7 +44,7 @@ for ($i=1;$i<=4;$i++)
 }
 $colcount = count($cols);
 $cols[] = "birthday";
-$cols[] = $cmobject->getSetting("Primary_Key");
+$cols[] = "person_id";
 
 // Get today records
 $calc_days = "DATEDIFF(#__nokCM_persons.`birthday` + INTERVAL YEAR('".$today."') - YEAR(#__nokCM_persons.`birthday`) + IF(DATE_FORMAT('".$today."', '%m%d') > DATE_FORMAT(birthday, '%m%d'), 1, 0) YEAR,'".$today."')";
@@ -186,4 +186,3 @@ if (count($data_next) > 0)
 }
 echo "</div>\n";
 ?>
-
