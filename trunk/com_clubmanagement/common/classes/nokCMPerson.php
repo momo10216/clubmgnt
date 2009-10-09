@@ -41,6 +41,7 @@ class nokCMPerson extends nokTable
 		$this->addColumnRepresentation("firstname", "text", 50, 50);
 		$this->addColumnRepresentation("middlename", "text", 50, 50);
 		$this->addColumnRepresentation("nickname", "text", 50, 50);
+		$this->addColumnRepresentation("nickfirstname:IFNULL(`nickname`,`firstname`)", "readonly", "text");
 		$this->addColumnRepresentation("address", "text", 50, 100);
 		$this->addColumnRepresentation("zip", "text", 50, 50);
 		$this->addColumnRepresentation("city", "text", 50, 50);
