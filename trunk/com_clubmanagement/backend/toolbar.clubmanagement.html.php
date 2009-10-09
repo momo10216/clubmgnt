@@ -52,7 +52,7 @@ class TOOLBAR_clubmanagement
 			if ($cmobject->isToolbarEntrySet("add")) JToolBarHelper::addNewX();
 			if ($cmobject->isToolbarEntrySet("export")) JToolBarHelper::customX('export', 'export', 'export', JText::_('Export'), false); 
 			if ($cmobject->isToolbarEntrySet("import")) JToolBarHelper::customX('import', 'import', 'import', JText::_('Import'), false); 
-			if ($cmobject->isToolbarEntrySet("preferences")) JToolBarHelper::preferences('com_clubmanagement');
+			if ($cmobject->isToolbarEntrySet("preferences")) JToolBarHelper::preferences('com_clubmanagement', '500', '600');
 			if ($cmobject->isToolbarEntrySet("help")) JToolBarHelper::help( 'screen.clubmanagement' );
 		} else {
 //			JToolBarHelper::publishList();
@@ -62,7 +62,7 @@ class TOOLBAR_clubmanagement
 			JToolBarHelper::addNewX();
 			JToolBarHelper::customX('export', 'export', 'export', JText::_('Export'), false); 
 			JToolBarHelper::customX('import', 'import', 'import', JText::_('Import'), false); 
-			JToolBarHelper::preferences('com_clubmanagement');
+			JToolBarHelper::preferences('com_clubmanagement', '500', '600');
 			JToolBarHelper::help( 'screen.clubmanagement' );
 		}
 	}

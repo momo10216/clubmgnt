@@ -12,15 +12,14 @@
 // Define object b ased on the table object
 require_once( dirname(__FILE__).DS.'nokTable.class.php');
 
-class nokCMMembership extends nokTable {
-	function nokCMMembership($component) {
+class nokCMMembership extends nokTable
+{
+	function nokCMMembership($component)
+	{
 		$this->nokTable('#__nokCM_memberships','membership');
 
 		$params = &JComponentHelper::getParams( 'com_clubmanagement' );
 		$picdir = $params->get( 'image_dir' );
-		$col_beginyear = 
-		$col_endyear = "YEAR(#__nokCM_memberships.`end` `endyear`)";
-		$col_beginendyear = " `beginendyear`";
 		
 		// Settings
 		$this->addSetting("Primary_Key","id");
@@ -39,7 +38,6 @@ class nokCMMembership extends nokTable {
 		$this->addColumnRepresentation("id", "readonly");
 		$this->addColumnRepresentation("published", "publish");
 		$this->addColumnRepresentation("person_id", "selection", "id", "CONCAT(IFNULL(`name`,''),' ',IFNULL(`firstname`,''),',',',',IFNULL(`address`,''),',',IFNULL(`city`,''))", "#__nokCM_persons", "", "`name`,`firstname`,`city`");
-//		$this->addColumnRepresentation("type", "textselect", "ACTIVE=Active;PASSIVE=Passive;SUPPORTER=Supporter;SPONSOR=Sponsor");
 		$this->addColumnRepresentation("type", "textselect", $params->get( 'member_types' ));
 		$this->addColumnRepresentation("begin", "date");
 		$this->addColumnRepresentation("end", "date");

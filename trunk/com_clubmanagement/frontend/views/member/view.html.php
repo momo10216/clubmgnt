@@ -35,7 +35,7 @@ class cmViewmember extends JView
 		 */
 		$this->user		=& JFactory::getUser();
 		$this->document	=& JFactory::getDocument();
-		$this->params	=& $mainframe->getParams();
+		$this->params	=& JComponentHelper::getParams( 'com_clubmanagement' );
 		$menus	= &JSite::getMenu();
 		$this->menu	= $menus->getActive();
 		$this->cmobject = new nokCMMembership("com_clubmanagement");

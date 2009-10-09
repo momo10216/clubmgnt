@@ -54,9 +54,12 @@ class JElementCMPersonColumn extends JElement
 			$arrList = $cmobject->getColumns("view");
 		}
 
-		reset($arrList);
-		while (list($strValue,$strDisplay) = each($arrList)) {
-			$opt[] = JHTML::_("select.option",  $strValue, $strDisplay);
+		if ($arrList !== false)
+		{
+			reset($arrList);
+			while (list($strValue,$strDisplay) = each($arrList)) {
+				$opt[] = JHTML::_("select.option",  $strValue, $strDisplay);
+			}
 		}
 		return JHTML::_('select.genericlist',   $opt, $ctrl, $attribs, "value", "text", $value);
 	}
