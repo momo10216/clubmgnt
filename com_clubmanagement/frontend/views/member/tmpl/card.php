@@ -20,6 +20,7 @@ if ($this->params_menu->get( 'detail_enable' ) != "0")
 	$uri->setVar("layout","detail");
 	$uri->setVar("tmpl","component");
 	$uri->setVar("Itemid","");
+	$uri->setVar("view","person");
 }
 
 /*
@@ -79,7 +80,7 @@ $where = $where . "`published`=1";
  */
 if ($details)
 {
-	$cols[] = $this->cmobject->getSetting("Primary_Key");
+	$cols[] = "person_id";
 }
 $this->data = $this->cmobject->getViewData($cols,$where,$sort);
 
