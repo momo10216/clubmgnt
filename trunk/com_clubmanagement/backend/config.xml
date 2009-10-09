@@ -20,16 +20,16 @@
 			<option value="1">Yes</option>
 		</param>
 		<param name="detail_css" type="textarea" default="" label="Detail CSS" description="Detail CSS description" rows="5" cols="50"/>
-		<param name="detail_column_1" type="cmmembercolumn" columntype="view" default="" label="Detail Column 1" description="Detail Column 1 description"/>
-		<param name="detail_column_2" type="cmmembercolumn" columntype="view" default="" label="Detail Column 2" description="Detail Column 2 description"/>
-		<param name="detail_column_3" type="cmmembercolumn" columntype="view" default="" label="Detail Column 3" description="Detail Column 3 description"/>
-		<param name="detail_column_4" type="cmmembercolumn" columntype="view" default="" label="Detail Column 4" description="Detail Column 4 description"/>
-		<param name="detail_column_5" type="cmmembercolumn" columntype="view" default="" label="Detail Column 5" description="Detail olumn 5 description"/>
-		<param name="detail_column_6" type="cmmembercolumn" columntype="view" default="" label="Detail Column 6" description="Detail Column 6 description"/>
-		<param name="detail_column_7" type="cmmembercolumn" columntype="view" default="" label="Detail Column 7" description="Detail Column 7 description"/>
-		<param name="detail_column_8" type="cmmembercolumn" columntype="view" default="" label="Detail Column 8" description="Detail Column 8 description"/>
-		<param name="detail_column_9" type="cmmembercolumn" columntype="view" default="" label="Detail Column 9" description="Detail Column 9 description"/>
-		<param name="detail_column_10" type="cmmembercolumn" columntype="view" default="" label="Detail Column 10" description="Detail Column 10 description"/>
+		<param name="detail_column_1" type="cmpersoncolumn" columntype="view" default="" label="Detail Column 1" description="Detail Column 1 description"/>
+		<param name="detail_column_2" type="cmpersoncolumn" columntype="view" default="" label="Detail Column 2" description="Detail Column 2 description"/>
+		<param name="detail_column_3" type="cmpersoncolumn" columntype="view" default="" label="Detail Column 3" description="Detail Column 3 description"/>
+		<param name="detail_column_4" type="cmpersoncolumn" columntype="view" default="" label="Detail Column 4" description="Detail Column 4 description"/>
+		<param name="detail_column_5" type="cmpersoncolumn" columntype="view" default="" label="Detail Column 5" description="Detail olumn 5 description"/>
+		<param name="detail_column_6" type="cmpersoncolumn" columntype="view" default="" label="Detail Column 6" description="Detail Column 6 description"/>
+		<param name="detail_column_7" type="cmpersoncolumn" columntype="view" default="" label="Detail Column 7" description="Detail Column 7 description"/>
+		<param name="detail_column_8" type="cmpersoncolumn" columntype="view" default="" label="Detail Column 8" description="Detail Column 8 description"/>
+		<param name="detail_column_9" type="cmpersoncolumn" columntype="view" default="" label="Detail Column 9" description="Detail Column 9 description"/>
+		<param name="detail_column_10" type="cmpersoncolumn" columntype="view" default="" label="Detail Column 10" description="Detail Column 10 description"/>
 		<param name="detail_member_title" type="text" default="" label="Detail Member Title" description="Detail Member Title DESCRIPTION"/>
 		<param name="detail_member_column_1" type="cmmembercolumn" columntype="view" default="" label="Detail Membership Column 1" description="Detail Membership Column 1 description"/>
 		<param name="detail_member_column_2" type="cmmembercolumn" columntype="view" default="" label="Detail Membership Column 2" description="Detail Membership Column 2 description"/>
