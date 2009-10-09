@@ -27,7 +27,6 @@ class JElementCMMemberColumn extends JElement
 	function fetchElement($name, $value, &$node, $control_name)
 	{
 		$cmobject = new nokCMMembership("com_clubmanagement");
-		$arrList = $cmobject->getColumns("view");
 		$opt[] = JHTML::_("select.option",  "", "<none>");
 		$ctrl = $control_name.'['.$name.']';
 
