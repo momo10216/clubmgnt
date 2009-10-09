@@ -11,7 +11,6 @@
 defined('_JEXEC') or die('Restricted access'); // no direct access
 
 $details = false;
-/*
 if ($this->params_menu->get( 'detail_enable' ) != "0")
 {
 	$details = true;
@@ -19,8 +18,9 @@ if ($this->params_menu->get( 'detail_enable' ) != "0")
 	$uri->setVar("layout","detail");
 	$uri->setVar("tmpl","component");
 	$uri->setVar("Itemid","");
+	$uri->setVar("view","person");
 }
-*/
+
 
 /*
  * Get columns
@@ -71,7 +71,7 @@ if ($this->params_menu->get( 'show_header' ) != "0")
 }
 if ($details)
 {
-	$cols[] = $this->cmobject->getSetting("Primary_Key");
+	$cols[] = "person_id";
 }
 $this->data = $this->cmobject->getViewData($cols,$where,$sort);
 

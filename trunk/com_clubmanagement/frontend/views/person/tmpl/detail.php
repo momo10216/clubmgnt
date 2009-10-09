@@ -23,7 +23,7 @@ if ($id == 0)
 }
 
 /*
- * Get columns (member)
+ * Get columns (person)
  */
 $cols = array();
 for ($i=1;$i<=10;$i++)
@@ -35,19 +35,19 @@ for ($i=1;$i<=10;$i++)
 	}
 }
 $colcount = count($cols);
-$cols[] = "person_id";
+$cols[] = "id";
 if (getparam($this,"detail_column_image") != "")
 {
 	$cols[] = getparam($this,"detail_column_image");
 }
 
 /*
- * Calculate where (member)
+ * Calculate where (person)
  */
 $where = "`".$this->cmobject->getSetting("Primary_Key")."`=".$id;
 
 /*
- * Get data  (member)
+ * Get data  (person)
  */
 $label = getparam($this, 'detail_show_label' );
 if ($label != "0")
@@ -63,7 +63,7 @@ if (getparam($this,"detail_column_image") != "")
 $person_id = array_pop($row);
 
 /*
- * Display data  (member)
+ * Display data  (person)
  */
 if (getparam($this,"detail_css") != "")
 {
