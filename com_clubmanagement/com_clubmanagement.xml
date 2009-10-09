@@ -22,8 +22,6 @@
 		<filename>views/member/tmpl/index.html</filename>
 		<filename>views/member/tmpl/default.php</filename>
 		<filename>views/member/tmpl/default.xml</filename>
-		<filename>views/member/tmpl/detail.php</filename>
-		<filename>views/member/tmpl/detail.xml</filename>
 		<filename>views/member/tmpl/card.php</filename>
 		<filename>views/member/tmpl/card.xml</filename>
 		<filename>views/person/index.html</filename>
@@ -32,6 +30,8 @@
 		<filename>views/person/tmpl/index.html</filename>
 		<filename>views/person/tmpl/form.php</filename>
 		<filename>views/person/tmpl/form.xml</filename>
+		<filename>views/person/tmpl/detail.php</filename>
+		<filename>views/person/tmpl/detail.xml</filename>
 		<filename>views/board/index.html</filename>
 		<filename>views/board/metadata.xml</filename>
 		<filename>views/board/view.html.php</filename>
