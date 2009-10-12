@@ -23,7 +23,8 @@ $details = false;
 if ($params->get( 'detail_enable' ) != "0")
 {
 	$details = true;
-	$uri = JFactory::getURI();
+	$curi =& JFactory::getURI();
+	$uri =& JURI::getInstance( $curi->toString() );
 	$uri->setVar("layout","detail");
 	$uri->setVar("tmpl","component");
 	$uri->setVar("Itemid","");
