@@ -42,11 +42,15 @@
 		<filename>views/board/view.html.php</filename>
 		<filename>views/board/view.csv.php</filename>
 		<filename>views/board/tmpl/index.html</filename>
+		<filename>views/board/tmpl/address.php</filename>
+		<filename>views/board/tmpl/address.xml</filename>
 		<filename>views/board/tmpl/default.php</filename>
-		<filename>views/board/tmpl/default.csv.php</filename>
 		<filename>views/board/tmpl/default.xml</filename>
 		<filename>views/board/tmpl/card.php</filename>
 		<filename>views/board/tmpl/card.xml</filename>
+		<filename>views/board/tmpl.csv/index.html</filename>
+		<filename>views/board/tmpl.csv/address.php</filename>
+		<filename>views/board/tmpl.csv/default.php</filename>
 	</files>
 	<installfile>install.com_clubmanagement.php</installfile>
 	<uninstallfile>uninstall.com_clubmanagement.php</uninstallfile>
