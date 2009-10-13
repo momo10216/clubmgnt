@@ -79,16 +79,16 @@
 				<option value="DESC">Descending</option>
 			</param>
 			<param name="@spacer" type="spacer" default="" label="" description="" />
-			<param name="list_center" type="radio" default="0" label="Center Cards" description="Put the cards in the center of content.">
+			<param name="list_center" type="radio" default="0" label="Center List" description="Center List Description">
 				<option value="0">No</option>
 				<option value="1">Yes</option>
 			</param>
-			<param name="border" type="list" default="" label="Border Type" description="Type of the table border.">
+			<param name="border" type="list" default="" label="Border Type" description="Border Type Description">
 				<option value="">None</option>
 				<option value="line">Line</option>
 				<option value="normal">Normal</option>
 			</param>
-			<param name="textalign" type="list" default="left" label="Text Alignment" description="Alignment of the text.">
+			<param name="textalign" type="list" default="left" label="Text Alignment" description="Text Alignment Description">
 				<option value="left">Left</option>
 				<option value="right">Right</option>
 				<option value="center">Center</option>
