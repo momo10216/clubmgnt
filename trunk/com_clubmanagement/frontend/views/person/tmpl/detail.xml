@@ -6,8 +6,8 @@
 		</message>
 	</layout>
 	<state>
-		<name>Club Management Membership Detail Layout</name>
-		<description>Club Management Membership Detail Layout Description</description>
+		<name>Club Management Person Detail Layout</name>
+		<description>Club Management Person Detail Layout Description</description>
 		<url addpath="/administrator/components/com_clubmanagement/elements">
 		</url>
 		<params />
