@@ -48,6 +48,9 @@ class nokCMPerson extends nokTable
 		$this->addColumnRepresentation("city", "text", 50, 50);
 		$this->addColumnRepresentation("state", "text", 50, 100);
 		$this->addColumnRepresentation("country", "text", 50, 100);
+		$this->addColumnRepresentation("hh_person_id", "selection", "id", "CONCAT(IFNULL(`name`,''),' ',IFNULL(`firstname`,''),',',',',IFNULL(`address`,''),',',IFNULL(`city`,''))", "#__nokCM_persons", "`hh_person_id` IS NULL", "`name`,`firstname`,`city`"," ");
+		$this->addColumnRepresentation("hh_salutation_override", "text", 50, 50);
+		$this->addColumnRepresentation("hh_name_override", "text", 50, 255);
 		$this->addColumnRepresentation("birthday", "date");
 		$this->addColumnRepresentation("deceased", "date");
 		$this->addColumnRepresentation("telephone", "text", 25, 25);
@@ -94,6 +97,9 @@ class nokCMPerson extends nokTable
 		$this->addColumnDisplay("show", "city", JText::_( 'TABLE_NOKCM_PERSONS.CITY'));
 		$this->addColumnDisplay("show", "state", JText::_( 'TABLE_NOKCM_PERSONS.STATE'));
 		$this->addColumnDisplay("show", "country", JText::_( 'TABLE_NOKCM_PERSONS.COUNTRY'));
+		$this->addColumnDisplay("show", "hh_person_id", JText::_( 'TABLE_NOKCM_PERSONS.HH_PERSON_ID'));
+		$this->addColumnDisplay("show", "hh_salutation_override", JText::_( 'TABLE_NOKCM_PERSONS.HH_SALUTATION_OVERRIDE'));
+		$this->addColumnDisplay("show", "hh_name_override", JText::_( 'TABLE_NOKCM_PERSONS.HH_NAME_OVERRIDE'));
 		$this->addColumnDisplay("show", "birthday", JText::_( 'TABLE_NOKCM_PERSONS.BIRTHDAY'));
 		$this->addColumnDisplay("show", "deceased", JText::_( 'TABLE_NOKCM_PERSONS.DECEASED'));
 		$this->addColumnDisplay("show", "telephone", JText::_( 'TABLE_NOKCM_PERSONS.TELEPHONE'));
@@ -127,6 +133,9 @@ class nokCMPerson extends nokTable
 		$this->addColumnDisplay("edit", "city", JText::_( 'TABLE_NOKCM_PERSONS.CITY'));
 		$this->addColumnDisplay("edit", "state", JText::_( 'TABLE_NOKCM_PERSONS.STATE'));
 		$this->addColumnDisplay("edit", "country", JText::_( 'TABLE_NOKCM_PERSONS.COUNTRY'));
+		$this->addColumnDisplay("edit", "hh_person_id", JText::_( 'TABLE_NOKCM_PERSONS.HH_PERSON_ID'));
+		$this->addColumnDisplay("edit", "hh_salutation_override", JText::_( 'TABLE_NOKCM_PERSONS.HH_SALUTATION_OVERRIDE'));
+		$this->addColumnDisplay("edit", "hh_name_override", JText::_( 'TABLE_NOKCM_PERSONS.HH_NAME_OVERRIDE'));
 		$this->addColumnDisplay("edit", "birthday", JText::_( 'TABLE_NOKCM_PERSONS.BIRTHDAY'));
 		$this->addColumnDisplay("edit", "deceased", JText::_( 'TABLE_NOKCM_PERSONS.DECEASED'));
 		$this->addColumnDisplay("edit", "telephone", JText::_( 'TABLE_NOKCM_PERSONS.TELEPHONE'));
@@ -192,6 +201,11 @@ class nokCMPerson extends nokTable
 		$this->addToolbarEntry("import");
 		$this->addToolbarEntry("preferences");
 		$this->addToolbarEntry("help");
+
+		//Data consitency definition
+		$this->addDeleteRule("check", "id", "#__nokCM_memberships", "person_id");
+		$this->addDeleteRule("check", "id", "#__nokCM_board", "person_id");
+		//$this->addDeleteRule("check", "id", "#__nokCM_person", "hh_person_id");
 	}
 
 	function user_record_ids($id = "")

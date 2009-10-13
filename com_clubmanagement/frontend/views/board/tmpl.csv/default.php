@@ -2,13 +2,12 @@
 /**
 * @version		0.5
 * @package		Joomla
-* @subpackage	ClubManagement-Membership
+* @subpackage	ClubManagement-Board
 * @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
 * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
 * @author		Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
-
 defined('_JEXEC') or die('Restricted access'); // no direct access
 
 /*
@@ -25,25 +24,22 @@ for ($i=1;$i<=20;$i++)
  * Calculate where
  */
 $where = "";
-if ($this->params_menu->get( 'memberstate' ) == "current")
+if ($this->params_menu->get( 'boardstate' ) == "current")
 {
 	$where = "`end` IS NULL";
 }
-if ($this->params_menu->get( 'memberstate' ) == "closed")
+if ($this->params_menu->get( 'boardstate' ) == "closed")
 {
 	$where = "`end` IS NOT NULL";
-}
-if ($this->params_menu->get( 'membertype' ) != "*")
-{
-	if ($where != "") { $where = $where . " AND "; } 
-	$where = $where . "`type`='".$this->params_menu->get( 'membertype' )."'";
 }
 
 /*
  * Get data
  */
 $this->data = $cmobject->getViewData($cols,$where,"`name`,`firstname`");
-$this->filename = date('Y-m-d') . '_export' . '.csv';
+
+//JToolBarHelper::back();
+$this->filename = date('Y-m-d') . '_board_export' . '.csv';
 if ($this->params_menu->get( 'show_header' ) != "0") {
 	$this->header = $cmobject->getViewHeader($cols);
 }

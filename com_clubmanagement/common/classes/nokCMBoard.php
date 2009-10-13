@@ -47,6 +47,7 @@ class nokCMBoard extends nokTable {
 		$this->addColumnRepresentation("createddate", "readonly", "datetime", "CurrentDate");
 		$this->addColumnRepresentation("modifiedby", "readonly", "text", "", "CurrentUser");
 		$this->addColumnRepresentation("modifieddate", "readonly", "datetime", "", "CurrentDate");
+		$this->addColumnRepresentation("salutation:salutation:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("name:name:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("birthname:birthname:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("firstname:firstname:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
@@ -114,6 +115,7 @@ class nokCMBoard extends nokTable {
 
 		// Define fields and columnname for view
 		$this->addColumnDisplay("view", "id", JText::_( 'TABLE_NOKCM_BOARD.ID'));
+		$this->addColumnDisplay("view", "salutation", JText::_( 'TABLE_NOKCM_PERSONS.SALUTATION'));
 		$this->addColumnDisplay("view", "name", JText::_( 'TABLE_NOKCM_PERSONS.NAME'));
 		$this->addColumnDisplay("view", "birthname", JText::_( 'TABLE_NOKCM_PERSONS.BIRTHNAME'));
 		$this->addColumnDisplay("view", "firstname", JText::_( 'TABLE_NOKCM_PERSONS.FIRSTNAME'));

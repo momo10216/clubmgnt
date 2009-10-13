@@ -12,20 +12,21 @@
 class nokTable
 {
 	var $db;
-	var $table;
-	var $toolbar_entry;
-	var $column_req;
-	var $column_rep;
-	var $column_list;
-	var $column_edit;
-	var $column_show;
-	var $column_external;
-	var $column_view;
-	var $default_order;
-	var $settings;
+	var $table = "";
+	var $toolbar_entry = array();
+	var $column_req = array();
+	var $column_rep = array();
+	var $column_list = array();
+	var $column_edit = array();
+	var $column_show = array();
+	var $column_external = array();
+	var $column_view = array();
+	var $default_order = array();
+	var $settings = array();
 	var $gid;
 	var $objectname;
 	var $column_delimiter;
+	var $delete_rule = array();
 
 	function nokTable ($strTable, $objectname)
 	{
@@ -187,6 +188,11 @@ CurrentIP
 				$this->column_view[$strColumn] = $strTitle;
 				break;
 		}
+	}
+
+	function addDeleteRule($type, $localColumn, $extTable, $extColumn)
+	{
+		$this->delete_rule[] = array($type, $localColumn, $extTable, $extColumn);
 	}
 
 	function setDefaultOrder($strDisplay, $strOrder)
@@ -859,6 +865,70 @@ CurrentIP
 	function delete($id)
 	{
 		global $mainframe;
+
+		// Check delete rules
+		$localCols = array();
+		foreach ($this->delete_rule as $rule)
+		{
+			$localCols[] = $rule[1];
+		}
+		$localCols = array_unique($localCols);
+		$localData = array();
+		if ((count($localCols) == 1) && ($localCols[0] == $this->getSetting("Primary_Key")))
+		{
+			$localData[$this->getSetting("Primary_Key")] = $id;
+		}
+		else
+		{
+			if (count($localCols) > 0)
+			{
+				$collist = implode("`,`",$localCols);
+				$strSQL = "SELECT `".$collist."` FROM ".$this->table;
+				$strSQL .= " WHERE `".$this->getSetting("Primary_Key")."`='".$id."'";
+				$this->db->setQuery( $strSQL );
+				$rows = $this->db->loadRowList();
+				$rowcount = count($rows);
+				if ($rowcount == 1)
+				{
+					$row = $rows[0];
+					for ($i=0, $n=count( $localCols ); $i < $n; $i++)
+					{
+						$localData[$localCols[$i]] = $row[$i];
+					}
+				}
+			}
+		}
+		foreach ($this->delete_rule as $rule)
+		{
+			switch(strtolower($rule[0]))
+			{
+				case "check":
+					$strSQL = "SELECT COUNT(*) FROM `".$rule[2]."` WHERE `".$rule[3]."`='".$localData[$rule[1]]."'";
+					$this->db->setQuery( $strSQL );
+					$rows = $this->db->loadRowList();
+					if ($rows === false)
+					{
+						nokCM_error(JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true)));
+					}
+					else
+					{
+						if ($rows[0][0] > 0)
+						{
+							nokCM_error(JText::_("DELETE_CONSITENCY_ERROR"));
+							return;
+						}
+					}
+					break;
+				case "delete":
+					$strSQL = "DELETE FROM `".$rule[2]."` WHERE `".$rule[3]."`='".$localData[$rule[3]]."'";
+					$this->db->setQuery( $strSQL );
+					if (!$this->db->query())
+					{
+						nokCM_error(JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true)));
+					}
+					break;
+			}
+		}
 		$strSQL = "DELETE FROM `".$this->table . "` WHERE " . $this->getSetting("Primary_Key");
 		if (is_array($id))
 		{

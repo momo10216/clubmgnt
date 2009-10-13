@@ -52,39 +52,31 @@ class cmViewmember extends JView
 			$this->csv_delimiter = $this->params_menu->get( 'csv_delimiter' );
 		}
 
+		global $mainframe;
+		
 		/*
-		 * Get columns
+		 * Init variables
 		 */
-		$cols = array();
-		for ($i=1;$i<=20;$i++)
-		{
-			$field = "column_".$i;
-			$cols[] = $this->params_menu->get( $field );
+		$this->user		=& JFactory::getUser();
+		$this->params	=& $mainframe->getParams();
+		$menus	= &JSite::getMenu();
+		$this->menu	= $menus->getActive();
+		$cmobject = new nokCMMembership("com_clubmanagement");
+		if (is_object( $this->menu )) {
+			$this->params_menu = new JParameter( $this->menu->params );
+			$this->csv_delimiter = $this->params_menu->get( 'csv_delimiter' );
 		}
 
 		/*
-		 * Calculate where
+		 * Call Layout (CSV)
 		 */
-		$where = "";
-		if ($this->params_menu->get( 'boardstate' ) == "current")
-		{
-			$where = "`end` IS NULL";
-		}
-		if ($this->params_menu->get( 'boardstate' ) == "closed")
-		{
-			$where = "`end` IS NOT NULL";
-		}
+		require_once( dirname(__FILE__).DS.'tmpl.csv'.DS.$this->getLayout().'.php');
 
 		/*
-		 * Get data
+		 * Output result
 		 */
-		$this->data = $cmobject->getViewData($cols,$where,"`name`,`firstname`");
-
-		//JToolBarHelper::back();
-		$exportFilename = date('Y-m-d') . '_export' . '.csv';
 		$content = "";
 		if ($this->params_menu->get( 'show_header' ) != "0") {
-			$this->header = $cmobject->getViewHeader($cols);
 			$content .= $this->_Array2CSV($this->header)."\n";
 		}
 		foreach($this->data as $row) {
@@ -92,7 +84,7 @@ class cmViewmember extends JView
 		}
 		header('Content-Type: application/csv; charset=utf-8');
 		header("Content-Length:".strlen($content));
-		header('Content-Disposition: attachment; filename="' . $exportFilename . '"');
+		header('Content-Disposition: attachment; filename="' . $this->filename . '"');
 		header("Content-Transfer-Encoding: binary");
 		header('Expires: 0');
 		header('Pragma: no-cache');
@@ -100,6 +92,7 @@ class cmViewmember extends JView
 			$content = iconv( "UTF-8", $this->params_menu->get( 'csv_encoding' )."//TRANSLIT", $content ); 
 		}
 		print $content;
+
 		// Close the application.
 		$app = &JFactory::getApplication();
 		$app->close(); 
