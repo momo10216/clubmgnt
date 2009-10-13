@@ -15,7 +15,7 @@ defined('_JEXEC') or die( 'Restricted access' );
 jimport( 'joomla.application.component.view' );
 require_once( JPATH_COMPONENT_ADMINISTRATOR.DS.'classes'.DS.'nokCMBoard.php');
 
-class cmViewmember extends JView
+class cmViewboard extends JView
 {
 	var $user;
 	var $document;
@@ -47,21 +47,6 @@ class cmViewmember extends JView
 		$menus	= &JSite::getMenu();
 		$this->menu	= $menus->getActive();
 		$cmobject = new nokCMBoard("com_clubmanagement");
-		if (is_object( $this->menu )) {
-			$this->params_menu = new JParameter( $this->menu->params );
-			$this->csv_delimiter = $this->params_menu->get( 'csv_delimiter' );
-		}
-
-		global $mainframe;
-		
-		/*
-		 * Init variables
-		 */
-		$this->user		=& JFactory::getUser();
-		$this->params	=& $mainframe->getParams();
-		$menus	= &JSite::getMenu();
-		$this->menu	= $menus->getActive();
-		$cmobject = new nokCMMembership("com_clubmanagement");
 		if (is_object( $this->menu )) {
 			$this->params_menu = new JParameter( $this->menu->params );
 			$this->csv_delimiter = $this->params_menu->get( 'csv_delimiter' );

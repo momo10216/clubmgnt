@@ -55,11 +55,15 @@ class nokCMBoard extends nokTable {
 		$this->addColumnRepresentation("nickname:nickname:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("nickfirstname:IFNULL(#__nokCM_persons.`nickname`,#__nokCM_persons.`firstname`):#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("address:address:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
-		$this->addColumnRepresentation("birthday:birthday:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("city:city:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("zip:zip:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("country:country:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("state:state:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
+		$this->addColumnRepresentation("hh_person_id:hh_person_id:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
+		$this->addColumnRepresentation("hh_salutation_override:hh_salutation_override:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
+		$this->addColumnRepresentation("hh_name_override:hh_name_override:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
+		$this->addColumnRepresentation("birthday:birthday:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
+		$this->addColumnRepresentation("deceased:deceased:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "date");
 		$this->addColumnRepresentation("telephone:telephone:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("mobile:mobile:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("url:url:#__nokCM_persons:#__nokCM_board.person_id=#__nokCM_persons.id", "readonly", "text");
