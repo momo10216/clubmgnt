@@ -21,13 +21,14 @@
 		<filename>views/member/view.csv.php</filename>
 		<filename>views/member/tmpl/index.html</filename>
 		<filename>views/member/tmpl/address.php</filename>
-		<filename>views/member/tmpl.csv/address.php</filename>
 		<filename>views/member/tmpl/address.xml</filename>
 		<filename>views/member/tmpl/default.php</filename>
-		<filename>views/member/tmpl.csv/default.php</filename>
 		<filename>views/member/tmpl/default.xml</filename>
 		<filename>views/member/tmpl/card.php</filename>
 		<filename>views/member/tmpl/card.xml</filename>
+		<filename>views/member/tmpl.csv/index.html</filename>
+		<filename>views/member/tmpl.csv/address.php</filename>
+		<filename>views/member/tmpl.csv/default.php</filename>
 		<filename>views/person/index.html</filename>
 		<filename>views/person/metadata.xml</filename>
 		<filename>views/person/view.html.php</filename>
