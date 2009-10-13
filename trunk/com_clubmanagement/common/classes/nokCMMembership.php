@@ -48,6 +48,7 @@ class nokCMMembership extends nokTable
 		$this->addColumnRepresentation("createddate", "readonly", "datetime", "CurrentDate");
 		$this->addColumnRepresentation("modifiedby", "readonly", "text", "", "CurrentUser");
 		$this->addColumnRepresentation("modifieddate", "readonly", "datetime", "", "CurrentDate");
+		$this->addColumnRepresentation("salutation:salutation:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("name:name:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("birthname:birthname:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("firstname:firstname:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
@@ -55,12 +56,15 @@ class nokCMMembership extends nokTable
 		$this->addColumnRepresentation("nickname:nickname:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("nickfirstname:IFNULL(#__nokCM_persons.`nickname`,#__nokCM_persons.`firstname`):#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("address:address:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
-		$this->addColumnRepresentation("birthday:birthday:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "date");
-		$this->addColumnRepresentation("deceased:deceased:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "date");
 		$this->addColumnRepresentation("city:city:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("zip:zip:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("country:country:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("state:state:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
+		$this->addColumnRepresentation("hh_person_id:hh_person_id:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
+		$this->addColumnRepresentation("hh_salutation_override:hh_salutation_override:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
+		$this->addColumnRepresentation("hh_name_override:hh_name_override:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
+		$this->addColumnRepresentation("birthday:birthday:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "date");
+		$this->addColumnRepresentation("deceased:deceased:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "date");
 		$this->addColumnRepresentation("telephone:telephone:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("mobile:mobile:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("url:url:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "url");
@@ -113,6 +117,7 @@ class nokCMMembership extends nokTable
 
 		// Define fields and columnname for view
 		$this->addColumnDisplay("view", "id", JText::_( 'TABLE_NOKCM_MEMBERSHIPS.ID'));
+		$this->addColumnDisplay("view", "salutation", JText::_( 'TABLE_NOKCM_PERSONS.SALUTATION'));
 		$this->addColumnDisplay("view", "name", JText::_( 'TABLE_NOKCM_PERSONS.NAME'));
 		$this->addColumnDisplay("view", "birthname", JText::_( 'TABLE_NOKCM_PERSONS.BIRTHNAME'));
 		$this->addColumnDisplay("view", "firstname", JText::_( 'TABLE_NOKCM_PERSONS.FIRSTNAME'));

@@ -36,7 +36,6 @@ class cmViewmember extends JView
 	}
 
 	function display($tpl = null)   {
-
 		global $mainframe;
 		
 		/*
@@ -52,7 +51,14 @@ class cmViewmember extends JView
 			$this->csv_delimiter = $this->params_menu->get( 'csv_delimiter' );
 		}
 
-		require_once( dirname(__FILE__).DS.'tmpl'.DS.$tpl.'.csv.php');
+		/*
+		 * Call Layout (CSV)
+		 */
+		require_once( dirname(__FILE__).DS.'tmpl.csv'.DS.$this->getLayout().'.php');
+
+		/*
+		 * Output result
+		 */
 		$content = "";
 		if ($this->params_menu->get( 'show_header' ) != "0") {
 			$content .= $this->_Array2CSV($this->header)."\n";

@@ -99,6 +99,9 @@ PRIMARY KEY (`id`)
 		'custom5' => 'varchar(255) default NULL',
 		'birthname' => 'varchar(50) default NULL',
 		'deceased' => 'date default NULL',
+		'hh_person_id' => 'int(11) unsigned default NULL',
+		'hh_salutation_override' => 'varchar(50) default NULL',
+		'hh_name_override' => 'varchar(255) default NULL',
 		'_import_id' => 'int(11) unsigned default NULL'
 	);
 	reset($field_defs);
