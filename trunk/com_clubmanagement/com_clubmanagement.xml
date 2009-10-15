@@ -72,6 +72,7 @@
 			<filename>toolbar.clubmanagement.php</filename>
 			<filename>index.html</filename>
 			<filename>elements/cmpersoncolumn.php</filename>
+			<filename>elements/cmpersonrecord.php</filename>
 			<filename>elements/cmmembercolumn.php</filename>
 			<filename>elements/cmmembertype.php</filename>
 			<filename>elements/cmboardcolumn.php</filename>
