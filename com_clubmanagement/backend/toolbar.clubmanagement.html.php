@@ -21,7 +21,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMPerson.php');
 require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMMembership.php');
 require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMBoard.php');
-require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMReport.php');
 
 JHTML::_('stylesheet', 'icon.css', 'administrator/components/com_clubmanagement/css/');
 

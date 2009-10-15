@@ -24,7 +24,6 @@ function nokCM_error ($text, $back=true) {
 require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMPerson.php');
 require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMMembership.php');
 require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMBoard.php');
-require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMReport.php');
 
 // Main
 $component = "com_clubmanagement";

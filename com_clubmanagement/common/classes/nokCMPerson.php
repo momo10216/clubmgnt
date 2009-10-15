@@ -208,6 +208,19 @@ class nokCMPerson extends nokTable
 		//$this->addDeleteRule("check", "id", "#__nokCM_person", "hh_person_id");
 	}
 
+	function menu ( $cmd, $option )
+	{
+		switch ($cmd)
+		{
+			case 'select':
+				$this->select_record();
+				break;
+			default:
+				parent::menu( $cmd, $option );
+				break;
+		}
+	}
+
 	function user_record_ids($id = "")
 	{
 		$user =& JFactory::getUser();
@@ -217,6 +230,98 @@ class nokCMPerson extends nokTable
 		$this->db->setQuery( $strSQL );
 		$rows = $this->db->loadRowList();
 		return $rows;
+	}
+	function select_record()
+	{
+		global $mainframe;
+
+		$uri = JFactory::getURI();
+		$option = $uri->getVar('option');
+		$user =& JFactory::getUser();
+		$limit = $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
+		$limitstart = $mainframe->getUserStateFromRequest( $option.'.limitstart', 'limitstart', 0, 'int' );
+
+		// Page-Navigation: Get the total number of records
+		$strSQL = "SELECT COUNT(*) FROM `".$this->table."`";
+		$this->db->setQuery( $strSQL );
+		$total = $this->db->loadResult();
+		jimport('joomla.html.pagination');
+		$pageNav = new JPagination( $total, $limitstart, $limit );
+
+		// Order
+		$filter_order = $mainframe->getUserStateFromRequest( "$option.filter_order", 'filter_order', '', 'cmd' );
+		$filter_order_Dir = $mainframe->getUserStateFromRequest( "$option.filter_order_Dir", 'filter_order_Dir', '', 'word' );
+		if ($filter_order != "")
+		{
+			$order = $filter_order .' '. $filter_order_Dir;
+		}
+		if ($order == "")
+		{
+			$order = $this->default_order["list"];
+		}
+
+		//Query
+		$strSQL = $this->_calcquery($this->column_list, $where, $order, $this->getSetting("Primary_Key"));
+		$strSQL = $strSQL . " LIMIT ".$pageNav->limitstart." , ".$pageNav->limit;
+		$this->db->setQuery( $strSQL );
+		$rows = $this->db->loadRowList();
+		
+		//Header
+		JHTML::_('behavior.tooltip');
+		echo "<form action=\"index.php?option=" . $option . "\" method=\"post\" name=\"adminForm\">\n";
+		echo "<table class=\"adminlist\">\n";
+		echo "<thead><tr>";
+		reset($this->column_list);
+		while (list($strColumn,$strTitle) = each($this->column_list))
+		{
+			echo "<th>";
+			echo JHTML::_('grid.sort', $strTitle, $strColumn, $filter_order_Dir, $filter_order);
+			echo "</th>";
+		}
+		
+		echo "</tr></thead>\n";
+		echo "<tfoot><tr><td colspan=\"" . (count($this->column_list)) . "\">";
+		echo $pageNav->getListFooter();
+		echo "</td>";
+		echo "</tr>";
+		echo "</tfoot>\n";
+		
+		//List
+		echo "<tbody>";
+		for ($i=0, $n=count( $rows ); $i < $n; $i++)
+		{
+			$row = &$rows[$i];
+			$id = array_shift(&$row);
+			$name = implode($row, " ");
+			echo "<tr class=\"row". ($i % 2). "\">";
+			reset($this->column_list);
+			$rp=0;
+			while (list($strColumn,$strTitle) = each($this->column_list))
+			{
+				$field = $row[$rp];
+				echo "<td>";
+				if ($rp == 0)
+				{
+					echo "<a style=\"cursor: pointer;\" onclick=\"window.parent.jSelectRecord('".$id."', '".$name."', 'id');\">";
+					echo $this->_displayField($strColumn,$field,$i);
+					echo "</a>";
+				}
+				else
+				{
+					echo $this->_displayField($strColumn,$field,$i);
+				}
+				echo "</td>";
+				$rp++;
+			}
+			echo "<td>";
+			echo "</tr>\n";
+		}
+		echo "</tbody></table>\n";
+		echo "<input type=\"hidden\" name=\"boxchecked\" value=\"0\" />\n";
+		echo "<input type=\"hidden\" name=\"filter_order\" value=\"" . $lists['order'] . "\" />\n";
+		echo "<input type=\"hidden\" name=\"filter_order_Dir\" value=\"" . $lists['order_Dir'] . "\" />\n";
+		echo JHTML::_( 'form.token' );
+		echo "</form>\n";
 	}
 }
 ?>
