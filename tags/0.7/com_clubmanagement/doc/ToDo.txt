@@ -1,0 +1,4 @@
+- Calc. Field MySQL
+- WayBack (Board/Member)
+- Detail informationfor a person.
+- Input more complex formulare (new person and new membership)
