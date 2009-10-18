@@ -65,8 +65,16 @@ if ($this->params_menu->get( 'membertype' ) != "*")
 	if ($where != "") { $where = $where . " AND "; } 
 	$where = $where . "`type`='".$this->params_menu->get( 'membertype' )."'";
 }
-if ($where != "") { $where = $where . " AND "; } 
-$where = $where . "`published`=1";
+if ($this->params_menu->get( 'publicity' ) == "published")
+{
+	if ($where != "") { $where = $where . " AND "; } 
+	$where .= "`published`=1";
+}
+if ($this->params_menu->get( 'publicity' ) == "unpublished")
+{
+	if ($where != "") { $where = $where . " AND "; } 
+	$where .= "`published`=0";
+}
 
 /*
  * Get data

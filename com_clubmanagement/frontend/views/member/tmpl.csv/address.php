@@ -46,7 +46,7 @@ if ($sort != "") $sort = substr($sort,1);
  * Calculate where
  */
 //$where = "`hh_person_id` IS NULL";
-$where = "`published`=1";
+$where = "`deceased` IS NULL";
 if ($this->params_menu->get( 'memberstate' ) == "current")
 {
 	$where .= " AND `end` IS NULL";
@@ -58,6 +58,16 @@ if ($this->params_menu->get( 'memberstate' ) == "closed")
 if ($this->params_menu->get( 'membertype' ) != "*")
 {
 	$where .= " AND `type`='".$this->params_menu->get( 'membertype' )."'";
+}
+if ($this->params_menu->get( 'publicity' ) == "published")
+{
+	if ($where != "") { $where = $where . " AND "; } 
+	$where .= "`published`=1";
+}
+if ($this->params_menu->get( 'publicity' ) == "unpublished")
+{
+	if ($where != "") { $where = $where . " AND "; } 
+	$where .= "`published`=0";
 }
 
 /*
