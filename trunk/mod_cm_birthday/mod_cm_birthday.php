@@ -63,8 +63,16 @@ if ($params->get( 'membertype' ) != "*")
 	if ($where_orig != "") { $where_orig .= " AND "; } 
 	$where_orig .= "`type`='".$params->get( 'membertype' )."'";
 }
-if ($where_orig != "") { $where_orig .= " AND "; } 
-$where_orig .= "`published`=1";
+if ($this->params_menu->get( 'publicity' ) == "published")
+{
+	if ($where != "") { $where = $where . " AND "; } 
+	$where .= "`published`=1";
+}
+if ($this->params_menu->get( 'publicity' ) == "unpublished")
+{
+	if ($where != "") { $where = $where . " AND "; } 
+	$where .= "`published`=0";
+}
 $where = $where_orig." AND ".$calc_days." = 0";
 $data_today = $cmobject->getViewData($cols,$where,"");
 if ($days > 0)
