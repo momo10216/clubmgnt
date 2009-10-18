@@ -32,6 +32,16 @@ if ($this->params_menu->get( 'boardstate' ) == "closed")
 {
 	$where = "`end` IS NOT NULL";
 }
+if ($this->params_menu->get( 'publicity' ) == "published")
+{
+	if ($where != "") { $where = $where . " AND "; } 
+	$where .= "`published`=1";
+}
+if ($this->params_menu->get( 'publicity' ) == "unpublished")
+{
+	if ($where != "") { $where = $where . " AND "; } 
+	$where .= "`published`=0";
+}
 
 /*
  * Get data

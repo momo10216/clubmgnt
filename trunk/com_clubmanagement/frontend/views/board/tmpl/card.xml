@@ -16,6 +16,11 @@
 				<option value="closed">Terminated</option>
 				<option value="all">All</option>
 			</param>
+			<param name="publicity" type="list" default="published" label="Publicity state" description="Publicity state Description">
+				<option value="all">All</option>
+				<option value="published">Published</option>
+				<option value="unpublished">Unpublished</option>
+			</param>
 			<param name="@spacer" type="spacer" default="" label="" description="" />
 			<param name="column_image" type="cmboardcolumn" columntype="view" default="" label="Image column" description="Image column description"/>
 			<param name="image_size" type="list" default="100%" label="Image size" description="Image size description">
