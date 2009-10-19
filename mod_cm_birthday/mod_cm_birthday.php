@@ -63,12 +63,12 @@ if ($params->get( 'membertype' ) != "*")
 	if ($where_orig != "") { $where_orig .= " AND "; } 
 	$where_orig .= "`type`='".$params->get( 'membertype' )."'";
 }
-if ($this->params_menu->get( 'publicity' ) == "published")
+if ($params->get( 'publicity' ) == "published")
 {
 	if ($where != "") { $where = $where . " AND "; } 
 	$where .= "`published`=1";
 }
-if ($this->params_menu->get( 'publicity' ) == "unpublished")
+if ($params->get( 'publicity' ) == "unpublished")
 {
 	if ($where != "") { $where = $where . " AND "; } 
 	$where .= "`published`=0";
