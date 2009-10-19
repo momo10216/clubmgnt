@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="LIST LAYOUT">
+		<message>
+			<![CDATA[LIST LAYOUT DESCRIPTION]]>
+		</message>
+	</layout>
+	<state>
+		<name>Club Management Board List Layout</name>
+		<description>Club Management Board List Layout Description</description>
+		<url>
+			<param name="format" type="list" default="html" label="Output format" description="Output format description" >
+				<option value="csv">CSV (Excel)</option>
+				<option value="html">HTML</option>
+				<!-- <option value="pdf">PDF</option> -->
+			</param>
+		</url>
+		<params addpath="/administrator/components/com_clubmanagement/elements">
+			<param name="@spacer" type="spacer" default="" label="" description="" />
+			<param name="boardstate" type="list" default="current" label="Boardmember state" description="Boardmember state description">
+				<option value="current">Current</option>
+				<option value="closed">Terminated</option>
+				<option value="all">All</option>
+			</param>
+			<param name="publicity" type="list" default="published" label="Publicity state" description="Publicity state Description">
+				<option value="all">All</option>
+				<option value="published">Published</option>
+				<option value="unpublished">Unpublished</option>
+			</param>
+			<param name="@spacer" type="spacer" default="" label="" description="" />
+			<param name="show_header" type="radio" default="1" label="Show header" description="Show header description">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</param>
+			<param name="column_1" type="cmboardcolumn" columntype="view" default="" label="Column 1" description="Column 1 description"/>
+			<param name="column_2" type="cmboardcolumn" columntype="view" default="" label="Column 2" description="Column 2 description"/>
+			<param name="column_3" type="cmboardcolumn" columntype="view" default="" label="Column 3" description="Column 3 description"/>
+			<param name="column_4" type="cmboardcolumn" columntype="view" default="" label="Column 4" description="Column 4 description"/>
+			<param name="column_5" type="cmboardcolumn" columntype="view" default="" label="Column 5" description="Column 5 description"/>
+			<param name="column_6" type="cmboardcolumn" columntype="view" default="" label="Column 6" description="Column 6 description"/>
+			<param name="column_7" type="cmboardcolumn" columntype="view" default="" label="Column 7" description="Column 7 description"/>
+			<param name="column_8" type="cmboardcolumn" columntype="view" default="" label="Column 8" description="Column 8 description"/>
+			<param name="column_9" type="cmboardcolumn" columntype="view" default="" label="Column 9" description="Column 9 description"/>
+			<param name="column_10" type="cmboardcolumn" columntype="view" default="" label="Column 10" description="Column 10 description"/>
+			<param name="column_11" type="cmboardcolumn" columntype="view" default="" label="Column 11" description="Column 11 description"/>
+			<param name="column_12" type="cmboardcolumn" columntype="view" default="" label="Column 12" description="Column 12 description"/>
+			<param name="column_13" type="cmboardcolumn" columntype="view" default="" label="Column 13" description="Column 13 description"/>
+			<param name="column_14" type="cmboardcolumn" columntype="view" default="" label="Column 14" description="Column 14 description"/>
+			<param name="column_15" type="cmboardcolumn" columntype="view" default="" label="Column 15" description="Column 15 description"/>
+			<param name="column_16" type="cmboardcolumn" columntype="view" default="" label="Column 16" description="Column 16 description"/>
+			<param name="column_17" type="cmboardcolumn" columntype="view" default="" label="Column 17" description="Column 17 description"/>
+			<param name="column_18" type="cmboardcolumn" columntype="view" default="" label="Column 18" description="Column 18 description"/>
+			<param name="column_19" type="cmboardcolumn" columntype="view" default="" label="Column 19" description="Column 19 description"/>
+			<param name="column_20" type="cmboardcolumn" columntype="view" default="" label="Column 20" description="Column 20 description"/>
+		</params>
+		<advanced addpath="/administrator/components/com_clubmanagement/elements">
+			<param name="sort_column_1" type="cmboardcolumn" columntype="view" default="sortorder" label="Sort Column 1" description="Sort Column 1 description"/>
+			<param name="sort_direction_1" type="radio" default="ASC" label="Sort direction 1" description="Sort direction 1 description">
+				<option value="ASC">Ascending</option>
+				<option value="DESC">Descending</option>
+			</param>
+			<param name="sort_column_2" type="cmboardcolumn" columntype="view" default="" label="Sort Column 2" description="Sort Column 2 description"/>
+			<param name="sort_direction_2" type="radio" default="ASC" label="Sort direction 2" description="Sort direction 2 description">
+				<option value="ASC">Ascending</option>
+				<option value="DESC">Descending</option>
+			</param>
+			<param name="sort_column_3" type="cmboardcolumn" columntype="view" default="" label="Sort Column 3" description="Sort Column 3 description"/>
+			<param name="sort_direction_3" type="radio" default="ASC" label="Sort direction 3" description="Sort direction 3 description">
+				<option value="ASC">Ascending</option>
+				<option value="DESC">Descending</option>
+			</param>
+			<param name="sort_column_4" type="cmboardcolumn" columntype="view" default="" label="Sort Column 4" description="Sort Column 4 description"/>
+			<param name="sort_direction_4" type="radio" default="ASC" label="Sort direction 4" description="Sort direction 4 description">
+				<option value="ASC">Ascending</option>
+				<option value="DESC">Descending</option>
+			</param>
+			<param name="@spacer" type="spacer" default="" label="" description="" />
+			<param name="table_center" type="radio" default="0" label="Center Table" description="Put the table in the center of content.">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</param>
+			<param name="width" type="list" default="" label="Table Width" description="Width of the table.">
+				<option value="">Smallest</option>
+				<option value="50%">50%</option>
+				<option value="60%">60%</option>
+				<option value="70%">70%</option>
+				<option value="80%">80%</option>
+				<option value="90%">90%</option>
+				<option value="100%">100%</option>
+			</param>
+			<param name="border_type" type="list" default="" label="Border Type" description="Type of the table border.">
+				<option value="">None</option>
+				<option value="border">Border</option>
+				<option value="row">Row</option>
+				<option value="grid">Grid</option>
+			</param>
+			<param name="@spacer" type="spacer" default="" label="" description="" />
+			<param name="detail_enable" type="radio" default="0" label="Enable Details" description="Enable Details Description">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</param>
+			<param name="detail_column_link" type="cmmembercolumn" columntype="view" default="" label="Detail Link Column" description="Detail Link Column description"/>
+ 			<param name="@spacer" type="spacer" default="" label="" description="" />
+			<param name="csv_encoding" type="list" default="UTF-8" label="CSV encoding" description="CSV encoding description">
+				<option value="ASCII">ASCII</option>
+				<option value="ISO-8859-1">ISO-8859-1</option>
+				<option value="ISO-8859-2">ISO-8859-2</option>
+				<option value="ISO-8859-3">ISO-8859-3</option>
+				<option value="ISO-8859-4">ISO-8859-4</option>
+				<option value="ISO-8859-5">ISO-8859-5</option>
+				<option value="ISO-8859-6">ISO-8859-6</option>
+				<option value="ISO-8859-7">ISO-8859-7</option>
+				<option value="ISO-8859-8">ISO-8859-8</option>
+				<option value="ISO-8859-9">ISO-8859-9</option>
+				<option value="ISO-8859-10">ISO-8859-10</option>
+				<option value="ISO-8859-11">ISO-8859-11</option>
+				<option value="ISO-8859-12">ISO-8859-12</option>
+				<option value="ISO-8859-13">ISO-8859-13</option>
+				<option value="ISO-8859-14">ISO-8859-14</option>
+				<option value="ISO-8859-15">ISO-8859-15</option>
+				<option value="UTF-8">UTF-8</option>
+				<option value="UTF-16">UTF-16</option>
+			</param>
+			<param name="csv_delimiter" type="text" size="1" default=";" label="CSV delimiter" description="CSV delimiter description"/>
+		</advanced>
+	</state>
+</metadata>
