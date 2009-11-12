@@ -44,7 +44,7 @@ for ($i=1;$i<=4;$i++)
 	}
 }
 $colcount = count($cols);
-$cols[] = "birthday";
+$cols[] = "abirthday";
 $cols[] = "person_id";
 
 // Get today records
