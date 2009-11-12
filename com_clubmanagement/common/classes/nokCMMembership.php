@@ -64,6 +64,7 @@ class nokCMMembership extends nokTable
 		$this->addColumnRepresentation("hh_salutation_override:hh_salutation_override:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("hh_name_override:hh_name_override:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("birthday:birthday:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "date");
+		$this->addColumnRepresentation("abirthday:IF(DATE_ADD(#__nokCM_persons.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(#__nokCM_persons.`birthday`)) YEAR) < CURDATE(),DATE_ADD(#__nokCM_persons.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(#__nokCM_persons.`birthday`) + 1) YEAR),DATE_ADD(#__nokCM_persons.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(#__nokCM_persons.`birthday`)) YEAR)):#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "date");
 		$this->addColumnRepresentation("deceased:deceased:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "date");
 		$this->addColumnRepresentation("telephone:telephone:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("mobile:mobile:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
