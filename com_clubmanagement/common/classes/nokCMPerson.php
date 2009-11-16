@@ -52,7 +52,6 @@ class nokCMPerson extends nokTable
 		$this->addColumnRepresentation("hh_salutation_override", "text", 50, 50);
 		$this->addColumnRepresentation("hh_name_override", "text", 50, 255);
 		$this->addColumnRepresentation("birthday", "date");
-//		$this->addColumnRepresentation("abirthday:`birthday` + INTERVAL YEAR(DATE(SYSDATE())) - YEAR(`birthday`)", "readonly", "text");
 		$this->addColumnRepresentation("abirthday:IF(DATE_ADD(#__nokCM_persons.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(#__nokCM_persons.`birthday`)) YEAR) < CURDATE(),DATE_ADD(#__nokCM_persons.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(#__nokCM_persons.`birthday`) + 1) YEAR),DATE_ADD(#__nokCM_persons.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(#__nokCM_persons.`birthday`)) YEAR))", "readonly", "text");
 		$this->addColumnRepresentation("deceased", "date");
 		$this->addColumnRepresentation("telephone", "text", 25, 25);
@@ -173,6 +172,7 @@ class nokCMPerson extends nokTable
 		$this->addColumnDisplay("view", "state", JText::_( 'TABLE_NOKCM_PERSONS.STATE'));
 		$this->addColumnDisplay("view", "country", JText::_( 'TABLE_NOKCM_PERSONS.COUNTRY'));
 		$this->addColumnDisplay("view", "birthday", JText::_( 'TABLE_NOKCM_PERSONS.BIRTHDAY'));
+		$this->addColumnDisplay("view", "abirthday", JText::_( 'TABLE_NOKCM_PERSONS.ABIRTHDAY'));
 		$this->addColumnDisplay("view", "deceased", JText::_( 'TABLE_NOKCM_PERSONS.DECEASED'));
 		$this->addColumnDisplay("view", "telephone", JText::_( 'TABLE_NOKCM_PERSONS.TELEPHONE'));
 		$this->addColumnDisplay("view", "mobile", JText::_( 'TABLE_NOKCM_PERSONS.MOBILE'));
