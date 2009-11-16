@@ -131,6 +131,7 @@ class nokCMMembership extends nokTable
 		$this->addColumnDisplay("view", "state", JText::_( 'TABLE_NOKCM_PERSONS.STATE'));
 		$this->addColumnDisplay("view", "country", JText::_( 'TABLE_NOKCM_PERSONS.COUNTRY'));
 		$this->addColumnDisplay("view", "birthday", JText::_( 'TABLE_NOKCM_PERSONS.BIRTHDAY'));
+		$this->addColumnDisplay("view", "abirthday", JText::_( 'TABLE_NOKCM_PERSONS.ABIRTHDAY'));
 		$this->addColumnDisplay("view", "deceased", JText::_( 'TABLE_NOKCM_PERSONS.DECEASED'));
 		$this->addColumnDisplay("view", "telephone", JText::_( 'TABLE_NOKCM_PERSONS.TELEPHONE'));
 		$this->addColumnDisplay("view", "mobile", JText::_( 'TABLE_NOKCM_PERSONS.MOBILE'));
