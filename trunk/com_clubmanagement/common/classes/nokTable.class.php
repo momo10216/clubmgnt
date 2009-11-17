@@ -27,6 +27,7 @@ class nokTable
 	var $objectname;
 	var $column_delimiter;
 	var $delete_rule = array();
+	var $filter = array();
 
 	function nokTable ($strTable, $objectname)
 	{
@@ -198,6 +199,11 @@ CurrentIP
 	function setDefaultOrder($strDisplay, $strOrder)
 	{
 		$this->default_order[$strDisplay] = $strOrder;
+	}
+
+	function addListFilter($name, $type, $column, $valuelist)
+	{
+		$this->filter[] = array ($name, $type, $column, $valuelist);
 	}
 
 	function _calcquery($columns, $where, $order, $idcol="")
@@ -372,8 +378,57 @@ CurrentIP
 		$limit = $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
 		$limitstart = $mainframe->getUserStateFromRequest( $option.'.limitstart', 'limitstart', 0, 'int' );
 
+		// Read Filter
+		$filterval = array();
+		if (count($this->filter) > 0)
+		{
+			for ($i=0, $n=count( $this->filter ); $i < $n; $i++)
+			{
+				list ($fname, $ftype, $ffield, $fvaluelist) = $this->filter[$i];
+				$filterval[$fname] = $mainframe->getUserStateFromRequest( $option.".".$fname, $fname, "", "string");
+				if (($ftype == "select") && ($filterval[$fname] == ""))
+				{
+					$filterval[$fname] = "-1";
+				}
+				if (($filterval[$fname] == "NULL") || ($filterval[$fname] == "NOT NULL"))
+				{
+					if ($where != "") $where .= " AND ";
+					$where .= $ffield." IS ".$filterval[$fname];
+				}
+				else
+				{
+					switch (strtolower($ftype))
+					{
+						case "text":
+							if ($filterval[$fname] != "")
+							{
+								$fwhere = "";
+								$fieldList = split(";",$ffield);
+								reset($fieldList);
+								foreach ($fieldList as $entry)
+								{
+									if ($fwhere != "") $fwhere .= " OR ";
+									$fwhere .= $entry." LIKE \"%".$this->db->getEscaped( $filterval[$fname], true )."%\"";
+								}
+								if ($where != "") $where .= " AND ";
+								$where .= "(".$fwhere.")";
+							}
+							break;
+						case "select":
+							if ($filterval[$fname] != "-1")
+							{
+								if ($where != "") $where .= " AND ";
+								$where .= $ffield." = \"".$this->db->getEscaped( $filterval[$fname], true )."\"";
+							}
+							break;
+					}
+				}
+			}
+		}
+
 		// Page-Navigation: Get the total number of records
 		$strSQL = "SELECT COUNT(*) FROM `".$this->table."`";
+		if ($where != "") $strSQL .= " WHERE ".$where;
 		$this->db->setQuery( $strSQL );
 		$total = $this->db->loadResult();
 		jimport('joomla.html.pagination');
@@ -397,9 +452,48 @@ CurrentIP
 		$this->db->setQuery( $strSQL );
 		$rows = $this->db->loadRowList();
 		
-		//Header
+		//Init HTML
 		JHTML::_('behavior.tooltip');
 		echo "<form action=\"index.php?option=" . $option . "\" method=\"post\" name=\"adminForm\">\n";
+
+		// Display Filter
+		if (count($this->filter) > 0)
+		{
+			echo "<table>\n";
+			echo "\t<tr>\n";
+			echo "\t\t<td width=\"100%\">".JText::_("FILTER_LABEL")."</td>\n";
+			for ($i=0, $n=count( $this->filter ); $i < $n; $i++)
+			{
+				list ($fname, $ftype, $ffield, $fvaluelist) = $this->filter[$i];
+				echo "\t\t<td nowrap=\"nowrap\">\n";
+				switch (strtolower($ftype))
+				{
+					case "text":
+						echo "\t\t\t<input type=\"text\" name=\"".$fname."\" id=\"".$fname."\" value=\"".$filterval[$fname]."\" class=\"text_area\" onchange=\"document.adminForm.submit();\" />\n";
+						echo "\t\t\t<button onclick=\"this.form.submit();\">".JText::_( 'Go' )."</button>\n";
+						echo "\t\t\t<button onclick=\"document.getElementById('search').value='';this.form.submit();\">".JText::_( 'Reset' )."</button>\n";
+						break;
+					case "select":
+						echo "\t\t\t<select name=\"".$fname."\" id=\"".$fname."\" class=\"inputbox\" size=\"1\" onchange=\"document.adminForm.submit( );\">\n";
+						while (list($value, $text) = each($fvaluelist))
+						{
+							echo "<option value=\"".$value."\"";
+							if ($filterval[$fname] == $value)
+							{
+								echo " selected=\"selected\"";
+							}
+							echo ">".JText::_($text)."</option>\n";
+						}
+						echo "\t\t\t</select>\n";
+						break;
+				}
+				echo "\t\t</td>\n";
+			}
+			echo "\t</tr>\n";
+			echo "</table>\n";
+		}
+
+		//List-Header
 		echo "<table class=\"adminlist\">\n";
 		echo "<thead><tr>";
 		reset($this->column_list);
