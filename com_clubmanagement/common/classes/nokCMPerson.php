@@ -85,6 +85,7 @@ class nokCMPerson extends nokTable
 		$this->addColumnDisplay("list", "zip", JText::_( 'TABLE_NOKCM_PERSONS.ZIP'));
 		$this->addColumnDisplay("list", "city", JText::_( 'TABLE_NOKCM_PERSONS.CITY'));
 		$this->setDefaultOrder("list", "name, firstname, city");
+		$this->addListFilter("filter_all", "text", "name;firstname;address;zip;city", array());
 
 		// Define fields and lables for the detail view
 		$this->addColumnDisplay("show", "salutation", JText::_( 'TABLE_NOKCM_PERSONS.SALUTATION'));

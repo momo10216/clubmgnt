@@ -93,6 +93,10 @@ class nokCMMembership extends nokTable
 		$this->addColumnDisplay("list", "begin", JText::_( 'TABLE_NOKCM_MEMBERSHIPS.BEGIN'));
 		$this->addColumnDisplay("list", "end", JText::_( 'TABLE_NOKCM_MEMBERSHIPS.END'));
 		$this->setDefaultOrder("list", "IF(end IS NULL,0,1), type, name, firstname, city");
+		$this->addListFilter("filter_published", "select", "published", array("-1" => "FILTER_SELECT_PUBLICITY", "0" => "UNPUBLISHED", "1" => "PUBLISHED"));
+		$this->addListFilter("filter_active", "select", "end", array("-1" => "FILTER_SELECT_STATUS", "NULL" => "ACTIVE", "NOT NULL"=>"NOT ACTIVE"));
+		$mtype = $this->getSelectionArray("-1=FILTER_SELECT_MEMBERTYPE;".$params->get( 'member_types' ));
+		$this->addListFilter("filter_membertype", "select", "type", $mtype);
 
 		// Define fields and lables for the detail view
 		$this->addColumnDisplay("show", "person_id", JText::_( 'TABLE_NOKCM_MEMBERSHIPS.PERSON_ID'));
