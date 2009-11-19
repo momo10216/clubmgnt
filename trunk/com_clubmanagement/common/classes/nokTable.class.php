@@ -470,8 +470,8 @@ CurrentIP
 				{
 					case "text":
 						echo "\t\t\t<input type=\"text\" name=\"".$fname."\" id=\"".$fname."\" value=\"".$filterval[$fname]."\" class=\"text_area\" onchange=\"document.adminForm.submit();\" />\n";
-						echo "\t\t\t<button onclick=\"this.form.submit();\">".JText::_( 'Go' )."</button>\n";
-						echo "\t\t\t<button onclick=\"document.getElementById('search').value='';this.form.submit();\">".JText::_( 'Reset' )."</button>\n";
+						echo "\t\t\t<button onclick=\"this.form.submit();\">".JText::_( 'GO' )."</button>\n";
+						echo "\t\t\t<button onclick=\"document.getElementById('search').value='';this.form.submit();\">".JText::_( 'RESET' )."</button>\n";
 						break;
 					case "select":
 						echo "\t\t\t<select name=\"".$fname."\" id=\"".$fname."\" class=\"inputbox\" size=\"1\" onchange=\"document.adminForm.submit( );\">\n";
@@ -529,7 +529,7 @@ CurrentIP
 			}
 			else
 			{
-				echo "<span class=\"editlinktip hasTip\" title=\"" . JText::_( 'Details' ) . "\">";
+				echo "<span class=\"editlinktip hasTip\" title=\"" . JText::_( 'DETAILS' ) . "\">";
 				echo "<a href=\"" . $link . "\">" . $pageNav->getRowOffset( $i ) . "</a></span>\n";
 			}
 			echo "</td>";
@@ -618,7 +618,7 @@ CurrentIP
 		echo "<form action=\"" . $posturl . "\" method=\"post\" name=\"adminForm\">\n";
 		echo "<div class=\"col100\">\n";
 		echo "<fieldset class=\"adminform\">\n";
-		echo "<legend>" . JText::_( 'Details' ) . "</legend>\n";
+		echo "<legend>" . JText::_( 'DETAILS' ) . "</legend>\n";
 		echo "<table class=\"admintable\">\n";
 
 		if ($id > 0) {
@@ -921,7 +921,7 @@ CurrentIP
 		echo "<form action=\"index.php?option=" . $option . "\" method=\"post\" name=\"adminForm\">\n";
 		echo "<div class=\"col100\">\n";
 		echo "<fieldset class=\"adminform\">\n";
-		echo "<legend>" . JText::_( 'Details' ) . "</legend>\n";
+		echo "<legend>" . JText::_( 'DETAILS' ) . "</legend>\n";
 		echo "<table class=\"admintable\">\n";
 
 		//Query
@@ -1284,11 +1284,11 @@ CurrentIP
 					//List
 					if (($strValue == "") || ($strValue == "0") || (strtolower($strValue) == "n") || (strtolower($strValue) == "false"))
 					{
-						return "<a href=\"javascript:void(0);\" onclick=\"return listItemTask('cb".$intPosition."','publish')\" title=\"".JText::_("Publish Item")."\"><img src=\"images/publish_x.png\" border=\"0\" alt=\"".JText::_("Unpublished")."\" /></a>";
+						return "<a href=\"javascript:void(0);\" onclick=\"return listItemTask('cb".$intPosition."','publish')\" title=\"".JText::_("PUBLISH ITEM")."\"><img src=\"images/publish_x.png\" border=\"0\" alt=\"".JText::_("UNPUBLISHED")."\" /></a>";
 					}
 					else
 					{
-						return "<a href=\"javascript:void(0);\" onclick=\"return listItemTask('cb".$intPosition."','unpublish')\" title=\"".JText::_("Unpublish Item")."\"><img src=\"images/tick.png\" border=\"0\" alt=\"".JText::_("Published")."\" /></a>";
+						return "<a href=\"javascript:void(0);\" onclick=\"return listItemTask('cb".$intPosition."','unpublish')\" title=\"".JText::_("UNPUBLISH ITEM")."\"><img src=\"images/tick.png\" border=\"0\" alt=\"".JText::_("PUBLISHED")."\" /></a>";
 					}
 				}
 				break;
@@ -1448,7 +1448,7 @@ CurrentIP
 			case 'image':
 				jimport( 'joomla.filesystem.folder' );
 				$files = JFolder::files(JPATH_SITE.DS.$rep[1]);
-				$options = array(JHTML::_('select.option',  '', '- '. JText::_( 'Select Image' ) .' -' ));
+				$options = array(JHTML::_('select.option',  '', '- '. JText::_( 'SELECT IMAGE' ) .' -' ));
 				$allowed_extensions =  "bmp|gif|jpg|png";
 				foreach ( $files as $file )
 				{
