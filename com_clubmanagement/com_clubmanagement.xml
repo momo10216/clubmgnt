@@ -59,11 +59,11 @@
 		<language tag="de-DE">de-DE.com_clubmanagement.ini</language>
 	</languages>
 	<administration>
-		<menu>Club Management</menu>
+		<menu>CLUB MANAGEMENT</menu>
 		<submenu>
-			<menu link="option=com_clubmanagement&amp;amp;cmobj=person&amp;amp;task=list">Person</menu>
-			<menu link="option=com_clubmanagement&amp;amp;cmobj=membership&amp;amp;task=list">Membership</menu>
-			<menu link="option=com_clubmanagement&amp;amp;cmobj=board&amp;amp;task=list">Board</menu>
+			<menu link="option=com_clubmanagement&amp;amp;cmobj=person&amp;amp;task=list">PERSON</menu>
+			<menu link="option=com_clubmanagement&amp;amp;cmobj=membership&amp;amp;task=list">MEMBERSHIP</menu>
+			<menu link="option=com_clubmanagement&amp;amp;cmobj=board&amp;amp;task=list">BOARD</menu>
 		</submenu>
 		<files folder="backend">
 			<filename>config.xml</filename>

@@ -42,15 +42,15 @@ class TOOLBAR_clubmanagement
 			default:
 				break;
 		}
-		JToolBarHelper::title(  JText::_( 'Club Management' ) );
+		JToolBarHelper::title(  JText::_( 'CLUB MANAGEMENT' ) );
 		if ($cmobject) {
 			if ($cmobject->isToolbarEntrySet("publish")) JToolBarHelper::publishList();
 			if ($cmobject->isToolbarEntrySet("unpublish")) JToolBarHelper::unpublishList();
 			if ($cmobject->isToolbarEntrySet("delete")) JToolBarHelper::deleteList();
 			if ($cmobject->isToolbarEntrySet("edit")) JToolBarHelper::editListX();
 			if ($cmobject->isToolbarEntrySet("add")) JToolBarHelper::addNewX();
-			if ($cmobject->isToolbarEntrySet("export")) JToolBarHelper::customX('export', 'export', 'export', JText::_('Export'), false); 
-			if ($cmobject->isToolbarEntrySet("import")) JToolBarHelper::customX('import', 'import', 'import', JText::_('Import'), false); 
+			if ($cmobject->isToolbarEntrySet("export")) JToolBarHelper::customX('export', 'export', 'export', JText::_('EXPORT'), false); 
+			if ($cmobject->isToolbarEntrySet("import")) JToolBarHelper::customX('import', 'import', 'import', JText::_('IMPORT'), false); 
 			if ($cmobject->isToolbarEntrySet("preferences")) JToolBarHelper::preferences('com_clubmanagement', '500', '600');
 			if ($cmobject->isToolbarEntrySet("help")) JToolBarHelper::help( 'screen.clubmanagement' );
 		} else {
@@ -59,8 +59,8 @@ class TOOLBAR_clubmanagement
 			JToolBarHelper::deleteList();
 			JToolBarHelper::editListX();
 			JToolBarHelper::addNewX();
-			JToolBarHelper::customX('export', 'export', 'export', JText::_('Export'), false); 
-			JToolBarHelper::customX('import', 'import', 'import', JText::_('Import'), false); 
+			JToolBarHelper::customX('export', 'export', 'export', JText::_('EXPORT'), false); 
+			JToolBarHelper::customX('import', 'import', 'import', JText::_('IMPORT'), false); 
 			JToolBarHelper::preferences('com_clubmanagement', '500', '600');
 			JToolBarHelper::help( 'screen.clubmanagement' );
 		}
@@ -71,9 +71,9 @@ class TOOLBAR_clubmanagement
 		$cid = JRequest::getVar( 'cid', array(0), '', 'array' );
 		JArrayHelper::toInteger($cid, array(0));
 
-		$text 	= ( $edit ? JText::_( 'Edit' ) : JText::_( 'New' ) );
+		$text 	= ( $edit ? JText::_( 'EDIT' ) : JText::_( 'NEW' ) );
 
-		JToolBarHelper::title(  JText::_( 'Club management' ).': <small><small>[ '. $text.' ]</small></small>' );
+		JToolBarHelper::title(  JText::_( 'CLUB MANAGEMENT' ).': <small><small>[ '. $text.' ]</small></small>' );
 		JToolBarHelper::save();
 		JToolBarHelper::apply();
 		if ($edit) {
