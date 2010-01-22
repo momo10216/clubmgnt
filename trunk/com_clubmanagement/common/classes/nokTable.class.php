@@ -517,8 +517,8 @@ CurrentIP
 		echo "<tbody>";
 		for ($i=0, $n=count( $rows ); $i < $n; $i++)
 		{
-			$row = &$rows[$i];
-			$id = array_shift(&$row);
+			$row = $rows[$i];
+			$id = array_shift($row);
 			$link = $this->_calc_url($this->getSetting("Command_Show"),$id);
 			//$published 	= JHTML::_('grid.published', $row, $i );
 			echo "<tr class=\"row". ($i % 2). "\">";
@@ -1125,7 +1125,7 @@ CurrentIP
 			echo "<tbody>";
 			for ($i=0; $i < $rowcount; $i++)
 			{
-				$row = &$rows[$i];
+				$row = $rows[$i];
 				echo "<tr class=\"row". ($i % 2). "\">";
 				foreach ($row as $field)
 				{
@@ -1159,6 +1159,26 @@ CurrentIP
 	}
 
 	function import_form() {
+		$uri = JFactory::getURI();
+		$option = $uri->getVar('option');
+
+		echo "<form enctype=\"multipart/form-data\" action=\"index.php\" method=\"post\" name=\"adminForm\">\n";
+		echo "<table class=\"adminlist\" id=\"exportlist\">\n";
+		echo "<tbody>\n";
+		echo "<tr><th>" . JText::_("IMPORT FILE LABEL"). "</th>";
+		echo "<td><input class=\"inputbox\" id=\"import_file\" name=\"import_file\" type=\"file\" size=\"50\" /></td></tr>\n";
+		echo "<tr><th>" . JText::_("IMPORT TEXT LABEL"). "</th>";
+		echo "<td><textarea class=\"inputbox\" name=\"import_text\" cols=\"50\" rows=\"10\" id=\"import_text\"></textarea></td></tr>\n";
+		echo "<tr><th/><td><input class=\"button\" type=\"button\" value=\"".JText::_("IMPORT BUTTON")."\" onclick=\"submitbutton()\" /></td></tr>\n";
+		echo "</tbody>\n";
+		echo "</table>\n";
+
+		//Footer
+		echo "<input type=\"hidden\" name=\"option\" value=\"" . $option . "\" />\n";
+		echo "<input type=\"hidden\" name=\"" . $this->getSetting("Object_Parameter") . "\" value=\"" . $this->getObjectName() . "\" />\n";
+		echo "<input type=\"hidden\" name=\"task\" value=\"\" />\n";
+		echo JHTML::_( 'form.token' );
+		echo "</form>\n";
 	}
 
 	function import_do($csvtext) {
