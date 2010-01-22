@@ -291,7 +291,8 @@ class nokCMPerson extends nokTable
 		
 		//List
 		echo "<tbody>";
-		for ($i=0, $n=count( $rows ); $i < $n; $i++)
+		$n = count( $rows );
+		for ($i = 0; $i < $n; $i++)
 		{
 			$row = &$rows[$i];
 			$id = array_shift(&$row);
