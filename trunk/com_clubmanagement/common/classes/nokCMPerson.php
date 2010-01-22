@@ -294,8 +294,8 @@ class nokCMPerson extends nokTable
 		$n = count( $rows );
 		for ($i = 0; $i < $n; $i++)
 		{
-			$row = &$rows[$i];
-			$id = array_shift(&$row);
+			$row = $rows[$i];
+			$id = array_shift($row);
 			$name = implode($row, " ");
 			echo "<tr class=\"row". ($i % 2). "\">";
 			reset($this->column_list);
