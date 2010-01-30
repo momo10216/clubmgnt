@@ -48,7 +48,9 @@ $cols[] = "abirthday";
 $cols[] = "person_id";
 
 // Get today records
-$calc_days = "DATEDIFF(#__nokCM_persons.`birthday` + INTERVAL YEAR('".$today."') - YEAR(#__nokCM_persons.`birthday`) + IF(DATE_FORMAT('".$today."', '%m%d') > DATE_FORMAT(birthday, '%m%d'), 1, 0) YEAR,'".$today."')";
+$next_birthday = "IF(DATE_ADD(#__nokCM_persons.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(#__nokCM_persons.`birthday`)) YEAR) < CURDATE(), DATE_ADD(#__nokCM_persons.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(#__nokCM_persons.`birthday`) + 1) YEAR), DATE_ADD(#__nokCM_persons.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(#__nokCM_persons.`birthday`)) YEAR))";
+$calc_days = "DATEDIFF(".$next_birthday.",'".$today."')";
+$order = $next_birthday." ASC";
 $where_orig = "";
 if ($params->get( 'memberstate' ) == "current")
 {
@@ -74,11 +76,11 @@ if ($params->get( 'publicity' ) == "unpublished")
 	$where .= "`published`=0";
 }
 $where = $where_orig." AND ".$calc_days." = 0";
-$data_today = $cmobject->getViewData($cols,$where,"");
+$data_today = $cmobject->getViewData($cols,$where,$order);
 if ($days > 0)
 {
 	$where = $where_orig." AND ".$calc_days." BETWEEN 1 AND ".$days;
-	$data_next = $cmobject->getViewData($cols,$where,"");
+	$data_next = $cmobject->getViewData($cols,$where,$order);
 }
 else
 {
