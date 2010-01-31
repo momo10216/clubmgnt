@@ -94,18 +94,21 @@ if (($this->params->get('show_header') == "1") && ($this->params->get('display_e
  * Counting
  */
 $countlist = array();
-foreach($this->data as $row)
+if ($this->data)
 {
-	$id = array_pop($row);
-	$hhid = array_pop($row);
-	if (!$hhid) { $hhid = $id; }
-	if ($countlist[$hhid] < 1)
+	foreach($this->data as $row)
 	{
-		$countlist[$hhid] = 1;
-	}
-	else
-	{
-		$countlist[$hhid]++;
+		$id = array_pop($row);
+		$hhid = array_pop($row);
+		if (!$hhid) { $hhid = $id; }
+		if ($countlist[$hhid] < 1)
+		{
+			$countlist[$hhid] = 1;
+		}
+		else
+		{
+			$countlist[$hhid]++;
+		}
 	}
 }
 
@@ -137,81 +140,84 @@ if (($this->params->get('show_header') == "1") && ($this->params->get('display_e
 	}
 	echo "</tr>\n";
 }
-foreach($this->data as $row)
+if ($this->data)
 {
-	$cpos=0;
-	$id = array_pop($row);
-	$hhid = array_pop($row);
-	if (!$hhid) { $hhid = $id; }
-	$name = array_pop($row);
-	$salutation = array_pop($row);
-	if ($hhid == $id)
+	foreach($this->data as $row)
 	{
-		if ($details)
+		$cpos=0;
+		$id = array_pop($row);
+		$hhid = array_pop($row);
+		if (!$hhid) { $hhid = $id; }
+		$name = array_pop($row);
+		$salutation = array_pop($row);
+		if ($hhid == $id)
 		{
-			$uri->setVar("id",$id);
-		}
-		$lines = array();
-		for($i=0;$i<$Line;$i++) {
-			for($j=0;$j<$FieldPerLine;$j++) {
-				$key = $i."_".$j;
-				if (strlen($pos[$key]) > 0) {
-					if ($lines[$i]) { $lines[$i] .= " "; }
-					$data = "";
-					if ($countlist[$hhid] > 1)
-					{
-						if (($cols[$pos[$key]] == "salutation") && (trim($name)!= ""))
+			if ($details)
+			{
+				$uri->setVar("id",$id);
+			}
+			$lines = array();
+			for($i=0;$i<$Line;$i++) {
+				for($j=0;$j<$FieldPerLine;$j++) {
+					$key = $i."_".$j;
+					if (strlen($pos[$key]) > 0) {
+						if ($lines[$i]) { $lines[$i] .= " "; }
+						$data = "";
+						if ($countlist[$hhid] > 1)
 						{
-							if ($salutation == "")
+							if (($cols[$pos[$key]] == "salutation") && (trim($name)!= ""))
 							{
-								$salutation = " ";
+								if ($salutation == "")
+								{
+									$salutation = " ";
+								}
+								$data = $salutation;
 							}
-							$data = $salutation;
+							if (($cols[$pos[$key]] == "name") && (trim($name)!= ""))
+							{
+								$data = $name;
+							}
+							if (($cols[$pos[$key]] == "firstname") && (trim($name)!= ""))
+							{
+								$data = " ";
+							}
+							if (($cols[$pos[$key]] == "birthname") && (trim($name)!= ""))
+							{
+								$data = " ";
+							}
 						}
-						if (($cols[$pos[$key]] == "name") && (trim($name)!= ""))
+						if ($data == "")
 						{
-							$data = $name;
+							$data = $this->cmobject->_displayField($cols[$pos[$key]], $row[$pos[$key]]);
 						}
-						if (($cols[$pos[$key]] == "firstname") && (trim($name)!= ""))
+						else
 						{
-							$data = " ";
+							$data = trim($data);
 						}
-						if (($cols[$pos[$key]] == "birthname") && (trim($name)!= ""))
+						if ($details && ($this->params_menu->get( 'detail_column_link' ) == $cols[$pos[$key]]) && ($data != ""))
 						{
-							$data = " ";
+							$data = "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$this->params->get( 'detail_width' ).", y: ".$this->params->get( 'detail_height' )."}}\">".$data."</a>";
 						}
+						$lines[$i] .= $data;
+						$lines[$i] = trim($lines[$i]);
 					}
-					if ($data == "")
-					{
-						$data = $this->cmobject->_displayField($cols[$pos[$key]], $row[$pos[$key]]);
-					}
-					else
-					{
-						$data = trim($data);
-					}
-					if ($details && ($this->params_menu->get( 'detail_column_link' ) == $cols[$pos[$key]]) && ($data != ""))
-					{
-						$data = "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$this->params->get( 'detail_width' ).", y: ".$this->params->get( 'detail_height' )."}}\">".$data."</a>";
-					}
-					$lines[$i] .= $data;
-					$lines[$i] = trim($lines[$i]);
+				}
+				if ($details && ($this->params_menu->get( 'detail_column_link' ) == "") && ($data != ""))
+				{
+					$lines[$i] = "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$this->params->get( 'detail_width' ).", y: ".$this->params->get( 'detail_height' )."}}\">".$lines[$i]."</a>";
 				}
 			}
-			if ($details && ($this->params_menu->get( 'detail_column_link' ) == "") && ($data != ""))
-			{
-				$lines[$i] = "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$this->params->get( 'detail_width' ).", y: ".$this->params->get( 'detail_height' )."}}\">".$lines[$i]."</a>";
+			echo "<tr valign=\"top\">\n";
+			for($i=0;$i<$Line;$i++) {
+				if ((strlen($lines[$i]) > 0) || ($this->params_menu->get( "display_empty" ) == "1"))
+				{
+					echo "<td align=\"".$this->params_menu->get( "textalign" )."\">";
+					echo $lines[$i]."<br />\n";
+					echo "</td>\n";
+				}
 			}
+			echo "</tr>\n";
 		}
-		echo "<tr valign=\"top\">\n";
-		for($i=0;$i<$Line;$i++) {
-			if ((strlen($lines[$i]) > 0) || ($this->params_menu->get( "display_empty" ) == "1"))
-			{
-				echo "<td align=\"".$this->params_menu->get( "textalign" )."\">";
-				echo $lines[$i]."<br />\n";
-				echo "</td>\n";
-			}
-		}
-		echo "</tr>\n";
 	}
 }
 echo "</table>\n";

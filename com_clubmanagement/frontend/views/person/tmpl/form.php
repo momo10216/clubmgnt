@@ -50,22 +50,25 @@ function show_list ($curobj)
 	$data = $curobj->cmobject->getViewData($cols,$where,$sort);
 
 	//start output
-	echo "<p align=\"center\">\n";
-	foreach($data as $row)
+	if ($this->data)
 	{
-		//Calc url
-		$uri->setVar("id",$row[0]);
-		$url = $uri->toString();
-		echo "<a href=\"".$url."\">";
-		$text="";
-		for ($i=1;$i<=5;$i++)
+		echo "<p align=\"center\">\n";
+		foreach($data as $row)
 		{
-			if ($row[$i]) $text .= " ".$row[$i];
+			//Calc url
+			$uri->setVar("id",$row[0]);
+			$url = $uri->toString();
+			echo "<a href=\"".$url."\">";
+			$text="";
+			for ($i=1;$i<=5;$i++)
+			{
+				if ($row[$i]) $text .= " ".$row[$i];
+			}
+			echo trim($text);
+			echo "</a><br/>\n";
 		}
-		echo trim($text);
-		echo "</a><br/>\n";
+		echo "</p>\n";
 	}
-	echo "</p>\n";
 }
 
 function no_record ()
