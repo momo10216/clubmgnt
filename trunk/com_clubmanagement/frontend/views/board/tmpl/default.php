@@ -117,44 +117,47 @@ if ($this->params->get('show_header', 1)) {
 	}
 	echo "</tr>\n";
 }
-foreach($this->data as $row) {
-	echo "<tr>\n";
-	$i=0;
-	if ($details)
-	{
-		$id = array_pop($row);
-		$uri->setVar("id",$id);
-	}
-	for($j=0;$j<$colcount;$j++)
-	{
-		if ($cols[$j] != "")
+if ($this->data)
+{
+	foreach($this->data as $row) {
+		echo "<tr>\n";
+		$i=0;
+		if ($details)
 		{
-			switch ($this->params_menu->get( "border_type"))
-			{
-				case "row":
-					echo "<td style=\"border-top-style:solid; border-width:1px\">";
-					break;
-				case "grid":
-					echo "<td style=\"".$border."\">";
-					break;
-				default:
-					echo "<td>";
-					break;
-			}
-			$field = $this->cmobject->_displayField($cols[$j], $row[$i]);
-			if ($details && (($this->params_menu->get( 'detail_column_link' ) == "") || ($this->params_menu->get( 'detail_column_link' ) == $cols[$j])))
-			{
-				echo "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$this->params->get( 'detail_width' ).", y: ".$this->params->get( 'detail_height' )."}}\">".$field."</a>";
-			}
-			else
-			{
-				echo $field;
-			}
-			echo "</td>";
-			$i++;
+			$id = array_pop($row);
+			$uri->setVar("id",$id);
 		}
+		for($j=0;$j<$colcount;$j++)
+		{
+			if ($cols[$j] != "")
+			{
+				switch ($this->params_menu->get( "border_type"))
+				{
+					case "row":
+						echo "<td style=\"border-top-style:solid; border-width:1px\">";
+						break;
+					case "grid":
+						echo "<td style=\"".$border."\">";
+						break;
+					default:
+						echo "<td>";
+						break;
+				}
+				$field = $this->cmobject->_displayField($cols[$j], $row[$i]);
+				if ($details && (($this->params_menu->get( 'detail_column_link' ) == "") || ($this->params_menu->get( 'detail_column_link' ) == $cols[$j])))
+				{
+					echo "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$this->params->get( 'detail_width' ).", y: ".$this->params->get( 'detail_height' )."}}\">".$field."</a>";
+				}
+				else
+				{
+					echo $field;
+				}
+				echo "</td>";
+				$i++;
+			}
+		}
+		echo "</tr>\n";
 	}
-	echo "</tr>\n";
 }
 echo "</table>\n";
 if ($this->params->get( "table_center") == "1") echo "</center>\n";

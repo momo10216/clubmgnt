@@ -63,8 +63,11 @@ class cmViewmember extends JView
 		if ($this->params_menu->get( 'show_header' ) != "0") {
 			$content .= $this->_Array2CSV($this->header)."\n";
 		}
-		foreach($this->data as $row) {
-			$content .= $this->_Array2CSV($row)."\n";
+		if ($this->data)
+		{
+			foreach($this->data as $row) {
+				$content .= $this->_Array2CSV($row)."\n";
+			}
 		}
 		header('Content-Type: application/csv; charset=utf-8');
 		header("Content-Length:".strlen($content));

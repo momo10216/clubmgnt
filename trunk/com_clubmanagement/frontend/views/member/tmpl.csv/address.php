@@ -107,68 +107,71 @@ foreach($rows as $row)
  * Calculate array
  */
 $this->data = array();
-foreach($rows as $row)
+if ($rows)
 {
-	$cpos=0;
-	$id = array_pop($row);
-	$hhid = array_pop($row);
-	if (!$hhid) { $hhid = $id; }
-	$name = array_pop($row);
-	$salutation = array_pop($row);
-	if ($hhid == $id)
+	foreach($rows as $row)
 	{
-		$lines = array();
-		for($i=0;$i<$Line;$i++) {
-			for($j=0;$j<$FieldPerLine;$j++) {
-				$key = $i."_".$j;
-				if (strlen($pos[$key]) > 0) {
-					if ($lines[$i]) { $lines[$i] .= " "; }
-					$data = "";
-					if ($countlist[$hhid] > 1)
-					{
-						if (($cols[$pos[$key]] == "salutation") && (trim($name)!= ""))
+		$cpos=0;
+		$id = array_pop($row);
+		$hhid = array_pop($row);
+		if (!$hhid) { $hhid = $id; }
+		$name = array_pop($row);
+		$salutation = array_pop($row);
+		if ($hhid == $id)
+		{
+			$lines = array();
+			for($i=0;$i<$Line;$i++) {
+				for($j=0;$j<$FieldPerLine;$j++) {
+					$key = $i."_".$j;
+					if (strlen($pos[$key]) > 0) {
+						if ($lines[$i]) { $lines[$i] .= " "; }
+						$data = "";
+						if ($countlist[$hhid] > 1)
 						{
-							if ($salutation == "")
+							if (($cols[$pos[$key]] == "salutation") && (trim($name)!= ""))
 							{
-								$salutation = " ";
+								if ($salutation == "")
+								{
+									$salutation = " ";
+								}
+								$data = $salutation;
 							}
-							$data = $salutation;
+							if (($cols[$pos[$key]] == "name") && (trim($name)!= ""))
+							{
+								$data = $name;
+							}
+							if (($cols[$pos[$key]] == "firstname") && (trim($name)!= ""))
+							{
+								$data = " ";
+							}
+							if (($cols[$pos[$key]] == "birthname") && (trim($name)!= ""))
+							{
+								$data = " ";
+							}
 						}
-						if (($cols[$pos[$key]] == "name") && (trim($name)!= ""))
+						if ($data == "")
 						{
-							$data = $name;
+							//$data = $this->cmobject->_displayField($cols[$pos[$key]], $row[$pos[$key]]);
+							$data = $row[$pos[$key]];
 						}
-						if (($cols[$pos[$key]] == "firstname") && (trim($name)!= ""))
+						else
 						{
-							$data = " ";
+							$data = trim($data);
 						}
-						if (($cols[$pos[$key]] == "birthname") && (trim($name)!= ""))
-						{
-							$data = " ";
-						}
+						$lines[$i] .= $data;
+						$lines[$i] = trim($lines[$i]);
 					}
-					if ($data == "")
-					{
-						//$data = $this->cmobject->_displayField($cols[$pos[$key]], $row[$pos[$key]]);
-						$data = $row[$pos[$key]];
-					}
-					else
-					{
-						$data = trim($data);
-					}
-					$lines[$i] .= $data;
-					$lines[$i] = trim($lines[$i]);
 				}
 			}
-		}
-		$datarow = array();
-		for($i=0;$i<$Line;$i++) {
-			if ((strlen($lines[$i]) > 0) || ($this->params_menu->get( "display_empty" ) == "1"))
-			{
-				$datarow[] = $lines[$i];
+			$datarow = array();
+			for($i=0;$i<$Line;$i++) {
+				if ((strlen($lines[$i]) > 0) || ($this->params_menu->get( "display_empty" ) == "1"))
+				{
+					$datarow[] = $lines[$i];
+				}
 			}
+			$this->data[] = $datarow;
 		}
-		$this->data[] = $datarow;
 	}
 }
 ?>
