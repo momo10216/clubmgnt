@@ -9,7 +9,7 @@
 * @authorEmail	momo_102@bluemail.ch
 */
 
-function CMBuildRoute(&$query)
+function clubmanagementBuildRoute(&$query)
 {	
 	$segments = array();
 
@@ -22,7 +22,7 @@ function CMBuildRoute(&$query)
 	return $segments;
 }
 
-function CMParseRoute($segments)
+function clubmanagementParseRoute($segments)
 {
 	$vars = array();
 
