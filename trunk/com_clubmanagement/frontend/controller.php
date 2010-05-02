@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		0.5
+* @version		0.92
 * @package		Joomla
 * @subpackage	ClubManagement-Main
 * @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
@@ -21,7 +21,7 @@ jimport('joomla.application.component.controller');
  * @subpackage	Content
  * @since 1.5
  */
-class CMController extends JController
+class clubmanagementController extends JController
 {
 	/**
 	 * Method to show an article as the main page display

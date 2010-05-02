@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		0.5
+* @version		0.92
 * @package		Joomla
 * @subpackage	ClubManagement-Main
-* @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
+* @copyright	Copyright (c) 2010 Norbert Kümin. All rights reserved.
 * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
 * @author		Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
@@ -14,6 +14,7 @@ class nokTable
 	var $db;
 	var $table = "";
 	var $toolbar_entry = array();
+	var $column_db = array();
 	var $column_req = array();
 	var $column_rep = array();
 	var $column_list = array();
@@ -90,6 +91,11 @@ publish, unpublish, add, edit, delete, export, import, preferences, help
 		{
 			return false;
 		}
+	}
+
+	function addColumnTable($strField, $strType, $strNull, $strKey, $strDefault, $strExtra)
+	{
+		$this->column_db[$strField] = array($strType, $strNull, $strKey, $strDefault, $strExtra);
 	}
 
 	function addColumnMandatory($strColumn)
@@ -1637,5 +1643,34 @@ CurrentIP
 				break;
 		}
 	}
+
+/*
+	function install()
+	{
+		$this->db->setQuery( "Describe `" . $this->table . "`" );
+		$rows = $database->loadResultArray();
+		if (!$rows)
+		{
+			// Table doesn't exist -> create
+			$strSQL = "CREATE TABLE IF NOT EXISTS `" . $this->table . "` (\n";
+			reset($this->column_db);
+			while (list($strColumn,$arrRep) = each($this->column_db))
+			{
+			}
+			$strSQL .= "PRIMARY KEY (`" . $this->getSetting("Primary_Key") . "`)\n";
+			$strSQL .= ")");
+		}
+		else
+		{
+			// Table exist -> alter
+		}
+	}
+
+	function uninstall()
+	{
+		$this->db->setQuery("DROP TABLE `" . $this->table . "`");
+		$this->db->query();
+	}
+*/
 }
 ?>

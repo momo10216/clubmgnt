@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		0.5
+* @version		0.92
 * @package		Joomla
 * @subpackage	ClubManagement-Main
 * @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
@@ -29,7 +29,7 @@ require_once(JPATH_COMPONENT.DS.'controller.php');
 //jimport('joomla.application.component.helper');
 
 // Create the controller
-$controller = new CMController();
+$controller = new clubmanagementController();
 
 // Perform the Request task
 $controller->execute(JRequest::getVar('task', null, 'default', 'cmd'));
