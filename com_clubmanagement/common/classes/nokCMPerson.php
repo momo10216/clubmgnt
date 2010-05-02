@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		0.5
+* @version		0.92
 * @package		Joomla
 * @subpackage	ClubManagement-Person
 * @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.

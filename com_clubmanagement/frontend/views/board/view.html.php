@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		0.5
+* @version		0.92
 * @package		Joomla
 * @subpackage	ClubManagement-Board
 * @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
@@ -15,7 +15,7 @@ defined('_JEXEC') or die( 'Restricted access' );
 jimport( 'joomla.application.component.view' );
 require_once( JPATH_COMPONENT_ADMINISTRATOR.DS.'classes'.DS.'nokCMBoard.php');
 
-class cmViewboard extends JView
+class clubmanagementViewboard extends JView
 {
 	var $user;
 	var $document;

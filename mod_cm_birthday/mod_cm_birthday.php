@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		0.6
+* @version		0.92
 * @package		Joomla
 * @subpackage	Module nok_cm_birthday
 * @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
