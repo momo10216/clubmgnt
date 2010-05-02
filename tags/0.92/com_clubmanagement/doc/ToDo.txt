@@ -1,0 +1,10 @@
+For 1.0 Release
+===============
+- install & remove table class
+- Import
+- Documentation
+
+Later releases
+==============
+- WayBack (Board/Member)
+- Input more complex formulare (new person and new membership)
