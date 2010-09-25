@@ -1,0 +1,25 @@
+Export
+------
+- Define fields for export (like list).
+- Sort criteria (urgend for person: first all with no hh_person_id)
+
+Import
+------
+use the same fields like export
+Define key primary key:
+	- Person: Firstname, Lastname, Address, City, Birthday
+	- Membership: person_id, member type, start date
+	- Board: person_id, board job, start date
+
+Define foreign keys:
+	local id field
+	remote table
+	remote id field
+	list of (local field name:remote field name)	
+
+Steps:
+- Get data
+- Search Foreign keys
+- Search if exists already (primary key):
+	- insert if primary key not exist
+	- update if primary key exist
