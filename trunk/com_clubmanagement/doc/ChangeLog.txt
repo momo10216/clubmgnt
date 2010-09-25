@@ -1,0 +1,4 @@
+0.93
+----
+- Removed export/import until it is working correctly.
+- Add search text field in membership and board
