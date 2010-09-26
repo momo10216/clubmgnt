@@ -93,6 +93,7 @@ class nokCMBoard extends nokTable {
 		$this->addColumnDisplay("list", "end", JText::_( 'TABLE_NOKCM_BOARD.END'));
 		$this->addColumnDisplay("list", "sortorder", JText::_( 'TABLE_NOKCM_BOARD.SORTORDER'));
 		$this->setDefaultOrder("list", "end,sortorder");
+		$this->addListFilter("filter_all", "text", "name;firstname;address;zip;city", array());
 		$this->addListFilter("filter_published", "select", "published", array("-1" => "FILTER_SELECT_PUBLICITY", "0" => "UNPUBLISHED", "1" => "PUBLISHED"));
 		$this->addListFilter("filter_active", "select", "end", array("-1" => "FILTER_SELECT_STATUS", "NULL" => "ACTIVE", "NOT NULL"=>"NOT ACTIVE"));
 		$bjob = $this->getSelectionArray("-1=FILTER_SELECT_BOARDJOBS;".$params->get( 'board_jobs' ));
@@ -159,8 +160,9 @@ class nokCMBoard extends nokTable {
 		$this->addToolbarEntry("add");
 		$this->addToolbarEntry("edit");
 		$this->addToolbarEntry("delete");
-		$this->addToolbarEntry("export");
-		$this->addToolbarEntry("import");
+		// Removed until it works
+		//$this->addToolbarEntry("export");
+		//$this->addToolbarEntry("import");
 		$this->addToolbarEntry("preferences");
 		$this->addToolbarEntry("help");
 	}

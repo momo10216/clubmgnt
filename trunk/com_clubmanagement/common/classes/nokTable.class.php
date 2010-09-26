@@ -29,6 +29,7 @@ class nokTable
 	var $column_delimiter;
 	var $delete_rule = array();
 	var $filter = array();
+	var $column_export = array();
 
 	function nokTable ($strTable, $objectname)
 	{
@@ -188,9 +189,6 @@ CurrentIP
 			case 'edit':
 				$this->column_edit[$strColumn] = $strTitle;
 				break;
-			case 'export':
-				$this->column_export[$strColumn] = $strTitle;
-				break;
 			case 'view':
 				$this->column_view[$strColumn] = $strTitle;
 				break;
@@ -210,6 +208,11 @@ CurrentIP
 	function addListFilter($name, $type, $column, $valuelist)
 	{
 		$this->filter[] = array ($name, $type, $column, $valuelist);
+	}
+
+	function addExportColumn($strField)
+	{
+		$this->column_export[$strField] = $strField;
 	}
 
 	function _calcquery($columns, $where, $order, $idcol="")
@@ -1027,6 +1030,14 @@ CurrentIP
 						nokCM_error(JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true)));
 					}
 					break;
+				case "remove_ref":
+					$strSQL = "UPDATE `".$rule[2]."` SET `".$rule[3]."`=NULL WHERE `".$rule[3]."`='".$localData[$rule[3]]."'";
+					$this->db->setQuery( $strSQL );
+					if (!$this->db->query())
+					{
+						nokCM_error(JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true)));
+					}
+					break;
 			}
 		}
 		$strSQL = "DELETE FROM `".$this->table . "` WHERE " . $this->getSetting("Primary_Key");
@@ -1103,25 +1114,14 @@ CurrentIP
 
 		echo "<table class=\"adminlist\" id=\"exportlist\">\n";
 		echo "<thead><tr>";
-		$this->db->setQuery("Describe ".$this->table);
-		$rows = $this->db->loadResultArray();
-		$cols = array();
+		$rows = $this->column_export;
 		while (list($key, $field) = each($rows))
 		{
-			if (substr($field,0,1) != "_")
-			{
-				echo "<th>" . $field . "</th>";
-				$cols[] = $field;
-			}
+			echo "<th>" . $field . "</th>";
 		}
 		echo "</tr></thead>\n";
 
-		//$strSQL = $this->_calcquery($this->column_export, $where, $order, $this->getSetting("Primary_Key"));
-		$collist = implode(",",$cols);
-		$strSQL = "SELECT ".$collist." FROM ".$this->table;
-		if ($where != "") $strSQL .= " WHERE ".$where;
-		if ($order != "") $strSQL .= " ORDER BY ".$order;
-
+		$strSQL = $this->_calcquery($this->column_export, $where, $order);
 		$this->db->setQuery( $strSQL );
 		$rows = $this->db->loadRowList();
 		$rowcount = count($rows);
@@ -1168,6 +1168,25 @@ CurrentIP
 		$uri = JFactory::getURI();
 		$option = $uri->getVar('option');
 
+		// Validator JavaScript
+		echo "<script language=\"javascript\" type=\"text/javascript\">\n";
+		echo "function submitbutton(pressbutton) {\n";
+		echo "	var form = document.adminForm;\n";
+		echo "	var bSubmit = true;\n";
+		echo "	if (pressbutton == 'cancel') {\n";
+		echo "		submitform( pressbutton );\n";
+		echo "		return;\n";
+		echo "	}\n";
+		echo "	if ((form.import_file.value == '') && (form.import_text.value == '')) {\n";
+		echo "		alert( \"" . JText::sprintf( 'ERROR_IMPORT_NO_DATA') ."\" );\n";
+		echo "		bSubmit = false;\n";
+		echo "	}\n";
+		echo "	if (bSubmit) {\n";
+		echo "		submitform( pressbutton );\n";
+		echo "	}\n";
+		echo "}\n";
+		echo "</script>\n";
+
 		echo "<form enctype=\"multipart/form-data\" action=\"index.php\" method=\"post\" name=\"adminForm\">\n";
 		echo "<table class=\"adminlist\" id=\"exportlist\">\n";
 		echo "<tbody>\n";
@@ -1175,7 +1194,8 @@ CurrentIP
 		echo "<td><input class=\"inputbox\" id=\"import_file\" name=\"import_file\" type=\"file\" size=\"50\" /></td></tr>\n";
 		echo "<tr><th>" . JText::_("IMPORT TEXT LABEL"). "</th>";
 		echo "<td><textarea class=\"inputbox\" name=\"import_text\" cols=\"50\" rows=\"10\" id=\"import_text\"></textarea></td></tr>\n";
-		echo "<tr><th/><td><input class=\"button\" type=\"button\" value=\"".JText::_("IMPORT BUTTON")."\" onclick=\"submitbutton()\" /></td></tr>\n";
+		echo "<tr><th/><td><input class=\"button\" type=\"button\" value=\"".JText::_("IMPORT BUTTON")."\" onclick=\"submitbutton('import')\" /> ";
+		echo "<input class=\"button\" type=\"button\" value=\"".JText::_("CANCEL")."\" onclick=\"submitbutton('cancel')\" /></td></tr>\n";
 		echo "</tbody>\n";
 		echo "</table>\n";
 
@@ -1188,6 +1208,7 @@ CurrentIP
 	}
 
 	function import_do($csvtext) {
+	echo "<pre>".$csvtext."</pre>\n";
 	}
 
 	function _command_link($setting, $text, $id="")

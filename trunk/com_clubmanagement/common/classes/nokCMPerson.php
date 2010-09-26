@@ -194,6 +194,34 @@ class nokCMPerson extends nokTable
 		$this->addColumnDisplay("view", "modifiedby", JText::_( 'TABLE_NOKCM_PERSONS.MODIFIEDBY'));
 		$this->addColumnDisplay("view", "modifieddate", JText::_( 'TABLE_NOKCM_PERSONS.MODIFIEDDATE'));
 
+		// Define fields for export
+		$this->addExportColumn("salutation");
+		$this->addExportColumn("name");
+		$this->addExportColumn("birthname");
+		$this->addExportColumn("firstname");
+		$this->addExportColumn("middlename");
+		$this->addExportColumn("nickname");
+		$this->addExportColumn("address");
+		$this->addExportColumn("zip");
+		$this->addExportColumn("city");
+		$this->addExportColumn("state");
+		$this->addExportColumn("country");
+		$this->addExportColumn("hh_salutation_override");
+		$this->addExportColumn("hh_name_override");
+		$this->addExportColumn("birthday");
+		$this->addExportColumn("deceased");
+		$this->addExportColumn("telephone");
+		$this->addExportColumn("mobile");
+		$this->addExportColumn("email");
+		$this->addExportColumn("url");
+		$this->addExportColumn("image");
+		$this->addExportColumn("custom1");
+		$this->addExportColumn("custom2");
+		$this->addExportColumn("custom3");
+		$this->addExportColumn("custom4");
+		$this->addExportColumn("custom5");
+		//$this->setPrimaryKey("name:firstname:address:citybirthday");
+
 		// Define toolbar itemms
 		//$this->addToolbarEntry("publish");
 		//$this->addToolbarEntry("unpublish");
@@ -208,7 +236,7 @@ class nokCMPerson extends nokTable
 		//Data consitency definition
 		$this->addDeleteRule("check", "id", "#__nokCM_memberships", "person_id");
 		$this->addDeleteRule("check", "id", "#__nokCM_board", "person_id");
-		//$this->addDeleteRule("check", "id", "#__nokCM_person", "hh_person_id");
+		$this->addDeleteRule("remove_ref", "id", "#__nokCM_person", "hh_person_id");
 	}
 
 	function menu ( $cmd, $option )
@@ -234,6 +262,7 @@ class nokCMPerson extends nokTable
 		$rows = $this->db->loadRowList();
 		return $rows;
 	}
+
 	function select_record()
 	{
 		global $mainframe;
