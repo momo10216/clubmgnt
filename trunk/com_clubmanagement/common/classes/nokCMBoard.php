@@ -154,15 +154,28 @@ class nokCMBoard extends nokTable {
 			$this->addColumnDisplay("view", "image", JText::_( 'TABLE_NOKCM_PERSONS.IMAGE'));
 		}
 
+		// Define fields for export
+		$this->addExportColumn("published");
+		$this->addExportColumn("job");
+		$this->addExportColumn("sortorder");
+		$this->addExportColumn("begin");
+		$this->addExportColumn("end");
+		$this->addExportColumn("name");
+		$this->addExportColumn("firstname");
+		$this->addExportColumn("address");
+		$this->addExportColumn("city");
+		$this->addExportColumn("birthday");
+		$this->setImportForeignKey("name:firstname:address:city:birthday", "person_id", "#__nokCM_persons", "name:firstname:address:city:birthday", "id");
+		$this->setImportPrimaryKey("person_id:job:begin");
+
 		// Define toolbar itemms
 		$this->addToolbarEntry("publish");
 		$this->addToolbarEntry("unpublish");
 		$this->addToolbarEntry("add");
 		$this->addToolbarEntry("edit");
 		$this->addToolbarEntry("delete");
-		// Removed until it works
-		//$this->addToolbarEntry("export");
-		//$this->addToolbarEntry("import");
+		$this->addToolbarEntry("export");
+		$this->addToolbarEntry("import");
 		$this->addToolbarEntry("preferences");
 		$this->addToolbarEntry("help");
 	}

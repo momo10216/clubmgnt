@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		0.92
+* @version		0.93
 * @package		Joomla
 * @subpackage	ClubManagement-Main
 * @copyright	Copyright (c) 2010 Norbert Kümin. All rights reserved.
@@ -30,9 +30,11 @@ class nokTable
 	var $delete_rule = array();
 	var $filter = array();
 	var $column_export = array();
+	var $column_import_pk = array();
+	var $column_import_fk = array();
+	var $export_sort;
 
-	function nokTable ($strTable, $objectname)
-	{
+	function nokTable ($strTable, $objectname) {
 		$this->column_delimiter = ":";
 		$this->db =& JFactory::getDBO();
 		$user =& JFactory::getUser();
@@ -41,28 +43,23 @@ class nokTable
 		$this->setObjectName($objectname);
 	}
 
-	function setTable($strTable)
-	{
+	function setTable($strTable) {
 		$this->table = $strTable;
 	}
 
-	function getTable()
-	{
+	function getTable() {
 		return $this->table;
 	}
 
-	function setObjectName($strObject)
-	{
+	function setObjectName($strObject) {
 		$this->objectname = $strObject;
 	}
 
-	function getObjectName()
-	{
+	function getObjectName() {
 		return $this->objectname;
 	}
 
-	function getSelectionArray($strText)
-	{
+	function getSelectionArray($strText) {
 		$arrResult = array();
 		$aDefList = split(";",$strText);
 		reset($aDefList);
@@ -77,52 +74,39 @@ class nokTable
 Known toolbar functions:
 publish, unpublish, add, edit, delete, export, import, preferences, help
 */
-	function addToolbarEntry($strFunction)
-	{
+	function addToolbarEntry($strFunction) {
 		$this->toolbar_entry[$strFunction] = 1;
 	}
 
-	function isToolbarEntrySet($strFunction)
-	{
-		if ($this->toolbar_entry[$strFunction] == 1)
-		{
+	function isToolbarEntrySet($strFunction) {
+		if ($this->toolbar_entry[$strFunction] == 1) {
 			return true;
-		}
-		else
-		{
+		} else {
 			return false;
 		}
 	}
 
-	function addColumnTable($strField, $strType, $strNull, $strKey, $strDefault, $strExtra)
-	{
+	function addColumnTable($strField, $strType, $strNull, $strKey, $strDefault, $strExtra) {
 		$this->column_db[$strField] = array($strType, $strNull, $strKey, $strDefault, $strExtra);
 	}
 
-	function addColumnMandatory($strColumn)
-	{
+	function addColumnMandatory($strColumn) {
 		$this->column_req[$strColumn] = 1;
 	}
 
-	function isColumnMandatory($strColumn)
-	{
-		if ($this->column_req[$strColumn] == 1)
-		{
+	function isColumnMandatory($strColumn) {
+		if ($this->column_req[$strColumn] == 1) {
 			return true;
-		}
-		else
-		{
+		} else {
 			return false;
 		}
 	}
 
-	function addSetting($name,$value)
-	{
+	function addSetting($name,$value) {
 		$this->settings[$name] = $value;
 	}
 
-	function getSetting($name)
-	{
+	function getSetting($name) {
 		return $this->settings[$name];
 	}
 
@@ -150,14 +134,11 @@ Timestamp
 CurrentIP
 
 */
-	function addColumnRepresentation($strColumn, $strType, $strParam1="", $strParam2="", $strParam3="", $strParam4="", $strParam5="", $strParam6="", $strParam7="", $strParam8="", $strParam9="")
-	{
-		if (strpos($strColumn,$this->column_delimiter) !== false)
-		{
+	function addColumnRepresentation($strColumn, $strType, $strParam1="", $strParam2="", $strParam3="", $strParam4="", $strParam5="", $strParam6="", $strParam7="", $strParam8="", $strParam9="") {
+		if (strpos($strColumn,$this->column_delimiter) !== false) {
 			//Name, Column, Table, Link, [Table-Alias]
 			$arrTemp = split($this->column_delimiter,$strColumn,5);
-			switch (count($arrTemp))
-			{
+			switch (count($arrTemp)) {
 				case 2: //name:column
 					$this->column_external[$arrTemp[0]] = array($arrTemp[1], $this->table, "", $this->table);
 					break;
@@ -176,10 +157,8 @@ CurrentIP
 		$this->column_rep[$strColumn] = array($strType, $strParam1, $strParam2, $strParam3, $strParam4, $strParam5, $strParam6, $strParam7, $strParam8, $strParam9);
 	}
 
-	function addColumnDisplay($strDisplay, $strColumn, $strTitle)
-	{
-		switch (strtolower($strDisplay))
-		{
+	function addColumnDisplay($strDisplay, $strColumn, $strTitle) {
+		switch (strtolower($strDisplay)) {
 			case 'list':
 				$this->column_list[$strColumn] = $strTitle;
 				break;
@@ -195,28 +174,38 @@ CurrentIP
 		}
 	}
 
-	function addDeleteRule($type, $localColumn, $extTable, $extColumn)
-	{
+	function addDeleteRule($type, $localColumn, $extTable, $extColumn) {
 		$this->delete_rule[] = array($type, $localColumn, $extTable, $extColumn);
 	}
 
-	function setDefaultOrder($strDisplay, $strOrder)
-	{
+	function setDefaultOrder($strDisplay, $strOrder) {
 		$this->default_order[$strDisplay] = $strOrder;
 	}
 
-	function addListFilter($name, $type, $column, $valuelist)
-	{
+	function addListFilter($name, $type, $column, $valuelist) {
 		$this->filter[] = array ($name, $type, $column, $valuelist);
 	}
 
-	function addExportColumn($strField)
-	{
-		$this->column_export[$strField] = $strField;
+	function addExportColumn($strField, $ImportFlag) {
+		$this->column_export[$strField] = $ImportFlag;
 	}
 
-	function _calcquery($columns, $where, $order, $idcol="")
-	{
+	function setExportSortOrder($order) {
+		$this->export_sort = $order;
+	}
+
+	function setImportForeignKey($import_fields, $fk_field, $ftable, $ftable_fields, $fid_field) {
+		$this->column_import_fk[] = array ($import_fields, $fk_field, $ftable, $ftable_fields, $fid_field);
+	}
+
+	function setImportPrimaryKey($fields) {
+		$arrFields = explode(":",$fields);
+		foreach ($arrFields as $strField) {
+			$this->column_import_pk[strField] = strField;
+		}
+	}
+
+	function _calcquery($columns, $where, $order, $idcol="") {
 		//Query
 		reset($columns);
 		$strTableList = "`".$this->table."` T0";
@@ -224,23 +213,17 @@ CurrentIP
 		$intTableCount = 1;
 		$arrExternalTable = array();
 		$arrExternalTable[$this->table] = "T0";
-		if ($idcol == "")
-		{
+		if ($idcol == "") {
 			$strColumnList = "";
-		}
-		else
-		{
+		} else {
 			$strColumnList = $this->table.".`".$idcol."`";
 		}
-		while (list($strColumn,$strTitle) = each($columns))
-		{
+		while (list($strColumn,$strTitle) = each($columns)) {
 			if ($strColumnList != "") $strColumnList = $strColumnList . ", ";
-			if ($this->column_external[$strColumn])
-			{
+			if ($this->column_external[$strColumn]) {
 				//Column, Tab le, Link, Tablealias
 				$arrTemp = $this->column_external[$strColumn];
-				if (!$arrExternalTable[$arrTemp[3]])
-				{
+				if (!$arrExternalTable[$arrTemp[3]]) {
 					$strTablePrefix = "T".$intTableCount;
 					$intTableCount++;
 					$arrExternalTable[$arrTemp[3]] = $strTablePrefix;
@@ -250,37 +233,26 @@ CurrentIP
 					$strJoinList = $strJoinList.$arrTemp[2];
 					$arrExternalTable[$arrTemp[3]] = $strTablePrefix;
 				}
-				if (strpos($arrTemp[0],"`") === false)
-				{
+				if (strpos($arrTemp[0],"`") === false) {
 					$strColumn = $arrExternalTable[$arrTemp[3]].".`".$arrTemp[0]."` `".$strColumn."`";
-				}
-				else
-				{
+				} else {
 					$strColumn = str_replace($arrTemp[3].".`",$arrExternalTable[$arrTemp[3]].".`",$arrTemp[0])." `".$strColumn."`";
 				}
-			}
-			else
-			{
-				if (strpos($strColumn,"`") === false)
-				{
+			} else {
+				if (strpos($strColumn,"`") === false) {
 					$strColumn = "T0.`".$strColumn."` `".$strColumn."`";
-				}
-				else
-				{
+				} else {
 					$strColumn = str_replace($this->table.".`","T0.`",$arrTemp[0])." `".$strColumn."`";
 				}
 			}
 			$strColumnList = $strColumnList.$strColumn;
 		}
 		reset($this->column_rep);
-		while (list($strColumn,$arrRep) = each($this->column_rep))
-		{
-			if ($this->column_external[$strColumn])
-			{
+		while (list($strColumn,$arrRep) = each($this->column_rep)) {
+			if ($this->column_external[$strColumn]) {
 				//Column, Tab le, Link, Alias
 				$arrTemp = $this->column_external[$strColumn];
-				if (!$arrExternalTable[$arrTemp[3]])
-				{
+				if (!$arrExternalTable[$arrTemp[3]]) {
 					$strTablePrefix = "T".$intTableCount;
 					$intTableCount++;
 					$arrExternalTable[$arrTemp[3]] = $strTablePrefix;
@@ -290,48 +262,37 @@ CurrentIP
 					$strJoinList = $strJoinList.$arrTemp[2];
 					$arrExternalTable[$arrTemp[3]] = $strTablePrefix;
 				}
-				if (strpos($arrTemp[0],"`") === false)
-				{
+				if (strpos($arrTemp[0],"`") === false) {
 					$where = str_replace("`".$arrTemp[0]."`",$arrTemp[3].".`".$arrTemp[0]."`",$where);
 					$order = str_replace("`".$arrTemp[0]."`",$arrTemp[3].".`".$arrTemp[0]."`",$order);
 				}
-			}
-			else
-			{
-				if (strpos($strColumn,"`") === false)
-				{
+			} else {
+				if (strpos($strColumn,"`") === false) {
 					$where = str_replace("`".$strColumn."`","T0.`".$strColumn."`",$where);
 					$order = str_replace("`".$strColumn."`","T0.`".$strColumn."`",$order);
 				}
 			}
 		}
 		$strSQL = "SELECT " . $strColumnList . " FROM ".$strTableList;
-		if ($strJoinList != "")
-		{
-			if ($where != "")
-			{
+		if ($strJoinList != "") {
+			if ($where != "") {
 				$where = $strJoinList . " AND " . $where;
-			}
-			else
-			{
+			} else {
 				$where = $strJoinList;
 			}
 		}
 		if ($where != "") $strSQL = $strSQL . " WHERE " . $where;
 		if ($order != "") $strSQL = $strSQL . " ORDER BY " . $order;
 		reset($arrExternalTable);
-		while (list($strTable,$strPrefix) = each($arrExternalTable))
-		{
+		while (list($strTable,$strPrefix) = each($arrExternalTable)) {
 			$strSQL = str_replace($strTable.".",$strPrefix.".",$strSQL);
 		}
 //echo $strSQL;
 		return $strSQL;
 	}
 
-	function getColumns($strType)
-	{
-		switch (strtolower($strType))
-		{
+	function getColumns($strType) {
+		switch (strtolower($strType)) {
 			case 'list':
 				return $this->column_list;
 				break;
@@ -348,14 +309,11 @@ CurrentIP
 		return array();
 	}
 
-	function getViewData($columns, $where, $order)
-	{
+	function getViewData($columns, $where, $order) {
 		//Calculate colum array
 		$arrColumns = array();
-		while (list($strKey,$strColumn) = each($columns))
-		{
-			if ($strColumn != "")
-			{
+		while (list($strKey,$strColumn) = each($columns)) {
+			if ($strColumn != "") {
 				$arrColumns[$strColumn] = $this->column_view[$strColumn];
 			}
 		}
@@ -367,18 +325,15 @@ CurrentIP
 		return $rows;
 	}
 
-	function getViewHeader($columns)
-	{
+	function getViewHeader($columns) {
 	    $retval = array();
-		while (list($strKey,$strColumn) = each($columns))
-		{
+		while (list($strKey,$strColumn) = each($columns)) {
 			$retval[$strColumn] = $this->column_view[$strColumn];
 		}
 		return $retval;
 	}
 
-	function showlist($order="", $where="")
-	{
+	function showlist($order="", $where="") {
 		global $mainframe;
 
 		$uri = JFactory::getURI();
@@ -389,33 +344,24 @@ CurrentIP
 
 		// Read Filter
 		$filterval = array();
-		if (count($this->filter) > 0)
-		{
-			for ($i=0, $n=count( $this->filter ); $i < $n; $i++)
-			{
+		if (count($this->filter) > 0) {
+			for ($i=0, $n=count( $this->filter ); $i < $n; $i++) {
 				list ($fname, $ftype, $ffield, $fvaluelist) = $this->filter[$i];
 				$filterval[$fname] = $mainframe->getUserStateFromRequest( $option.".".$fname, $fname, "", "string");
-				if (($ftype == "select") && ($filterval[$fname] == ""))
-				{
+				if (($ftype == "select") && ($filterval[$fname] == "")) {
 					$filterval[$fname] = "-1";
 				}
-				if (($filterval[$fname] == "NULL") || ($filterval[$fname] == "NOT NULL"))
-				{
+				if (($filterval[$fname] == "NULL") || ($filterval[$fname] == "NOT NULL")) {
 					if ($where != "") $where .= " AND ";
 					$where .= $ffield." IS ".$filterval[$fname];
-				}
-				else
-				{
-					switch (strtolower($ftype))
-					{
+				} else {
+					switch (strtolower($ftype)) {
 						case "text":
-							if ($filterval[$fname] != "")
-							{
+							if ($filterval[$fname] != "") {
 								$fwhere = "";
 								$fieldList = split(";",$ffield);
 								reset($fieldList);
-								foreach ($fieldList as $entry)
-								{
+								foreach ($fieldList as $entry) {
 									if ($fwhere != "") $fwhere .= " OR ";
 									$fwhere .= $entry." LIKE \"%".$this->db->getEscaped( $filterval[$fname], true )."%\"";
 								}
@@ -424,8 +370,7 @@ CurrentIP
 							}
 							break;
 						case "select":
-							if ($filterval[$fname] != "-1")
-							{
+							if ($filterval[$fname] != "-1") {
 								if ($where != "") $where .= " AND ";
 								$where .= $ffield." = \"".$this->db->getEscaped( $filterval[$fname], true )."\"";
 							}
@@ -446,12 +391,10 @@ CurrentIP
 		// Order
 		$filter_order = $mainframe->getUserStateFromRequest( "$option.filter_order", 'filter_order', '', 'cmd' );
 		$filter_order_Dir = $mainframe->getUserStateFromRequest( "$option.filter_order_Dir", 'filter_order_Dir', '', 'word' );
-		if ($filter_order != "")
-		{
+		if ($filter_order != "") {
 			$order = $filter_order .' '. $filter_order_Dir;
 		}
-		if ($order == "")
-		{
+		if ($order == "") {
 			$order = $this->default_order["list"];
 		}
 
@@ -466,17 +409,14 @@ CurrentIP
 		echo "<form action=\"index.php?option=" . $option . "\" method=\"post\" name=\"adminForm\">\n";
 
 		// Display Filter
-		if (count($this->filter) > 0)
-		{
+		if (count($this->filter) > 0) {
 			echo "<table>\n";
 			echo "\t<tr>\n";
 			echo "\t\t<td width=\"100%\">".JText::_("FILTER_LABEL")."</td>\n";
-			for ($i=0, $n=count( $this->filter ); $i < $n; $i++)
-			{
+			for ($i=0, $n=count( $this->filter ); $i < $n; $i++) {
 				list ($fname, $ftype, $ffield, $fvaluelist) = $this->filter[$i];
 				echo "\t\t<td nowrap=\"nowrap\">\n";
-				switch (strtolower($ftype))
-				{
+				switch (strtolower($ftype)) {
 					case "text":
 						echo "\t\t\t<input type=\"text\" name=\"".$fname."\" id=\"".$fname."\" value=\"".$filterval[$fname]."\" class=\"text_area\" onchange=\"document.adminForm.submit();\" />\n";
 						echo "\t\t\t<button onclick=\"this.form.submit();\">".JText::_( 'GO' )."</button>\n";
@@ -484,11 +424,9 @@ CurrentIP
 						break;
 					case "select":
 						echo "\t\t\t<select name=\"".$fname."\" id=\"".$fname."\" class=\"inputbox\" size=\"1\" onchange=\"document.adminForm.submit( );\">\n";
-						while (list($value, $text) = each($fvaluelist))
-						{
+						while (list($value, $text) = each($fvaluelist)) {
 							echo "<option value=\"".$value."\"";
-							if ($filterval[$fname] == $value)
-							{
+							if ($filterval[$fname] == $value) {
 								echo " selected=\"selected\"";
 							}
 							echo ">".JText::_($text)."</option>\n";
@@ -508,8 +446,7 @@ CurrentIP
 		reset($this->column_list);
 		echo "<th width=\"10\">" . JText::_( 'NUM' ) . "</th>";
 		echo "<th width=\"10\"><input type=\"checkbox\" name=\"toggle\" value=\"\" onclick=\"checkAll(" . count( $rows ) . ");\" /></th>";
-		while (list($strColumn,$strTitle) = each($this->column_list))
-		{
+		while (list($strColumn,$strTitle) = each($this->column_list)) {
 			echo "<th>";
 			echo JHTML::_('grid.sort', $strTitle, $strColumn, $filter_order_Dir, $filter_order);
 			echo "</th>";
@@ -524,20 +461,16 @@ CurrentIP
 		
 		//List
 		echo "<tbody>";
-		for ($i=0, $n=count( $rows ); $i < $n; $i++)
-		{
+		for ($i=0, $n=count( $rows ); $i < $n; $i++) {
 			$row = $rows[$i];
 			$id = array_shift($row);
 			$link = $this->_calc_url($this->getSetting("Command_Show"),$id);
 			//$published 	= JHTML::_('grid.published', $row, $i );
 			echo "<tr class=\"row". ($i % 2). "\">";
 			echo "<td align=\"center\">";
-			if (  JTable::isCheckedOut($user->get ('id'), $row->checked_out ) )
-			{
+			if (  JTable::isCheckedOut($user->get ('id'), $row->checked_out ) ) {
 				echo $pageNav->getRowOffset( $i );
-			}
-			else
-			{
+			} else {
 				echo "<span class=\"editlinktip hasTip\" title=\"" . JText::_( 'DETAILS' ) . "\">";
 				echo "<a href=\"" . $link . "\">" . $pageNav->getRowOffset( $i ) . "</a></span>\n";
 			}
@@ -545,8 +478,7 @@ CurrentIP
 			echo "<td><input type=\"checkbox\" id=\"cb" . $i . "\" name=\"cid[]\" value=\"" . $id . "\" onclick=\"isChecked(this.checked);\" /></td>";
 			reset($this->column_list);
 			$rp=0;
-			while (list($strColumn,$strTitle) = each($this->column_list))
-			{
+			while (list($strColumn,$strTitle) = each($this->column_list)) {
 				$field = $row[$rp];
 				echo "<td>";
 				echo $this->_displayField($strColumn,$field,$i);
@@ -569,8 +501,7 @@ CurrentIP
 		echo "</form>\n";
 	}
 
-	function edit($id=0, $cols=array(), $posturl="")	// $id -1=Reedit 0=New >1=Edit
-	{
+	function edit($id=0, $cols=array(), $posturl="") {	// $id -1=Reedit 0=New >1=Edit
 		if (count($cols) < 1) $cols = $this->column_edit;
 		$uri = JFactory::getURI();
 		$option = $uri->getVar('option');
@@ -590,18 +521,15 @@ CurrentIP
 		echo "		return;\n";
 		echo "	}\n";
 		reset($cols);
-		while (list($strColumn,$strTitle) = each($cols))
-		{
-			if ($this->column_req[$strColumn])
-			{
+		while (list($strColumn,$strTitle) = each($cols)) {
+			if ($this->column_req[$strColumn]) {
 				echo "	if (form." . $strColumn . ".value == '') {\n";
 				echo "		alert( \"" . JText::sprintf( 'ERROR_REQUIRED_COLUMN_EMPTY', $cols[$strColumn]) ."\" );\n";
 				echo "		bSubmit = false;\n";
 				echo "	}\n";
 			}
 			$rep = $this->column_rep[$strColumn];
-			switch (strtolower($rep[0]))
-			{
+			switch (strtolower($rep[0])) {
 				case "email":
 					echo "	if (bSubmit && (form." . $strColumn . ".value != '') && (!form." . $strColumn . ".value.match('^[^@\\\\s]+@[-a-z0-9]+\\.+[a-z]{2,}$'))) {\n";
 					echo "		alert( \"" . JText::sprintf( 'ERROR_INVALID_EMAIL_ADDRESS', $cols[$strColumn], $rep[2]) ."\" );\n";
@@ -641,21 +569,14 @@ CurrentIP
 		// Display
 		reset($cols);
 		$fldCount = 0;
-		while (list($strColumn,$strTitle) = each($cols))
-		{
+		while (list($strColumn,$strTitle) = each($cols)) {
 			echo "<tr><td class=\"key\">" . $strTitle . ":</td><td>";
-			if ($id > 0)
-			{
+			if ($id > 0) {
 				echo $this->_editField($strColumn,$row[$fldCount]);
-			}
-			else
-			{
-				if ($id == -1)
-				{
+			} else {
+				if ($id == -1) {
 					echo $this->_editField($strColumn,JRequest::getVar($strColumn));
-				}
-				else
-				{
+				} else {
 					echo $this->_editField($strColumn,"");
 				}
 			}
@@ -678,205 +599,158 @@ CurrentIP
 		echo "</form>\n";
 	}
 
-	function save($id=0, $cols=array())
-	{
-		if (count($cols) < 1) $cols = $this->column_edit;
-
-		$uri = JFactory::getURI();
-		$option = $uri->getVar('option');
-
-		//Check Mandatory fields
-		reset($this->column_req);
-		while (list($strColumn,$strReqFlg) = each($this->column_req))
-		{
-			if ((JRequest::getVar($strColumn) == "") && ($cols[$strColumn] != ""))
-			{
-				nokCM_error(JText::sprintf( 'ERROR_REQUIRED_COLUMN_EMPTY', $cols[$strColumn]), false);
-				return;
-			}
-		}
-
-		//Check fields for their type
-		reset($cols);
-		while (list($strColumn,$strTitle) = each($cols))
-		{
-			$rep = $this->column_rep[$strColumn];
-			$cvalue = JRequest::getVar($strColumn);
-			switch (strtolower($rep[0]))
-			{
-				case "email":
-					if ($cvalue != "") {
-						if (!preg_match('/^[^@\s]+@([-a-z0-9]+\.)+[a-z]{2,}$/i', $cvalue))
-						{
+	function check_values($strColumn, $strValue, $booDisplayError = false) {
+		$strRetVal = "";
+		$rep = $this->column_rep[$strColumn];
+		switch (strtolower($rep[0])) {
+			case "email":
+				if ($strValue != "") {
+					if (!preg_match('/^[^@\s]+@([-a-z0-9]+\.)+[a-z]{2,}$/i', $strValue)) {
+						if ($booDisplayError) {
 							nokCM_error(JText::sprintf( 'ERROR_INVALID_EMAIL-ADDRESS', $cols[$strColumn], $rep[2]), false);
-							return;
+							return false;
 						}
-						$length = strlen($cvalue);
-						if ($rep[2] && ($length > $rep[2]))
-						{
+					}
+					$length = strlen($strValue);
+					if ($rep[2] && ($length > $rep[2])) {
+						if ($booDisplayError) {
 							nokCM_error(JText::sprintf( 'ERROR_COLUMN_TOO_BIG', $cols[$strColumn], $rep[2]), false);
-							return;
+							return false;
 						}
-						$values[$strColumn] = "'" . addslashes($cvalue) . "'";
 					}
-					else
-					{
-						$values[$strColumn] = "NULL";
+					$strRetVal = "'" . addslashes($strValue) . "'";
+				} else {
+					$strRetVal = "NULL";
+				}
+				break;
+			case "url":
+				if ($strValue != "") {
+					if (!preg_match('|^https?://|i', $strValue)) {
+						// Add prefix if missing.
+						$strValue = 'http://' . $strValue;
 					}
-					break;
-				case "url":
-					if ($cvalue != "")
-					{
-						if (!preg_match('|^https?://|i', $cvalue))
-						{
-							// Add prefix if missing.
-							$cvalue = 'http://' . $cvalue;
-						}
-						if (!preg_match('|^https?://[a-z0-9-]+(\.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $cvalue))
-						{
+					if (!preg_match('|^https?://[a-z0-9-]+(\.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $strValue)) {
+						if ($booDisplayError) {
 							nokCM_error(JText::sprintf( 'ERROR_INVALID_URL', $cols[$strColumn], $rep[2]), false);
-							return;
+							return false;
 						}
-						$length = strlen($cvalue);
-						if ($rep[2] && ($length > $rep[2]))
-						{
+					}
+					$length = strlen($strValue);
+					if ($rep[2] && ($length > $rep[2])) {
+						if ($booDisplayError) {
 							nokCM_error(JText::sprintf( 'ERROR_COLUMN_TOO_BIG', $cols[$strColumn], $rep[2]), false);
-							return;
+							return false;
 						}
-						$values[$strColumn] = "'" . addslashes($cvalue) . "'";
 					}
-					else
-					{
-						$values[$strColumn] = "NULL";
-					}
-					break;
-				case "category":
-				case "selection":
-					if ($cvalue != "")
-					{
-						$values[$strColumn] = intval($cvalue);
-					}
-					else
-					{
-						$values[$strColumn] = "NULL";
-					}
-					break;
-				case "readonly":
-					if ($id != "" && $id != 0)
-					{
-						$default = $rep[3];
-					}
-					else
-					{
-						$default = $rep[2];
-					}
-					switch (strtolower($default))
-					{
-						case "currentuser":
-							$user =& JFactory::getUser(); 
-							$values[$strColumn] = "'" . addslashes($user->get('name')) . "'";
-							break;
-						case "currentdate":
-							$values[$strColumn] = "NOW()";
-							break;
-						case "currentip":
-							$values[$strColumn] = "'" . addslashes($_SERVER['REMOTE_ADDR']) . "'";
-							break;
-						case "currenthost":
-							$values[$strColumn] = "'" . addslashes($_SERVER['REMOTE_HOST']) . "'";
-							break;
-						default:
-							break;
-					}
-					break;
-				case "text":
-					if ($cvalue != "")
-					{
-						$length = strlen($cvalue);
-						if ($rep[2] && ($length > $rep[2]))
-						{
+					$strRetVal = "'" . addslashes($strValue) . "'";
+				} else {
+					$strRetVal = "NULL";
+				}
+				break;
+			case "category":
+			case "selection":
+				if ($strValue != "") {
+					$strRetVal = intval($strValue);
+				} else {
+					$strRetVal = "NULL";
+				}
+				break;
+			case "readonly":
+				if ($id != "" && $id != 0) {
+					$default = $rep[3];
+				} else {
+					$default = $rep[2];
+				}
+				switch (strtolower($default)) {
+					case "currentuser":
+						$user =& JFactory::getUser(); 
+						$strRetVal = "'" . addslashes($user->get('name')) . "'";
+						break;
+					case "currentdate":
+						$strRetVal = "NOW()";
+						break;
+					case "currentip":
+						$strRetVal = "'" . addslashes($_SERVER['REMOTE_ADDR']) . "'";
+						break;
+					case "currenthost":
+						$strRetVal = "'" . addslashes($_SERVER['REMOTE_HOST']) . "'";
+						break;
+					default:
+						break;
+				}
+				break;
+			case "text":
+				if ($strValue != "") {
+					$length = strlen($strValue);
+					if ($rep[2] && ($length > $rep[2])) {
+						if ($booDisplayError) {
 							nokCM_error(JText::sprintf( 'ERROR_COLUMN_TOO_BIG', $cols[$strColumn], $rep[2]), false);
-							return;
+							return false;
 						}
-						$values[$strColumn] = "'" . addslashes($cvalue) . "'";
 					}
-					else
-					{
-						$values[$strColumn] = "NULL";
-					}
-					break;
-				case "datetime":
-					if ($cvalue != "")
-					{
-						$config =& JFactory::getConfig();
-						$date = JFactory::getDate( $cvalue, -$config->getValue('config.offset' ));
-						$values[$strColumn] = "'" . addslashes($date->toMySQL()) . "'";
-					}
-					else
-					{
-						$values[$strColumn] = "NULL";
-					}
-					break;
-				case "date":
-					if ($cvalue != "")
-					{
-						$config =& JFactory::getConfig();
-						$date = JFactory::getDate( $cvalue );
-						$values[$strColumn] = "'" . addslashes($date->toMySQL()) . "'";
-					}
-					else
-					{
-						$values[$strColumn] = "NULL";
-					}
-					break;
-				default:
-					if ($cvalue != "")
-					{
-						$values[$strColumn] = "'" . addslashes($cvalue) . "'";
-					}
-					else
-					{
-						$values[$strColumn] = "NULL";
-					}
-					break;
-			}
+					$strRetVal = "'" . addslashes($strValue) . "'";
+				} else {
+					$strRetVal = "NULL";
+				}
+				break;
+			case "datetime":
+				if ($strValue != "") {
+					$config =& JFactory::getConfig();
+					$date = JFactory::getDate( $strValue, -$config->getValue('config.offset' ));
+					$strRetVal = "'" . addslashes($date->toMySQL()) . "'";
+				} else {
+					$strRetVal = "NULL";
+				}
+				break;
+			case "date":
+				if ($strValue != "") {
+					$config =& JFactory::getConfig();
+					$date = JFactory::getDate( $strValue );
+					$strRetVal = "'" . addslashes($date->toMySQL()) . "'";
+				} else {
+					$strRetVal = "NULL";
+				}
+				break;
+			default:
+				if ($strValue != "") {
+					$strRetVal = "'" . addslashes($strValue) . "'";
+				} else {
+					$strRetVal = "NULL";
+				}
+				break;
 		}
+		return $strRetVal;
+	}
 
-		if ($id != "" && $id != 0)
-		{
+	function upsert($values, $id=0) {
+		if ($id != "" && $id != 0) {
+			$id = $values[$this->getSetting("Primary_Key")];
+		}
+		if ($id != "" && $id != 0) {
 			//Update
 			$strSQL = "UPDATE `" . $this->table . "` SET ";
 			$booFirst = true;
 			reset($values);
-			while (list($strColumn,$strValue) = each($values))
-			{
-				if ($booFirst)
-				{
+			while (list($strColumn,$strValue) = each($values)) {
+				if ($booFirst) {
 					$booFirst = false;
-				}
-				else
-				{
+				} else {
 					$strSQL = $strSQL . ", ";
 				}
 				$strSQL = $strSQL . $strColumn . "=" . $strValue;
 			}
 			$strSQL = $strSQL . " WHERE " . $this->getSetting("Primary_Key") . "=" . $id;
-		}
-		else
-		{
+		} else {
 			//Insert
 			$collist = "";
 			$vallist = "";
 			reset($values);
-			while (list($strColumn,$strValue) = each($values))
-			{
-				if ($collist != "")
-				{
+			while (list($strColumn,$strValue) = each($values)) {
+				if ($collist != "") {
 					$collist = $collist . ",";
 				}
 				$collist = $collist."`".$strColumn."`";
-				if ($vallist != "")
-				{
+				if ($vallist != "") {
 					$vallist = $vallist . ",";
 				}
 				$vallist = $vallist . $strValue;
@@ -884,32 +758,23 @@ CurrentIP
 			$strSQL = "INSERT INTO `" . $this->table . "` (" . $collist . ") VALUES (" . $vallist . ")";
 		}
 		$this->db->setQuery( $strSQL );
-		if (!$this->db->query())
-		{
+		if (!$this->db->query()) {
 			nokCM_error(JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true)), false);
-			return;
+			return false;
 		}
-		if (!$id)
-		{
+		if (!$id) {
 			$strSQL = "SELECT `" . $this->getSetting("Primary_Key") . "` FROM `" . $this->table . "` WHERE ";
 			$booFirst = true;
 			reset($values);
-			while (list($strColumn,$strValue) = each($values))
-			{
-				if ($booFirst)
-				{
+			while (list($strColumn,$strValue) = each($values)) {
+				if ($booFirst) {
 					$booFirst = false;
-				}
-				else
-				{
+				} else {
 					$strSQL = $strSQL . " AND ";
 				}
-				if ($strValue == "NULL")
-				{
+				if ($strValue == "NULL") {
 					$strSQL = $strSQL."`".$strColumn."` IS " . $strValue;
-				}
-				else
-				{
+				} else {
 					$strSQL = $strSQL."`".$strColumn."`=" . $strValue;
 				}
 			}
@@ -917,6 +782,34 @@ CurrentIP
 			$id = $this->db->loadResult();
 		}
 		return $id;
+	}
+
+	function save($id=0, $cols=array()) {
+		if (count($cols) < 1) $cols = $this->column_edit;
+
+		$uri = JFactory::getURI();
+		$option = $uri->getVar('option');
+
+		//Check Mandatory fields
+		reset($this->column_req);
+		while (list($strColumn,$strReqFlg) = each($this->column_req)) {
+			if ((JRequest::getVar($strColumn) == "") && ($cols[$strColumn] != "")) {
+				nokCM_error(JText::sprintf( 'ERROR_REQUIRED_COLUMN_EMPTY', $cols[$strColumn]), false);
+				return;
+			}
+		}
+
+		//Check fields for their type
+		reset($cols);
+		while (list($strColumn,$strTitle) = each($cols)) {
+			$values[$strColumn] = check_values($strColumn, JRequest::getVar($strColumn), true);
+			if ($values[$strColumn] === false) {
+				// Error
+				return;
+			}
+		}
+
+		return $self->upsert($values, $id);
 	}
 
 	function showdetail($id, $cols=array())
@@ -942,8 +835,7 @@ CurrentIP
 		// Display
 		reset($cols);
 		$fldCount = 0;
-		while (list($strColumn,$strTitle) = each($cols))
-		{
+		while (list($strColumn,$strTitle) = each($cols)) {
 			echo "<tr><td class=\"key\">" . $strTitle . "</td><td>";
 			echo $this->_displayField($strColumn,$row[$fldCount]);
 			echo "</td></tr>\n";
@@ -965,58 +857,44 @@ CurrentIP
 		echo "</form>\n";
 	}
 
-	function delete($id)
-	{
+	function delete($id) {
 		global $mainframe;
 
 		// Check delete rules
 		$localCols = array();
-		foreach ($this->delete_rule as $rule)
-		{
+		foreach ($this->delete_rule as $rule) {
 			$localCols[] = $rule[1];
 		}
 		$localCols = array_unique($localCols);
 		$localData = array();
-		if ((count($localCols) == 1) && ($localCols[0] == $this->getSetting("Primary_Key")))
-		{
+		if ((count($localCols) == 1) && ($localCols[0] == $this->getSetting("Primary_Key"))) {
 			$localData[$this->getSetting("Primary_Key")] = $id;
-		}
-		else
-		{
-			if (count($localCols) > 0)
-			{
+		} else {
+			if (count($localCols) > 0) {
 				$collist = implode("`,`",$localCols);
 				$strSQL = "SELECT `".$collist."` FROM ".$this->table;
 				$strSQL .= " WHERE `".$this->getSetting("Primary_Key")."`='".$id."'";
 				$this->db->setQuery( $strSQL );
 				$rows = $this->db->loadRowList();
 				$rowcount = count($rows);
-				if ($rowcount == 1)
-				{
+				if ($rowcount == 1) {
 					$row = $rows[0];
-					for ($i=0, $n=count( $localCols ); $i < $n; $i++)
-					{
+					for ($i=0, $n=count( $localCols ); $i < $n; $i++) {
 						$localData[$localCols[$i]] = $row[$i];
 					}
 				}
 			}
 		}
-		foreach ($this->delete_rule as $rule)
-		{
-			switch(strtolower($rule[0]))
-			{
+		foreach ($this->delete_rule as $rule) {
+			switch(strtolower($rule[0])) {
 				case "check":
 					$strSQL = "SELECT COUNT(*) FROM `".$rule[2]."` WHERE `".$rule[3]."`='".$localData[$rule[1]]."'";
 					$this->db->setQuery( $strSQL );
 					$rows = $this->db->loadRowList();
-					if ($rows === false)
-					{
+					if ($rows === false) {
 						nokCM_error(JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true)));
-					}
-					else
-					{
-						if ($rows[0][0] > 0)
-						{
+					} else {
+						if ($rows[0][0] > 0) {
 							nokCM_error(JText::_("DELETE_CONSITENCY_ERROR"));
 							return;
 						}
@@ -1025,49 +903,39 @@ CurrentIP
 				case "delete":
 					$strSQL = "DELETE FROM `".$rule[2]."` WHERE `".$rule[3]."`='".$localData[$rule[3]]."'";
 					$this->db->setQuery( $strSQL );
-					if (!$this->db->query())
-					{
+					if (!$this->db->query()) {
 						nokCM_error(JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true)));
 					}
 					break;
 				case "remove_ref":
 					$strSQL = "UPDATE `".$rule[2]."` SET `".$rule[3]."`=NULL WHERE `".$rule[3]."`='".$localData[$rule[3]]."'";
 					$this->db->setQuery( $strSQL );
-					if (!$this->db->query())
-					{
+					if (!$this->db->query()) {
 						nokCM_error(JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true)));
 					}
 					break;
 			}
 		}
 		$strSQL = "DELETE FROM `".$this->table . "` WHERE " . $this->getSetting("Primary_Key");
-		if (is_array($id))
-		{
+		if (is_array($id)) {
 			$strSQL = $strSQL . " IN (" . implode( ',', $id ) . ")";
-		}
-		else
-		{
+		} else {
 			$strSQL = $strSQL . "=" . $id;
 		}
 		$this->db->setQuery( $strSQL );
-		if (!$this->db->query())
-		{
+		if (!$this->db->query()) {
 			nokCM_error(JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true)));
 		}
 		$url = $this->_calc_url($this->getSetting("Command_List"));
 		$error = $this->db->getErrorMsg();
-		if($error)
-		{
+		if($error) {
 			$mainframe->redirect($url,JText::sprintf("DELETE_ERROR",$error));
-		}
-		else
-		{
+		} else {
 			$mainframe->redirect($url,JText::_("DELETED_SUCCESSFULLY"));
 		}
 	}
 
-	function export($order="", $where="")
-	{
+	function export($order="", $where="") {
 		//Header
 		JHTML::_('behavior.tooltip');
 		echo "<script language=\"JavaScript\">\n";
@@ -1114,27 +982,24 @@ CurrentIP
 
 		echo "<table class=\"adminlist\" id=\"exportlist\">\n";
 		echo "<thead><tr>";
-		$rows = $this->column_export;
-		while (list($key, $field) = each($rows))
-		{
+		while (list($field, $importflag) = each($this->column_export)) {
 			echo "<th>" . $field . "</th>";
+			$rows[$field] = $field;
 		}
 		echo "</tr></thead>\n";
 
-		$strSQL = $this->_calcquery($this->column_export, $where, $order);
+		if ($order == "") { $order = $this->export_sort; }
+		$strSQL = $this->_calcquery($rows, $where, $order);
 		$this->db->setQuery( $strSQL );
 		$rows = $this->db->loadRowList();
 		$rowcount = count($rows);
-		if ($rowcount > 0)
-		{
+		if ($rowcount > 0) {
 			//List
 			echo "<tbody>";
-			for ($i=0; $i < $rowcount; $i++)
-			{
+			for ($i=0; $i < $rowcount; $i++) {
 				$row = $rows[$i];
 				echo "<tr class=\"row". ($i % 2). "\">";
-				foreach ($row as $field)
-				{
+				foreach ($row as $field) {
 					echo "<td>" . $field . "</td>";
 				}
 				echo "<td>";
@@ -1155,8 +1020,7 @@ CurrentIP
 		echo JHTML::_( 'form.token' );
 		echo "</form>\n";
 
-		if ($rowcount > 0)
-		{
+		if ($rowcount > 0) {
 			// Export links
 			echo "<p align=\"center\">\n";
 			echo "<input type=\"button\" value=\"CSV\" onClick=\"javascript:transferCSV();\">\n";
@@ -1207,17 +1071,77 @@ CurrentIP
 		echo "</form>\n";
 	}
 
+	function csv_to_array($csv, $delimiter = ',', $enclosure = '"', $escape = '\\', $terminator = "\n") {
+		$r = array();
+		$rows = explode($terminator,trim($csv));
+		$names = array_shift($rows);
+		$names = str_getcsv($names,$delimiter,$enclosure,$escape);
+		$nc = count($names);
+		foreach ($rows as $row) {
+			if (trim($row)) {
+				$values = str_getcsv($row,$delimiter,$enclosure,$escape);
+				if (!$values) $values = array_fill(0,$nc,null);
+				$r[] = array_combine($names,$values);
+			}
+		}
+		return $r;
+	} 
+
 	function import_do($csvtext) {
-	echo "<pre>".$csvtext."</pre>\n";
+		$data = $this->csv_to_array($csvtext,";"),
+		$header = array_shift($data);
+		while (list($key,$value) = each($header)) {
+			$pos[$value] = $key;
+		}
+
+		// Get direct data
+		foreach ($data as $entry) {
+			$values = array();
+			while (list($strColumn,$importflag) = each($this->column_export)) {
+				if ($importflag == "Y") {
+					$values[$strColumn] = check_values($strColumn, $entry[$pos[$strColumn]], false);
+				}
+			}
+			// Get foreign keys = array ($import_fields, $fk_field, $ftable, $ftable_fields, $fid
+			foreach ($fk_data as $this->column_import_fk) {
+				$csv_fields = split(";",$fk_data[0]);
+				$forgeign_fields = split(";",$fk_data[3]);
+				$where = "";
+				$count = 0;
+				foreach ($forgeign_fields as $field) {
+					if ($where != "") { $where .= " AND "; }
+					$where .= $field." = ".$values[$csv_fields[$count]]."";
+					$count++;
+				}
+				$strSQL = "SELECT `".$fk_data[4]."` FROM `".$fk_data[4]."` WHERE ".$where;
+				$this->db->setQuery( $strSQL );
+				$values[$fk_data[1]] = check_values($fk_data[1], $this->db->loadResult(), false);
+			}
+
+			// Get primary key
+			$arrColumns = array();
+			$arrColumns[$this->getSetting("PrimaryKey_Parameter")] = $this->getSetting("PrimaryKey_Parameter");
+			$where = "";
+			foreach ($this->column_import_pk as $pk_data) {
+				$arrColumns[$pk_data] = $pk_data;
+				if ($where != "") { $where .= " AND "; }
+				$where .= $pk_data." = ".$values[$pk_data]."";
+			}
+			$strSQL = $this->_calcquery($arrColumns, $where);
+			$this->db->setQuery( $strSQL );
+			$id = $this->db->loadResult();
+
+			// Upsert
+			$this->upsert($values,$id);
+		}
+//echo "<pre>".$csvtext."</pre>\n";
 	}
 
-	function _command_link($setting, $text, $id="")
-	{
+	function _command_link($setting, $text, $id="") {
 		return "<a href=\"" . $this->_calc_url($this->getSetting($setting),$id) . "\">" . JText::_($text) . "</a>";
 	}
 
-	function _calc_url($command, $id="")
-	{
+	function _calc_url($command, $id="") {
 		$uri = JFactory::getURI();
 		$uri->setVar($this->getSetting("Command_Parameter"),$command);
 		$uri->setVar($this->getSetting("Object_Parameter"),$this->objectname);
@@ -1225,11 +1149,9 @@ CurrentIP
 		return $uri->toString();
 	}
 
-	function _displayField($strColumn, $strValue, $intPosition=-1)
-	{
+	function _displayField($strColumn, $strValue, $intPosition=-1) {
 		$rep = $this->column_rep[$strColumn];
-		switch (strtolower($rep[0]))
-		{
+		switch (strtolower($rep[0])) {
 			case "category":
 			    $section = "nokCM_" . $rep[1];
 				$rep[0] = "selection";
@@ -1242,41 +1164,33 @@ CurrentIP
 				$rep[0] = $rep[1];
 				break;
 		}
-		switch (strtolower($rep[0]))
-		{
+		switch (strtolower($rep[0])) {
 			case "email":
-				if ($strValue != "")
-				{
+				if ($strValue != "") {
 					return "<A HREF=\"mailto:" . $strValue . "\">" . $strValue . "</A>";
 				}
 				return "";
 				break;
 			case "url":
-				if ($strValue != "")
-				{
+				if ($strValue != "") {
 					return "<A HREF=\"" . $strValue . "\">" . $strValue . "</A>";
 				}
 				return "";
 				break;
 			case "checkbox":
-				if (($strValue == "") || ($strValue == "0") || (strtolower($strValue) == "n") || (strtolower($strValue) == "false"))
-				{
+				if (($strValue == "") || ($strValue == "0") || (strtolower($strValue) == "n") || (strtolower($strValue) == "false")) {
 					return JText::_("NO");
-				}
-				else
-				{
+				} else {
 					return JText::_("YES");
 				}
 				break;
 			case "date":
-				if ($strValue != "")
-				{
+				if ($strValue != "") {
 					return JHTML::_('date', $strValue, JText::_('DATE_FORMAT_LC'));
 				}
 				break;
 			case "datetime":
-				if ($strValue != "")
-				{
+				if ($strValue != "") {
 					$config =& JFactory::getConfig();
 					$date = JFactory::getDate( $strValue );
 					$date->setOffset( -$config->getValue('config.offset' ));
@@ -1287,61 +1201,46 @@ CurrentIP
 				return "********";
 				break;
 			case "selection":
-				if ($strValue>0)
-				{
+				if ($strValue>0) {
 					$strSQL = "SELECT " . $rep[2] . " FROM `". $rep[3] . "` WHERE " . $rep[1] . "='" . $strValue . "'";
 					if ($rep[4] != "") $strSQL = $strSQL . " AND " . $rep[4];
 					$this->db->setQuery( $strSQL );
 					$strSelectionValue = $this->db->loadResult();
 					return $strSelectionValue;
-				}
-				else
-				{
+				} else {
 					return "&nbsp;";
 				}
 				break;
 			case "textselect":
 				$aDefList = split(";",$rep[1]);
 				reset($aDefList);
-				foreach ($aDefList as $entry)
-				{
+				foreach ($aDefList as $entry) {
 					$aDef = split("=",$entry,2);
-					if ($aDef[0] == $strValue)
-					{
+					if ($aDef[0] == $strValue) {
 						return JText::_($aDef[1]);
 					}
 				}
 				return JText::_($strValue);
 				break;
 			case "publish":
-				if ($intPosition == -1)
-				{
+				if ($intPosition == -1) {
 					//Display
-					if (($strValue == "") || ($strValue == "0") || (strtolower($strValue) == "n") || (strtolower($strValue) == "false"))
-					{
+					if (($strValue == "") || ($strValue == "0") || (strtolower($strValue) == "n") || (strtolower($strValue) == "false")) {
 						return JText::_("NO");
-					}
-					else
-					{
+					} else {
 						return JText::_("YES");
 					}
-				}
-				else
-				{
+				} else {
 					//List
-					if (($strValue == "") || ($strValue == "0") || (strtolower($strValue) == "n") || (strtolower($strValue) == "false"))
-					{
+					if (($strValue == "") || ($strValue == "0") || (strtolower($strValue) == "n") || (strtolower($strValue) == "false")) {
 						return "<a href=\"javascript:void(0);\" onclick=\"return listItemTask('cb".$intPosition."','publish')\" title=\"".JText::_("PUBLISH ITEM")."\"><img src=\"images/publish_x.png\" border=\"0\" alt=\"".JText::_("UNPUBLISHED")."\" /></a>";
-					}
-					else
-					{
+					} else {
 						return "<a href=\"javascript:void(0);\" onclick=\"return listItemTask('cb".$intPosition."','unpublish')\" title=\"".JText::_("UNPUBLISH ITEM")."\"><img src=\"images/tick.png\" border=\"0\" alt=\"".JText::_("PUBLISHED")."\" /></a>";
 					}
 				}
 				break;
 			case "image":
-				if ($strValue != "")
-				{
+				if ($strValue != "") {
 					return "<img src=\"".$rep[1]."/".$strValue."\">";
 				}
 				break;
@@ -1353,43 +1252,34 @@ CurrentIP
 		}
 	}
 
-	function publish ($cid)
-	{
+	function publish ($cid) {
 		$this->changePublish ($cid, 1);
 	}
 
-	function unpublish ($cid)
-	{
+	function unpublish ($cid) {
 		$this->changePublish ($cid, 0);
 	}
 
-	function changePublish ($cid, $state)
-	{
+	function changePublish ($cid, $state) {
 		$cids = implode( ',', $cid );
 		$strSQL = "UPDATE `".$this->getTable()."`"
 		. " SET published = ".(int) $state
 		. " WHERE id IN ( ". $cids ." )";
 		$this->db->setQuery( $strSQL );
-		if (!$this->db->query())
-		{
+		if (!$this->db->query()) {
 			JError::raiseError(500, $this->db->getErrorMsg() );
 		}
 	}
 
-	function _editField($strColumn, $strValue)
-	{
+	function _editField($strColumn, $strValue) {
 		$strRet = "";
 		$rep = $this->column_rep[$strColumn];
-//		if ($this->column_req[$strColumn])
-//		{
+//		if ($this->column_req[$strColumn]) {
 //			$class = "required";
-//		}
-//		else
-//		{
+//		} else {
 			$class = "inputbox";
 //		}
-		switch (strtolower($rep[0]))
-		{
+		switch (strtolower($rep[0])) {
 			case "category":
 			    $section = "nokCM_" . $rep[1];
 				$rep[0] = "selection";
@@ -1400,19 +1290,15 @@ CurrentIP
 				break;
 		}
 //echo "***".$rep[0]."***";
-		switch (strtolower($rep[0]))
-		{
+		switch (strtolower($rep[0])) {
 			case "email":
 			case "url":
 			case "text":
-				if ((strtolower($rep[0]) == "text") && ($rep[3] > 0))
-				{
+				if ((strtolower($rep[0]) == "text") && ($rep[3] > 0)) {
 					//textarea
 					$strRet .= "<textarea class=\"" . $class . "\" name=\"" . $strColumn . "\" cols=\"" . $rep[1] . "\" rows=\"" . $rep[3] . "\" id=\"" . $strColumn . "\">";
 					$strRet .= $strValue . "</textarea>";
-				}
-				else
-				{
+				} else {
 					$strRet .= "<input class=\"" . $class . "\" type=\"text\" name=\"" . $strColumn . "\" id=\"" . $strColumn . "\" value=\"" . $strValue . "\"";
 					if ($rep[1] != "") $strRet .= " size=\"" . $rep[1] . "\"";
 					if ($rep[2] != "") $strRet .= " maxsize=\"" . $rep[2] . "\"";
@@ -1429,8 +1315,7 @@ CurrentIP
 				$cformat_desc = str_replace("%m","mm",$cformat_desc);
 				$cformat_desc = str_replace("%y","yy",$cformat_desc);
 				$cformat_desc = str_replace("%Y","yyyy",$cformat_desc);
-				if ($strValue != "")
-				{
+				if ($strValue != "") {
 					$date =& JFactory::getDate($strValue);
 					$strValue = $date->toFormat($cformat);
 				}
@@ -1458,29 +1343,25 @@ CurrentIP
 				$this->db->setQuery( $strSQL );
 				$rows = $this->db->loadRowList();
 				$opt = array();
-				if ($rep[6] != "")
-				{
+				if ($rep[6] != "") {
 					// NULL Value
 					$opt[] = JHTML::_("select.option",  "", $rep[6]);
 				}
-				foreach ($rows as $row)
-				{
+				foreach ($rows as $row) {
 					$opt[] = JHTML::_("select.option",  $row[0], $row[1] );
 				}
 				$strRet .= JHTML::_('select.genericlist',   $opt, $strColumn, "class=\"" . $class . "\"", "value", "text", $strValue);
 				break;
 			case "textselect":
 				unset($opt);
-				if ($rep[2] != "")
-				{
+				if ($rep[2] != "") {
 					// NULL Value
 					$opt[] = JHTML::_("select.option",  "", $rep[2]);
 				}
 				$aDefList = split(";",$rep[1]);
 				reset($aDefList);
 				$bfound = false;
-				foreach ($aDefList as $entry)
-				{
+				foreach ($aDefList as $entry) {
 					$aDef = split("=",$entry,2);
 					$opt[] = JHTML::_("select.option",  $aDef[0], JText::_($aDef[1]));
 				}
@@ -1497,10 +1378,8 @@ CurrentIP
 				$files = JFolder::files(JPATH_SITE.DS.$rep[1]);
 				$options = array(JHTML::_('select.option',  '', '- '. JText::_( 'SELECT IMAGE' ) .' -' ));
 				$allowed_extensions =  "bmp|gif|jpg|png";
-				foreach ( $files as $file )
-				{
-					if (eregi( $allowed_extensions, $file ))
-					{
+				foreach ( $files as $file ) {
+					if (eregi( $allowed_extensions, $file )) {
 						$options[] = JHTML::_('select.option',  $file );
 					}
 				}
@@ -1527,27 +1406,23 @@ CurrentIP
 				$strRet .= $strValue;
 				break;
 		}
-		if ($this->column_req[$strColumn])
-		{
+		if ($this->column_req[$strColumn]) {
 			$strRet .= " <span style=\"color:#FF0000\">*</span>";
 		}
 		return $strRet;
 	}
 
-	function menu ( $cmd, $option )
-	{
+	function menu ( $cmd, $option ) {
 //echo "***DEBUG: ".$cmd." ***\n";
 		if (!$cmd) $cmd = "list";
-		switch ($cmd)
-		{
+		switch ($cmd) {
 			case 'add':
 				$this->edit();
 				break;
 			case 'edit':
 				$cid = JRequest::getVar('cid', array(), '', 'array');
 				JArrayHelper::toInteger($cid);
-				if (empty( $cid ))
-				{
+				if (empty( $cid )) {
 					JError::raiseWarning( 500, 'No items selected' );
 				}
 				$this->edit($cid[0]);
@@ -1555,20 +1430,17 @@ CurrentIP
 			case 'remove':
 				$cid = JRequest::getVar('cid', array(), '', 'array');
 				JArrayHelper::toInteger($cid);
-				if (empty( $cid ))
-				{
+				if (empty( $cid )) {
 					JError::raiseWarning( 500, 'No items selected' );
 				}
-				foreach ($cid as $id)
-				{
+				foreach ($cid as $id) {
 					$this->delete($id);
 				}
 				break;
 			case 'show':
 				$cid = JRequest::getVar('cid', array(), '', 'array');
 				JArrayHelper::toInteger($cid);
-				if (empty( $cid ))
-				{
+				if (empty( $cid )) {
 					JError::raiseWarning( 500, 'No items selected' );
 				}
 				$this->showdetail($cid[0]);
@@ -1580,12 +1452,9 @@ CurrentIP
 				$cid = JRequest::getVar('cid', array(), '', 'array');
 				JArrayHelper::toInteger($cid);
 				$id = $this->save($cid[0]);
-				if ($id>0)
-				{
+				if ($id > 0) {
 					$this->edit($id);
-				}
-				else
-				{
+				} else {
 					$this->edit(-1);
 				}
 				break;
@@ -1593,12 +1462,9 @@ CurrentIP
 				$cid = JRequest::getVar('cid', array(), '', 'array');
 				JArrayHelper::toInteger($cid);
 				$id = $this->save($cid[0]);
-				if ($id>0)
-				{
+				if ($id > 0) {
 					$this->showdetail($id);
-				}
-				else
-				{
+				} else {
 					$this->edit(-1);
 				}
 				break;
@@ -1610,50 +1476,37 @@ CurrentIP
 				break;
 			case 'import':
 				$csvtext = "";
-				foreach ($_FILES as $file)
-				{
-					if ($file['tmp_name'] > '')
-					{
+				foreach ($_FILES as $file) {
+					if ($file['tmp_name'] > '') {
 						$csvtext .= file_get_contents($file['tmp_name']);
 					}
 				}
 				$csvtext .= JRequest::getVar('csvtext');
-				if ($csvtext == "")
-				{
+				if ($csvtext == "") {
 					$this->import_form();
-				}
-				else
-				{
+				} else {
 					$this->import_do($csvtext);
 				}
 				break;
 			case 'publish':
-				if ($this->column_rep['published'])
-				{
+				if ($this->column_rep['published']) {
 					$cid = JRequest::getVar('cid', array(), '', 'array');
 					JArrayHelper::toInteger($cid);
-					if (empty( $cid ))
-					{
+					if (empty( $cid )) {
 						JError::raiseWarning( 500, 'No items selected' );
-					}
-					else
-					{
+					} else {
 						$this->publish($cid);
 					}
 				}
 				$this->showlist();
 				break;
 			case 'unpublish':
-				if ($this->column_rep['published'])
-				{
+				if ($this->column_rep['published']) {
 					$cid = JRequest::getVar('cid', array(), '', 'array');
 					JArrayHelper::toInteger($cid);
-					if (empty( $cid ))
-					{
+					if (empty( $cid )) {
 						JError::raiseWarning( 500, 'No items selected' );
-					}
-					else
-					{
+					} else {
 						$this->unpublish($cid);
 					}
 				}
@@ -1666,29 +1519,23 @@ CurrentIP
 	}
 
 /*
-	function install()
-	{
+	function install() {
 		$this->db->setQuery( "Describe `" . $this->table . "`" );
 		$rows = $database->loadResultArray();
-		if (!$rows)
-		{
+		if (!$rows) {
 			// Table doesn't exist -> create
 			$strSQL = "CREATE TABLE IF NOT EXISTS `" . $this->table . "` (\n";
 			reset($this->column_db);
-			while (list($strColumn,$arrRep) = each($this->column_db))
-			{
+			while (list($strColumn,$arrRep) = each($this->column_db)) {
 			}
 			$strSQL .= "PRIMARY KEY (`" . $this->getSetting("Primary_Key") . "`)\n";
 			$strSQL .= ")");
-		}
-		else
-		{
+		} else {
 			// Table exist -> alter
 		}
 	}
 
-	function uninstall()
-	{
+	function uninstall() {
 		$this->db->setQuery("DROP TABLE `" . $this->table . "`");
 		$this->db->query();
 	}
