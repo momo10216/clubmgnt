@@ -43,10 +43,6 @@ switch ($object) {
 		$cmobject = new nokCMBoard($component);
 		$cmobject->menu( $cmd, $option );
 		break;
-	case 'report':
-		$cmobject = new nokCMReport($component);
-		$cmobject->menu( $cmd, $option );
-		break;
 	case '':
 		break;
 	default:

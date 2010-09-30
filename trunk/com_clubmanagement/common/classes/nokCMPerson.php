@@ -51,11 +51,11 @@ class nokCMPerson extends nokTable
 		$this->addColumnRepresentation("hh_person_id", "selection", "id", "CONCAT(IFNULL(`name`,''),' ',IFNULL(`firstname`,''),',',',',IFNULL(`address`,''),',',IFNULL(`city`,''))", "#__nokCM_persons", "`hh_person_id` IS NULL", "`name`,`firstname`,`city`"," ");
 		$this->addColumnRepresentation("hh_salutation_override", "text", 50, 50);
 		$this->addColumnRepresentation("hh_name_override", "text", 50, 255);
-		$this->addColumnRepresentation("hh_name:name:#__nokCM_persons:hh.hh_person_id=#__nokCM_persons.id:hh", "readonly", "text");
-		$this->addColumnRepresentation("hh_firstname:firstname:#__nokCM_persons:hh.hh_person_id=#__nokCM_persons.id:hh", "readonly", "text");
-		$this->addColumnRepresentation("hh_address:address:#__nokCM_persons:hh.hh_person_id=#__nokCM_persons.id:hh", "readonly", "text");
-		$this->addColumnRepresentation("hh_city:city:#__nokCM_persons:hh.hh_person_id=#__nokCM_persons.id:hh", "readonly", "text");
-		$this->addColumnRepresentation("hh_birthday:birthday:#__nokCM_persons:hh.hh_person_id=#__nokCM_persons.id:hh", "readonly", "text");
+		$this->addColumnRepresentation("hh_name:name:#__nokCM_persons:#__nokCM_persons.hh_person_id=hh.id:hh", "readonly", "text");
+		$this->addColumnRepresentation("hh_firstname:firstname:#__nokCM_persons:#__nokCM_persons.hh_person_id=hh.id:hh", "readonly", "text");
+		$this->addColumnRepresentation("hh_address:address:#__nokCM_persons:#__nokCM_persons.hh_person_id=hh.id:hh", "readonly", "text");
+		$this->addColumnRepresentation("hh_city:city:#__nokCM_persons:#__nokCM_persons.hh_person_id=hh.id:hh", "readonly", "text");
+		$this->addColumnRepresentation("hh_birthday:birthday:#__nokCM_persons:#__nokCM_persons.hh_person_id=hh.id:hh", "readonly", "text");
 		$this->addColumnRepresentation("birthday", "date");
 		$this->addColumnRepresentation("abirthday:IF(DATE_ADD(#__nokCM_persons.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(#__nokCM_persons.`birthday`)) YEAR) < CURDATE(),DATE_ADD(#__nokCM_persons.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(#__nokCM_persons.`birthday`) + 1) YEAR),DATE_ADD(#__nokCM_persons.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(#__nokCM_persons.`birthday`)) YEAR))", "readonly", "text");
 		$this->addColumnRepresentation("deceased", "date");
@@ -75,9 +75,14 @@ class nokCMPerson extends nokTable
 		$this->addColumnRepresentation("description", "text", 50, 0, 10);
 		$this->addColumnRepresentation("createdby", "readonly", "text", "CurrentUser");
 		$this->addColumnRepresentation("createddate", "readonly", "datetime", "CurrentDate");
-		$this->addColumnRepresentation("modifiedby", "readonly", "text", "", "CurrentUser");
-		$this->addColumnRepresentation("modifieddate", "readonly", "datetime", "", "CurrentDate");
+		$this->addColumnRepresentation("modifiedby", "readonly", "text", "CurrentUser");
+		$this->addColumnRepresentation("modifieddate", "readonly", "datetime", "CurrentDate");
 
+		//No updatebel columns
+		$this->addColumnNoUpdate("id");
+		$this->addColumnNoUpdate("createdby");
+		$this->addColumnNoUpdate("createddate");
+		
 		// Define mandatory fields
 		$this->addColumnMandatory("name");
 		$this->addColumnMandatory("city");
@@ -200,38 +205,40 @@ class nokCMPerson extends nokTable
 		$this->addColumnDisplay("view", "modifieddate", JText::_( 'TABLE_NOKCM_PERSONS.MODIFIEDDATE'));
 
 		// Define fields for export
-		$this->addExportColumn("salutation");
-		$this->addExportColumn("name");
-		$this->addExportColumn("birthname");
-		$this->addExportColumn("firstname");
-		$this->addExportColumn("middlename");
-		$this->addExportColumn("nickname");
-		$this->addExportColumn("address");
-		$this->addExportColumn("zip");
-		$this->addExportColumn("city");
-		$this->addExportColumn("state");
-		$this->addExportColumn("country");
-		$this->addExportColumn("hh_salutation_override");
-		$this->addExportColumn("hh_name_override");
-		$this->addExportColumn("hh_name");
-		$this->addExportColumn("hh_firstname");
-		$this->addExportColumn("hh_address");
-		$this->addExportColumn("hh_city");
-		$this->addExportColumn("birthday");
-		$this->addExportColumn("deceased");
-		$this->addExportColumn("telephone");
-		$this->addExportColumn("mobile");
-		$this->addExportColumn("email");
-		$this->addExportColumn("url");
-		$this->addExportColumn("image");
-		$this->addExportColumn("custom1");
-		$this->addExportColumn("custom2");
-		$this->addExportColumn("custom3");
-		$this->addExportColumn("custom4");
-		$this->addExportColumn("custom5");
-		$this->setExportSortOrder("hh_person_id");
+		$this->addExportColumn("salutation","Y");
+		$this->addExportColumn("name","Y");
+		$this->addExportColumn("birthname","Y");
+		$this->addExportColumn("firstname","Y");
+		$this->addExportColumn("middlename","Y");
+		$this->addExportColumn("nickname","Y");
+		$this->addExportColumn("address","Y");
+		$this->addExportColumn("zip","Y");
+		$this->addExportColumn("city","Y");
+		$this->addExportColumn("state","Y");
+		$this->addExportColumn("country","Y");
+		$this->addExportColumn("hh_salutation_override","Y");
+		$this->addExportColumn("hh_name_override","Y");
+		$this->addExportColumn("hh_name","N");
+		$this->addExportColumn("hh_firstname","N");
+		$this->addExportColumn("hh_address","N");
+		$this->addExportColumn("hh_city","N");
+		$this->addExportColumn("hh_birthday","N");
+		$this->addExportColumn("birthday","Y");
+		$this->addExportColumn("deceased","Y");
+		$this->addExportColumn("telephone","Y");
+		$this->addExportColumn("mobile","Y");
+		$this->addExportColumn("email","Y");
+		$this->addExportColumn("url","Y");
+		$this->addExportColumn("image","Y");
+		$this->addExportColumn("custom1","Y");
+		$this->addExportColumn("custom2","Y");
+		$this->addExportColumn("custom3","Y");
+		$this->addExportColumn("custom4","Y");
+		$this->addExportColumn("custom5","Y");
+		$this->addExportColumn("description","Y");
+		$this->setExportSortOrder("`hh_person_id`");
 		$this->setImportForeignKey("hh_name:hh_firstname:hh_address:hh_city:hh_birthday", "hh_person_id", "#__nokCM_persons", "name:firstname:address:city:birthday", "id");
-		$this->setImportPrimaryKey("name:firstname:address:citybirthday");
+		$this->setImportPrimaryKey("name:firstname:address:city:birthday");
 
 		// Define toolbar itemms
 		//$this->addToolbarEntry("publish");
@@ -247,7 +254,7 @@ class nokCMPerson extends nokTable
 		//Data consitency definition
 		$this->addDeleteRule("check", "id", "#__nokCM_memberships", "person_id");
 		$this->addDeleteRule("check", "id", "#__nokCM_board", "person_id");
-		$this->addDeleteRule("remove_ref", "id", "#__nokCM_person", "hh_person_id");
+		$this->addDeleteRule("remove_ref", "id", "#__nokCM_persons", "hh_person_id");
 	}
 
 	function menu ( $cmd, $option )

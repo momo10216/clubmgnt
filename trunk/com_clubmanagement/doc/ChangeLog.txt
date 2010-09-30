@@ -1,4 +1,5 @@
 0.93
 ----
-- Removed export/import until it is working correctly.
 - Add search text field in membership and board
+- Multi-Delete works now.
+- Remove hh_persion_id reference if persion will be deleted.
