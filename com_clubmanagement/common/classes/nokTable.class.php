@@ -33,6 +33,8 @@ class nokTable
 	var $column_import_pk = array();
 	var $column_import_fk = array();
 	var $export_sort;
+	var $column_noupdate = array();
+	var $csv_encode_charlist = array("%",";","\r","\n");
 
 	function nokTable ($strTable, $objectname) {
 		$this->column_delimiter = ":";
@@ -174,6 +176,10 @@ CurrentIP
 		}
 	}
 
+	function addColumnNoUpdate($strColumn) {
+		$this->column_noupdate[$strColumn] = "Y";
+	}
+
 	function addDeleteRule($type, $localColumn, $extTable, $extColumn) {
 		$this->delete_rule[] = array($type, $localColumn, $extTable, $extColumn);
 	}
@@ -201,11 +207,11 @@ CurrentIP
 	function setImportPrimaryKey($fields) {
 		$arrFields = explode(":",$fields);
 		foreach ($arrFields as $strField) {
-			$this->column_import_pk[strField] = strField;
+			$this->column_import_pk[$strField] = $strField;
 		}
 	}
 
-	function _calcquery($columns, $where, $order, $idcol="") {
+	function _calcquery_where($columns, $where, $order, $idcol="") {
 		//Query
 		reset($columns);
 		$strTableList = "`".$this->table."` T0";
@@ -281,6 +287,79 @@ CurrentIP
 				$where = $strJoinList;
 			}
 		}
+		if ($where != "") $strSQL = $strSQL . " WHERE " . $where;
+		if ($order != "") $strSQL = $strSQL . " ORDER BY " . $order;
+		reset($arrExternalTable);
+		while (list($strTable,$strPrefix) = each($arrExternalTable)) {
+			$strSQL = str_replace($strTable.".",$strPrefix.".",$strSQL);
+		}
+//echo $strSQL;
+		return $strSQL;
+	}
+
+	function _calcquery($columns, $where, $order, $idcol="") {
+		//Query
+		reset($columns);
+		$strTableList = "`".$this->table."` AS T0";
+		$strJoin = "";
+		$intTableCount = 1;
+		$arrExternalTable = array();
+		$arrExternalTable[$this->table] = "T0";
+		if ($idcol == "") {
+			$strColumnList = "";
+		} else {
+			$strColumnList = $this->table.".`".$idcol."`";
+		}
+		while (list($strColumn,$strTitle) = each($columns)) {
+			if ($strColumnList != "") $strColumnList = $strColumnList . ", ";
+			if ($this->column_external[$strColumn]) {
+				//Column, Tab le, Link, Tablealias
+				$arrTemp = $this->column_external[$strColumn];
+				if (!$arrExternalTable[$arrTemp[3]]) {
+					$strTablePrefix = "T".$intTableCount;
+					$intTableCount++;
+					$strJoin = $strJoin." LEFT JOIN `".$arrTemp[1]."` AS ".$strTablePrefix." ON ".$arrTemp[2];
+					$arrExternalTable[$arrTemp[3]] = $strTablePrefix;
+				}
+				if (strpos($arrTemp[0],"`") === false) {
+					$strColumn = $arrExternalTable[$arrTemp[3]].".`".$arrTemp[0]."` `".$strColumn."`";
+				} else {
+					$strColumn = str_replace($arrTemp[3].".`",$arrExternalTable[$arrTemp[3]].".`",$arrTemp[0])." `".$strColumn."`";
+				}
+			} else {
+				if (strpos($strColumn,"`") === false) {
+					$strColumn = "T0.`".$strColumn."` `".$strColumn."`";
+				} else {
+					$strColumn = str_replace($this->table.".`","T0.`",$arrTemp[0])." `".$strColumn."`";
+				}
+			}
+			$strColumnList = $strColumnList.$strColumn;
+		}
+		reset($this->column_rep);
+		while (list($strColumn,$arrRep) = each($this->column_rep)) {
+			if ($this->column_external[$strColumn]) {
+				//Column, Tab le, Link, Alias
+				$arrTemp = $this->column_external[$strColumn];
+				if (!$arrExternalTable[$arrTemp[3]]) {
+					$strTablePrefix = "T".$intTableCount;
+					$intTableCount++;
+					$strJoin = $strJoin." LEFT JOIN `".$arrTemp[1]."` AS ".$strTablePrefix." ON ".$arrTemp[2];
+					$arrExternalTable[$arrTemp[3]] = $strTablePrefix;
+				}
+				if (strpos($arrTemp[0],"`") === false) {
+					$strJoin = str_replace("`".$arrTemp[0]."`",$arrTemp[3].".`".$arrTemp[0]."`",$strJoin);
+					$where = str_replace("`".$arrTemp[0]."`",$arrTemp[3].".`".$arrTemp[0]."`",$where);
+					$order = str_replace("`".$arrTemp[0]."`",$arrTemp[3].".`".$arrTemp[0]."`",$order);
+				}
+			} else {
+				if (strpos($strColumn,"`") === false) {
+					$strJoin = str_replace("`".$strColumn."`","T0.`".$strColumn."`",$strJoin);
+					$where = str_replace("`".$strColumn."`","T0.`".$strColumn."`",$where);
+					$order = str_replace("`".$strColumn."`","T0.`".$strColumn."`",$order);
+				}
+			}
+		}
+		$strSQL = "SELECT " . $strColumnList . " FROM ".$strTableList.$strJoin;
 		if ($where != "") $strSQL = $strSQL . " WHERE " . $where;
 		if ($order != "") $strSQL = $strSQL . " ORDER BY " . $order;
 		reset($arrExternalTable);
@@ -675,6 +754,9 @@ CurrentIP
 					case "currenthost":
 						$strRetVal = "'" . addslashes($_SERVER['REMOTE_HOST']) . "'";
 						break;
+					case "uuid":
+						// To be implemented
+						break;
 					default:
 						break;
 				}
@@ -724,20 +806,19 @@ CurrentIP
 
 	function upsert($values, $id=0) {
 		if ($id != "" && $id != 0) {
-			$id = $values[$this->getSetting("Primary_Key")];
-		}
-		if ($id != "" && $id != 0) {
 			//Update
 			$strSQL = "UPDATE `" . $this->table . "` SET ";
 			$booFirst = true;
 			reset($values);
 			while (list($strColumn,$strValue) = each($values)) {
-				if ($booFirst) {
-					$booFirst = false;
-				} else {
-					$strSQL = $strSQL . ", ";
+				if ($this->column_noupdate[strColumn] != "Y") {
+					if ($booFirst) {
+						$booFirst = false;
+					} else {
+						$strSQL = $strSQL . ", ";
+					}
+					$strSQL = $strSQL . $strColumn . "=" . $strValue;
 				}
-				$strSQL = $strSQL . $strColumn . "=" . $strValue;
 			}
 			$strSQL = $strSQL . " WHERE " . $this->getSetting("Primary_Key") . "=" . $id;
 		} else {
@@ -802,14 +883,14 @@ CurrentIP
 		//Check fields for their type
 		reset($cols);
 		while (list($strColumn,$strTitle) = each($cols)) {
-			$values[$strColumn] = check_values($strColumn, JRequest::getVar($strColumn), true);
+			$values[$strColumn] = $this->check_values($strColumn, JRequest::getVar($strColumn), true);
 			if ($values[$strColumn] === false) {
 				// Error
 				return;
 			}
 		}
 
-		return $self->upsert($values, $id);
+		return $this->upsert($values, $id);
 	}
 
 	function showdetail($id, $cols=array())
@@ -858,9 +939,8 @@ CurrentIP
 	}
 
 	function delete($id) {
-		global $mainframe;
-
 		// Check delete rules
+		$error = "";
 		$localCols = array();
 		foreach ($this->delete_rule as $rule) {
 			$localCols[] = $rule[1];
@@ -892,107 +972,121 @@ CurrentIP
 					$this->db->setQuery( $strSQL );
 					$rows = $this->db->loadRowList();
 					if ($rows === false) {
-						nokCM_error(JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true)));
+						$error = JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true));
 					} else {
 						if ($rows[0][0] > 0) {
-							nokCM_error(JText::_("DELETE_CONSITENCY_ERROR"));
+							$error = JText::_("DELETE_CONSITENCY_ERROR");
 							return;
 						}
 					}
 					break;
 				case "delete":
-					$strSQL = "DELETE FROM `".$rule[2]."` WHERE `".$rule[3]."`='".$localData[$rule[3]]."'";
+					$strSQL = "DELETE FROM `".$rule[2]."` WHERE `".$rule[3]."`='".$localData[$rule[1]]."'";
 					$this->db->setQuery( $strSQL );
 					if (!$this->db->query()) {
-						nokCM_error(JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true)));
+						$error = JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true));
 					}
 					break;
 				case "remove_ref":
-					$strSQL = "UPDATE `".$rule[2]."` SET `".$rule[3]."`=NULL WHERE `".$rule[3]."`='".$localData[$rule[3]]."'";
+					$strSQL = "UPDATE `".$rule[2]."` SET `".$rule[3]."`=NULL WHERE `".$rule[3]."`='".$localData[$rule[1]]."'";
 					$this->db->setQuery( $strSQL );
 					if (!$this->db->query()) {
-						nokCM_error(JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true)));
+						$error = JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true));
 					}
 					break;
 			}
 		}
-		$strSQL = "DELETE FROM `".$this->table . "` WHERE " . $this->getSetting("Primary_Key");
-		if (is_array($id)) {
-			$strSQL = $strSQL . " IN (" . implode( ',', $id ) . ")";
-		} else {
-			$strSQL = $strSQL . "=" . $id;
+		if($error == "") {
+			$strSQL = "DELETE FROM `".$this->table . "` WHERE " . $this->getSetting("Primary_Key");
+			if (is_array($id)) {
+				$strSQL = $strSQL . " IN (" . implode( ',', $id ) . ")";
+			} else {
+				$strSQL = $strSQL . "=" . $id;
+			}
+			$this->db->setQuery( $strSQL );
+			if (!$this->db->query()) {
+				$error = JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true));
+			}
 		}
-		$this->db->setQuery( $strSQL );
-		if (!$this->db->query()) {
-			nokCM_error(JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true)));
+		return $error;
+	}
+
+	function export_csv($rows) {
+		$fields = array();
+		$charset = "iso-8859-1";
+		$filename = "output.csv";
+		$content = "";
+		reset($this->column_export);
+		while (list($field, $importflag) = each($this->column_export)) {
+			$fields[] = $field;
 		}
-		$url = $this->_calc_url($this->getSetting("Command_List"));
-		$error = $this->db->getErrorMsg();
-		if($error) {
-			$mainframe->redirect($url,JText::sprintf("DELETE_ERROR",$error));
-		} else {
-			$mainframe->redirect($url,JText::_("DELETED_SUCCESSFULLY"));
+		// Header
+		header('Content-Type: application/csv; charset='.strtolower($charset));
+		//header("Content-Length:".strlen($content));
+		header('Content-Disposition: attachment; filename="'.$filename.'"');
+		header("Content-Transfer-Encoding: binary");
+		header('Expires: 0');
+		header('Pragma: no-cache');
+
+		$vcount = count($fields);
+		if ($vcount > 0) {
+			//Decode
+			for ($i=0; $i < $vcount; $i++) {
+				$fields[$i] = $this->cvs_encode_field($fields[$i]);
+			}
+		}
+		$content = implode(";",$fields)."\n";
+		if ($charset != "UTF-8") {
+			$content = iconv( "UTF-8", strtoupper($charset)."//TRANSLIT", $content ); 
+		}
+		print $content;
+
+		// Data
+		$rowcount = count($rows);
+		if ($rowcount > 0) {
+			//List
+			for ($i=0; $i < $rowcount; $i++) {
+				$row = $rows[$i];
+				$vcount = count($row);
+				if ($vcount > 0) {
+					//Decode
+					for ($j=0; $j < $vcount; $j++) {
+						$row[$j] = $this->cvs_encode_field($row[$j]);
+					}
+				}
+				$content = $this->cvs_encode_line(implode(";",$row))."\n";
+				if ($charset != "UTF-8") {
+					$content = iconv( "UTF-8", strtoupper($charset)."//TRANSLIT", $content ); 
+				}
+				print $content;
+			}
 		}
 	}
 
-	function export($order="", $where="") {
+	function export_html($rows) {
 		//Header
 		JHTML::_('behavior.tooltip');
-		echo "<script language=\"JavaScript\">\n";
-		echo "var wCsvOut;\n";
-		echo "\n";
-		echo "function transferCSV() {\n";
-		echo "	oTable = document.getElementById(\"exportlist\");\n";
-		echo "	arrRows = oTable.rows;\n";
-		echo "	iNumOfRows = arrRows.length;\n";
-		echo "	if (iNumOfRows > 0) { iNumOfCells =  arrRows[0].cells.length; }\n";
-		echo "	var arrRowCsv = [iNumOfRows];\n";
-		echo "\n";
-		echo "	for (var iRow = 0; iRow < iNumOfRows; iRow++) {\n";
-		echo "		strCvsRow = \"\";\n";
-		echo "		for (var iCell = 0; iCell < iNumOfCells; iCell++) {\n";
-		echo "			if (iCell < iNumOfCells-1) {\n";
-		echo "				strCvsRow += arrRows[iRow].cells[iCell].innerHTML + \";\";\n";
-		echo "			} else {\n";
-		echo "				strCvsRow += arrRows[iRow].cells[iCell].innerHTML + \"\\n\";\n";
-		echo "			}\n";
-		echo "		}\n";
-		echo "		arrRowCsv[iRow] = strCvsRow;\n";
-		echo "	}\n";
-		echo "	if (document.all) {\n";
-		echo "		//IE\n";
-		echo "		wCsvOut = window.document.open(\"text/csv\");\n";
-		echo "		for (var iRow = 0; iRow < iNumOfRows; iRow++) {\n";
-		echo "			wCsvOut.write(arrRowCsv[iRow]);\n";
-		echo "		}\n";
-		echo "		wCsvOut.execCommand('SaveAs', null, 'output.csv');\n";
-		echo "		wCsvOut.close();\n";
-		echo "	} else {\n";
-		echo "		wCsvOut = window.document.open(\"about:blank\",\"Export\");\n";
-		echo "		for (var iRow = 0; iRow < iNumOfRows; iRow++) {\n";
-		echo "			wCsvOut.write(arrRowCsv[iRow]);\n";
-		echo "		}\n";
-		echo "		//netscape.security.PrivilegeManager.enablePrivilege(\"UniversalXPConnect\");\n";
-		echo "		//saveDocument(wCsvOut.document);\n";
-		echo "		//wCsvOut.close();\n";
-		echo "	}\n";
-		echo "}\n";
-		echo "</script>\n";
 		echo "<form action=\"index.php?option=" . $option . "\" method=\"post\" name=\"adminForm\">\n";
+
+		$rowcount = count($rows);
+		if ($rowcount > 0) {
+			// Export links
+			$newurl = JFactory::getURI();
+			$newurl->setVar('format','raw');
+			$newurl->setVar('task','export');
+			$newurl->setVar('cmobj',JRequest::getCmd('cmobj'));
+			echo "<center><a href=\"".$newurl->toString()."\">Download</a></center>\n";
+		}
 
 		echo "<table class=\"adminlist\" id=\"exportlist\">\n";
 		echo "<thead><tr>";
+		reset($this->column_export);
 		while (list($field, $importflag) = each($this->column_export)) {
 			echo "<th>" . $field . "</th>";
-			$rows[$field] = $field;
 		}
 		echo "</tr></thead>\n";
 
-		if ($order == "") { $order = $this->export_sort; }
-		$strSQL = $this->_calcquery($rows, $where, $order);
-		$this->db->setQuery( $strSQL );
-		$rows = $this->db->loadRowList();
-		$rowcount = count($rows);
+		// Data
 		if ($rowcount > 0) {
 			//List
 			echo "<tbody>";
@@ -1020,11 +1114,22 @@ CurrentIP
 		echo JHTML::_( 'form.token' );
 		echo "</form>\n";
 
-		if ($rowcount > 0) {
-			// Export links
-			echo "<p align=\"center\">\n";
-			echo "<input type=\"button\" value=\"CSV\" onClick=\"javascript:transferCSV();\">\n";
-			echo "</p>\n";
+	}
+
+	function export($order="", $where="") {
+		reset($this->column_export);
+		while (list($field, $importflag) = each($this->column_export)) {
+			$rows[$field] = $field;
+		}
+		if ($order == "") { $order = $this->export_sort; }
+		$strSQL = $this->_calcquery($rows, $where, $order);
+		$this->db->setQuery( $strSQL );
+		$rows = $this->db->loadRowList();
+		$uri = JFactory::getURI();
+		if ($uri->getVar('format') == "raw") {
+			$this->export_csv($rows);
+		} else {
+			$this->export_html($rows);
 		}
 	}
 
@@ -1055,7 +1160,33 @@ CurrentIP
 		echo "<table class=\"adminlist\" id=\"exportlist\">\n";
 		echo "<tbody>\n";
 		echo "<tr><th>" . JText::_("IMPORT FILE LABEL"). "</th>";
-		echo "<td><input class=\"inputbox\" id=\"import_file\" name=\"import_file\" type=\"file\" size=\"50\" /></td></tr>\n";
+		echo "<td><input class=\"inputbox\" id=\"import_file\" name=\"import_file\" type=\"file\" size=\"50\" />";
+
+		// Charset
+?>
+<select name="import_file_charset" id="import_file_charset" class="inputbox" size="1">
+	<option value="ASCII">ASCII</option>
+	<option value="ISO-8859-1" selected>ISO-8859-1</option>
+	<option value="ISO-8859-2">ISO-8859-2</option>
+	<option value="ISO-8859-3">ISO-8859-3</option>
+	<option value="ISO-8859-4">ISO-8859-4</option>
+	<option value="ISO-8859-5">ISO-8859-5</option>
+	<option value="ISO-8859-6">ISO-8859-6</option>
+	<option value="ISO-8859-7">ISO-8859-7</option>
+	<option value="ISO-8859-8">ISO-8859-8</option>
+	<option value="ISO-8859-9">ISO-8859-9</option>
+	<option value="ISO-8859-10">ISO-8859-10</option>
+	<option value="ISO-8859-11">ISO-8859-11</option>
+	<option value="ISO-8859-12">ISO-8859-12</option>
+	<option value="ISO-8859-13">ISO-8859-13</option>
+	<option value="ISO-8859-14">ISO-8859-14</option>
+	<option value="ISO-8859-15">ISO-8859-15</option>
+	<option value="UTF-8">UTF-8</option>
+	<option value="UTF-16">UTF-16</option>
+</select>
+<?php
+
+		echo "</td></tr>\n";
 		echo "<tr><th>" . JText::_("IMPORT TEXT LABEL"). "</th>";
 		echo "<td><textarea class=\"inputbox\" name=\"import_text\" cols=\"50\" rows=\"10\" id=\"import_text\"></textarea></td></tr>\n";
 		echo "<tr><th/><td><input class=\"button\" type=\"button\" value=\"".JText::_("IMPORT BUTTON")."\" onclick=\"submitbutton('import')\" /> ";
@@ -1071,70 +1202,136 @@ CurrentIP
 		echo "</form>\n";
 	}
 
+	function cvs_encode_field($text) {
+		$text = str_replace("%","%25",$text);
+		$text = str_replace(";","%3B",$text);
+		return $text;
+	}
+
+	function cvs_decode_field($text) {
+		$text = str_replace("%3B",";",$text);
+		$text = str_replace("%25","%",$text);
+		return $text;
+	}
+
+	function cvs_encode_line($text) {
+		$text = str_replace("\n","%0A",$text);
+		$text = str_replace("\r","%0D",$text);
+		return $text;
+	}
+
+	function cvs_decode_line($text) {
+		$text = str_replace("%0A","\n",$text);
+		$text = str_replace("%0D","\r",$text);
+		return $text;
+	}
+
 	function csv_to_array($csv, $delimiter = ',', $enclosure = '"', $escape = '\\', $terminator = "\n") {
+		$csv = str_replace("\r","\n",$csv);
+		$csv = str_replace("\n\n","\n",$csv);
 		$r = array();
 		$rows = explode($terminator,trim($csv));
-		$names = array_shift($rows);
-		$names = str_getcsv($names,$delimiter,$enclosure,$escape);
-		$nc = count($names);
 		foreach ($rows as $row) {
 			if (trim($row)) {
-				$values = str_getcsv($row,$delimiter,$enclosure,$escape);
-				if (!$values) $values = array_fill(0,$nc,null);
-				$r[] = array_combine($names,$values);
+				$row = $this->cvs_decode_line($row);
+				$values = explode($delimiter,$row);
+				$vcount = count($values);
+				if ($vcount > 0) {
+					//Decode
+					for ($i=0; $i < $vcount; $i++) {
+						$values[$i] = $this->cvs_decode_field($values[$i]);
+					}
+				}
+				$r[] = $values;
 			}
 		}
 		return $r;
 	} 
 
 	function import_do($csvtext) {
-		$data = $this->csv_to_array($csvtext,";"),
+		$charset = JRequest::getVar('import_file_charset');
+		if ($charset != "UTF-8") {
+			$csvtext = iconv( $charset, "UTF-8"."//TRANSLIT", $csvtext );
+		}
+		$data = $this->csv_to_array($csvtext,";");
 		$header = array_shift($data);
+		$pos = array();
 		while (list($key,$value) = each($header)) {
 			$pos[$value] = $key;
 		}
 
 		// Get direct data
+		$count_rows = 0;
+		$count_updates = 0;
+		$count_inserts = 0;
+		$count_errors = 0;
 		foreach ($data as $entry) {
+			$count_rows++;
 			$values = array();
+			reset($this->column_export);
 			while (list($strColumn,$importflag) = each($this->column_export)) {
 				if ($importflag == "Y") {
-					$values[$strColumn] = check_values($strColumn, $entry[$pos[$strColumn]], false);
+					$values[$strColumn] = $this->check_values($strColumn, $entry[$pos[$strColumn]], false);
 				}
 			}
 			// Get foreign keys = array ($import_fields, $fk_field, $ftable, $ftable_fields, $fid
-			foreach ($fk_data as $this->column_import_fk) {
-				$csv_fields = split(";",$fk_data[0]);
-				$forgeign_fields = split(";",$fk_data[3]);
+			reset($this->column_import_fk);
+			foreach ($this->column_import_fk as $fk_data) {
+				$csv_fields = split(":",$fk_data[0]);
+				$foreign_fields = split(":",$fk_data[3]);
 				$where = "";
 				$count = 0;
-				foreach ($forgeign_fields as $field) {
+				$search = "";
+				foreach ($foreign_fields as $field) {
 					if ($where != "") { $where .= " AND "; }
-					$where .= $field." = ".$values[$csv_fields[$count]]."";
+					$field_val = $this->check_values($field, $entry[$pos[$csv_fields[$count]]], false);
+					if ($field_val == "NULL") {
+						$where .= $field." IS ".$field_val;
+					} else {
+						$where .= $field." = ".$field_val;
+					}
+					$search .= $entry[$pos[$csv_fields[$count]]];
 					$count++;
 				}
-				$strSQL = "SELECT `".$fk_data[4]."` FROM `".$fk_data[4]."` WHERE ".$where;
-				$this->db->setQuery( $strSQL );
-				$values[$fk_data[1]] = check_values($fk_data[1], $this->db->loadResult(), false);
+				if ($search != "") {
+					$strSQL = "SELECT `".$fk_data[4]."` FROM `".$fk_data[2]."` WHERE ".$where;
+					$this->db->setQuery( $strSQL );
+					$values[$fk_data[1]] = $this->db->loadResult();
+				} else {
+					$values[$fk_data[1]] = "";
+				}
+				$values[$fk_data[1]] = $this->check_values($fk_data[1], $values[$fk_data[1]], false);
 			}
 
 			// Get primary key
 			$arrColumns = array();
-			$arrColumns[$this->getSetting("PrimaryKey_Parameter")] = $this->getSetting("PrimaryKey_Parameter");
+			$arrColumns[$this->getSetting("Primary_Key")] = $this->getSetting("Primary_Key");
 			$where = "";
+			$search = "";
+			reset($this->column_import_pk);
 			foreach ($this->column_import_pk as $pk_data) {
-				$arrColumns[$pk_data] = $pk_data;
+			$arrColumns[$pk_data] = $pk_data;
 				if ($where != "") { $where .= " AND "; }
-				$where .= $pk_data." = ".$values[$pk_data]."";
+				if ($values[$pk_data] == "NULL") {
+					$where .= $pk_data." IS ".$values[$pk_data]."";
+				} else {
+					$where .= $pk_data." = ".$values[$pk_data]."";
+				}
+				$search .= $entry[$pos[$pk_data]];
 			}
-			$strSQL = $this->_calcquery($arrColumns, $where);
-			$this->db->setQuery( $strSQL );
-			$id = $this->db->loadResult();
+			if ($search != "") {
+				$strSQL = $this->_calcquery($arrColumns, $where, "");
+				$this->db->setQuery( $strSQL );
+				$id = $this->db->loadResult();
+			}
 
 			// Upsert
-			$this->upsert($values,$id);
+			$id = $this->upsert($values,$id);
+			if ($id === false) {
+				echo JText::sprintf("ERROR_IMPORT",$count_rows,$this->db->getErrorMsg(true));
+			}
 		}
-//echo "<pre>".$csvtext."</pre>\n";
+		echo JText::sprintf("IMPORT_SUMMARY",$count_rows,$count_inserts,$count_updates,$count_errors);
 	}
 
 	function _command_link($setting, $text, $id="") {
@@ -1413,7 +1610,8 @@ CurrentIP
 	}
 
 	function menu ( $cmd, $option ) {
-//echo "***DEBUG: ".$cmd." ***\n";
+		global $mainframe;
+
 		if (!$cmd) $cmd = "list";
 		switch ($cmd) {
 			case 'add':
@@ -1433,8 +1631,17 @@ CurrentIP
 				if (empty( $cid )) {
 					JError::raiseWarning( 500, 'No items selected' );
 				}
+				$error = "";
 				foreach ($cid as $id) {
-					$this->delete($id);
+					if ($id > 0) {
+						$error .= $this->delete($id);
+					}
+				}
+				$url = $this->_calc_url($this->getSetting("Command_List"));
+				if($error != "") {
+					$mainframe->redirect($url,JText::sprintf("DELETE_ERROR",$error));
+				} else {
+					$mainframe->redirect($url,JText::_("DELETED_SUCCESSFULLY"));
 				}
 				break;
 			case 'show':

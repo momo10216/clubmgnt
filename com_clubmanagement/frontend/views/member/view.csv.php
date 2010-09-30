@@ -69,15 +69,15 @@ class clubmanagementViewmember extends JView
 				$content .= $this->_Array2CSV($row)."\n";
 			}
 		}
-		header('Content-Type: application/csv; charset=utf-8');
+		if ($this->params_menu->get( 'csv_encoding' ) != "UTF-8") {
+			$content = iconv( "UTF-8", $this->params_menu->get( 'csv_encoding' )."//TRANSLIT", $content ); 
+		}
+		header('Content-Type: application/csv; charset='.strtolower($this->params_menu->get('csv_encoding')));
 		header("Content-Length:".strlen($content));
 		header('Content-Disposition: attachment; filename="' . $this->filename . '"');
 		header("Content-Transfer-Encoding: binary");
 		header('Expires: 0');
 		header('Pragma: no-cache');
-		if ($this->params_menu->get( 'csv_encoding' ) != "UTF-8") {
-			$content = iconv( "UTF-8", $this->params_menu->get( 'csv_encoding' )."//TRANSLIT", $content ); 
-		}
 		print $content;
 
 		// Close the application.

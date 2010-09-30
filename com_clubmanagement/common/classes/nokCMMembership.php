@@ -79,6 +79,11 @@ class nokCMMembership extends nokTable
 		$this->addColumnRepresentation("custom4:custom4:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("custom5:custom5:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 
+		//No updatebel columns
+		$this->addColumnNoUpdate("id");
+		$this->addColumnNoUpdate("createdby");
+		$this->addColumnNoUpdate("createddate");
+
 		// Define mandatory fields
 		$this->addColumnMandatory("person_id");
 		$this->addColumnMandatory("type");
@@ -159,15 +164,15 @@ class nokCMMembership extends nokTable
 		}
 
 		// Define fields for export
-		$this->addExportColumn("published");
-		$this->addExportColumn("type");
-		$this->addExportColumn("begin");
-		$this->addExportColumn("end");
-		$this->addExportColumn("name");
-		$this->addExportColumn("firstname");
-		$this->addExportColumn("address");
-		$this->addExportColumn("city");
-		$this->addExportColumn("birthday");
+		$this->addExportColumn("published","Y");
+		$this->addExportColumn("type","Y");
+		$this->addExportColumn("begin","Y");
+		$this->addExportColumn("end","Y");
+		$this->addExportColumn("name","N");
+		$this->addExportColumn("firstname","N");
+		$this->addExportColumn("address","N");
+		$this->addExportColumn("city","N");
+		$this->addExportColumn("birthday","N");
 		$this->setImportForeignKey("name:firstname:address:city:birthday", "person_id", "#__nokCM_persons", "name:firstname:address:city:birthday", "id");
 		$this->setImportPrimaryKey("person_id:type:begin");
 
