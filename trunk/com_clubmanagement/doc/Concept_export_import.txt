@@ -23,3 +23,8 @@ Steps:
 - Search if exists already (primary key):
 	- insert if primary key not exist
 	- update if primary key exist
+
+
+Additional Idea
+---------------
+- Introduce GUID as Integration Id (read only, not updateable)

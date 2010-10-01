@@ -14,6 +14,12 @@
 		<filename>view.php</filename>
 		<filename>index.html</filename>
 		<filename>metadata.xml</filename>
+		<filename>views/all/index.html</filename>
+		<filename>views/all/metadata.xml</filename>
+		<filename>views/all/view.html.php</filename>
+		<filename>views/all/tmpl/index.html</filename>
+		<filename>views/all/tmpl/email.php</filename>
+		<filename>views/all/tmpl/email.xml</filename>
 		<filename>views/index.html</filename>
 		<filename>views/member/index.html</filename>
 		<filename>views/member/metadata.xml</filename>
