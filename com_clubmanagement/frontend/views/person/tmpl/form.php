@@ -80,6 +80,11 @@ function do_edit ($curobj, $id)
 {
 	// Get columns
 	$confcols = $curobj->params_menu->get( "allow_columns" );
+	if (!is_array($confcols)) {
+		$temp = $$confcols;
+		$confcols = array();
+		$confcols[0] = $temp;
+	}
 	$cols = array();
 	$column_edit = $curobj->cmobject->column_edit;
 	foreach($confcols as $confcol)
@@ -104,6 +109,11 @@ function do_save ($curobj)
 {
 	// Get columns
 	$confcols = $curobj->params_menu->get( "allow_columns" );
+	if (!is_array($confcols)) {
+		$temp = $$confcols;
+		$confcols = array();
+		$confcols[0] = $temp;
+	}
 	$cols = array();
 	$column_edit = $curobj->cmobject->column_edit;
 	foreach($confcols as $confcol)

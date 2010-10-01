@@ -1,7 +1,6 @@
 For 1.0 Release
 ===============
 - install & remove table class
-- Export / Import
 
 Later releases
 ==============
