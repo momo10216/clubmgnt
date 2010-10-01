@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="ALL EMAIL LAYOUT">
+		<message>
+			<![CDATA[ALL EMAIL LAYOUT DESCRIPTION]]>
+		</message>
+	</layout>
+	<state>
+		<name>CLUB MANAGEMENT ALL EMAIL LAYOUT</name>
+		<description>CLUB MANAGEMENT ALL EMAIL LAYOUT DESCRIPTION</description>
+		<url />
+		<params addpath="/administrator/components/com_clubmanagement/elements">
+			<param name="max_email_addr" type="text" size="3" default="0" label="MAX EMAIL ADDRESS LABEL" description="MAX EMAIL ADDRESS DESCRIPTION" />
+			<param name="target_field" type="list" default="to" label="EMAIL CLIENT TARGET FIELD LABEL" description="EMAIL CLIENT TARGET FIELD DESCRIPTION">
+				<option value="to">To:</option>
+				<option value="cc">CC:</option>
+				<option value="bcc">BCC:</option>
+			</param>
+ 			<param name="@spacer" type="spacer" default="" label="" description="" />
+			<param name="member_type" type="cmmembertype" size="4" label="MEMBERSHIP TYPE EMAIL LABEL" description="MEMBERSHIP TYPE EMAIL DESCRIPTION" multiple="true" />
+			<param name="member_publicity" type="list" default="published" label="PUBLICITY STATE LABEL" description="PUBLICITY STATE DESCRIPTION">
+				<option value="all">All</option>
+				<option value="published">Published</option>
+				<option value="unpublished">Unpublished</option>
+			</param>
+			<param name="member_state_current" type="radio" default="1" label="SHOW CURRENT MEMBER EMAIL LABEL" description="SHOW CURRENT MEMBER EMAIL DESCRIPTION">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</param>
+			<param name="member_state_terminated" type="radio" default="0" label="SHOW TERMINATED MEMBER EMAIL LABEL" description="SHOW TERMINATED MEMBER EMAIL DESCRIPTION">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</param>
+ 			<param name="@spacer" type="spacer" default="" label="" description="" />
+			<param name="board_state_current" type="radio" default="1" label="SHOW CURRENT BOARD EMAIL LABEL" description="SHOW CURRENT BOARD EMAIL DESCRIPTION">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</param>
+			<param name="board_state_terminated" type="radio" default="0" label="SHOW TERMINATED BOARD EMAIL LABEL" description="SHOW TERMINATED BOARD EMAIL DESCRIPTION">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</param>
+		</params>
+		<advanced />
+	</state>
+</metadata>
