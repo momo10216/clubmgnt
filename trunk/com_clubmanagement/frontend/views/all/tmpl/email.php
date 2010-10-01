@@ -37,7 +37,7 @@ function display_link($name, $data, $target) {
 			if ($first === true) {
 				$first = false;
 			} else {
-				echo ",";
+				echo ", ";
 			}
 			echo $row[0];
 		}
