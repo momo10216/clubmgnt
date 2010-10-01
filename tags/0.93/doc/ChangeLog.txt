@@ -1,0 +1,6 @@
+0.93
+----
+- Add search text field in membership and board
+- Multi-Delete works now.
+- Remove hh_persion_id reference if persion will be deleted.
+- Export / Import
