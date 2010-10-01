@@ -17,7 +17,7 @@
 				<option value="bcc">BCC:</option>
 			</param>
  			<param name="@spacer" type="spacer" default="" label="" description="" />
-			<param name="member_type" type="cmmembertype" size="4" label="MEMBERSHIP TYPE LABEL" description="MEMBERSHIP TYPE DESCRIPTION" multiple="true" />
+			<param name="member_type" type="cmmembertype" size="4" label="MEMBERSHIP TYPE EMAIL LABEL" description="MEMBERSHIP TYPE EMAIL DESCRIPTION" multiple="true" />
 			<param name="member_publicity" type="list" default="published" label="PUBLICITY STATE LABEL" description="PUBLICITY STATE DESCRIPTION">
 				<option value="all">All</option>
 				<option value="published">Published</option>
