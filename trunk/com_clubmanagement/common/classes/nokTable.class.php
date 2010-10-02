@@ -811,7 +811,7 @@ CurrentIP
 			$booFirst = true;
 			reset($values);
 			while (list($strColumn,$strValue) = each($values)) {
-				if ($this->column_noupdate[strColumn] != "Y") {
+				if ($this->column_noupdate[$strColumn] != "Y") {
 					if ($booFirst) {
 						$booFirst = false;
 					} else {
@@ -1325,10 +1325,28 @@ CurrentIP
 				$id = $this->db->loadResult();
 			}
 
+			// Add standard readonly fields
+			$values["createdby"] = $this->check_values("createdby", "", false);
+			$values["createddate"] = $this->check_values("createddate", "", false);
+			$values["modifiedby"] = $this->check_values("modifiedby", "", false);
+			$values["modifieddate"] = $this->check_values("modifieddate", "", false);
+
 			// Upsert
+			if ($id > 0) {
+				$action = "update";
+			} else {
+				$action = "insert";
+			}
 			$id = $this->upsert($values,$id);
 			if ($id === false) {
 				echo JText::sprintf("ERROR_IMPORT",$count_rows,$this->db->getErrorMsg(true));
+				$count_errors++;
+			} else {
+				if ($action == "update") {
+					$count_updates++;
+				} else {
+					$count_inserts++;
+				}
 			}
 		}
 		echo JText::sprintf("IMPORT_SUMMARY",$count_rows,$count_inserts,$count_updates,$count_errors);

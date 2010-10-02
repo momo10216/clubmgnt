@@ -46,8 +46,8 @@ class nokCMMembership extends nokTable
 		$this->addColumnRepresentation("beginendyear:CONCAT(YEAR(#__nokCM_memberships.`begin`),'-',IFNULL(YEAR(#__nokCM_memberships.`end`),''))", "readonly", "text");
 		$this->addColumnRepresentation("createdby", "readonly", "text", "CurrentUser");
 		$this->addColumnRepresentation("createddate", "readonly", "datetime", "CurrentDate");
-		$this->addColumnRepresentation("modifiedby", "readonly", "text", "", "CurrentUser");
-		$this->addColumnRepresentation("modifieddate", "readonly", "datetime", "", "CurrentDate");
+		$this->addColumnRepresentation("modifiedby", "readonly", "text", "CurrentUser");
+		$this->addColumnRepresentation("modifieddate", "readonly", "datetime", "CurrentDate");
 		$this->addColumnRepresentation("salutation:salutation:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("name:name:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("birthname:birthname:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
