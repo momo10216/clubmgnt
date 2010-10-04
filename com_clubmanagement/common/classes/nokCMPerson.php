@@ -51,6 +51,8 @@ class nokCMPerson extends nokTable {
 		$this->addTableColumn("hh_person_id", "int(11) unsigned", "Y", "", "");
 		$this->addTableColumn("hh_salutation_override", "varchar(50)", "Y", "", "");
 		$this->addTableColumn("hh_name_override", "varchar(255)", "Y", "", "");
+		$this->addTableIndex("hh_person_id", "hh_person_id", "N");
+		$this->addTableIndex("user_id", "user_id", "N");
 
 		$params = &JComponentHelper::getParams( 'com_clubmanagement' );
 		$picdir = $params->get( 'image_dir' );
