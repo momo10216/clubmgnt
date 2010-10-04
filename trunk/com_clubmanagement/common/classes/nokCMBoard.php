@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		0.92
+* @version		0.95
 * @package		Joomla
 * @subpackage	ClubManagement-Board
 * @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
@@ -13,8 +13,22 @@
 require_once( dirname(__FILE__).DS.'nokTable.class.php');
 
 class nokCMBoard extends nokTable {
+
 	function nokCMBoard($component) {
 		$this->nokTable('#__nokCM_board','board');
+
+		// Table columns
+		$this->addTableColumn("id", "int(11) unsigned", "N", "", "auto_increment");
+		$this->addTableColumn("person_id", "int(11) unsigned", "N", "0", "");
+		$this->addTableColumn("job", "varchar(25)", "N", "", "");
+		$this->addTableColumn("begin", "date", "N", "", "");
+		$this->addTableColumn("end", "date", "Y", "", "");
+		$this->addTableColumn("published", "int(1)", "N", "0", "");
+		$this->addTableColumn("sortorder", "varchar(16)", "Y", "", "");
+		$this->addTableColumn("createdby", "varchar(50)", "Y", "", "");
+		$this->addTableColumn("createddate", "datetime", "Y", "", "");
+		$this->addTableColumn("modifiedby", "varchar(50)", "Y", "", "");
+		$this->addTableColumn("modifieddate", "datetime", "Y", "", "");
 
 		$params = &JComponentHelper::getParams( 'com_clubmanagement' );
 		$picdir = $params->get( 'image_dir' );

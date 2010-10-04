@@ -10,16 +10,22 @@
 */
 defined( '_JEXEC' ) or die( 'Restricted Access.' );
 
-function com_uninstall() {
-	// Get database handle
-	$database =& JFactory::getDBO();
+// Include object related functions
+require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMPerson.php');
+require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMMembership.php');
+require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMBoard.php');
 
-	// Create tables version 0.1
-	$tables = array("#__nokCM_persons","#__nokCM_memberships","#__nokCM_board");
-	foreach ($tables as $table) {
-		$database->setQuery("DROP TABLE `" . $table . "`");
-		$database->query();
-	}
+function com_uninstall() {
+	// Init
+	$component = "com_clubmanagement";
+	$objPerson = new nokCMPerson($component);
+	$objMember = new nokCMMembership($component);
+	$objBoard = new nokCMBoard($component);
+
+	$objPerson->uninstall();
+	$objMember->uninstall();
+	$objBoard->uninstall();
+
 	return '<h1>Deinstallation successful!</h1>';
 }
 ?>

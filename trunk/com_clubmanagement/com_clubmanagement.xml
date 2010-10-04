@@ -5,7 +5,7 @@
 	<creationDate>September 2010</creationDate>
 	<copyright>(C) 2010	Norbert Kuemin</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<version>0.94</version>
+	<version>0.95</version>
 	<description>Component for managing clubs (Persons, Memberships, Board)</description>
 	<files folder="frontend">
 		<filename>clubmanagement.php</filename>
