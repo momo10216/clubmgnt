@@ -34,6 +34,7 @@ class nokTable
 	var $column_import_fk = array();
 	var $export_sort;
 	var $column_noupdate = array();
+	var $column_table = array();
 	var $csv_encode_charlist = array("%",";","\r","\n");
 
 	function nokTable ($strTable, $objectname) {
@@ -209,6 +210,16 @@ CurrentIP
 		foreach ($arrFields as $strField) {
 			$this->column_import_pk[$strField] = $strField;
 		}
+	}
+
+	function addTableColumn($strField, $strType, $strNullFlag, $strDefault, $strExtra) {
+		//Calculate NULL flag (Y=YES N=NO)
+		if (strtoupper($strNullFlag) == "N") {
+			$strNullFlag = "NO";
+		} else {
+			$strNullFlag = "YES";
+		}
+		$this->column_table[$strField] = array($strType, $strNullFlag, $strDefault, $strExtra);
 	}
 
 	function _calcquery_where($columns, $where, $order, $idcol="") {
@@ -1743,27 +1754,133 @@ CurrentIP
 		}
 	}
 
-/*
 	function install() {
-		$this->db->setQuery( "Describe `" . $this->table . "`" );
-		$rows = $database->loadResultArray();
+		$this->db->setQuery("Describe `".$this->table."`");
+		$rows = $this->db->loadRowList();
+		// field, type, NULL, Index, Default, Extra
 		if (!$rows) {
 			// Table doesn't exist -> create
-			$strSQL = "CREATE TABLE IF NOT EXISTS `" . $this->table . "` (\n";
-			reset($this->column_db);
-			while (list($strColumn,$arrRep) = each($this->column_db)) {
+			$strSQL = "CREATE TABLE IF NOT EXISTS `".$this->table."` (\n";
+			reset($this->column_table);
+			while (list($strColumn,$arrRep) = each($this->column_table)) {
+				$strSQL .= "`".$strColumn."` ".$arrRep[0];
+				switch ($arrRep[1]) {
+					case "YES":
+						$strSQL .= " NULL";
+						break;
+					case "NO":
+						$strSQL .= " NOT NULL";
+						break;
+					default:
+						break;
+				}
+				if ($arrRep[2] != "") {
+					$strSQL .= " DEFAULT ".$arrRep[2];
+				}
+				if ($arrRep[3] != "") {
+					$strSQL .= " ".$arrRep[3];
+				}
+				$strSQL .= ",\n";
 			}
-			$strSQL .= "PRIMARY KEY (`" . $this->getSetting("Primary_Key") . "`)\n";
-			$strSQL .= ")");
+			$strSQL .= "PRIMARY KEY (`".$this->getSetting("Primary_Key")."`)\n";
+			$strSQL .= ")";
+			$this->db->setQuery($strSQL);
+			if ($this->db->query()) {
+				echo "Table `".$this->table."` added.<br/>";
+			} else {
+				echo JText::sprintf("ERROR_DB_STATEMENT",$this->db->getErrorMsg(true));
+			}
 		} else {
 			// Table exist -> alter
+			// Check modify / drop
+			$arrColFound = array();
+			foreach ($rows as $row) {
+				$arrColFound[$row[0]] = "Y";
+				if (array_key_exists($row[0], $this->column_table)) {
+					$arrRep = $this->column_table[$row[0]];
+					if ((strtoupper($row[1]) != strtoupper($arrRep[0])) ||
+						($row[2] != $arrRep[1]) ||
+						(str_replace("'","",$row[4]) != str_replace("'","",$arrRep[2])) ||
+						($row[5] != $arrRep[3])) {
+						// Modify
+						$strSQL = "ALTER TABLE `".$this->table."` MODIFY ";
+						$strSQL .= "`".$row[0]."` ".$arrRep[0];
+						switch ($arrRep[1]) {
+							case "YES":
+								$strSQL .= " NULL";
+								break;
+							case "NO":
+								$strSQL .= " NOT NULL";
+								break;
+							default:
+								break;
+						}
+						if ($arrRep[2] != "") {
+							$strSQL .= " DEFAULT ".$arrRep[2];
+						}
+						if ($arrRep[3] != "") {
+							$strSQL .= " ".$arrRep[3];
+						}
+						$this->db->setQuery($strSQL);
+						if ($this->db->query()) {
+							echo "Modified field `".$row[0]."` on table `".$this->table."`.<br/>";
+						} else {
+							echo JText::sprintf("ERROR_DB_STATEMENT",$this->db->getErrorMsg(true));
+						}
+					}
+				} else {
+					// Drop
+					$strSQL = "ALTER TABLE `".$this->table."` DROP `".$row[0]."`";
+					$this->db->setQuery($strSQL);
+					if ($this->db->query()) {
+						echo "Removed field `".$row[0]."` from table `".$this->table."`.<br/>";
+					} else {
+						echo JText::sprintf("ERROR_DB_STATEMENT",$this->db->getErrorMsg(true));
+					}
+				}
+			}
+
+			// Check Add
+			reset($this->column_table);
+			while (list($strColumn,$arrRep) = each($this->column_table)) {
+				if ($arrColFound[$strColumn] != "Y") {
+					// Add new column
+					$strSQL = "ALTER TABLE `".$this->table."` ADD `".$strColumn."`";
+					switch ($arrRep[1]) {
+						case "YES":
+							$strSQL .= " NULL";
+							break;
+						case "NO":
+							$strSQL .= " NOT NULL";
+							break;
+						default:
+							break;
+					}
+					if ($arrRep[2] != "") {
+						$strSQL .= " DEFAULT ".$arrRep[2];
+					}
+					if ($arrRep[3] != "") {
+						$strSQL .= " ".$arrRep[3];
+					}
+					$this->db->setQuery($strSQL);
+					if ($this->db->query()) {
+						echo "Added field `".$strColumn."` on table `".$this->table."`.<br/>";
+					} else {
+						echo JText::sprintf("ERROR_DB_STATEMENT",$this->db->getErrorMsg(true));
+					}
+				}
+			}
 		}
 	}
 
 	function uninstall() {
-		$this->db->setQuery("DROP TABLE `" . $this->table . "`");
-		$this->db->query();
+		$strSQL = "DROP TABLE `".$this->table."`";
+		$this->db->setQuery($strSQL);
+		if ($this->db->query()) {
+			echo "Table `".$this->table."` removed.<br/>\n";
+		} else {
+			echo JText::sprintf("ERROR_DB_STATEMENT",$this->db->getErrorMsg(true));
+		}
 	}
-*/
 }
 ?>

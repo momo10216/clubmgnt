@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		0.92
+* @version		0.95
 * @package		Joomla
 * @subpackage	ClubManagement-Person
 * @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
@@ -12,11 +12,45 @@
 // Define object b ased on the table object
 require_once( dirname(__FILE__).DS.'nokTable.class.php');
 
-class nokCMPerson extends nokTable
-{
-	function nokCMPerson($component)
-	{
+class nokCMPerson extends nokTable {
+
+	function nokCMPerson($component) {
 		$this->nokTable('#__nokCM_persons','person');
+
+		// Table columns
+		$this->addTableColumn("id", "int(11) unsigned", "N", "", "auto_increment");
+		$this->addTableColumn("salutation", "varchar(25)", "Y", "", "");
+		$this->addTableColumn("firstname", "varchar(50) BINARY", "Y", "", "");
+		$this->addTableColumn("middlename", "varchar(50) BINARY", "Y", "", "");
+		$this->addTableColumn("name", "varchar(50) BINARY", "N", "", "");
+		$this->addTableColumn("nickname", "varchar(50) BINARY", "Y", "", "");
+		$this->addTableColumn("birthday", "date", "Y", "", "");
+		$this->addTableColumn("address", "varchar(100) BINARY", "Y", "", "");
+		$this->addTableColumn("city", "varchar(50) BINARY", "N", "", "");
+		$this->addTableColumn("zip", "varchar(10) BINARY", "Y", "", "");
+		$this->addTableColumn("country", "varchar(100) BINARY", "N", "", "");
+		$this->addTableColumn("state", "varchar(100) BINARY", "Y", "", "");
+		$this->addTableColumn("telephone", "varchar(25)", "Y", "", "");
+		$this->addTableColumn("mobile", "varchar(25)", "Y", "", "");
+		$this->addTableColumn("url", "varchar(250)", "Y", "", "");
+		$this->addTableColumn("email", "varchar(100)", "Y", "", "");
+		$this->addTableColumn("user_id", "int(11)", "Y", "", "");
+		$this->addTableColumn("description", "text", "Y", "", "");
+		$this->addTableColumn("image", "varchar(250)", "Y", "", "");
+		$this->addTableColumn("createdby", "varchar(50)", "Y", "", "");
+		$this->addTableColumn("createddate", "datetime", "Y", "", "");
+		$this->addTableColumn("modifiedby", "varchar(50)", "Y", "", "");
+		$this->addTableColumn("modifieddate", "datetime", "Y", "", "");
+		$this->addTableColumn("custom1", "varchar(255)", "Y", "", "");
+		$this->addTableColumn("custom2", "varchar(255)", "Y", "", "");
+		$this->addTableColumn("custom3", "varchar(255)", "Y", "", "");
+		$this->addTableColumn("custom4", "varchar(255)", "Y", "", "");
+		$this->addTableColumn("custom5", "varchar(255)", "Y", "", "");
+		$this->addTableColumn("birthname", "varchar(50)", "Y", "", "");
+		$this->addTableColumn("deceased", "date", "Y", "", "");
+		$this->addTableColumn("hh_person_id", "int(11) unsigned", "Y", "", "");
+		$this->addTableColumn("hh_salutation_override", "varchar(50)", "Y", "", "");
+		$this->addTableColumn("hh_name_override", "varchar(255)", "Y", "", "");
 
 		$params = &JComponentHelper::getParams( 'com_clubmanagement' );
 		$picdir = $params->get( 'image_dir' );
@@ -242,6 +276,7 @@ class nokCMPerson extends nokTable
 
 		// Define toolbar itemms
 		//$this->addToolbarEntry("publish");
+
 		//$this->addToolbarEntry("unpublish");
 		$this->addToolbarEntry("add");
 		$this->addToolbarEntry("edit");

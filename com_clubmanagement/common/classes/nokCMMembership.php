@@ -1,6 +1,6 @@
 <?php
 /**
-* @version		0.92
+* @version		0.95
 * @package		Joomla
 * @subpackage	ClubManagement-Membership
 * @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
@@ -12,11 +12,22 @@
 // Define object b ased on the table object
 require_once( dirname(__FILE__).DS.'nokTable.class.php');
 
-class nokCMMembership extends nokTable
-{
-	function nokCMMembership($component)
-	{
+class nokCMMembership extends nokTable {
+
+	function nokCMMembership($component) {
 		$this->nokTable('#__nokCM_memberships','membership');
+
+		// Table columns
+		$this->addTableColumn("id", "int(11) unsigned", "N", "", "auto_increment");
+		$this->addTableColumn("person_id", "int(11) unsigned", "N", "0", "");
+		$this->addTableColumn("type", "varchar(25)", "N", "", "");
+		$this->addTableColumn("begin", "date", "N", "", "");
+		$this->addTableColumn("end", "date", "Y", "", "");
+		$this->addTableColumn("published", "int(1)", "N", "0", "");
+		$this->addTableColumn("createdby", "varchar(50)", "Y", "", "");
+		$this->addTableColumn("createddate", "datetime", "Y", "", "");
+		$this->addTableColumn("modifiedby", "varchar(50)", "Y", "", "");
+		$this->addTableColumn("modifieddate", "datetime", "Y", "", "");
 
 		$params = &JComponentHelper::getParams( 'com_clubmanagement' );
 		$picdir = $params->get( 'image_dir' );
