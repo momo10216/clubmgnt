@@ -45,3 +45,5 @@ function guid(){
         return $uuid;
     }
 }
+->addIndex (install/uninstall)
+->init added fields (GUID)

@@ -35,6 +35,7 @@ class nokTable
 	var $export_sort;
 	var $column_noupdate = array();
 	var $column_table = array();
+	var $index_table = array();
 	var $csv_encode_charlist = array("%",";","\r","\n");
 
 	function nokTable ($strTable, $objectname) {
@@ -220,6 +221,17 @@ CurrentIP
 			$strNullFlag = "YES";
 		}
 		$this->column_table[$strField] = array($strType, $strNullFlag, $strDefault, $strExtra);
+	}
+
+	function addTableIndex($strName, $strField, $strUniqueFlag) {
+		//Calculate Unique flag (Y=1 N=0)
+		if (strtoupper($strUniqueFlag) == "N") {
+			$strUniqueFlag = "0";
+		} else {
+			$strUniqueFlag = "1";
+		}
+		if (!is_array($strField)) { $strField = array($strField); }
+		$this->index_table[$strName] = array($strField, $strUniqueFlag);
 	}
 
 	function getGUID() {
@@ -1773,6 +1785,7 @@ CurrentIP
 	}
 
 	function install() {
+		// Install/upgrade table
 		$this->db->setQuery("Describe `".$this->table."`");
 		$rows = $this->db->loadRowList();
 		// field, type, NULL, Index, Default, Extra
@@ -1806,7 +1819,7 @@ CurrentIP
 			if ($this->db->query()) {
 				echo "Table `".$this->table."` added.<br/>";
 			} else {
-				echo JText::sprintf("ERROR_DB_STATEMENT",$this->db->getErrorMsg(true));
+				echo JText::sprintf('ERROR_DB_STATEMENT',$this->db->getErrorMsg(true));
 			}
 		} else {
 			// Table exist -> alter
@@ -1843,7 +1856,7 @@ CurrentIP
 						if ($this->db->query()) {
 							echo "Modified field `".$row[0]."` on table `".$this->table."`.<br/>";
 						} else {
-							echo JText::sprintf("ERROR_DB_STATEMENT",$this->db->getErrorMsg(true));
+							echo JText::sprintf('ERROR_DB_STATEMENT',$this->db->getErrorMsg(true));
 						}
 					}
 				} else {
@@ -1853,7 +1866,7 @@ CurrentIP
 					if ($this->db->query()) {
 						echo "Removed field `".$row[0]."` from table `".$this->table."`.<br/>";
 					} else {
-						echo JText::sprintf("ERROR_DB_STATEMENT",$this->db->getErrorMsg(true));
+						echo JText::sprintf('ERROR_DB_STATEMENT',$this->db->getErrorMsg(true));
 					}
 				}
 			}
@@ -1884,20 +1897,92 @@ CurrentIP
 					if ($this->db->query()) {
 						echo "Added field `".$strColumn."` on table `".$this->table."`.<br/>";
 					} else {
-						echo JText::sprintf("ERROR_DB_STATEMENT",$this->db->getErrorMsg(true));
+						echo JText::sprintf('ERROR_DB_STATEMENT',$this->db->getErrorMsg(true));
 					}
+				}
+			}
+		}
+		// Install/upgrade indexes
+		$this->db->setQuery("SHOW INDEXES FROM `".$this->table."`");
+		$rows = $this->db->loadRowList();
+		$arrIndexFound = array();
+		// modify / delete indexes
+		foreach ($rows as $row) {
+			if ($row[2] != "PRIMARY") {
+				if (isset($arrIndexFound[$row[2]])) {
+					// Multicolumn index
+					$arrField = $arrIndexFound[$row[2]][0];
+					$arrField[$row[3]-1] = $row[4];
+					$arrIndexFound[$row[2]] = array ($arrField, $row[1]);
+				} else {
+					// New Index
+					$arrField = array();
+					$arrField[$row[3]-1] = $row[4];
+					$arrIndexFound[$row[2]] = array ($arrField, $row[1]);
+				}
+			}
+		}
+		reset($arrIndexFound);
+		while (list($strName,$arrValue) = each($arrIndexFound)) {
+			if (isset($this->index_table[$strName])) {
+				//Check modify
+				$arrRep = $this->index_table[$strName];
+				if (($arrValue[1]!=$arrRep[1]) || (implode(",",$arrValue[0])!=implode(",",$arrRep[0]))) {
+					// Modify = Drop & Create
+					$strSQL = "DROP INDEX `".$strName."` ON `".$this->table."`";
+					$this->db->setQuery($strSQL);
+					if ($this->db->query()) {
+						echo "Removed index `".$row[2]."` from table `".$this->table."`.<br/>";
+					} else {
+						echo JText::sprintf('ERROR_DB_STATEMENT',$this->db->getErrorMsg(true)."<br/>");
+					}
+					$strSQL = "CREATE ";
+					if ($arrRep[1] > 0) { $strSQL .= "UNIQUE "; }
+					$strSQL .= "INDEX `".$strName."` ON `".$this->table."` (`".implode("`,`",$arrRep[0])."`)";
+					$this->db->setQuery($strSQL);
+					if ($this->db->query()) {
+						echo "Created index `".$row[2]."` on table `".$this->table."`.<br/>";
+					} else {
+						echo JText::sprintf('ERROR_DB_STATEMENT',$this->db->getErrorMsg(true))."<br/>";
+					}
+				}
+			} else {
+				// Drop
+				$strSQL = "DROP INDEX `".$row[2]."` ON `".$this->table."`";
+				$this->db->setQuery($strSQL);
+				if ($this->db->query()) {
+					echo "Removed index `".$row[2]."` from table `".$this->table."`.<br/>";
+				} else {
+					echo JText::sprintf('ERROR_DB_STATEMENT',$this->db->getErrorMsg(true))."<br/>";
+				}
+			}
+		}
+
+		// add indexes
+		reset($this->index_table);
+		while (list($strName,$arrRep) = each($this->index_table)) {
+			if (!isset($arrIndexFound[$strName])) {
+				$strSQL = "CREATE ";
+				if ($arrRep[1] > 0) { $strSQL .= "UNIQUE "; }
+				$strSQL .= "INDEX `".$strName."` ON `".$this->table."` (`".implode("`,`",$arrRep[0])."`)";
+				$this->db->setQuery($strSQL);
+				if ($this->db->query()) {
+					echo "Created index `".$strName."` on table `".$this->table."`.<br/>";
+				} else {
+					echo JText::sprintf('ERROR_DB_STATEMENT',$this->db->getErrorMsg(true))."<br/>";
 				}
 			}
 		}
 	}
 
 	function uninstall() {
+		// Drop table
 		$strSQL = "DROP TABLE `".$this->table."`";
 		$this->db->setQuery($strSQL);
 		if ($this->db->query()) {
 			echo "Table `".$this->table."` removed.<br/>\n";
 		} else {
-			echo JText::sprintf("ERROR_DB_STATEMENT",$this->db->getErrorMsg(true));
+			echo JText::sprintf('ERROR_DB_STATEMENT', $this->db->getErrorMsg(true)."<br/>");
 		}
 	}
 }
