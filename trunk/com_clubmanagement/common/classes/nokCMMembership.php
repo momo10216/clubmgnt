@@ -28,6 +28,7 @@ class nokCMMembership extends nokTable {
 		$this->addTableColumn("createddate", "datetime", "Y", "", "");
 		$this->addTableColumn("modifiedby", "varchar(50)", "Y", "", "");
 		$this->addTableColumn("modifieddate", "datetime", "Y", "", "");
+		$this->addTableIndex("person_id", "person_id", "N");
 
 		$params = &JComponentHelper::getParams( 'com_clubmanagement' );
 		$picdir = $params->get( 'image_dir' );
@@ -89,6 +90,12 @@ class nokCMMembership extends nokTable {
 		$this->addColumnRepresentation("custom3:custom3:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("custom4:custom4:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
 		$this->addColumnRepresentation("custom5:custom5:#__nokCM_persons:#__nokCM_memberships.person_id=#__nokCM_persons.id", "readonly", "text");
+
+		//Auto set columns
+		$this->addColumnAutoSet("createdby");
+		$this->addColumnAutoSet("createddate");
+		$this->addColumnAutoSet("modifiedby");
+		$this->addColumnAutoSet("modifieddate");
 
 		//No updatebel columns
 		$this->addColumnNoUpdate("id");
