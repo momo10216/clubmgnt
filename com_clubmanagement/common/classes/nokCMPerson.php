@@ -100,7 +100,7 @@ class nokCMPerson extends nokTable {
 		$this->addColumnRepresentation("email", "email", 50, 100);
 		$this->addColumnRepresentation("url", "url", 50, 250);
 		$this->addColumnRepresentation("user_id", "selection", "id", "username", "#__users", "", "username", JText::_( 'SELECTION_NONE'));
-		if (strtolower($picdir) != "none") {
+		if ((strtolower($picdir) != "none") && ($picdir != "")) {
 			$this->addColumnRepresentation("image", "image", $picdir);
 		}
 		$this->addColumnRepresentation("custom1", "text", 50, 255);
@@ -113,6 +113,12 @@ class nokCMPerson extends nokTable {
 		$this->addColumnRepresentation("createddate", "readonly", "datetime", "CurrentDate");
 		$this->addColumnRepresentation("modifiedby", "readonly", "text", "CurrentUser");
 		$this->addColumnRepresentation("modifieddate", "readonly", "datetime", "CurrentDate");
+
+		//Auto set columns
+		$this->addColumnAutoSet("createdby");
+		$this->addColumnAutoSet("createddate");
+		$this->addColumnAutoSet("modifiedby");
+		$this->addColumnAutoSet("modifieddate");
 
 		//No updatebel columns
 		$this->addColumnNoUpdate("id");
@@ -155,7 +161,7 @@ class nokCMPerson extends nokTable {
 		$this->addColumnDisplay("show", "email", JText::_( 'TABLE_NOKCM_PERSONS.EMAIL'));
 		$this->addColumnDisplay("show", "url", JText::_( 'TABLE_NOKCM_PERSONS.URL'));
 		$this->addColumnDisplay("show", "user_id", JText::_( 'TABLE_NOKCM_PERSONS.USER_ID'));
-		if (strtolower($picdir) != "none") {
+		if ((strtolower($picdir) != "none") && ($picdir != "")) {
 			$this->addColumnDisplay("show", "image", JText::_( 'TABLE_NOKCM_PERSONS.IMAGE'));
 		}
 		$this->addColumnDisplay("show", "custom1", JText::_( $params->get( 'custom1' )));
@@ -191,7 +197,7 @@ class nokCMPerson extends nokTable {
 		$this->addColumnDisplay("edit", "email", JText::_( 'TABLE_NOKCM_PERSONS.EMAIL'));
 		$this->addColumnDisplay("edit", "url", JText::_( 'TABLE_NOKCM_PERSONS.URL'));
 		$this->addColumnDisplay("edit", "user_id", JText::_( 'TABLE_NOKCM_PERSONS.USER_ID'));
-		if (strtolower($picdir) != "none") {
+		if ((strtolower($picdir) != "none") && ($picdir != "")) {
 			$this->addColumnDisplay("edit", "image", JText::_( 'TABLE_NOKCM_PERSONS.IMAGE'));
 		}
 		$this->addColumnDisplay("edit", "custom1", JText::_( $params->get( 'custom1' )));
@@ -226,7 +232,7 @@ class nokCMPerson extends nokTable {
 		$this->addColumnDisplay("view", "email", JText::_( 'TABLE_NOKCM_PERSONS.EMAIL'));
 		$this->addColumnDisplay("view", "url", JText::_( 'TABLE_NOKCM_PERSONS.URL'));
 		$this->addColumnDisplay("view", "user_id", JText::_( 'TABLE_NOKCM_PERSONS.USER_ID'));
-		if (strtolower($picdir) != "none") {
+		if ((strtolower($picdir) != "none") && ($picdir != "")) {
 			$this->addColumnDisplay("view", "image", JText::_( 'TABLE_NOKCM_PERSONS.IMAGE'));
 		}
 		$this->addColumnDisplay("view", "custom1", JText::_( $params->get( 'custom1' )));
@@ -265,7 +271,9 @@ class nokCMPerson extends nokTable {
 		$this->addExportColumn("mobile","Y");
 		$this->addExportColumn("email","Y");
 		$this->addExportColumn("url","Y");
-		$this->addExportColumn("image","Y");
+		if ((strtolower($picdir) != "none") && ($picdir != "")) {
+			$this->addExportColumn("image","Y");
+		}
 		$this->addExportColumn("custom1","Y");
 		$this->addExportColumn("custom2","Y");
 		$this->addExportColumn("custom3","Y");

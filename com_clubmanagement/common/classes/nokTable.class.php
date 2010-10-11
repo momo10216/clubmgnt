@@ -36,6 +36,7 @@ class nokTable
 	var $column_noupdate = array();
 	var $column_table = array();
 	var $index_table = array();
+	var $column_autoset = array();
 	var $csv_encode_charlist = array("%",";","\r","\n");
 
 	function nokTable ($strTable, $objectname) {
@@ -180,6 +181,10 @@ CurrentIP
 
 	function addColumnNoUpdate($strColumn) {
 		$this->column_noupdate[$strColumn] = "Y";
+	}
+
+	function addColumnAutoSet($strColumn) {
+		$this->column_autoset[$strColumn] = "Y";
 	}
 
 	function addDeleteRule($type, $localColumn, $extTable, $extColumn) {
@@ -846,6 +851,12 @@ CurrentIP
 	}
 
 	function upsert($values, $id=0) {
+		reset($this->column_autoset);
+		while (list($strColumn,$strValue) = each($this->column_autoset)) {
+			if (!isset($values[$strColumn])) {
+				$values[$strColumn] = $this->check_values($strColumn, "", false);
+			}
+		}
 		if ($id != "" && $id != 0) {
 			//Update
 			$strSQL = "UPDATE `" . $this->table . "` SET ";
@@ -881,7 +892,6 @@ CurrentIP
 		}
 		$this->db->setQuery( $strSQL );
 		if (!$this->db->query()) {
-			nokCM_error(JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true)), false);
 			return false;
 		}
 		if (!$id) {
@@ -931,7 +941,11 @@ CurrentIP
 			}
 		}
 
-		return $this->upsert($values, $id);
+		$result = $this->upsert($values, $id);
+		if ($result === false) {
+			nokCM_error(JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true)), false);
+		}
+		return $result;
 	}
 
 	function showdetail($id, $cols=array())
@@ -1366,12 +1380,6 @@ CurrentIP
 				$id = $this->db->loadResult();
 			}
 
-			// Add standard readonly fields
-			$values["createdby"] = $this->check_values("createdby", "", false);
-			$values["createddate"] = $this->check_values("createddate", "", false);
-			$values["modifiedby"] = $this->check_values("modifiedby", "", false);
-			$values["modifieddate"] = $this->check_values("modifieddate", "", false);
-
 			// Upsert
 			if ($id > 0) {
 				$action = "update";
@@ -1631,12 +1639,14 @@ CurrentIP
 				break;
 			case 'image':
 				jimport( 'joomla.filesystem.folder' );
-				$files = JFolder::files(JPATH_SITE.DS.$rep[1]);
 				$options = array(JHTML::_('select.option',  '', '- '. JText::_( 'SELECT IMAGE' ) .' -' ));
-				$allowed_extensions =  "bmp|gif|jpg|png";
-				foreach ( $files as $file ) {
-					if (eregi( $allowed_extensions, $file )) {
-						$options[] = JHTML::_('select.option',  $file );
+				if (JFolder::exists(JPATH_SITE.DS.$rep[1])) {
+					$files = JFolder::files(JPATH_SITE.DS.$rep[1]);
+					$allowed_extensions =  "bmp|gif|jpg|png";
+					foreach ( $files as $file ) {
+						if (eregi( $allowed_extensions, $file )) {
+							$options[] = JHTML::_('select.option',  $file );
+						}
 					}
 				}
 
@@ -1819,7 +1829,7 @@ CurrentIP
 			if ($this->db->query()) {
 				echo "Table `".$this->table."` added.<br/>";
 			} else {
-				echo JText::sprintf('ERROR_DB_STATEMENT',$this->db->getErrorMsg(true));
+				echo 'Error: '.$this->db->getErrorMsg(true)."<br/>";
 			}
 		} else {
 			// Table exist -> alter
@@ -1856,7 +1866,7 @@ CurrentIP
 						if ($this->db->query()) {
 							echo "Modified field `".$row[0]."` on table `".$this->table."`.<br/>";
 						} else {
-							echo JText::sprintf('ERROR_DB_STATEMENT',$this->db->getErrorMsg(true));
+							echo "Error: ".$this->db->getErrorMsg(true)."<br/>";
 						}
 					}
 				} else {
@@ -1866,7 +1876,7 @@ CurrentIP
 					if ($this->db->query()) {
 						echo "Removed field `".$row[0]."` from table `".$this->table."`.<br/>";
 					} else {
-						echo JText::sprintf('ERROR_DB_STATEMENT',$this->db->getErrorMsg(true));
+						echo "Error: ".$this->db->getErrorMsg(true)."<br/>";
 					}
 				}
 			}
@@ -1897,7 +1907,7 @@ CurrentIP
 					if ($this->db->query()) {
 						echo "Added field `".$strColumn."` on table `".$this->table."`.<br/>";
 					} else {
-						echo JText::sprintf('ERROR_DB_STATEMENT',$this->db->getErrorMsg(true));
+						echo "Error: ".$this->db->getErrorMsg(true)."<br/>";
 					}
 				}
 			}
@@ -1934,7 +1944,7 @@ CurrentIP
 					if ($this->db->query()) {
 						echo "Removed index `".$row[2]."` from table `".$this->table."`.<br/>";
 					} else {
-						echo JText::sprintf('ERROR_DB_STATEMENT',$this->db->getErrorMsg(true)."<br/>");
+						echo "Error: ",$this->db->getErrorMsg(true)."<br/>";
 					}
 					$strSQL = "CREATE ";
 					if ($arrRep[1] > 0) { $strSQL .= "UNIQUE "; }
@@ -1943,7 +1953,7 @@ CurrentIP
 					if ($this->db->query()) {
 						echo "Created index `".$row[2]."` on table `".$this->table."`.<br/>";
 					} else {
-						echo JText::sprintf('ERROR_DB_STATEMENT',$this->db->getErrorMsg(true))."<br/>";
+						echo "Error: ".$this->db->getErrorMsg(true)."<br/>";
 					}
 				}
 			} else {
@@ -1953,7 +1963,7 @@ CurrentIP
 				if ($this->db->query()) {
 					echo "Removed index `".$row[2]."` from table `".$this->table."`.<br/>";
 				} else {
-					echo JText::sprintf('ERROR_DB_STATEMENT',$this->db->getErrorMsg(true))."<br/>";
+					echo "Error: ".$this->db->getErrorMsg(true)."<br/>";
 				}
 			}
 		}
@@ -1969,7 +1979,7 @@ CurrentIP
 				if ($this->db->query()) {
 					echo "Created index `".$strName."` on table `".$this->table."`.<br/>";
 				} else {
-					echo JText::sprintf('ERROR_DB_STATEMENT',$this->db->getErrorMsg(true))."<br/>";
+					echo "Error :".$this->db->getErrorMsg(true)."<br/>";
 				}
 			}
 		}
@@ -1982,7 +1992,7 @@ CurrentIP
 		if ($this->db->query()) {
 			echo "Table `".$this->table."` removed.<br/>\n";
 		} else {
-			echo JText::sprintf('ERROR_DB_STATEMENT', $this->db->getErrorMsg(true)."<br/>");
+			echo "Error: ".$this->db->getErrorMsg(true)."<br/>";
 		}
 	}
 }
