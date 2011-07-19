@@ -1,0 +1,49 @@
+Export
+------
+- Define fields for export (like list).
+- Sort criteria (urgend for person: first all with no hh_person_id)
+
+Import
+------
+use the same fields like export
+Define key primary key:
+	- Person: Firstname, Lastname, Address, City, Birthday
+	- Membership: person_id, member type, start date
+	- Board: person_id, board job, start date
+
+Define foreign keys:
+	local id field
+	remote table
+	remote id field
+	list of (local field name:remote field name)	
+
+Steps:
+- Get data
+- Search Foreign keys
+- Search if exists already (primary key):
+	- insert if primary key not exist
+	- update if primary key exist
+
+
+Additional Idea
+---------------
+- Introduce GUID as Integration Id (read only, not updateable)
+function guid(){
+    if (function_exists('com_create_guid')){
+        return com_create_guid();
+    }else{
+        mt_srand((double)microtime()*10000);//optional for php 4.2.0 and up.
+        $charid = strtoupper(md5(uniqid(rand(), true)));
+        $hyphen = chr(45);// "-"
+        $uuid = chr(123)// "{"
+                .substr($charid, 0, 8).$hyphen
+                .substr($charid, 8, 4).$hyphen
+                .substr($charid,12, 4).$hyphen
+                .substr($charid,16, 4).$hyphen
+                .substr($charid,20,12)
+                .chr(125);// "}"
+        return $uuid;
+    }
+}
+->addIndex (install/uninstall)
+->init added fields (GUID)
