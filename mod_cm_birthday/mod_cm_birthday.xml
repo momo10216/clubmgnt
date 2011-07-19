@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <install type="module" version="1.5.0" method="upgrade">
     <name>ClubManagement Birthday</name>
-    <creationDate>10/18/2009</creationDate>
+    <creationDate>July 2011</creationDate>
     <author>Norbert Kuemin</author>
 	<authorEmail>momo_102@bluemail.ch</authorEmail>
-	<copyright>(C) 2009 Norbert Kuemin</copyright>
+	<copyright>(C) 2011 Norbert Kuemin</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-    <version>0.92</version>
+    <version>1.0</version>
     <description>Show birthday of members.</description>
     <files>
 		<filename module="mod_cm_birthday">mod_cm_birthday.php</filename>
