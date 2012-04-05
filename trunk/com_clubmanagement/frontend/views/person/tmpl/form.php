@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		0.92
+* @version		2.5.0
 * @package		Joomla
 * @subpackage	ClubManagement-Membership
-* @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
+* @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
 * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
 * @author		Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
@@ -11,33 +11,28 @@
 
 defined('_JEXEC') or die('Restricted access'); // no direct access
 
-if ($this->params_menu->get("allow_edit") == "0")
-{
+if ($this->params_menu->get("allow_edit") == "0") {
 	// Not allowed to edit
 	nokCM_error(JText::_( 'ERROR_PERSON_EDIT_NOT_ALLOWED'), true); 
 	return;
 }
 
-function show_list ($curobj)
-{
+function show_list ($curobj) {
 	// Init
 	$uri = JFactory::getURI();
 
 	// Get columns
 	$cols = array();
 	$cols[] = $curobj->cmobject->getSetting("Primary_Key");
-	for ($i=1;$i<=5;$i++)
-	{
+	for ($i=1;$i<=5;$i++) {
 		$field = "column_".$i;
 		$cols[] = $curobj->params_menu->get( $field );
 	}
 
 	// Calc sort
-	if (count($cols)>0)
-	{
+	if (count($cols)>0) {
 		$sort="";
-		for ($i=1;$i<=5;$i++)
-		{
+		for ($i=1;$i<=5;$i++) {
 			if ($cols[$i]) $sort .= ",`".$cols[$i]."`";
 		}
 		if (strlen($sort) > 0) $sort = substr($sort,1);
@@ -50,18 +45,15 @@ function show_list ($curobj)
 	$data = $curobj->cmobject->getViewData($cols,$where,$sort);
 
 	//start output
-	if ($this->data)
-	{
+	if ($this->data) {
 		echo "<p align=\"center\">\n";
-		foreach($data as $row)
-		{
+		foreach($data as $row) {
 			//Calc url
 			$uri->setVar("id",$row[0]);
 			$url = $uri->toString();
 			echo "<a href=\"".$url."\">";
 			$text="";
-			for ($i=1;$i<=5;$i++)
-			{
+			for ($i=1;$i<=5;$i++) {
 				if ($row[$i]) $text .= " ".$row[$i];
 			}
 			echo trim($text);
@@ -71,13 +63,11 @@ function show_list ($curobj)
 	}
 }
 
-function no_record ()
-{
+function no_record () {
 	nokCM_error(JText::_( 'ERROR_PERSON_EDIT_NO_RECORD'), true); 
 }
 
-function do_edit ($curobj, $id)
-{
+function do_edit ($curobj, $id) {
 	// Get columns
 	$confcols = $curobj->params_menu->get( "allow_columns" );
 	if (!is_array($confcols)) {
@@ -87,8 +77,7 @@ function do_edit ($curobj, $id)
 	}
 	$cols = array();
 	$column_edit = $curobj->cmobject->column_edit;
-	foreach($confcols as $confcol)
-	{
+	foreach($confcols as $confcol) {
 		$cols[$confcol] = $column_edit[$confcol];
 	}
 	$uri = JFactory::getURI();
@@ -96,10 +85,10 @@ function do_edit ($curobj, $id)
 ?>
 <p align="center">
 	<button type="button" onclick="submitbutton('save')">
-		<?php echo JText::_('Save') ?>
+		<?php echo JText::_('SAVE') ?>
 	</button>
 	<button type="button" onclick="submitbutton('cancel')">
-		<?php echo JText::_('Cancel') ?>
+		<?php echo JText::_('CANCEL') ?>
 	</button>
 </p>
 <?php
@@ -116,8 +105,7 @@ function do_save ($curobj)
 	}
 	$cols = array();
 	$column_edit = $curobj->cmobject->column_edit;
-	foreach($confcols as $confcol)
-	{
+	foreach($confcols as $confcol) {
 		$cols[$confcol] = $column_edit[$confcol];
 	}
 	$savecols = $cols;
@@ -130,8 +118,7 @@ function do_save ($curobj)
 
 global $mainframe;
 $task = JRequest::getVar("task");
-switch ($task)
-{
+switch ($task) {
 	case "save":
 		do_save($this);
 		break;
@@ -144,12 +131,9 @@ switch ($task)
 		$id = $uri->getVar('id');
 		if (!$id) $id = JRequest::getVar("id");
 		//Count records
-		if (!$id)
-		{
+		if (!$id) {
 			$id_list = $this->cmobject->user_record_ids();
-		}
-		else
-		{
+		} else {
 			$id_list = $this->cmobject->user_record_ids($id);
 		}
 		if (count($id_list) < 1) no_record();

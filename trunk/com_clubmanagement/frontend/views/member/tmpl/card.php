@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		0.92
+* @version		2.5.0
 * @package		Joomla
 * @subpackage	ClubManagement-Board
-* @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
+* @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
 * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
 * @author		Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
@@ -13,8 +13,7 @@ defined('_JEXEC') or die('Restricted access'); // no direct access
 $FieldPerLine=4;
 $Line=5;
 $details = false;
-if ($this->params_menu->get( 'detail_enable' ) != "0")
-{
+if ($this->params_menu->get( 'detail_enable' ) != "0") {
 	$details = true;
 	$curi =& JFactory::getURI();
 	$uri =& JURI::getInstance( $curi->toString() );
@@ -32,8 +31,7 @@ $pos = array();
 if ($this->params_menu->get( "column_image" ) != "") {
 	$cols[] = $this->params_menu->get( "column_image" );
 }
-for ($i=1;$i<=20;$i++)
-{
+for ($i=1;$i<=20;$i++) {
 	$field = "column_".$i;
 	if ($this->params_menu->get( $field ) != "") {
 		$key = intval(($i-1)/$FieldPerLine)."_".bcmod(($i-1),$FieldPerLine);
@@ -46,8 +44,7 @@ for ($i=1;$i<=20;$i++)
  * Get sort
  */
 $sort = "";
-for ($i=1;$i<=4;$i++)
-{
+for ($i=1;$i<=4;$i++) {
 	$field1 = "sort_column_".$i;
 	$field2 = "sort_direction_".$i;
 	if ($this->params_menu->get($field1) != "") {
@@ -60,26 +57,21 @@ if ($sort != "") $sort = substr($sort,1);
  * Calculate where
  */
 $where = "";
-if ($this->params_menu->get( 'memberstate' ) == "current")
-{
+if ($this->params_menu->get( 'memberstate' ) == "current") {
 	$where = "`end` IS NULL";
 }
-if ($this->params_menu->get( 'memberstate' ) == "closed")
-{
+if ($this->params_menu->get( 'memberstate' ) == "closed") {
 	$where = "`end` IS NOT NULL";
 }
-if ($this->params_menu->get( 'membertype' ) != "*")
-{
+if ($this->params_menu->get( 'membertype' ) != "*") {
 	if ($where != "") { $where = $where . " AND "; } 
 	$where = $where . "`type`='".$this->params_menu->get( 'membertype' )."'";
 }
-if ($this->params_menu->get( 'publicity' ) == "published")
-{
+if ($this->params_menu->get( 'publicity' ) == "published") {
 	if ($where != "") { $where = $where . " AND "; } 
 	$where .= "`published`=1";
 }
-if ($this->params_menu->get( 'publicity' ) == "unpublished")
-{
+if ($this->params_menu->get( 'publicity' ) == "unpublished") {
 	if ($where != "") { $where = $where . " AND "; } 
 	$where .= "`published`=0";
 }
@@ -87,8 +79,7 @@ if ($this->params_menu->get( 'publicity' ) == "unpublished")
 /*
  * Get data
  */
-if ($details)
-{
+if ($details) {
 	$cols[] = "person_id";
 }
 $this->data = $this->cmobject->getViewData($cols,$where,$sort);
@@ -96,17 +87,14 @@ $this->data = $this->cmobject->getViewData($cols,$where,$sort);
 /*
  * Display
  */
-if ($details)
-{
+if ($details) {
 	JHTML::_('behavior.modal');
 }
 if ($this->params->get( "card_center") == "1") echo "<center>\n";
-if ($this->data)
-{
+if ($this->data) {
 	foreach($this->data as $row) {
 		$cpos=0;
-		if ($details)
-		{
+		if ($details) {
 			$id = array_pop($row);
 			$uri->setVar("id",$id);
 		}
@@ -120,16 +108,14 @@ if ($this->data)
 				if (strlen($pos[$key]) > 0) {
 					if ($lines[$i]) { $lines[$i] .= " "; }
 					$data = $this->cmobject->_displayField($cols[$pos[$key]], $row[$pos[$key]]);
-					if ($details && (($this->params_menu->get( 'detail_column_link' ) == "") || ($this->params_menu->get( 'detail_column_link' ) == $cols[$pos[$key]])))
-					{
+					if ($details && (($this->params_menu->get( 'detail_column_link' ) == "") || ($this->params_menu->get( 'detail_column_link' ) == $cols[$pos[$key]]))) {
 						$data = "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$this->params->get( 'detail_width' ).", y: ".$this->params->get( 'detail_height' )."}}\">".$data."</a>";
 					}
 					$lines[$i] .= $data;
 				}
 			}
 		}
-		switch ($this->params_menu->get( "border" ))
-		{
+		switch ($this->params_menu->get( "border" )) {
 			case "normal": //standard border
 				echo "<table border=\"1\">\n";
 				break;
@@ -140,8 +126,7 @@ if ($this->data)
 				echo "<table>\n";
 				break;
 		}
-		switch ($this->params_menu->get( "picpos" ))
-		{
+		switch ($this->params_menu->get( "picpos" )) {
 			case "right": //picture on the left side
 				echo "<tr valign=\"top\">\n";
 				echo "<td align=\"".$this->params_menu->get( "textalign" )."\">";

@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		0.92
+* @version		2.5.0
 * @package		Joomla
 * @subpackage	ClubManagement-Board
-* @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
+* @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
 * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
 * @author		Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
@@ -28,14 +28,12 @@ class clubmanagementViewboard extends JView
 
 	function display($tpl = null)
 	{
-		global $mainframe;
-		
 		/*
 		 * Init variables
 		 */
 		$this->user		=& JFactory::getUser();
 		$this->document	=& JFactory::getDocument();
-		$this->params	=& $mainframe->getParams();
+		$this->params = &JComponentHelper::getParams( 'com_clubmanagement' );
 		$menus	= &JSite::getMenu();
 		$this->menu	= $menus->getActive();
 		$this->cmobject = new nokCMBoard("com_clubmanagement");

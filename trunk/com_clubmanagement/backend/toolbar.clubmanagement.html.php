@@ -42,7 +42,7 @@ class TOOLBAR_clubmanagement
 			default:
 				break;
 		}
-		JToolBarHelper::title(  JText::_( 'CLUB MANAGEMENT' ) );
+		JToolBarHelper::title(  JText::_( 'CLUB_MANAGEMENT' ) );
 		if ($cmobject) {
 			if ($cmobject->isToolbarEntrySet("publish")) JToolBarHelper::publishList();
 			if ($cmobject->isToolbarEntrySet("unpublish")) JToolBarHelper::unpublishList();
@@ -73,7 +73,7 @@ class TOOLBAR_clubmanagement
 
 		$text 	= ( $edit ? JText::_( 'EDIT' ) : JText::_( 'NEW' ) );
 
-		JToolBarHelper::title(  JText::_( 'CLUB MANAGEMENT' ).': <small><small>[ '. $text.' ]</small></small>' );
+		JToolBarHelper::title(  JText::_( 'CLUB_MANAGEMENT' ).': <small><small>[ '. $text.' ]</small></small>' );
 		JToolBarHelper::save();
 		JToolBarHelper::apply();
 		if ($edit) {

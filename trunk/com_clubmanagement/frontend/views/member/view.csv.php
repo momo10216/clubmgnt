@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		0.92
+* @version		2.5.0
 * @package		Joomla
 * @subpackage	ClubManagement-Membership
-* @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
+* @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
 * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
 * @author		Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
@@ -15,8 +15,7 @@ defined('_JEXEC') or die( 'Restricted access' );
 jimport( 'joomla.application.component.view' );
 require_once( JPATH_COMPONENT_ADMINISTRATOR.DS.'classes'.DS.'nokCMMembership.php');
 
-class clubmanagementViewmember extends JView
-{
+class clubmanagementViewmember extends JView {
 	var $user;
 	var $document;
 	var $params;
@@ -36,13 +35,11 @@ class clubmanagementViewmember extends JView
 	}
 
 	function display($tpl = null)   {
-		global $mainframe;
-		
 		/*
 		 * Init variables
 		 */
 		$this->user		=& JFactory::getUser();
-		$this->params	=& $mainframe->getParams();
+		$this->params = &JComponentHelper::getParams( 'com_clubmanagement' );
 		$menus	= &JSite::getMenu();
 		$this->menu	= $menus->getActive();
 		$cmobject = new nokCMMembership("com_clubmanagement");
@@ -63,8 +60,7 @@ class clubmanagementViewmember extends JView
 		if ($this->params_menu->get( 'show_header' ) != "0") {
 			$content .= $this->_Array2CSV($this->header)."\n";
 		}
-		if ($this->data)
-		{
+		if ($this->data) {
 			foreach($this->data as $row) {
 				$content .= $this->_Array2CSV($row)."\n";
 			}

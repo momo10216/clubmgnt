@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		0.92
+* @version		2.5.0
 * @package		Joomla
 * @subpackage	ClubManagement-Board
-* @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
+* @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
 * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
 * @author		Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
@@ -14,8 +14,7 @@ defined('_JEXEC') or die('Restricted access'); // no direct access
  * Get columns
  */
 $cols = array();
-for ($i=1;$i<=20;$i++)
-{
+for ($i=1;$i<=20;$i++) {
 	$field = "column_".$i;
 	$cols[] = $this->params_menu->get( $field );
 }
@@ -24,21 +23,17 @@ for ($i=1;$i<=20;$i++)
  * Calculate where
  */
 $where = "";
-if ($this->params_menu->get( 'boardstate' ) == "current")
-{
+if ($this->params_menu->get( 'boardstate' ) == "current") {
 	$where = "`end` IS NULL";
 }
-if ($this->params_menu->get( 'boardstate' ) == "closed")
-{
+if ($this->params_menu->get( 'boardstate' ) == "closed") {
 	$where = "`end` IS NOT NULL";
 }
-if ($this->params_menu->get( 'publicity' ) == "published")
-{
+if ($this->params_menu->get( 'publicity' ) == "published") {
 	if ($where != "") { $where = $where . " AND "; } 
 	$where .= "`published`=1";
 }
-if ($this->params_menu->get( 'publicity' ) == "unpublished")
-{
+if ($this->params_menu->get( 'publicity' ) == "unpublished") {
 	if ($where != "") { $where = $where . " AND "; } 
 	$where .= "`published`=0";
 }
