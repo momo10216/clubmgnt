@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="PERSON DETAIL LAYOUT">
+	<layout title="PERSON_DETAIL_LAYOUT">
 		<message>
-			<![CDATA[PERSON DETAIL LAYOUT DESCRIPTION]]>
+			<![CDATA[PERSON_DETAIL_LAYOUT_DESCRIPTION]]>
 		</message>
 	</layout>
 	<state>
-		<name>CLUB MANAGEMENT PERSON DETAIL LAYOUT</name>
-		<description>CLUB MANAGEMENT PERSON DETAIL LAYOUT DESCRIPTION</description>
+		<name>CLUB_MANAGEMENT_PERSON_DETAIL_LAYOUT</name>
+		<description>CLUB_MANAGEMENT_PERSON_DETAIL_LAYOUT_DESCRIPTION</description>
 		<url addpath="/administrator/components/com_clubmanagement/elements">
-			<param name="id" type="cmpersonrecord" default="" label="PERSON LABEL" description="PERSON DESCRIPTION"/>
+			<param name="id" type="cmpersonrecord" default="" label="PERSON_LABEL" description="PERSON_DESCRIPTION"/>
 		</url>
 		<params />
 		<advanced />

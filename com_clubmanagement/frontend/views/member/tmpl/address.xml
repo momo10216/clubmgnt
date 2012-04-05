@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="ADDRESS LIST LAYOUT">
+	<layout title="ADDRESS_LIST_LAYOUT">
 		<message>
-			<![CDATA[ADDRESS LIST LAYOUT DESCRIPTION]]>
+			<![CDATA[ADDRESS_LIST_LAYOUT_DESCRIPTION]]>
 		</message>
 	</layout>
 	<state>
-		<name>CLUB MANAGEMENT MEMBERSHIP ADDRESS LIST LAYOUT</name>
-		<description>CLUB MANAGEMENT MEMBERSHIP ADDRESS LIST LAYOUT DESCRIPTION</description>
+		<name>CLUB_MANAGEMENT_MEMBERSHIP_ADDRESS_LIST_LAYOUT</name>
+		<description>CLUB_MANAGEMENT_MEMBERSHIP_ADDRESS_LIST_LAYOUT_DESCRIPTION</description>
 		<url>
-			<param name="format" type="list" default="html" label="OUTPUT FORMAT LABEL" description="OUTPUT FORMAT DESCRIPTION" >
+			<param name="format" type="list" default="html" label="OUTPUT_FORMAT_LABEL" description="OUTPUT_FORMAT_DESCRIPTION" >
 				<option value="csv">CSV (Excel)</option>
 				<option value="html">HTML</option>
 				<!-- <option value="pdf">PDF</option> -->
@@ -17,96 +17,96 @@
 		</url>
 		<params addpath="/administrator/components/com_clubmanagement/elements">
 			<param name="@spacer" type="spacer" default="" label="" description="" />
-			<param name="membertype" type="cmmembertype" label="MEMBERSHIP TYPE LABEL" description="MEMBERSHIP TYPE DESCRIPTION"/>
-			<param name="memberstate" type="list" default="current" label="MEMBERSHIP STATE LABEL" description="MEMBERSHIP STATE DESCRIPTION">
+			<param name="membertype" type="cmmembertype" label="MEMBERSHIP_TYPE_LABEL" description="MEMBERSHIP_TYPE_DESCRIPTION"/>
+			<param name="memberstate" type="list" default="current" label="MEMBERSHIP_STATE_LABEL" description="MEMBERSHIP_STATE_DESCRIPTION">
 				<option value="current">Current</option>
 				<option value="closed">Terminated</option>
 				<option value="all">All</option>
 			</param>
-			<param name="publicity" type="list" default="published" label="PUBLICITY STATE LABEL" description="PUBLICITY STATE DESCRIPTION">
+			<param name="publicity" type="list" default="published" label="PUBLICITY_STATE_LABEL" description="PUBLICITY_STATE_DESCRIPTION">
 				<option value="all">All</option>
 				<option value="published">Published</option>
 				<option value="unpublished">Unpublished</option>
 			</param>
 			<param name="@spacer" type="spacer" default="" label="" description="" />
-			<param name="show_header" type="radio" default="1" label="SHOW HEADER LABEL" description="SHOW HEADER DESCRIPTION">
+			<param name="show_header" type="radio" default="1" label="SHOW_HEADER_LABEL" description="SHOW_HEADER_DESCRIPTION">
 				<option value="0">No</option>
 				<option value="1">Yes</option>
 			</param>
-			<param name="display_empty" type="radio" default="0" label="DISPLAY EMPTY LINES LABEL" description="DISPLAY EMPTY LINES DESCRIPTION">
+			<param name="display_empty" type="radio" default="0" label="DISPLAY_EMPTY_LINES_LABEL" description="DISPLAY_EMPTY_LINES_DESCRIPTION">
 				<option value="0">No</option>
 				<option value="1">Yes</option>
 			</param>
 			<param name="@spacer" type="spacer" default="" label="" description="" />
-			<param name="column_1" type="cmmembercolumn" columntype="view" default="" label="LINE 1 FIELD 1 LABEL" description="LINE 1 FIELD 1 DESCRIPTION"/>
-			<param name="column_2" type="cmmembercolumn" columntype="view" default="" label="LINE 1 FIELD 2 LABEL" description="LINE 1 FIELD 2 DESCRIPTION"/>
-			<param name="column_3" type="cmmembercolumn" columntype="view" default="" label="LINE 1 FIELD 3 LABEL" description="LINE 1 FIELD 3 DESCRIPTION"/>
-			<param name="column_4" type="cmmembercolumn" columntype="view" default="" label="LINE 1 FIELD 4 LABEL" description="LINE 1 FIELD 4 DESCRIPTION"/>
+			<param name="column_1" type="cmmembercolumn" columntype="view" default="" label="LINE_1_FIELD_1_LABEL" description="LINE_1_FIELD_1_DESCRIPTION"/>
+			<param name="column_2" type="cmmembercolumn" columntype="view" default="" label="LINE_1_FIELD_2_LABEL" description="LINE_1_FIELD_2_DESCRIPTION"/>
+			<param name="column_3" type="cmmembercolumn" columntype="view" default="" label="LINE_1_FIELD_3_LABEL" description="LINE_1_FIELD_3_DESCRIPTION"/>
+			<param name="column_4" type="cmmembercolumn" columntype="view" default="" label="LINE_1_FIELD_4_LABEL" description="LINE_1_FIELD_4_DESCRIPTION"/>
 			<param name="@spacer" type="spacer" default="" label="" description="" />
-			<param name="column_5" type="cmmembercolumn" columntype="view" default="" label="LINE 2 FIELD 1 LABEL" description="LINE 2 FIELD 1 DESCRIPTION"/>
-			<param name="column_6" type="cmmembercolumn" columntype="view" default="" label="LINE 2 FIELD 2 LABEL" description="LINE 2 FIELD 2 DESCRIPTION"/>
-			<param name="column_7" type="cmmembercolumn" columntype="view" default="" label="LINE 2 FIELD 3 LABEL" description="LINE 2 FIELD 3 DESCRIPTION"/>
-			<param name="column_8" type="cmmembercolumn" columntype="view" default="" label="LINE 2 FIELD 4 LABEL" description="LINE 2 FIELD 4 DESCRIPTION"/>
+			<param name="column_5" type="cmmembercolumn" columntype="view" default="" label="LINE_2_FIELD_1_LABEL" description="LINE_2_FIELD_1_DESCRIPTION"/>
+			<param name="column_6" type="cmmembercolumn" columntype="view" default="" label="LINE_2_FIELD_2_LABEL" description="LINE_2_FIELD_2_DESCRIPTION"/>
+			<param name="column_7" type="cmmembercolumn" columntype="view" default="" label="LINE_2_FIELD_3_LABEL" description="LINE_2_FIELD_3_DESCRIPTION"/>
+			<param name="column_8" type="cmmembercolumn" columntype="view" default="" label="LINE_2_FIELD_4_LABEL" description="LINE_2_FIELD_4_DESCRIPTION"/>
 			<param name="@spacer" type="spacer" default="" label="" description="" />
-			<param name="column_9" type="cmmembercolumn" columntype="view" default="" label="LINE 3 FIELD 1 LABEL" description="LINE 3 FIELD 1 DESCRIPTION"/>
-			<param name="column_10" type="cmmembercolumn" columntype="view" default="" label="LINE 3 FIELD 2 LABEL" description="LINE 3 FIELD 2 DESCRIPTION"/>
-			<param name="column_11" type="cmmembercolumn" columntype="view" default="" label="LINE 3 FIELD 3 LABEL" description="LINE 3 FIELD 3 DESCRIPTION"/>
-			<param name="column_12" type="cmmembercolumn" columntype="view" default="" label="LINE 3 FIELD 4 LABEL" description="LINE 3 FIELD 4 DESCRIPTION"/>
+			<param name="column_9" type="cmmembercolumn" columntype="view" default="" label="LINE_3_FIELD_1_LABEL" description="LINE_3_FIELD_1_DESCRIPTION"/>
+			<param name="column_10" type="cmmembercolumn" columntype="view" default="" label="LINE_3_FIELD_2_LABEL" description="LINE_3_FIELD_2_DESCRIPTION"/>
+			<param name="column_11" type="cmmembercolumn" columntype="view" default="" label="LINE_3_FIELD_3_LABEL" description="LINE_3_FIELD_3_DESCRIPTION"/>
+			<param name="column_12" type="cmmembercolumn" columntype="view" default="" label="LINE_3_FIELD_4_LABEL" description="LINE_3_FIELD_4_DESCRIPTION"/>
 			<param name="@spacer" type="spacer" default="" label="" description="" />
-			<param name="column_13" type="cmmembercolumn" columntype="view" default="" label="LINE 4 FIELD 1 LABEL" description="LINE 4 FIELD 1 DESCRIPTION"/>
-			<param name="column_14" type="cmmembercolumn" columntype="view" default="" label="LINE 4 FIELD 2 LABEL" description="LINE 4 FIELD 2 DESCRIPTION"/>
-			<param name="column_15" type="cmmembercolumn" columntype="view" default="" label="LINE 4 FIELD 3 LABEL" description="LINE 4 FIELD 3 DESCRIPTION"/>
-			<param name="column_16" type="cmmembercolumn" columntype="view" default="" label="LINE 4 FIELD 4 LABEL" description="LINE 4 FIELD 4 DESCRIPTION"/>
+			<param name="column_13" type="cmmembercolumn" columntype="view" default="" label="LINE_4_FIELD_1_LABEL" description="LINE_4_FIELD_1_DESCRIPTION"/>
+			<param name="column_14" type="cmmembercolumn" columntype="view" default="" label="LINE_4_FIELD_2_LABEL" description="LINE_4_FIELD_2_DESCRIPTION"/>
+			<param name="column_15" type="cmmembercolumn" columntype="view" default="" label="LINE_4_FIELD_3_LABEL" description="LINE_4_FIELD_3_DESCRIPTION"/>
+			<param name="column_16" type="cmmembercolumn" columntype="view" default="" label="LINE_4_FIELD_4_LABEL" description="LINE_4_FIELD_4_DESCRIPTION"/>
 			<param name="@spacer" type="spacer" default="" label="" description="" />
-			<param name="column_17" type="cmmembercolumn" columntype="view" default="" label="LINE 5 FIELD 1 LABEL" description="LINE 5 FIELD 1 DESCRIPTION"/>
-			<param name="column_18" type="cmmembercolumn" columntype="view" default="" label="LINE 5 FIELD 2 LABEL" description="LINE 5 FIELD 2 DESCRIPTION"/>
-			<param name="column_19" type="cmmembercolumn" columntype="view" default="" label="LINE 5 FIELD 3 LABEL" description="LINE 5 FIELD 3 DESCRIPTION"/>
-			<param name="column_20" type="cmmembercolumn" columntype="view" default="" label="LINE 5 FIELD 4 LABEL" description="LINE 5 FIELD 4 DESCRIPTION"/>
+			<param name="column_17" type="cmmembercolumn" columntype="view" default="" label="LINE_5_FIELD_1_LABEL" description="LINE_5_FIELD_1_DESCRIPTION"/>
+			<param name="column_18" type="cmmembercolumn" columntype="view" default="" label="LINE_5_FIELD_2_LABEL" description="LINE_5_FIELD_2_DESCRIPTION"/>
+			<param name="column_19" type="cmmembercolumn" columntype="view" default="" label="LINE_5_FIELD_3_LABEL" description="LINE_5_FIELD_3_DESCRIPTION"/>
+			<param name="column_20" type="cmmembercolumn" columntype="view" default="" label="LINE_5_FIELD_4_LABEL" description="LINE_5_FIELD_4_DESCRIPTION"/>
 		</params>
 		<advanced addpath="/administrator/components/com_clubmanagement/elements">
-			<param name="sort_column_1" type="cmmembercolumn" columntype="view" default="name" label="SORT COLUMN 1 LABEL" description="SORT COLUMN 1 DESCRIPTION"/>
-			<param name="sort_direction_1" type="radio" default="ASC" label="SORT DIRECTION 1 LABEL" description="SORT DIRECTION 1 DESCRIPTION">
+			<param name="sort_column_1" type="cmmembercolumn" columntype="view" default="name" label="SORT_COLUMN_1_LABEL" description="SORT_COLUMN_1_DESCRIPTION"/>
+			<param name="sort_direction_1" type="radio" default="ASC" label="SORT_DIRECTION_1_LABEL" description="SORT_DIRECTION_1_DESCRIPTION">
 				<option value="ASC">Ascending</option>
 				<option value="DESC">Descending</option>
 			</param>
-			<param name="sort_column_2" type="cmmembercolumn" columntype="view" default="firstname" label="SORT COLUMN 2 LABEL" description="SORT COLUMN 2 DESCRIPTION"/>
-			<param name="sort_direction_2" type="radio" default="ASC" label="SORT DIRECTION 2 LABEL" description="SORT DIRECTION 2 DESCRIPTION">
+			<param name="sort_column_2" type="cmmembercolumn" columntype="view" default="firstname" label="SORT_COLUMN_2_LABEL" description="SORT_COLUMN_2_DESCRIPTION"/>
+			<param name="sort_direction_2" type="radio" default="ASC" label="SORT_DIRECTION_2_LABEL" description="SORT_DIRECTION_2_DESCRIPTION">
 				<option value="ASC">Ascending</option>
 				<option value="DESC">Descending</option>
 			</param>
-			<param name="sort_column_3" type="cmmembercolumn" columntype="view" default="" label="SORT COLUMN 3 LABEL" description="SORT COLUMN 3 DESCRIPTION"/>
-			<param name="sort_direction_3" type="radio" default="ASC" label="SORT DIRECTION 3 LABEL" description="SORT DIRECTION 3 DESCRIPTION">
+			<param name="sort_column_3" type="cmmembercolumn" columntype="view" default="" label="SORT_COLUMN_3_LABEL" description="SORT_COLUMN_3_DESCRIPTION"/>
+			<param name="sort_direction_3" type="radio" default="ASC" label="SORT_DIRECTION_3_LABEL" description="SORT_DIRECTION_3_DESCRIPTION">
 				<option value="ASC">Ascending</option>
 				<option value="DESC">Descending</option>
 			</param>
-			<param name="sort_column_4" type="cmmembercolumn" columntype="view" default="" label="SORT COLUMN 4 LABEL" description="SORT COLUMN 4 DESCRIPTION"/>
-			<param name="sort_direction_4" type="radio" default="ASC" label="SORT DIRECTION 4 LABEL" description="SORT DIRECTION 4 DESCRIPTION">
+			<param name="sort_column_4" type="cmmembercolumn" columntype="view" default="" label="SORT_COLUMN_4_LABEL" description="SORT_COLUMN_4_DESCRIPTION"/>
+			<param name="sort_direction_4" type="radio" default="ASC" label="SORT_DIRECTION_4_LABEL" description="SORT_DIRECTION_4_DESCRIPTION">
 				<option value="ASC">Ascending</option>
 				<option value="DESC">Descending</option>
 			</param>
 			<param name="@spacer" type="spacer" default="" label="" description="" />
-			<param name="list_center" type="radio" default="0" label="CENTER LIST LABEL" description="CENTER LIST DESCRIPTION">
+			<param name="list_center" type="radio" default="0" label="CENTER_LIST_LABEL" description="CENTER_LIST_DESCRIPTION">
 				<option value="0">No</option>
 				<option value="1">Yes</option>
 			</param>
-			<param name="border" type="list" default="" label="BORDER TYPE LABEL" description="BORDER TYPE DESCRIPTION">
+			<param name="border" type="list" default="" label="BORDER_TYPE_LABEL" description="BORDER_TYPE_DESCRIPTION">
 				<option value="">None</option>
 				<option value="line">Line</option>
 				<option value="normal">Normal</option>
 			</param>
-			<param name="textalign" type="list" default="left" label="TEXT ALIGNMENT LABEL" description="TEXT ALIGNMENT DESCRIPTION">
+			<param name="textalign" type="list" default="left" label="TEXT_ALIGNMENT_LABEL" description="TEXT_ALIGNMENT_DESCRIPTION">
 				<option value="left">Left</option>
 				<option value="right">Right</option>
 				<option value="center">Center</option>
 			</param>
 			<param name="@spacer" type="spacer" default="" label="" description="" />
-			<param name="detail_enable" type="radio" default="0" label="ENABLE DETAILS LABEL" description="ENABLE DETAILS DESCRIPTION">
+			<param name="detail_enable" type="radio" default="0" label="ENABLE_DETAILS_LABEL" description="ENABLE_DETAILS_DESCRIPTION">
 				<option value="0">No</option>
 				<option value="1">Yes</option>
 			</param>
-			<param name="detail_column_link" type="cmmembercolumn" columntype="view" default="" label="DETAIL LINK COLUMN LABEL" description="DETAIL LINK COLUMN DESCRIPTION"/>
+			<param name="detail_column_link" type="cmmembercolumn" columntype="view" default="" label="DETAIL_LINK_COLUMN_LABEL" description="DETAIL_LINK_COLUMN_DESCRIPTION"/>
 			<param name="@spacer" type="spacer" default="" label="" description="" />
-			<param name="csv_encoding" type="list" default="UTF-8" label="CSV ENCODING LABEL" description="CSV ENCODING DESCRIPTION">
+			<param name="csv_encoding" type="list" default="UTF-8" label="CSV_ENCODING_LABEL" description="CSV_ENCODING_DESCRIPTION">
 				<option value="ASCII">ASCII</option>
 				<option value="ISO-8859-1">ISO-8859-1</option>
 				<option value="ISO-8859-2">ISO-8859-2</option>
@@ -126,7 +126,7 @@
 				<option value="UTF-8">UTF-8</option>
 				<option value="UTF-16">UTF-16</option>
 			</param>
-			<param name="csv_delimiter" type="text" size="1" default=";" label="CSV DELIMITER LABEL" description="CSV DELIMITER DESCRIPTION"/>
+			<param name="csv_delimiter" type="text" size="1" default=";" label="CSV_DELIMITER_LABEL" description="CSV_DELIMITER_DESCRIPTION"/>
 		</advanced>
 	</state>
 </metadata>

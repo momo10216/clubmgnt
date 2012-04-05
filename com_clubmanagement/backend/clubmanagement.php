@@ -29,7 +29,8 @@ require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMBoard.php');
 $component = "com_clubmanagement";
 $cmd = JRequest::getCmd('task');
 $object = JRequest::getCmd('cmobj');
-$mainframe->setPageTitle( JText::_("CLUB MANAGEMENT") );
+$doc = JFactory::getDocument();
+$doc->setTitle( JText::_("CLUB_MANAGEMENT") );
 switch ($object) {
 	case 'person':
 		$cmobject = new nokCMPerson($component);

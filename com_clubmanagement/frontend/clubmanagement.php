@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		0.92
+* @version		2.5.0
 * @package		Joomla
 * @subpackage	ClubManagement-Main
-* @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
+* @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
 * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
 * @author		Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
@@ -20,13 +20,7 @@ function nokCM_error ($text, $back=true) {
 	//echo "ERROR: " . $text;
 }
 
-// Require the com_content helper library
 require_once(JPATH_COMPONENT.DS.'controller.php');
-//require_once(JPATH_COMPONENT.DS.'helpers'.DS.'query.php');
-//require_once(JPATH_COMPONENT.DS.'helpers'.DS.'route.php');
-
-// Component Helper
-//jimport('joomla.application.component.helper');
 
 // Create the controller
 $controller = new clubmanagementController();

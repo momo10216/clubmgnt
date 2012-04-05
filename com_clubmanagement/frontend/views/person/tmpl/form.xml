@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="PERSON EDIT LAYOUT">
+	<layout title="PERSON_EDIT_LAYOUT">
 		<message>
-			<![CDATA[PERSON EDIT LAYOUT DESCRIPTION]]>
+			<![CDATA[PERSON_EDIT_LAYOUT_DESCRIPTION]]>
 		</message>
 	</layout>
 	<state>
-		<name>CLUB MANAGEMENT PERSON EDIT LAYOUT</name>
-		<description>CLUB MANAGEMENT PERSON EDIT LAYOUT DESCRIPTION</description>
+		<name>CLUB_MANAGEMENT_PERSON_EDIT_LAYOUT</name>
+		<description>CLUB_MANAGEMENT_PERSON_EDIT_LAYOUT_DESCRIPTION</description>
 		<url/>
 		<params addpath="/administrator/components/com_clubmanagement/elements">
-			<param name="allow_edit" type="radio" default="0" label="USER EDIT ALLOW LABEL" description="USER EDIT ALLOW DESCRIPTION">
+			<param name="allow_edit" type="radio" default="0" label="USER_EDIT_ALLOW_LABEL" description="USER_EDIT_ALLOW_DESCRIPTION">
 				<option value="0">No</option>
 				<option value="1">Yes</option>
 			</param>
-			<param name="allow_columns" type="cmpersoncolumn" default="" label="USER EDIT ALLOW COLUMNS LABEL" description="USER EDIT ALLOW COLUMNS DESCRIPTION" multiple="true" columntype="edit"/>
+			<param name="allow_columns" type="cmpersoncolumn" default="" label="USER_EDIT_ALLOW_COLUMNS_LABEL" description="USER_EDIT_ALLOW_COLUMNS_DESCRIPTION" multiple="true" columntype="edit"/>
 			<param name="@spacer" type="spacer" default="" label="" description="" />
-			<param name="column_1" type="cmpersoncolumn" default="" label="USER EDIT LIST COLUMN 1 LABEL" description="USER EDIT LIST COLUMN 1 DESCRIPTION" columntype="edit"/>
-			<param name="column_2" type="cmpersoncolumn" default="" label="USER EDIT LIST COLUMN 2 LABEL" description="USER EDIT LIST COLUMN 2 DESCRIPTION" columntype="edit"/>
-			<param name="column_3" type="cmpersoncolumn" default="" label="USER EDIT LIST COLUMN 3 LABEL" description="USER EDIT LIST COLUMN 3 DESCRIPTION" columntype="edit"/>
-			<param name="column_4" type="cmpersoncolumn" default="" label="USER EDIT LIST COLUMN 4 LABEL" description="USER EDIT LIST COLUMN 4 DESCRIPTION" columntype="edit"/>
-			<param name="column_5" type="cmpersoncolumn" default="" label="USER EDIT LIST COLUMN 5 LABEL" description="USER EDIT LIST COLUMN 5 DESCRIPTION" columntype="edit"/>
+			<param name="column_1" type="cmpersoncolumn" default="" label="USER_EDIT_LIST_COLUMN_1_LABEL" description="USER_EDIT_LIST_COLUMN_1_DESCRIPTION" columntype="edit"/>
+			<param name="column_2" type="cmpersoncolumn" default="" label="USER_EDIT_LIST_COLUMN_2_LABEL" description="USER_EDIT_LIST_COLUMN_2_DESCRIPTION" columntype="edit"/>
+			<param name="column_3" type="cmpersoncolumn" default="" label="USER_EDIT_LIST_COLUMN_3_LABEL" description="USER_EDIT_LIST_COLUMN_3_DESCRIPTION" columntype="edit"/>
+			<param name="column_4" type="cmpersoncolumn" default="" label="USER_EDIT_LIST_COLUMN_4_LABEL" description="USER_EDIT_LIST_COLUMN_4_DESCRIPTION" columntype="edit"/>
+			<param name="column_5" type="cmpersoncolumn" default="" label="USER_EDIT_LIST_COLUMN_5_LABEL" description="USER_EDIT_LIST_COLUMN_5_DESCRIPTION" columntype="edit"/>
 		</params>
 		<advanced/>
 	</state>

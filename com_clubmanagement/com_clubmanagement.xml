@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<install type="component" version="1.5.0" method="upgrade">
+<extension type="component" version="2.5.0" client="site" method="upgrade">
 	<name>Club Management</name>
 	<author>Norbert Kuemin</author>
-	<creationDate>July 2011</creationDate>
-	<copyright>(C) 2011	Norbert Kuemin</copyright>
+	<authorEmail>momo_102@bluemail.ch</authorEmail>
+	<creationDate>Abril 2012</creationDate>
+	<copyright>(C) 2011 Norbert Kuemin</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<version>1.0</version>
+	<version>2.5</version>
 	<description>Component for managing clubs (Persons, Memberships, Board)</description>
+
 	<files folder="frontend">
 		<filename>clubmanagement.php</filename>
 		<filename>controller.php</filename>
@@ -14,63 +16,25 @@
 		<filename>view.php</filename>
 		<filename>index.html</filename>
 		<filename>metadata.xml</filename>
-		<filename>views/all/index.html</filename>
-		<filename>views/all/metadata.xml</filename>
-		<filename>views/all/view.html.php</filename>
-		<filename>views/all/tmpl/index.html</filename>
-		<filename>views/all/tmpl/email.php</filename>
-		<filename>views/all/tmpl/email.xml</filename>
-		<filename>views/index.html</filename>
-		<filename>views/member/index.html</filename>
-		<filename>views/member/metadata.xml</filename>
-		<filename>views/member/view.html.php</filename>
-		<filename>views/member/view.csv.php</filename>
-		<filename>views/member/tmpl/index.html</filename>
-		<filename>views/member/tmpl/address.php</filename>
-		<filename>views/member/tmpl/address.xml</filename>
-		<filename>views/member/tmpl/default.php</filename>
-		<filename>views/member/tmpl/default.xml</filename>
-		<filename>views/member/tmpl/card.php</filename>
-		<filename>views/member/tmpl/card.xml</filename>
-		<filename>views/member/tmpl.csv/index.html</filename>
-		<filename>views/member/tmpl.csv/address.php</filename>
-		<filename>views/member/tmpl.csv/default.php</filename>
-		<filename>views/person/index.html</filename>
-		<filename>views/person/metadata.xml</filename>
-		<filename>views/person/view.html.php</filename>
-		<filename>views/person/tmpl/index.html</filename>
-		<filename>views/person/tmpl/form.php</filename>
-		<filename>views/person/tmpl/form.xml</filename>
-		<filename>views/person/tmpl/detail.php</filename>
-		<filename>views/person/tmpl/detail.xml</filename>
-		<filename>views/board/index.html</filename>
-		<filename>views/board/metadata.xml</filename>
-		<filename>views/board/view.html.php</filename>
-		<filename>views/board/view.csv.php</filename>
-		<filename>views/board/tmpl/index.html</filename>
-		<filename>views/board/tmpl/address.php</filename>
-		<filename>views/board/tmpl/address.xml</filename>
-		<filename>views/board/tmpl/default.php</filename>
-		<filename>views/board/tmpl/default.xml</filename>
-		<filename>views/board/tmpl/card.php</filename>
-		<filename>views/board/tmpl/card.xml</filename>
-		<filename>views/board/tmpl.csv/index.html</filename>
-		<filename>views/board/tmpl.csv/address.php</filename>
-		<filename>views/board/tmpl.csv/default.php</filename>
+		<folder>views</folder>
 	</files>
+
+	<media/>
+
 	<installfile>install.com_clubmanagement.php</installfile>
 	<uninstallfile>uninstall.com_clubmanagement.php</uninstallfile>
-	<languages folder="common/language">
+
+	<languages folder="backend/language">
 		<language tag="en-GB">en-GB.com_clubmanagement.ini</language>
 		<language tag="de-DE">de-DE.com_clubmanagement.ini</language>
 		<language tag="nl-NL">nl-NL.com_clubmanagement.ini</language>
 	</languages>
 	<administration>
-		<menu>CLUB MANAGEMENT</menu>
+		<menu>COM_CLUBMANAGEMENT</menu>
 		<submenu>
-			<menu link="option=com_clubmanagement&amp;amp;cmobj=person&amp;amp;task=list">PERSON</menu>
-			<menu link="option=com_clubmanagement&amp;amp;cmobj=membership&amp;amp;task=list">MEMBERSHIP</menu>
-			<menu link="option=com_clubmanagement&amp;amp;cmobj=board&amp;amp;task=list">BOARD</menu>
+			<menu link="option=com_clubmanagement&amp;amp;cmobj=person&amp;amp;task=list">COM_CLUBMANAGEMENT_PERSON</menu>
+			<menu link="option=com_clubmanagement&amp;amp;cmobj=membership&amp;amp;task=list">COM_CLUBMANAGEMENT_MEMBERSHIP</menu>
+			<menu link="option=com_clubmanagement&amp;amp;cmobj=board&amp;amp;task=list">COM_CLUBMANAGEMENT_BOARD</menu>
 		</submenu>
 		<files folder="backend">
 			<filename>config.xml</filename>
@@ -78,30 +42,19 @@
 			<filename>toolbar.clubmanagement.html.php</filename>
 			<filename>toolbar.clubmanagement.php</filename>
 			<filename>index.html</filename>
-			<filename>elements/cmpersoncolumn.php</filename>
-			<filename>elements/cmpersonrecord.php</filename>
-			<filename>elements/cmmembercolumn.php</filename>
-			<filename>elements/cmmembertype.php</filename>
-			<filename>elements/cmboardcolumn.php</filename>
-			<filename>images/icon-32-export.png</filename>
-			<filename>images/icon-32-import.png</filename>
-			<filename>css/icon.css</filename>
+			<folder>elements</folder>
+			<folder>images</folder>
+			<folder>css</folder>
+			<folder>classes</folder>
 		</files>
-		<files folder="common">
-			<filename>classes/index.html</filename>
-			<filename>classes/nokTable.class.php</filename>
-			<filename>classes/nokCMPerson.php</filename>
-			<filename>classes/nokCMMembership.php</filename>
-			<filename>classes/nokCMBoard.php</filename>
-			<filename>includes/index.html</filename>
-		</files>
-		<languages folder="common/language">
+		<languages folder="backend/language">
 			<language tag="en-GB">en-GB.com_clubmanagement.ini</language>
-			<language tag="en-GB">en-GB.com_clubmanagement.menu.ini</language>
+			<language tag="en-GB">en-GB.com_clubmanagement.sys.ini</language>
 			<language tag="de-DE">de-DE.com_clubmanagement.ini</language>
-			<language tag="de-DE">de-DE.com_clubmanagement.menu.ini</language>
+			<language tag="de-DE">de-DE.com_clubmanagement.sys.ini</language>
 			<language tag="nl-NL">de-DE.com_clubmanagement.ini</language>
-			<language tag="nl-NL">de-DE.com_clubmanagement.menu.ini</language>
+			<language tag="nl-NL">de-DE.com_clubmanagement.sys.ini</language>
 		</languages>
     </administration>
-</install>
+</extension>
+

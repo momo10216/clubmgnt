@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		0.93
+* @version		2.5.0
 * @package		Joomla
 * @subpackage	ClubManagement-Membership
-* @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
+* @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
 * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
 * @author		Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
@@ -18,7 +18,7 @@ function getparam ($obj, $key)
 
 function display_link($name, $data, $target) {
 	if (count($data) < 1) {
-		echo JText::_("NO DATA");
+		echo JText::_("NO_DATA");
 	} else {
 		switch ($target) {
 			case "cc":
@@ -57,7 +57,7 @@ function display_email_link ($obj, $label, $data) {
 		$max = intval(count($data) / $max_email_addr) + 1;
 		for ($i=1 ; $i<=$max ; $i++) {
 			$newdata = array_slice($data, (($i-1)*$max_email_addr), $max_email_addr);
-			display_link(JText::sprintf("LINK NR",$i), $newdata, $target_field);
+			display_link(JText::sprintf("LINK_NR",$i), $newdata, $target_field);
 		}
 	}
 	echo "<br/>\n";

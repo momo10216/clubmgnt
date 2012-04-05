@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<view title="BOARD VIEW">
+	<view title="BOARD_VIEW">
 		<message>
-			<![CDATA[BOARD VIEW DESCRIPTION]]>
+			<![CDATA[BOARD_VIEW_DESCRIPTION]]>
 		</message>
 	</view>
 </metadata>

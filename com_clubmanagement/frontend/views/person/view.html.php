@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		0.92
+* @version		2.5.0
 * @package		Joomla
 * @subpackage	ClubManagement-Membership
-* @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
+* @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
 * @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
 * @author		Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
@@ -15,8 +15,7 @@ defined('_JEXEC') or die( 'Restricted access' );
 jimport( 'joomla.application.component.view' );
 require_once( JPATH_COMPONENT_ADMINISTRATOR.DS.'classes'.DS.'nokCMPerson.php');
 
-class clubmanagementViewperson extends JView
-{
+class clubmanagementViewperson extends JView {
 	var $user;
 	var $document;
 	var $params;
@@ -26,16 +25,13 @@ class clubmanagementViewperson extends JView
 	var $menu;
 	var $cmobject;
 
-	function display($tpl = null)
-	{
-		global $mainframe;
-		
+	function display($tpl = null) {
 		/*
 		 * Init variables
 		 */
 		$this->user		=& JFactory::getUser();
 		$this->document	=& JFactory::getDocument();
-		$this->params	=& $mainframe->getParams();
+		$this->params = &JComponentHelper::getParams( 'com_clubmanagement' );
 		$menus	= &JSite::getMenu();
 		$this->menu	= $menus->getActive();
 		$this->cmobject = new nokCMPerson("com_clubmanagement");
