@@ -16,7 +16,7 @@ defined('_JEXEC') or die('Restricted access'); // no direct access
 $cols = array();
 for ($i=1;$i<=20;$i++) {
 	$field = "column_".$i;
-	$cols[] = $this->params_menu->get( $field );
+	$cols[] = $this->params_menu->get($field);
 }
 
 /*
@@ -41,12 +41,12 @@ if ($this->params_menu->get( 'publicity' ) == "unpublished") {
 /*
  * Get data
  */
-$this->data = $cmobject->getViewData($cols,$where,"`name`,`firstname`");
+$this->data = $this->cmobject->getViewData($cols,$where,"`name`,`firstname`");
 
 //JToolBarHelper::back();
 $this->filename = date('Y-m-d') . '_board_export' . '.csv';
 if ($this->params_menu->get( 'show_header' ) != "0") {
-	$this->header = $cmobject->getViewHeader($cols);
+	$this->header = $this->cmobject->getViewHeader($cols);
 }
 
 ?>
