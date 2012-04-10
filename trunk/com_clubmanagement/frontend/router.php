@@ -1,20 +1,18 @@
 <?php
 /**
-* @version		2.5.0
-* @package		Joomla
+* @version	$Id$
+* @package	Joomla
 * @subpackage	ClubManagement-Main
 * @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
-* @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
-* @author		Norbert Kuemin
+* @license	http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
+* @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
 
-function clubmanagementBuildRoute(&$query)
-{	
+function ClubmanagementBuildRoute(&$query) {	
 	$segments = array();
 
-	if(isset($query['view'])) 
-	{
+	if(isset($query['view'])) {
 		$segments[] = $query['view'];
 		unset($query['view']);
 	};
@@ -22,8 +20,7 @@ function clubmanagementBuildRoute(&$query)
 	return $segments;
 }
 
-function clubmanagementParseRoute($segments)
-{
+function ClubmanagementParseRoute($segments) {
 	$vars = array();
 
 	//Get the active menu item

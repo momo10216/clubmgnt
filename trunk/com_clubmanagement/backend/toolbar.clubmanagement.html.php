@@ -1,11 +1,11 @@
 <?php
 /**
-* @version		0.92
-* @package		Joomla
+* @version	$Id$
+* @package	Joomla
 * @subpackage	ClubManagement-Main
-* @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
-* @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
-* @author		Norbert Kuemin
+* @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
+* @license	http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
+* @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
 
@@ -24,10 +24,8 @@ require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMBoard.php');
 
 JHTML::_('stylesheet', 'icon.css', 'administrator/components/com_clubmanagement/css/');
 
-class TOOLBAR_clubmanagement
-{
-	function _DEFAULT()
-	{
+class TOOLBAR_clubmanagement {
+	function _DEFAULT() {
 		$object = JRequest::getCmd('cmobj');
 		switch ($object) {
 			case 'person':

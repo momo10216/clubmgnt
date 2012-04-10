@@ -1,22 +1,21 @@
 <?php
 /**
-* @version		2.5.0
-* @package		Joomla
+* @version	$Id$
+* @package	Joomla
 * @subpackage	ClubManagement-Board
 * @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
-* @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
-* @author		Norbert Kuemin
+* @license	http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
+* @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
 
 // Check to ensure this file is included in Joomla!
-defined('_JEXEC') or die( 'Restricted access' );
+defined('_JEXEC') or die;
 
 jimport( 'joomla.application.component.view' );
 require_once( JPATH_COMPONENT_ADMINISTRATOR.DS.'classes'.DS.'nokCMBoard.php');
 
-class clubmanagementViewboard extends JView
-{
+class ClubmanagementViewboard extends JView {
 	var $user;
 	var $document;
 	var $params;
@@ -40,13 +39,13 @@ class clubmanagementViewboard extends JView
 		/*
 		 * Init variables
 		 */
-		$this->user		=& JFactory::getUser();
+		$this->user =& JFactory::getUser();
 		$this->params = &JComponentHelper::getParams( 'com_clubmanagement' );
-		$menus	= &JSite::getMenu();
-		$this->menu	= $menus->getActive();
-		$cmobject = new nokCMBoard("com_clubmanagement");
+		$menus = &JSite::getMenu();
+		$this->menu = $menus->getActive();
+		$this->cmobject = new nokCMBoard("com_clubmanagement");
 		if (is_object( $this->menu )) {
-			$this->params_menu = new JParameter( $this->menu->params );
+			$this->params_menu = $this->menu->params;
 			$this->csv_delimiter = $this->params_menu->get( 'csv_delimiter' );
 		}
 
@@ -62,8 +61,7 @@ class clubmanagementViewboard extends JView
 		if ($this->params_menu->get( 'show_header' ) != "0") {
 			$content .= $this->_Array2CSV($this->header)."\n";
 		}
-		if ($this->data)
-		{
+		if ($this->data) {
 			foreach($this->data as $row) {
 				$content .= $this->_Array2CSV($row)."\n";
 			}

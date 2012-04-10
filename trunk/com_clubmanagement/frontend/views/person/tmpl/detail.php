@@ -1,11 +1,11 @@
 <?php
 /**
-* @version		2.5.0
-* @package		Joomla
+* @version	$Id$
+* @package	Joomla
 * @subpackage	ClubManagement-Membership
 * @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
-* @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
-* @author		Norbert Kuemin
+* @license	http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
+* @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
 
