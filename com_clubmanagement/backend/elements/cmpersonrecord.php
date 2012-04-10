@@ -1,39 +1,47 @@
 <?php
 /**
-* @version		0.92
-* @package		Joomla
+* @version	$Id$
+* @package	Joomla
 * @subpackage	ClubManagement-Membership
-* @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
-* @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
-* @author		Norbert Kuemin
+* @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
+* @license	http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
+* @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
 
-// Check to ensure this file is included in Joomla!
-defined('_JEXEC') or die( 'Restricted access' );
+defined('JPATH_BASE') or die;
 
 require_once( dirname(__FILE__).DS.'..'.DS.'classes'.DS.'nokCMPerson.php');
 
-class JElementCMPersonRecord extends JElement
-{
+/**
+ * Supports a modal newsfeeds picker.
+ *
+ * @package		Joomla.Administrator
+ * @subpackage	com_newsfeeds
+ * @since		1.6
+ */
+class JFormFieldPersonRecord extends JFormField {
 	/**
-	 * Element name
+	 * The form field type.
 	 *
-	 * @access	protected
 	 * @var		string
+	 * @since	1.6
 	 */
-	var	$_name = 'CMPersonRecord';
+	protected $type = 'PersonRecord';
 
-	function fetchElement($name, $value, &$node, $control_name)
-	{
+	/**
+	 * Method to get the field input markup.
+	 *
+	 * @return	string	The field input markup.
+	 * @since	1.6
+	 */
+	protected function getInput() {
 		global $mainframe;
 
 		$cmobject	= new nokCMPerson("com_clubmanagement");
-		$db			=& JFactory::getDBO();
+		$db		=& JFactory::getDBO();
 		$doc 		=& JFactory::getDocument();
-		$template 	= $mainframe->getTemplate();
-		$fieldName	= $control_name.'['.$name.']';
-		$title		= JText::_('SELECT PERSON');
+		$title		= JText::_('SELECT_PERSON');
 
 		$js = "
 		function jSelectRecord(id, title, object) {
@@ -43,12 +51,12 @@ class JElementCMPersonRecord extends JElement
 		}";
 		$doc->addScriptDeclaration($js);
 
-		$link = 'index.php?option=com_clubmanagement&amp;task=select&amp;cmobj=person&amp;tmpl=component&amp;object='.$name;
+		$link = 'index.php?option=com_clubmanagement&amp;task=select&amp;cmobj=person&amp;tmpl=component&amp;object='.$this->id;
 
 		JHTML::_('behavior.modal', 'a.modal');
-		$html = "\n".'<div style="float: left;"><input style="background: #ffffff;" type="text" id="'.$name.'_name" value="'.htmlspecialchars($title, ENT_QUOTES, 'UTF-8').'" disabled="disabled" /></div>';
+		$html = "\n".'<div style="float: left;"><input style="background: #ffffff;" type="text" id="'.$this->id.'_name" value="'.htmlspecialchars($title, ENT_QUOTES, 'UTF-8').'" disabled="disabled" /></div>';
 		$html .= '<div class="button2-left"><div class="blank"><a class="modal" title="'.$title.'"  href="'.$link.'" rel="{handler: \'iframe\', size: {x: 650, y: 375}}">'.JText::_('SELECT').'</a></div></div>'."\n";
-		$html .= "\n".'<input type="hidden" id="'.$name.'_id" name="'.$fieldName.'" value="'.(int)$value.'" />';
+		$html .= "\n".'<input type="hidden" id="'.$this->id.'_id" name="'.$this->name.'" value="'.$value.'" />';
 
 		return $html;
 	}

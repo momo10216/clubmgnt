@@ -1,11 +1,11 @@
 <?php
 /**
-* @version		0.93
-* @package		Joomla
+* @version	$Id$
+* @package	Joomla
 * @subpackage	ClubManagement-Main
-* @copyright	Copyright (c) 2010 Norbert Kümin. All rights reserved.
-* @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
-* @author		Norbert Kuemin
+* @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
+* @license	http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
+* @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
 
@@ -66,10 +66,10 @@ class nokTable
 
 	function getSelectionArray($strText) {
 		$arrResult = array();
-		$aDefList = split(";",$strText);
+		$aDefList = explode(";",$strText);
 		reset($aDefList);
 		foreach ($aDefList as $entry) {
-			$aDef = split("=",$entry,2);
+			$aDef = explode("=",$entry,2);
 			$arrResult[$aDef[0]] = JText::_($aDef[1]);
 		}
 		return $arrResult;
@@ -142,7 +142,7 @@ CurrentIP
 	function addColumnRepresentation($strColumn, $strType, $strParam1="", $strParam2="", $strParam3="", $strParam4="", $strParam5="", $strParam6="", $strParam7="", $strParam8="", $strParam9="") {
 		if (strpos($strColumn,$this->column_delimiter) !== false) {
 			//Name, Column, Table, Link, [Table-Alias]
-			$arrTemp = split($this->column_delimiter,$strColumn,5);
+			$arrTemp = explode($this->column_delimiter,$strColumn,5);
 			switch (count($arrTemp)) {
 				case 2: //name:column
 					$this->column_external[$arrTemp[0]] = array($arrTemp[1], $this->table, "", $this->table);
@@ -451,7 +451,7 @@ CurrentIP
 	}
 
 	function getViewHeader($columns) {
-	    $retval = array();
+		$retval = array();
 		while (list($strKey,$strColumn) = each($columns)) {
 			$retval[$strColumn] = $this->column_view[$strColumn];
 		}
@@ -483,7 +483,7 @@ CurrentIP
 						case "text":
 							if ($filterval[$fname] != "") {
 								$fwhere = "";
-								$fieldList = split(";",$ffield);
+								$fieldList = explode(";",$ffield);
 								reset($fieldList);
 								foreach ($fieldList as $entry) {
 									if ($fwhere != "") $fwhere .= " OR ";
@@ -1331,8 +1331,8 @@ CurrentIP
 			// Get foreign keys = array ($import_fields, $fk_field, $ftable, $ftable_fields, $fid
 			reset($this->column_import_fk);
 			foreach ($this->column_import_fk as $fk_data) {
-				$csv_fields = split(":",$fk_data[0]);
-				$foreign_fields = split(":",$fk_data[3]);
+				$csv_fields = explode(":",$fk_data[0]);
+				$foreign_fields = explode(":",$fk_data[3]);
 				$where = "";
 				$count = 0;
 				$search = "";
@@ -1475,10 +1475,10 @@ CurrentIP
 				}
 				break;
 			case "textselect":
-				$aDefList = split(";",$rep[1]);
+				$aDefList = explode(";",$rep[1]);
 				reset($aDefList);
 				foreach ($aDefList as $entry) {
-					$aDef = split("=",$entry,2);
+					$aDef = explode("=",$entry,2);
 					if ($aDef[0] == $strValue) {
 						return JText::_($aDef[1]);
 					}
@@ -1621,11 +1621,11 @@ CurrentIP
 					// NULL Value
 					$opt[] = JHTML::_("select.option",  "", $rep[2]);
 				}
-				$aDefList = split(";",$rep[1]);
+				$aDefList = explode(";",$rep[1]);
 				reset($aDefList);
 				$bfound = false;
 				foreach ($aDefList as $entry) {
-					$aDef = split("=",$entry,2);
+					$aDef = explode("=",$entry,2);
 					$opt[] = JHTML::_("select.option",  $aDef[0], JText::_($aDef[1]));
 				}
 				$strRet .= JHTML::_('select.genericlist',   $opt, $strColumn, "class=\"" . $class . "\"", "value", "text", $strValue);

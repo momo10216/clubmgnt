@@ -1,6 +1,6 @@
 <?php
 /**
-* @version	2.5.0
+* @version	$Id$
 * @package	Joomla
 * @subpackage	ClubManagement-Main
 * @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
@@ -10,7 +10,7 @@
 */
 
 // Check to ensure this file is included in Joomla!
-defined('_JEXEC') or die( 'Restricted access' );
+defined('_JEXEC') or die;
 
 jimport('joomla.application.component.controller');
 
@@ -21,18 +21,20 @@ jimport('joomla.application.component.controller');
  * @subpackage	Content
  * @since 1.5
  */
-class clubmanagementController extends JController
-{
+class ClubmanagementController extends JController {
 	/**
 	 * Method to show an article as the main page display
 	 *
 	 * @access	public
 	 * @since	1.5
 	 */
-	function display()
-	{
+	function display($cachable = false, $urlparams = false) {
 		// View caching logic -- simple... are we logged in?
+		$cachable = true;
 		$user = &JFactory::getUser();
-		parent::display();
+		if ($user->get('id')) {
+			$cachable = false;
+		}
+		parent::display($cachable, $urlparams);
 	}
 }

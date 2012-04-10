@@ -1,66 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-	<params addpath="/administrator/components/com_clubmanagement/elements">
-		<param name="custom1" type="text" default="Custom field 1" label="CUSTOM_1_LABEL" description="CUSTOM_1_DESCRIPTION"/>
-		<param name="custom2" type="text" default="Custom field 2" label="CUSTOM_2_LABEL" description="CUSTOM_2_DESCRIPTION"/>
-		<param name="custom3" type="text" default="Custom field 3" label="CUSTOM_3_LABEL" description="CUSTOM_3_DESCRIPTION"/>
-		<param name="custom4" type="text" default="Custom field 4" label="CUSTOM_4_LABEL" description="CUSTOM_4_DESCRIPTION"/>
-		<param name="custom5" type="text" default="Custom field 5" label="CUSTOM_5_LABEL" description="CUSTOM_5_DESCRIPTION"/>
-		<param name="image_dir" type="text" default="/images/member" label="IMAGE_DIRECTORY_LABEL" description="IMAGE_DIRECTORY_DESCRIPTION"/>
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="member_types" type="text" default="ACTIVE=Active;PASSIVE=Passive;SUPPORTER=Supporter;SPONSOR=Sponsor" label="MEMBERSHIP_TYPES_LABEL" description="MEMBERSHIP_TYPES_DESCRIPTION"/>
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="board_jobs" type="text" default="PRESIDENT=President;VICEPRESIDENT=Vice-President;TREASURE=Treasure;ACTUARY=Actuary;ASSESSOR=Assessor;CONTROLLER=Controller" label="BOARD_JOBS_LABEL" description="BOARD_JOBS_DESCRIPTION"/>
-		<param name="@spacer" type="spacer" default="" label="" description="" />
-		<param name="detail_column_image" type="cmmembercolumn" columntype="view" default="" label="DETAIL_IMAGE_COLUMN_LABEL" description="DETAIL_IMAGE_COLUMN_DESCRIPTION"/>
-		<param name="detail_height" type="text" default="400" label="DETAIL_HEIGHT_LABEL" description="DETAIL_HEIGHT_DESCRIPTION"/>
-		<param name="detail_width" type="text" default="500" label="DETAIL_WIDTH_LABEL" description="DETAIL_WIDTH_DESCRIPTION"/>
-		<param name="detail_show_label" type="radio" default="0" label="ENABLE_DETAIL_LABEL" description="ENABLE_DETAIL_LABEL_DESCRIPTION">
+	<fieldset name="component"
+		  label="COM_CLUBMANAGEMENT_SETTINGS_LABEL"
+		  description="COM_CLUBMANAGEMENT_SETTINGS_DESCRIPTION"
+		  addfieldpath="/administrator/components/com_clubmanagement/elements">
+		<field name="custom1" type="text" default="Custom field 1" label="CUSTOM_1_LABEL" description="CUSTOM_1_DESCRIPTION"/>
+		<field name="custom2" type="text" default="Custom field 2" label="CUSTOM_2_LABEL" description="CUSTOM_2_DESCRIPTION"/>
+		<field name="custom3" type="text" default="Custom field 3" label="CUSTOM_3_LABEL" description="CUSTOM_3_DESCRIPTION"/>
+		<field name="custom4" type="text" default="Custom field 4" label="CUSTOM_4_LABEL" description="CUSTOM_4_DESCRIPTION"/>
+		<field name="custom5" type="text" default="Custom field 5" label="CUSTOM_5_LABEL" description="CUSTOM_5_DESCRIPTION"/>
+		<field name="image_dir" type="text" default="/images/member" label="IMAGE_DIRECTORY_LABEL" description="IMAGE_DIRECTORY_DESCRIPTION"/>
+		<field name="@spacer" type="spacer" default="" label="" description="" />
+		<field name="member_types" type="text" default="ACTIVE=Active;PASSIVE=Passive;SUPPORTER=Supporter;SPONSOR=Sponsor" label="MEMBERSHIP_TYPES_LABEL" description="MEMBERSHIP_TYPES_DESCRIPTION"/>
+		<field name="@spacer" type="spacer" default="" label="" description="" />
+		<field name="board_jobs" type="text" default="PRESIDENT=President;VICEPRESIDENT=Vice-President;TREASURE=Treasure;ACTUARY=Actuary;ASSESSOR=Assessor;CONTROLLER=Controller" label="BOARD_JOBS_LABEL" description="BOARD_JOBS_DESCRIPTION"/>
+		<field name="@spacer" type="spacer" default="" label="" description="" />
+		<field name="detail_column_image" type="cmmembercolumn" columntype="view" default="" label="DETAIL_IMAGE_COLUMN_LABEL" description="DETAIL_IMAGE_COLUMN_DESCRIPTION"/>
+		<field name="detail_height" type="text" default="400" label="DETAIL_HEIGHT_LABEL" description="DETAIL_HEIGHT_DESCRIPTION"/>
+		<field name="detail_width" type="text" default="500" label="DETAIL_WIDTH_LABEL" description="DETAIL_WIDTH_DESCRIPTION"/>
+		<field name="detail_show_label" type="radio" default="0" label="ENABLE_DETAIL_LABEL" description="ENABLE_DETAIL_LABEL_DESCRIPTION">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
-		</param>
-		<param name="detail_css" type="textarea" default="" label="DETAIL_CSS_LABEL" description="DETAIL_CSS_DESCRIPTION" rows="5" cols="50"/>
-		<param name="detail_column_1" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_1_LABEL" description="DETAIL_COLUMN_1_DESCRIPTION"/>
-		<param name="detail_column_2" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_2_LABEL" description="DETAIL_COLUMN_2_DESCRIPTION"/>
-		<param name="detail_column_3" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_3_LABEL" description="DETAIL_COLUMN_3_DESCRIPTION"/>
-		<param name="detail_column_4" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_4_LABEL" description="DETAIL_COLUMN_4_DESCRIPTION"/>
-		<param name="detail_column_5" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_5_LABEL" description="DETAIL_COLUMN_5_DESCRIPTION"/>
-		<param name="detail_column_6" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_6_LABEL" description="DETAIL_COLUMN_6_DESCRIPTION"/>
-		<param name="detail_column_7" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_7_LABEL" description="DETAIL_COLUMN_7_DESCRIPTION"/>
-		<param name="detail_column_8" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_8_LABEL" description="DETAIL_COLUMN_8_DESCRIPTION"/>
-		<param name="detail_column_9" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_9_LABEL" description="DETAIL_COLUMN_9_DESCRIPTION"/>
-		<param name="detail_column_10" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_10_LABEL" description="DETAIL_COLUMN_10_DESCRIPTION"/>
-		<param name="detail_member_title" type="text" default="" label="DETAIL_MEMBERSHIP_TITLE_LABEL" description="DETAIL_MEMBERSHIP_TITLE_DESCRIPTION"/>
-		<param name="detail_member_column_1" type="cmmembercolumn" columntype="view" default="" label="DETAIL_MEMBERSHIP_COLUMN_1_LABEL" description="DETAIL_MEMBERSHIP_COLUMN_1_DESCRIPTION"/>
-		<param name="detail_member_column_2" type="cmmembercolumn" columntype="view" default="" label="DETAIL_MEMBERSHIP_COLUMN_2_LABEL" description="DETAIL_MEMBERSHIP_COLUMN_2_DESCRIPTION"/>
-		<param name="detail_member_column_3" type="cmmembercolumn" columntype="view" default="" label="DETAIL_MEMBERSHIP_COLUMN_3_LABEL" description="DETAIL_MEMBERSHIP_COLUMN_3_DESCRIPTION"/>
-		<param name="detail_member_column_4" type="cmmembercolumn" columntype="view" default="" label="DETAIL_MEMBERSHIP_COLUMN_4_LABEL" description="DETAIL_MEMBERSHIP_COLUMN_4_DESCRIPTION"/>
-		<param name="detail_member_column_5" type="cmmembercolumn" columntype="view" default="" label="DETAIL_MEMBERSHIP_COLUMN_5_LABEL" description="DETAIL_MEMBERSHIP_COLUMN_5_DESCRIPTION"/>
-		<param name="detail_member_sort_column_1" type="cmmembercolumn" columntype="view" default="begin" label="DETAIL_MEMBERSHIP_SORT_COLUMN_1_LABEL" description="DETAIL_MEMBERSHIP_SORT_COLUMN_1_DESCRIPTION"/>
-		<param name="detail_member_sort_direction_1" type="radio" default="ASC" label="DETAIL_MEMBERSHIP_SORT_DIRECTION_1_LABEL" description="DETAIL_MEMBERSHIP_SORT_DIRECTION_1_DESCRIPTION">
+		</field>
+		<field name="detail_css" type="textarea" default="" label="DETAIL_CSS_LABEL" description="DETAIL_CSS_DESCRIPTION" rows="5" cols="50"/>
+		<field name="detail_column_1" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_1_LABEL" description="DETAIL_COLUMN_1_DESCRIPTION"/>
+		<field name="detail_column_2" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_2_LABEL" description="DETAIL_COLUMN_2_DESCRIPTION"/>
+		<field name="detail_column_3" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_3_LABEL" description="DETAIL_COLUMN_3_DESCRIPTION"/>
+		<field name="detail_column_4" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_4_LABEL" description="DETAIL_COLUMN_4_DESCRIPTION"/>
+		<field name="detail_column_5" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_5_LABEL" description="DETAIL_COLUMN_5_DESCRIPTION"/>
+		<field name="detail_column_6" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_6_LABEL" description="DETAIL_COLUMN_6_DESCRIPTION"/>
+		<field name="detail_column_7" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_7_LABEL" description="DETAIL_COLUMN_7_DESCRIPTION"/>
+		<field name="detail_column_8" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_8_LABEL" description="DETAIL_COLUMN_8_DESCRIPTION"/>
+		<field name="detail_column_9" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_9_LABEL" description="DETAIL_COLUMN_9_DESCRIPTION"/>
+		<field name="detail_column_10" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_10_LABEL" description="DETAIL_COLUMN_10_DESCRIPTION"/>
+		<field name="detail_member_title" type="text" default="" label="DETAIL_MEMBERSHIP_TITLE_LABEL" description="DETAIL_MEMBERSHIP_TITLE_DESCRIPTION"/>
+		<field name="detail_member_column_1" type="cmmembercolumn" columntype="view" default="" label="DETAIL_MEMBERSHIP_COLUMN_1_LABEL" description="DETAIL_MEMBERSHIP_COLUMN_1_DESCRIPTION"/>
+		<field name="detail_member_column_2" type="cmmembercolumn" columntype="view" default="" label="DETAIL_MEMBERSHIP_COLUMN_2_LABEL" description="DETAIL_MEMBERSHIP_COLUMN_2_DESCRIPTION"/>
+		<field name="detail_member_column_3" type="cmmembercolumn" columntype="view" default="" label="DETAIL_MEMBERSHIP_COLUMN_3_LABEL" description="DETAIL_MEMBERSHIP_COLUMN_3_DESCRIPTION"/>
+		<field name="detail_member_column_4" type="cmmembercolumn" columntype="view" default="" label="DETAIL_MEMBERSHIP_COLUMN_4_LABEL" description="DETAIL_MEMBERSHIP_COLUMN_4_DESCRIPTION"/>
+		<field name="detail_member_column_5" type="cmmembercolumn" columntype="view" default="" label="DETAIL_MEMBERSHIP_COLUMN_5_LABEL" description="DETAIL_MEMBERSHIP_COLUMN_5_DESCRIPTION"/>
+		<field name="detail_member_sort_column_1" type="cmmembercolumn" columntype="view" default="begin" label="DETAIL_MEMBERSHIP_SORT_COLUMN_1_LABEL" description="DETAIL_MEMBERSHIP_SORT_COLUMN_1_DESCRIPTION"/>
+		<field name="detail_member_sort_direction_1" type="radio" default="ASC" label="DETAIL_MEMBERSHIP_SORT_DIRECTION_1_LABEL" description="DETAIL_MEMBERSHIP_SORT_DIRECTION_1_DESCRIPTION">
 			<option value="ASC">Ascending</option>
 			<option value="DESC">Descending</option>
-		</param>
-		<param name="detail_member_sort_column_2" type="cmmembercolumn" columntype="view" default="" label="DETAIL_MEMBERSHIP_SORT_COLUMN_2_LABEL" description="DETAIL_MEMBERSHIP_SORT_COLUMN_2_DESCRIPTION"/>
-		<param name="detail_member_sort_direction_2" type="radio" default="ASC" label="DETAIL_MEMBERSHIP_SORT_DIRECTION_2_LABEL" description="DETAIL_MEMBERSHIP_SORT_DIRECTION_2_DESCRIPTION">
+		</field>
+		<field name="detail_member_sort_column_2" type="cmmembercolumn" columntype="view" default="" label="DETAIL_MEMBERSHIP_SORT_COLUMN_2_LABEL" description="DETAIL_MEMBERSHIP_SORT_COLUMN_2_DESCRIPTION"/>
+		<field name="detail_member_sort_direction_2" type="radio" default="ASC" label="DETAIL_MEMBERSHIP_SORT_DIRECTION_2_LABEL" description="DETAIL_MEMBERSHIP_SORT_DIRECTION_2_DESCRIPTION">
 			<option value="ASC">Ascending</option>
 			<option value="DESC">Descending</option>
-		</param>
-		<param name="detail_board_title" type="text" default="" label="DETAIL_BOARD_TITLE_LABEL" description="DETAIL_BOARD_TITLE_DESCRIPTION"/>
-		<param name="detail_board_column_1" type="cmboardcolumn" columntype="view" default="" label="DETAIL_BOARD_COLUMN_1_LABEL" description="DETAIL_BOARD_COLUMN_1_DESCRIPTION"/>
-		<param name="detail_board_column_2" type="cmboardcolumn" columntype="view" default="" label="DETAIL_BOARD_COLUMN_2_LABEL" description="DETAIL_BOARD_COLUMN_2_DESCRIPTION"/>
-		<param name="detail_board_column_3" type="cmboardcolumn" columntype="view" default="" label="DETAIL_BOARD_COLUMN_3_LABEL" description="DETAIL_BOARD_COLUMN_3_DESCRIPTION"/>
-		<param name="detail_board_column_4" type="cmboardcolumn" columntype="view" default="" label="DETAIL_BOARD_COLUMN_4_LABEL" description="DETAIL_BOARD_COLUMN_4_DESCRIPTION"/>
-		<param name="detail_board_column_5" type="cmboardcolumn" columntype="view" default="" label="DETAIL_BOARD_COLUMN_5_LABEL" description="DETAIL_BOARD_COLUMN_5_DESCRIPTION"/>
-		<param name="detail_board_sort_column_1" type="cmboardcolumn" columntype="view" default="begin" label="DETAIL_BOARD_SORT_COLUMN_1_LABEL" description="DETAIL_BOARD_SORT_COLUMN_1_DESCRIPTION"/>
-		<param name="detail_board_sort_direction_1" type="radio" default="ASC" label="DETAIL_BOARD_SORT_DIRECTION_1_LABEL" description="DETAIL_BOARD_SORT_DIRECTION_1_DESCRIPTION">
+		</field>
+		<field name="detail_board_title" type="text" default="" label="DETAIL_BOARD_TITLE_LABEL" description="DETAIL_BOARD_TITLE_DESCRIPTION"/>
+		<field name="detail_board_column_1" type="cmboardcolumn" columntype="view" default="" label="DETAIL_BOARD_COLUMN_1_LABEL" description="DETAIL_BOARD_COLUMN_1_DESCRIPTION"/>
+		<field name="detail_board_column_2" type="cmboardcolumn" columntype="view" default="" label="DETAIL_BOARD_COLUMN_2_LABEL" description="DETAIL_BOARD_COLUMN_2_DESCRIPTION"/>
+		<field name="detail_board_column_3" type="cmboardcolumn" columntype="view" default="" label="DETAIL_BOARD_COLUMN_3_LABEL" description="DETAIL_BOARD_COLUMN_3_DESCRIPTION"/>
+		<field name="detail_board_column_4" type="cmboardcolumn" columntype="view" default="" label="DETAIL_BOARD_COLUMN_4_LABEL" description="DETAIL_BOARD_COLUMN_4_DESCRIPTION"/>
+		<field name="detail_board_column_5" type="cmboardcolumn" columntype="view" default="" label="DETAIL_BOARD_COLUMN_5_LABEL" description="DETAIL_BOARD_COLUMN_5_DESCRIPTION"/>
+		<field name="detail_board_sort_column_1" type="cmboardcolumn" columntype="view" default="begin" label="DETAIL_BOARD_SORT_COLUMN_1_LABEL" description="DETAIL_BOARD_SORT_COLUMN_1_DESCRIPTION"/>
+		<field name="detail_board_sort_direction_1" type="radio" default="ASC" label="DETAIL_BOARD_SORT_DIRECTION_1_LABEL" description="DETAIL_BOARD_SORT_DIRECTION_1_DESCRIPTION">
 			<option value="ASC">Ascending</option>
 			<option value="DESC">Descending</option>
-		</param>
-		<param name="detail_board_sort_column_2" type="cmboardcolumn" columntype="view" default="" label="DETAIL_BOARD_SORT_COLUMN_2_LABEL" description="DETAIL_BOARDSORT_COLUMN_2_DESCRIPTION"/>
-		<param name="detail_board_sort_direction_2" type="radio" default="ASC" label="DETAIL_BOARD_SORT_DIRECTION_2_LABEL" description="DETAIL_BOARD_SORT_DIRECTION_2_DESCRIPTION">
+		</field>
+		<field name="detail_board_sort_column_2" type="cmboardcolumn" columntype="view" default="" label="DETAIL_BOARD_SORT_COLUMN_2_LABEL" description="DETAIL_BOARDSORT_COLUMN_2_DESCRIPTION"/>
+		<field name="detail_board_sort_direction_2" type="radio" default="ASC" label="DETAIL_BOARD_SORT_DIRECTION_2_LABEL" description="DETAIL_BOARD_SORT_DIRECTION_2_DESCRIPTION">
 			<option value="ASC">Ascending</option>
 			<option value="DESC">Descending</option>
-		</param>
-	</params>
+		</field>
+	</fieldset>
 </config>

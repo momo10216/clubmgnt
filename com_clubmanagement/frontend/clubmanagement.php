@@ -1,16 +1,16 @@
 <?php
 /**
-* @version		2.5.0
-* @package		Joomla
+* @version	$Id$
+* @package	Joomla
 * @subpackage	ClubManagement-Main
 * @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
-* @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
-* @author		Norbert Kuemin
+* @license	http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
+* @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
 
 // no direct access
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
 // Common Functions
 function nokCM_error ($text, $back=true) {
@@ -20,11 +20,11 @@ function nokCM_error ($text, $back=true) {
 	//echo "ERROR: " . $text;
 }
 
-require_once(JPATH_COMPONENT.DS.'controller.php');
+jimport('joomla.application.component.controller');
+//require_once JPATH_COMPONENT.'/helpers/route.php';
 
-// Create the controller
-$controller = new clubmanagementController();
-
-// Perform the Request task
-$controller->execute(JRequest::getVar('task', null, 'default', 'cmd'));
+$controller = JController::getInstance('Clubmanagement');
+$controller->execute(JRequest::getCmd('task'));
 $controller->redirect();
+?>
+

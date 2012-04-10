@@ -1,62 +1,45 @@
 <?php
 /**
-* @version		0.92
-* @package		Joomla
+* @version	$Id$
+* @package	Joomla
 * @subpackage	ClubManagement-Membership
-* @copyright	Copyright (c) 2009 Norbert Kümin. All rights reserved.
-* @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
-* @author		Norbert Kuemin
+* @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
+* @license	http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
+* @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
 
+defined('JPATH_BASE') or die;
 
-// Check to ensure this file is included in Joomla!
-defined('_JEXEC') or die( 'Restricted access' );
-
+JFormHelper::loadFieldClass('list');
 require_once( dirname(__FILE__).DS.'..'.DS.'classes'.DS.'nokCMMembership.php');
 
-class JElementCMMemberType extends JElement
-{
+class JFormFieldCMMemberType extends JFormFieldList {
 	/**
-	 * Element name
+	 * The form field type.
 	 *
-	 * @access	protected
 	 * @var		string
+	 * @since	1.6
 	 */
-	var	$_name = 'CMMemberType';
+	protected $type = 'CMMemberType';
 
-	function fetchElement($name, $value, &$node, $control_name)
-	{
+	/**
+	 * Method to get the field options.
+	 *
+	 * @return	array	The field option objects.
+	 * @since	1.6
+	 */
+	protected function getOptions() {
+		// Initialize variables.
+		$options = array();
+
 		$cmobject = new nokCMMembership("com_clubmanagement");
-		$arrList = $cmobject->getMemberTypes();
-		$opt[] = JHTML::_("select.option",  "*", JText::_("ALL"));
-		$ctrl = $control_name.'['.$name.']';
-		$multi = false;
+		$options = $cmobject->getMemberTypes();
 
-		// Construct the various argument calls that are supported.
-		$attribs = '';
-		if ($v = $node->attributes( 'size' )) {
-				$attribs .= 'size="'.$v.'" ';
-		}
-		if ($v = $node->attributes( 'class' )) {
-				$attribs       .= 'class="'.$v.'" ';
-		} else {
-				$attribs       .= 'class="inputbox" ';
-		}
-		if (($v = $node->attributes( 'multiple' )) && ($v == "true")) {
-			$attribs .= 'multiple ';
-			$ctrl .= '[]';
-			$multi = true;
-		}
+		// Merge any additional options in the XML definition.
+		$options = array_merge(parent::getOptions(), $options);
 
-		reset($arrList);
-		while (list($strValue,$strDisplay) = each($arrList)) {
-			if (($multi === true) && ($strValue == "*")) {
-				// Don't add ALL to multi select list
-			} else {
-				$opt[] = JHTML::_("select.option",  $strValue, $strDisplay);
-			}
-		}
-		return JHTML::_('select.genericlist', $opt, $ctrl, $attribs, "value", "text", $value);
+		return $options;
 	}
 }
+
