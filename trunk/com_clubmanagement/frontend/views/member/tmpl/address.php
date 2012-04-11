@@ -28,12 +28,14 @@ if ($this->params_menu->get( 'detail_enable' ) != "0") {
  */
 $cols = array();
 $pos = array();
+$header = array();
 for ($i=1;$i<=20;$i++) {
 	$field = "column_".$i;
 	if ($this->params_menu->get( $field ) != "") {
 		$key = intval(($i-1)/$FieldPerLine)."_".bcmod(($i-1),$FieldPerLine);
 		$cols[] = $this->params_menu->get( $field );
 		$pos[$key] = count($cols)-1;
+		$header[$key] = $this->cmobject->column_view[$this->params_menu->get($field)];
 	}
 }
 
@@ -81,9 +83,6 @@ $cols[] = "hh_name_override";
 $cols[] = "hh_person_id";
 $cols[] = "person_id";
 $this->data = $this->cmobject->getViewData($cols,$where,$sort);
-if (($this->params->get('show_header') == "1") && ($this->params->get('display_empty') == "1")) {
-	$this->header = $this->cmobject->getViewHeader($cols);
-}
 
 /*
  * Counting
@@ -108,18 +107,24 @@ if ($this->data) {
 if ($details) {
 	JHTML::_('behavior.modal');
 }
-if ($this->params->get( "table_center") == "1") echo "<center>\n";
-if ($this->params->get( "border_type") != "") {
+if ($this->params_menu->get( "table_center") == "1") echo "<center>\n";
+if ($this->params_menu->get( "border_type") != "") {
 	echo "<table ".$width."border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"".$border."\">\n";
 } else {
 	echo "<table ".$width."border=\"0\" style=\"border-style:none; border-width:0px\">\n";
 }
-if (($this->params->get('show_header') == "1") && ($this->params->get('display_empty') == "1")) {
+if (($this->params_menu->get('show_header') == "1") && ($this->params_menu->get('display_empty') == "1")) {
 	echo "<tr>";
-	foreach($this->header as $strSingle) {
-		if ($strSingle != "") {
-			echo "<th>".$strSingle."</th>";
+	for($i=0;$i<$Line;$i++) {
+                $headertext = "";
+		for($j=0;$j<$FieldPerLine;$j++) {
+			$key = $i."_".$j;
+			if (strlen($header[$key]) > 0) {
+				if ($headertext) { $headertext .= " "; }
+				$headertext .= $header[$key];
+			}
 		}
+		echo "<th>".$headertext."</th>";
 	}
 	echo "</tr>\n";
 }
@@ -188,5 +193,5 @@ if ($this->data) {
 	}
 }
 echo "</table>\n";
-if ($this->params->get( "card_center") == "1") echo "</center>\n";
+if ($this->params_menu->get( "card_center") == "1") echo "</center>\n";
 ?>

@@ -9,7 +9,7 @@
 * @authorEmail	momo_102@bluemail.ch
 */
 
-defined('_JEXEC') or die('Restricted access'); // no direct access
+defined('_JEXEC') or die; // no direct access
 
 if ($this->params_menu->get("allow_edit") == "0") {
 	// Not allowed to edit
@@ -64,7 +64,7 @@ function show_list ($curobj) {
 }
 
 function no_record () {
-	nokCM_error(JText::_( 'ERROR_PERSON_EDIT_NO_RECORD'), true); 
+	nokCM_error(JText::_('ERROR_PERSON_EDIT_NO_RECORD'), true); 
 }
 
 function do_edit ($curobj, $id) {
@@ -116,7 +116,7 @@ function do_save ($curobj)
 	$curobj->cmobject->showdetail($id,$cols);
 }
 
-global $mainframe;
+$mainframe = JFactory::getApplication();
 $task = JRequest::getVar("task");
 switch ($task) {
 	case "save":
@@ -142,3 +142,4 @@ switch ($task) {
 		break;
 }
 ?>
+

@@ -87,7 +87,7 @@ $this->data = $this->cmobject->getViewData($cols,$where,$sort);
 if ($details) {
 	JHTML::_('behavior.modal');
 }
-if ($this->params->get( "card_center") == "1") echo "<center>\n";
+if ($this->params_menu->get( "card_center") == "1") echo "<center>\n";
 if ($this->data) {
 	foreach($this->data as $row) {
 		$cpos=0;
@@ -134,14 +134,14 @@ if ($this->data) {
 				}
 				echo "</td>\n";
 				if ($image) {
-					echo "<td align=\"".$this->params_menu->get( "textalign" )."\"><img src=\"".$this->params->get('image_dir').DS.$image."\" width=\"".$this->params->get('image_size')."\"></td>\n";
+					echo "<td align=\"".$this->params_menu->get( "textalign" )."\"><img src=\"".$this->params->get('image_dir').DS.$image."\" width=\"".$this->params_menu->get('image_size')."\"></td>\n";
 				}
 				echo "</tr>\n";
 				break;
 			case "top": //picture on the left side
 				echo "<tr valign=\"top\">\n";
 				if ($image) {
-					echo "<td align=\"".$this->params_menu->get( "textalign" )."\"><img src=\"".$this->params->get('image_dir').DS.$image."\" width=\"".$this->params->get('image_size')."\"></td>\n";
+					echo "<td align=\"".$this->params_menu->get( "textalign" )."\"><img src=\"".$this->params->get('image_dir').DS.$image."\" width=\"".$this->params_menu->get('image_size')."\"></td>\n";
 				}
 				echo "</tr>\n";
 				echo "<tr valign=\"top\">\n";
@@ -166,7 +166,7 @@ if ($this->data) {
 				echo "</tr>\n";
 				echo "<tr valign=\"top\">\n";
 				if ($image) {
-					echo "<td align=\"".$this->params_menu->get( "textalign" )."\"><img src=\"".$this->params->get('image_dir').DS.$image."\" width=\"".$this->params->get('image_size')."\"></td>\n";
+					echo "<td align=\"".$this->params_menu->get( "textalign" )."\"><img src=\"".$this->params->get('image_dir').DS.$image."\" width=\"".$this->params_menu->get('image_size')."\"></td>\n";
 				}
 				echo "</tr>\n";
 				break;
@@ -174,7 +174,7 @@ if ($this->data) {
 			default:
 				echo "<tr valign=\"top\">\n";
 				if ($image) {
-					echo "<td align=\"".$this->params_menu->get( "textalign" )."\"><img src=\"".$this->params->get('image_dir').DS.$image."\" width=\"".$this->params->get('image_size')."\"></td>\n";
+					echo "<td align=\"".$this->params_menu->get( "textalign" )."\"><img src=\"".$this->params->get('image_dir').DS.$image."\" width=\"".$this->params_menu->get('image_size')."\"></td>\n";
 				}
 				echo "<td align=\"".$this->params_menu->get( "textalign" )."\">";
 				for($i=0;$i<$Line;$i++) {
@@ -190,5 +190,5 @@ if ($this->data) {
 		echo "<p/>\n";
 	}
 }
-if ($this->params->get( "card_center") == "1") echo "</center>\n";
+if ($this->params_menu->get( "card_center") == "1") echo "</center>\n";
 ?>

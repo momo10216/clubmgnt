@@ -20,6 +20,19 @@ for ($i=1;$i<=20;$i++) {
 }
 
 /*
+ * Get sort
+ */
+$sort = "";
+for ($i=1;$i<=4;$i++) {
+	$field1 = "sort_column_".$i;
+	$field2 = "sort_direction_".$i;
+	if ($this->params_menu->get($field1) != "") {
+		$sort .= ",`".$this->params_menu->get($field1)."` ".$this->params_menu->get($field2);
+	}
+}
+if ($sort != "") $sort = substr($sort,1);
+
+/*
  * Calculate where
  */
 $where = "";
@@ -41,7 +54,7 @@ if ($this->params_menu->get( 'publicity' ) == "unpublished") {
 /*
  * Get data
  */
-$this->data = $this->cmobject->getViewData($cols,$where,"`name`,`firstname`");
+$this->data = $this->cmobject->getViewData($cols,$where,$sort);
 
 //JToolBarHelper::back();
 $this->filename = date('Y-m-d') . '_board_export' . '.csv';

@@ -33,31 +33,31 @@
 				<option value="90%">90%</option>
 				<option value="100%">100%</option>
 			</field>
-			<field name="@spacer" type="spacer" default="" label="" description="" />
-			<field name="column_1" type="cmmembercolumn" columntype="view" default="" label="LINE_1_FIELD_1_LABEL" description="LINE_1_FIELD_1_DESCRIPTION"/>
-			<field name="column_2" type="cmmembercolumn" columntype="view" default="" label="LINE_1_FIELD_2_LABEL" description="LINE_1_FIELD_2_DESCRIPTION"/>
-			<field name="column_3" type="cmmembercolumn" columntype="view" default="" label="LINE_1_FIELD_3_LABEL" description="LINE_1_FIELD_3_DESCRIPTION"/>
-			<field name="column_4" type="cmmembercolumn" columntype="view" default="" label="LINE_1_FIELD_4_LABEL" description="LINE_1_FIELD_4_DESCRIPTION"/>
-			<field name="@spacer" type="spacer" default="" label="" description="" />
-			<field name="column_5" type="cmmembercolumn" columntype="view" default="" label="LINE_2_FIELD_1_LABEL" description="LINE_2_FIELD_1_DESCRIPTION"/>
-			<field name="column_6" type="cmmembercolumn" columntype="view" default="" label="LINE_2_FIELD_2_LABEL" description="LINE_2_FIELD_2_DESCRIPTION"/>
-			<field name="column_7" type="cmmembercolumn" columntype="view" default="" label="LINE_2_FIELD_3_LABEL" description="LINE_2_FIELD_3_DESCRIPTION"/>
-			<field name="column_8" type="cmmembercolumn" columntype="view" default="" label="LINE_2_FIELD_4_LABEL" description="LINE_2_FIELD_4_DESCRIPTION"/>
-			<field name="@spacer" type="spacer" default="" label="" description="" />
-			<field name="column_9" type="cmmembercolumn" columntype="view" default="" label="LINE_3_FIELD_1_LABEL" description="LINE_3_FIELD_1_DESCRIPTION"/>
-			<field name="column_10" type="cmmembercolumn" columntype="view" default="" label="LINE_3_FIELD_2_LABEL" description="LINE_3_FIELD_2_DESCRIPTION"/>
-			<field name="column_11" type="cmmembercolumn" columntype="view" default="" label="LINE_3_FIELD_3_LABEL" description="LINE_3_FIELD_3_DESCRIPTION"/>
-			<field name="column_12" type="cmmembercolumn" columntype="view" default="" label="LINE_3_FIELD_4_LABEL" description="LINE_3_FIELD_4_DESCRIPTION"/>
-			<field name="@spacer" type="spacer" default="" label="" description="" />
-			<field name="column_13" type="cmmembercolumn" columntype="view" default="" label="LINE_4_FIELD_1_LABEL" description="LINE_4_FIELD_1_DESCRIPTION"/>
-			<field name="column_14" type="cmmembercolumn" columntype="view" default="" label="LINE_4_FIELD_2_LABEL" description="LINE_4_FIELD_2_DESCRIPTION"/>
-			<field name="column_15" type="cmmembercolumn" columntype="view" default="" label="LINE_4_FIELD_3_LABEL" description="LINE_4_FIELD_3_DESCRIPTION"/>
-			<field name="column_16" type="cmmembercolumn" columntype="view" default="" label="LINE_4_FIELD_4_LABEL" description="LINE_4_FIELD_4_DESCRIPTION"/>
-			<field name="@spacer" type="spacer" default="" label="" description="" />
-			<field name="column_17" type="cmmembercolumn" columntype="view" default="" label="LINE_5_FIELD_1_LABEL" description="LINE_5_FIELD_1_DESCRIPTION"/>
-			<field name="column_18" type="cmmembercolumn" columntype="view" default="" label="LINE_5_FIELD_2_LABEL" description="LINE_5_FIELD_2_DESCRIPTION"/>
-			<field name="column_19" type="cmmembercolumn" columntype="view" default="" label="LINE_5_FIELD_3_LABEL" description="LINE_5_FIELD_3_DESCRIPTION"/>
-			<field name="column_20" type="cmmembercolumn" columntype="view" default="" label="LINE_5_FIELD_4_LABEL" description="LINE_5_FIELD_4_DESCRIPTION"/>
+			<field name="line_1" type="spacer" default="" label="LINE_1_LABEL" description="" />
+			<field name="column_1" type="cmmembercolumn" columntype="view" default="" label="FIELD_1_LABEL" description="LINE_1_FIELD_1_DESCRIPTION"/>
+			<field name="column_2" type="cmmembercolumn" columntype="view" default="" label="FIELD_2_LABEL" description="LINE_1_FIELD_2_DESCRIPTION"/>
+			<field name="column_3" type="cmmembercolumn" columntype="view" default="" label="FIELD_3_LABEL" description="LINE_1_FIELD_3_DESCRIPTION"/>
+			<field name="column_4" type="cmmembercolumn" columntype="view" default="" label="FIELD_4_LABEL" description="LINE_1_FIELD_4_DESCRIPTION"/>
+			<field name="line_2" type="spacer" default="" label="LINE_2_LABEL" description="" />
+			<field name="column_5" type="cmmembercolumn" columntype="view" default="" label="FIELD_1_LABEL" description="LINE_2_FIELD_1_DESCRIPTION"/>
+			<field name="column_6" type="cmmembercolumn" columntype="view" default="" label="FIELD_2_LABEL" description="LINE_2_FIELD_2_DESCRIPTION"/>
+			<field name="column_7" type="cmmembercolumn" columntype="view" default="" label="FIELD_3_LABEL" description="LINE_2_FIELD_3_DESCRIPTION"/>
+			<field name="column_8" type="cmmembercolumn" columntype="view" default="" label="FIELD_4_LABEL" description="LINE_2_FIELD_4_DESCRIPTION"/>
+			<field name="line_3" type="spacer" default="" label="LINE_3_LABEL" description="" />
+			<field name="column_9" type="cmmembercolumn" columntype="view" default="" label="FIELD_1_LABEL" description="LINE_3_FIELD_1_DESCRIPTION"/>
+			<field name="column_10" type="cmmembercolumn" columntype="view" default="" label="FIELD_2_LABEL" description="LINE_3_FIELD_2_DESCRIPTION"/>
+			<field name="column_11" type="cmmembercolumn" columntype="view" default="" label="FIELD_3_LABEL" description="LINE_3_FIELD_3_DESCRIPTION"/>
+			<field name="column_12" type="cmmembercolumn" columntype="view" default="" label="FIELD_4_LABEL" description="LINE_3_FIELD_4_DESCRIPTION"/>
+			<field name="line_4" type="spacer" default="" label="LINE_4_LABEL" description="" />
+			<field name="column_13" type="cmmembercolumn" columntype="view" default="" label="FIELD_1_LABEL" description="LINE_4_FIELD_1_DESCRIPTION"/>
+			<field name="column_14" type="cmmembercolumn" columntype="view" default="" label="FIELD_2_LABEL" description="LINE_4_FIELD_2_DESCRIPTION"/>
+			<field name="column_15" type="cmmembercolumn" columntype="view" default="" label="FIELD_3_LABEL" description="LINE_4_FIELD_3_DESCRIPTION"/>
+			<field name="column_16" type="cmmembercolumn" columntype="view" default="" label="FIELD_4_LABEL" description="LINE_4_FIELD_4_DESCRIPTION"/>
+			<field name="line_5" type="spacer" default="" label="LINE_5_LABEL" description="" />
+			<field name="column_17" type="cmmembercolumn" columntype="view" default="" label="FIELD_1_LABEL" description="LINE_5_FIELD_1_DESCRIPTION"/>
+			<field name="column_18" type="cmmembercolumn" columntype="view" default="" label="FIELD_2_LABEL" description="LINE_5_FIELD_2_DESCRIPTION"/>
+			<field name="column_19" type="cmmembercolumn" columntype="view" default="" label="FIELD_3_LABEL" description="LINE_5_FIELD_3_DESCRIPTION"/>
+			<field name="column_20" type="cmmembercolumn" columntype="view" default="" label="FIELD_4_LABEL" description="LINE_5_FIELD_4_DESCRIPTION"/>
 		</fieldset>
 
 		<!-- Advanced options. -->
