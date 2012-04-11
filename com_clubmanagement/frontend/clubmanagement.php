@@ -21,7 +21,6 @@ function nokCM_error ($text, $back=true) {
 }
 
 jimport('joomla.application.component.controller');
-//require_once JPATH_COMPONENT.'/helpers/route.php';
 
 $controller = JController::getInstance('Clubmanagement');
 $controller->execute(JRequest::getCmd('task'));

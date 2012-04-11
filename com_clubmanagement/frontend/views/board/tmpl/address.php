@@ -104,8 +104,8 @@ if ($this->data) {
 if ($details) {
 	JHTML::_('behavior.modal');
 }
-if ($this->params->get( "table_center") == "1") echo "<center>\n";
-if ($this->params->get( "border_type") != "") {
+if ($this->params_menu->get( "table_center") == "1") echo "<center>\n";
+if ($this->params_menu->get( "border_type") != "") {
 	echo "<table ".$width."border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"".$border."\">\n";
 } else {
 	echo "<table ".$width."border=\"0\" style=\"border-style:none; border-width:0px\">\n";
@@ -190,5 +190,5 @@ if ($this->data) {
 	}
 }
 echo "</table>\n";
-if ($this->params->get( "card_center") == "1") echo "</center>\n";
+if ($this->params_menu->get( "card_center") == "1") echo "</center>\n";
 ?>

@@ -39,13 +39,13 @@ class ClubmanagementViewmember extends JView {
 		 * Init variables
 		 */
 		$this->user =& JFactory::getUser();
-		$this->params = &JComponentHelper::getParams( 'com_clubmanagement' );
+		$this->params = &JComponentHelper::getParams('com_clubmanagement');
 		$menus = &JSite::getMenu();
 		$this->menu = $menus->getActive();
-		$cmobject = new nokCMMembership("com_clubmanagement");
+		$this->cmobject = new nokCMMembership('com_clubmanagement');
 		if (is_object( $this->menu )) {
 			$this->params_menu = $this->menu->params;
-			$this->csv_delimiter = $this->params_menu->get( 'csv_delimiter' );
+			$this->csv_delimiter = $this->params_menu->get('csv_delimiter');
 		}
 
 		/*
@@ -66,7 +66,7 @@ class ClubmanagementViewmember extends JView {
 			}
 		}
 		if ($this->params_menu->get( 'csv_encoding' ) != "UTF-8") {
-			$content = iconv( "UTF-8", $this->params_menu->get( 'csv_encoding' )."//TRANSLIT", $content ); 
+			$content = iconv( "UTF-8", $this->params_menu->get('csv_encoding')."//TRANSLIT", $content ); 
 		}
 		header('Content-Type: application/csv; charset='.strtolower($this->params_menu->get('csv_encoding')));
 		header("Content-Length:".strlen($content));

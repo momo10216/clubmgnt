@@ -18,12 +18,14 @@ $Line=5;
  */
 $cols = array();
 $pos = array();
+$header = array();
 for ($i=1;$i<=20;$i++) {
 	$field = "column_".$i;
 	if ($this->params_menu->get( $field ) != "") {
 		$key = intval(($i-1)/$FieldPerLine)."_".bcmod(($i-1),$FieldPerLine);
 		$cols[] = $this->params_menu->get( $field );
 		$pos[$key] = count($cols)-1;
+		$header[$key] = $this->cmobject->column_view[$this->params_menu->get($field)];
 	}
 }
 
@@ -66,15 +68,25 @@ if ($this->params_menu->get( 'publicity' ) == "unpublished") {
 /*
  * Get data
  */
-if (($this->params->get('show_header') == "1") && ($this->params->get('display_empty') == "1")) {
-	$this->header = $this->cmobject->getViewHeader($cols);
+if (($this->params_menu->get('show_header') == "1") && ($this->params_menu->get('display_empty') == "1")) {
+	$this->header = array();
+	for($i=0;$i<$Line;$i++) {
+		$this->header[$i] = "";
+		for($j=0;$j<$FieldPerLine;$j++) {
+			$key = $i."_".$j;
+			if (strlen($header[$key]) > 0) {
+				if ($this->header[$i]) { $this->header[$i] .= " "; }
+				$this->header[$i] .= $header[$key];
+			}
+		}
+	}
 }
 $this->filename = date('Y-m-d') . '_member_address' . '.csv';
 $cols[] = "hh_salutation_override";
 $cols[] = "hh_name_override";
 $cols[] = "hh_person_id";
 $cols[] = "person_id";
-$rows = $cmobject->getViewData($cols,$where,$sort);
+$rows = $this->cmobject->getViewData($cols,$where,$sort);
 
 /*
  * Counting

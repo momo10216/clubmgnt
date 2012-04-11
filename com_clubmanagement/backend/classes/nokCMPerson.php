@@ -324,8 +324,7 @@ class nokCMPerson extends nokTable {
 		}
 	}
 
-	function user_record_ids($id = "")
-	{
+	function user_record_ids($id = "") {
 		$user =& JFactory::getUser();
 		$strSQL = "SELECT `".$this->getSetting("Primary_Key")."` FROM `".$this->table."` ";
 		$strSQL .= "WHERE user_id='".$user->id."'";
@@ -335,12 +334,11 @@ class nokCMPerson extends nokTable {
 		return $rows;
 	}
 
-	function select_record()
-	{
-		global $mainframe;
-
+	function select_record() {
+		$mainframe = JFactory::getApplication(); 
 		$uri = JFactory::getURI();
 		$option = $uri->getVar('option');
+		$func = $uri->getVar('function');
 		$user =& JFactory::getUser();
 		$limit = $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
 		$limitstart = $mainframe->getUserStateFromRequest( $option.'.limitstart', 'limitstart', 0, 'int' );
@@ -407,7 +405,7 @@ class nokCMPerson extends nokTable {
 				echo "<td>";
 				if ($rp == 0)
 				{
-					echo "<a style=\"cursor: pointer;\" onclick=\"window.parent.jSelectRecord('".$id."', '".$name."', 'id');\">";
+					echo "<a style=\"cursor: pointer;\" onclick=\"window.parent.".$func."('".$id."', '".$name."', 'id');\">";
 					echo $this->_displayField($strColumn,$field,$i);
 					echo "</a>";
 				}

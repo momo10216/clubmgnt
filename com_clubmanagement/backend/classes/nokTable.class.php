@@ -1572,7 +1572,11 @@ CurrentIP
 				$strRet .= JHTML::_('select.booleanlist',  $strColumn, "class=\"" . $class . "\"", $strValue );
 				break;
 			case "date":
-				$cformat = str_replace("%y","%Y",JText::_('DATE_FORMAT_LC4'));
+				$cformat = JText::_('DATE_FORMAT_LC4');
+				$cformat = str_replace("d","%d",$cformat);
+				$cformat = str_replace("m","%m",$cformat);
+				$cformat = str_replace("y","%Y",$cformat);
+				$cformat = str_replace("Y","%Y",$cformat);
 				$cformat_desc = $cformat;
 				$cformat_desc = str_replace("%d","dd",$cformat_desc);
 				$cformat_desc = str_replace("%m","mm",$cformat_desc);

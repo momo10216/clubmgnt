@@ -31,10 +31,10 @@ class ClubmanagementViewperson extends JView {
 		 */
 		$this->user =& JFactory::getUser();
 		$this->document =& JFactory::getDocument();
-		$this->params = &JComponentHelper::getParams( 'com_clubmanagement' );
+		$this->params = &JComponentHelper::getParams('com_clubmanagement');
 		$menus = &JSite::getMenu();
 		$this->menu = $menus->getActive();
-		$this->cmobject = new nokCMPerson("com_clubmanagement");
+		$this->cmobject = new nokCMPerson('com_clubmanagement');
 		if (is_object( $this->menu )) {
 			$this->params_menu = $this->menu->params;
 		}
