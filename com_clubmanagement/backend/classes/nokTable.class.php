@@ -947,6 +947,18 @@ CurrentIP
 		return $result;
 	}
 
+	function get($id, $cols=array())
+	{
+		if (count($cols) < 1) $cols = $this->column_show;
+
+		//Query
+		$strSQL = $this->_calcquery($cols, "`".$this->getSetting("Primary_Key")."`=".$id, "");
+		$this->db->setQuery( $strSQL );
+		$rows = $this->db->loadRowList();
+		$row = $rows[0];
+		return $row;
+	}
+
 	function showdetail($id, $cols=array())
 	{
 		if (count($cols) < 1) $cols = $this->column_show;
@@ -962,10 +974,7 @@ CurrentIP
 		echo "<table class=\"admintable\">\n";
 
 		//Query
-		$strSQL = $this->_calcquery($cols, "`".$this->getSetting("Primary_Key")."`=".$id, "");
-		$this->db->setQuery( $strSQL );
-		$rows = $this->db->loadRowList();
-		$row = $rows[0];
+		$row = $this->get($id, $cols);
 
 		// Display
 		reset($cols);

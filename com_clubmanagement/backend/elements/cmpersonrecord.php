@@ -40,15 +40,23 @@ class JFormFieldCMPersonRecord extends JFormField {
 		$cmobject	= new nokCMPerson('com_clubmanagement');
 		$db		=& JFactory::getDBO();
 		$doc 		=& JFactory::getDocument();
-		$title		= JText::_('SELECT_PERSON');
 
-		$js = "
-		function jSelectRecord(id, title, object) {
-			document.getElementById(object + '_id').value = id;
-			document.getElementById(object + '_name').value = title;
-			SqueezeBox.close();
-		}";
-		$doc->addScriptDeclaration($js);
+		$title		= "";
+		if ($this->value) {
+			$row = $cmobject->get($this->value,$cmobject->column_list);
+			$title = implode($row, " ");
+		}
+
+		// Build the script.
+		$script = array();
+		$script[] = '	function jSelectRecord_'.$this->id.'(id, name) {';
+		$script[] = '		document.id("'.$this->id.'_id").value = id;';
+		$script[] = '		document.id("'.$this->id.'_name").value = name;';
+		$script[] = '		SqueezeBox.close();';
+		$script[] = '	}';
+
+		// Add the script to the document head.
+		$doc->addScriptDeclaration(implode("\n", $script));
 
 		// Build the script.
 		$script = array();
@@ -60,7 +68,7 @@ class JFormFieldCMPersonRecord extends JFormField {
 		// Add the script to the document head.
 		$doc->addScriptDeclaration(implode("\n", $script));
 
-		$link = 'index.php?option=com_clubmanagement&layout=modal&amp;task=select&amp;cmobj=person&amp;tmpl=component&amp;&amp;function=jSelectRecord';
+		$link = 'index.php?option=com_clubmanagement&layout=modal&amp;task=select&amp;cmobj=person&amp;tmpl=component&amp;&amp;function=jSelectRecord_'.$this->id;
 
 		JHTML::_('behavior.modal', 'a.modal');
 		$html = "\n".'<div style="float: left;"><input style="background: #ffffff;" type="text" id="'.$this->id.'_name" value="'.htmlspecialchars($title, ENT_QUOTES, 'UTF-8').'" disabled="disabled" /></div>';
