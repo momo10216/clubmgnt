@@ -338,7 +338,7 @@ class nokCMPerson extends nokTable {
 		$mainframe = JFactory::getApplication(); 
 		$uri = JFactory::getURI();
 		$option = $uri->getVar('option');
-		$func = $uri->getVar('function');
+		$function = JRequest::getCmd('function', 'jSelectRecord');
 		$user =& JFactory::getUser();
 		$limit = $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
 		$limitstart = $mainframe->getUserStateFromRequest( $option.'.limitstart', 'limitstart', 0, 'int' );
@@ -405,7 +405,7 @@ class nokCMPerson extends nokTable {
 				echo "<td>";
 				if ($rp == 0)
 				{
-					echo "<a style=\"cursor: pointer;\" onclick=\"window.parent.".$func."('".$id."', '".$name."', 'id');\">";
+					echo "<a class=\"pointer\" onclick=\"if (window.parent) window.parent.".$function."('".$id."', '".$name."');\">";
 					echo $this->_displayField($strColumn,$field,$i);
 					echo "</a>";
 				}
