@@ -85,10 +85,10 @@ function do_edit ($curobj, $id) {
 ?>
 <p align="center">
 	<button type="button" onclick="submitbutton('save')">
-		<?php echo JText::_('SAVE') ?>
+		<?php echo JText::_('JSAVE') ?>
 	</button>
 	<button type="button" onclick="submitbutton('cancel')">
-		<?php echo JText::_('CANCEL') ?>
+		<?php echo JText::_('JCANCEL') ?>
 	</button>
 </p>
 <?php
@@ -142,4 +142,3 @@ switch ($task) {
 		break;
 }
 ?>
-

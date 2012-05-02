@@ -8,7 +8,7 @@
 * @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
-defined('_JEXEC') or die('Restricted access'); // no direct access
+defined('_JEXEC') or die; // no direct access
 
 $details = false;
 if ($this->params_menu->get( 'detail_enable' ) != "0") {

@@ -20,7 +20,7 @@
  			<field name="@spacer" type="spacer" default="" label="" description="" />
 			<field name="member_type" type="cmmembertype" size="4" label="MEMBERSHIP_TYPE_EMAIL_LABEL" description="MEMBERSHIP_TYPE_EMAIL_DESCRIPTION" multiple="true" />
 			<field name="member_publicity" type="list" default="published" label="PUBLICITY_STATE_LABEL" description="PUBLICITY_STATE_DESCRIPTION">
-				<option value="all">All</option>
+				<option value="all">JALL</option>
 				<option value="published">JPUBLISHED</option>
 				<option value="unpublished">JUNPUBLISHED</option>
 			</field>

@@ -9,7 +9,7 @@
 * @authorEmail	momo_102@bluemail.ch
 */
 
-defined('_JEXEC') or die('Restricted access'); // no direct access
+defined('_JEXEC') or die; // no direct access
 $FieldPerLine=4;
 $Line=5;
 $details = false;

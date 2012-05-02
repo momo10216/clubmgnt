@@ -22,10 +22,10 @@
 			<field name="memberstate" type="list" default="current" label="MEMBERSHIP_STATE_LABEL" description="MEMBERSHIP_STATE_DESCRIPTION">
 				<option value="current">Current</option>
 				<option value="closed">Terminated</option>
-				<option value="all">All</option>
+				<option value="all">JALL</option>
 			</field>
 			<field name="publicity" type="list" default="published" label="PUBLICITY_STATE_LABEL" description="PUBLICITY_STATE_DESCRIPTION">
-				<option value="all">All</option>
+				<option value="all">JALL</option>
 				<option value="published">JPUBLISHED</option>
 				<option value="unpublished">JUNPUBLISHED</option>
 			</field>
@@ -84,7 +84,7 @@
 				<option value="1">JYES</option>
 			</field>
 			<field name="width" type="list" default="" label="TABLE_WIDTH_LABEL" description="TABLE_WIDTH_DESCRIPTION">
-				<option value="">None</option>
+				<option value="">JNONE</option>
 				<option value="50%">50%</option>
 				<option value="60%">60%</option>
 				<option value="70%">70%</option>
@@ -93,7 +93,7 @@
 				<option value="100%">100%</option>
 			</field>
 			<field name="border_type" type="list" default="" label="BORDER_TYPE_LABEL" description="BORDER_TYPE_DESCRIPTION">
-				<option value="">None</option>
+				<option value="">JNONE</option>
 				<option value="border">Border</option>
 				<option value="row">Row</option>
 				<option value="grid">Grid</option>

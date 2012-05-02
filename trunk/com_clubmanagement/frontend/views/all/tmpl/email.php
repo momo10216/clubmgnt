@@ -9,7 +9,7 @@
 * @authorEmail	momo_102@bluemail.ch
 */
 
-defined('_JEXEC') or die('Restricted access'); // no direct access
+defined('_JEXEC') or die; // no direct access
 
 function getparam ($obj, $key) {
 	return $obj->params_menu->get($key);

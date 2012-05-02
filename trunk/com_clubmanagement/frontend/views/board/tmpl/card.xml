@@ -12,10 +12,10 @@
 			<field name="boardstate" type="list" default="current" label="BOARD_STATE_LABEL" description="BOARD_STATE_DESCRIPTION">
 				<option value="current">Current</option>
 				<option value="closed">Terminated</option>
-				<option value="all">All</option>
+				<option value="all">JALL</option>
 			</field>
 			<field name="publicity" type="list" default="published" label="PUBLICITY_STATE_LABEL" description="PUBLICITY_STATE_DESCRIPTION">
-				<option value="all">All</option>
+				<option value="all">JALL</option>
 				<option value="published">JPUBLISHED</option>
 				<option value="unpublished">JUNPUBLISHED</option>
 			</field>
@@ -88,7 +88,7 @@
 				<option value="1">JYES</option>
 			</field>
 			<field name="border" type="list" default="" label="BORDER_TYPE_LABEL" description="BORDER_TYPE_DESCRIPTION">
-				<option value="">None</option>
+				<option value="">JNONE</option>
 				<option value="line">Row</option>
 				<option value="normal">Grid</option>
 			</field>

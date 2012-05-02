@@ -10,7 +10,7 @@
 */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die;
 
 // Common Functions
 function nokCM_error ($text, $back=true) {
