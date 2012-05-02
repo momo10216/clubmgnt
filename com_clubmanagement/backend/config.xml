@@ -19,8 +19,8 @@
 		<field name="detail_height" type="text" default="400" label="DETAIL_HEIGHT_LABEL" description="DETAIL_HEIGHT_DESCRIPTION"/>
 		<field name="detail_width" type="text" default="500" label="DETAIL_WIDTH_LABEL" description="DETAIL_WIDTH_DESCRIPTION"/>
 		<field name="detail_show_label" type="radio" default="0" label="ENABLE_DETAIL_LABEL" description="ENABLE_DETAIL_LABEL_DESCRIPTION">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
 		</field>
 		<field name="detail_css" type="textarea" default="" label="DETAIL_CSS_LABEL" description="DETAIL_CSS_DESCRIPTION" rows="5" cols="50"/>
 		<field name="detail_column_1" type="cmpersoncolumn" columntype="view" default="" label="DETAIL_COLUMN_1_LABEL" description="DETAIL_COLUMN_1_DESCRIPTION"/>

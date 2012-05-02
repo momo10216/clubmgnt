@@ -10,7 +10,7 @@
 */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined( '_JEXEC' ) or die;
 
 /**
 * @package		Joomla
@@ -69,7 +69,7 @@ class TOOLBAR_clubmanagement {
 		$cid = JRequest::getVar( 'cid', array(0), '', 'array' );
 		JArrayHelper::toInteger($cid, array(0));
 
-		$text 	= ( $edit ? JText::_( 'EDIT' ) : JText::_( 'NEW' ) );
+		$text 	= ( $edit ? JText::_( 'JACTION_EDIT' ) : JText::_( 'JNEW' ) );
 
 		JToolBarHelper::title(  JText::_( 'CLUB_MANAGEMENT' ).': <small><small>[ '. $text.' ]</small></small>' );
 		JToolBarHelper::save();

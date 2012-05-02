@@ -37,9 +37,8 @@ class JFormFieldCMPersonRecord extends JFormField {
 	 */
 	protected function getInput() {
 
-		$cmobject	= new nokCMPerson('com_clubmanagement');
-		$db		=& JFactory::getDBO();
-		$doc 		=& JFactory::getDocument();
+		$cmobject = new nokCMPerson('com_clubmanagement');
+		$doc =& JFactory::getDocument();
 
 		$title		= "";
 		if ($this->value) {

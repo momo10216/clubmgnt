@@ -18,12 +18,12 @@ jimport('joomla.application.component.controller');
  * Content Component Controller
  *
  * @package		Joomla
- * @subpackage	Content
+ * @subpackage	Clubmanagement
  * @since 1.5
  */
 class ClubmanagementController extends JController {
 	/**
-	 * Method to show an article as the main page display
+	 * Method to display/export clubmanagement information
 	 *
 	 * @access	public
 	 * @since	1.5

@@ -1038,7 +1038,7 @@ CurrentIP
 						$error = JText::sprintf( 'ERROR_DATABASE_QUERY', $this->db->getErrorMsg(true));
 					} else {
 						if ($rows[0][0] > 0) {
-							$error = JText::_("DELETE_CONSITENCY_ERROR");
+							$error = JText::_("ERROR_DELETE_CONSITENCY");
 							return;
 						}
 					}
@@ -1451,9 +1451,9 @@ CurrentIP
 				break;
 			case "checkbox":
 				if (($strValue == "") || ($strValue == "0") || (strtolower($strValue) == "n") || (strtolower($strValue) == "false")) {
-					return JText::_("NO");
+					return JText::_("JNO");
 				} else {
-					return JText::_("YES");
+					return JText::_("JYES");
 				}
 				break;
 			case "date":
@@ -1498,16 +1498,16 @@ CurrentIP
 				if ($intPosition == -1) {
 					//Display
 					if (($strValue == "") || ($strValue == "0") || (strtolower($strValue) == "n") || (strtolower($strValue) == "false")) {
-						return JText::_("NO");
+						return JText::_("JNO");
 					} else {
-						return JText::_("YES");
+						return JText::_("JYES");
 					}
 				} else {
 					//List
 					if (($strValue == "") || ($strValue == "0") || (strtolower($strValue) == "n") || (strtolower($strValue) == "false")) {
-						return "<a href=\"javascript:void(0);\" onclick=\"return listItemTask('cb".$intPosition."','publish')\" title=\"".JText::_("PUBLISH_ITEM")."\"><img src=\"images/publish_x.png\" border=\"0\" alt=\"".JText::_("UNPUBLISHED")."\" /></a>";
+						return "<a href=\"javascript:void(0);\" onclick=\"return listItemTask('cb".$intPosition."','publish')\" title=\"".JText::_("PUBLISH_ITEM")."\"><img src=\"images/publish_x.png\" border=\"0\" alt=\"".JText::_("JUNPUBLISHED")."\" /></a>";
 					} else {
-						return "<a href=\"javascript:void(0);\" onclick=\"return listItemTask('cb".$intPosition."','unpublish')\" title=\"".JText::_("UNPUBLISH_ITEM")."\"><img src=\"images/tick.png\" border=\"0\" alt=\"".JText::_("PUBLISHED")."\" /></a>";
+						return "<a href=\"javascript:void(0);\" onclick=\"return listItemTask('cb".$intPosition."','unpublish')\" title=\"".JText::_("UNPUBLISH_ITEM")."\"><img src=\"images/tick.png\" border=\"0\" alt=\"".JText::_("JPUBLISHED")."\" /></a>";
 					}
 				}
 				break;
@@ -1719,7 +1719,7 @@ CurrentIP
 				}
 				$url = $this->_calc_url($this->getSetting("Command_List"));
 				if($error != "") {
-					$mainframe->redirect($url,JText::sprintf("DELETE_ERROR",$error));
+					$mainframe->redirect($url,JText::sprintf("ERROR_DELETE",$error));
 				} else {
 					$mainframe->redirect($url,JText::_("DELETED_SUCCESSFULLY"));
 				}
