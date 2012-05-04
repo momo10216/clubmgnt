@@ -121,8 +121,8 @@ class nokCMMembership extends nokTable {
 		$this->addColumnDisplay("list", "end", JText::_( 'TABLE_NOKCM_MEMBERSHIPS_END'));
 		$this->setDefaultOrder("list", "IF(end IS NULL,0,1), type, name, firstname, city");
 		$this->addListFilter("filter_all", "text", "name;firstname;address;zip;city", array());
-		$this->addListFilter("filter_published", "select", "published", array("-1" => "FILTER_SELECT_PUBLICITY", "0" => "UNPUBLISHED", "1" => "PUBLISHED"));
-		$this->addListFilter("filter_active", "select", "end", array("-1" => "FILTER_SELECT_STATUS", "NULL" => "ACTIVE", "NOT NULL"=>"NOT ACTIVE"));
+		$this->addListFilter("filter_published", "select", "published", array("-1" => "FILTER_SELECT_PUBLICITY", "0" => "JUNPUBLISHED", "1" => "JPUBLISHED"));
+		$this->addListFilter("filter_active", "select", "end", array("-1" => "FILTER_SELECT_STATUS", "NULL" => "CURRENT", "NOT NULL"=>"TERMINATED"));
 		if ($component != "") {
 			$mtype = $this->getSelectionArray("-1=FILTER_SELECT_MEMBERTYPE;".$params->get( 'member_types' ));
 		}
