@@ -124,8 +124,8 @@ class nokCMBoard extends nokTable {
 		$this->addColumnDisplay("list", "sortorder", JText::_( 'TABLE_NOKCM_BOARD_SORTORDER'));
 		$this->setDefaultOrder("list", "end,sortorder");
 		$this->addListFilter("filter_all", "text", "name;firstname;address;zip;city", array());
-		$this->addListFilter("filter_published", "select", "published", array("-1" => "FILTER_SELECT_PUBLICITY", "0" => "UNPUBLISHED", "1" => "PUBLISHED"));
-		$this->addListFilter("filter_active", "select", "end", array("-1" => "FILTER_SELECT_STATUS", "NULL" => "ACTIVE", "NOT NULL"=>"NOT ACTIVE"));
+		$this->addListFilter("filter_published", "select", "published", array("-1" => "FILTER_SELECT_PUBLICITY", "0" => "jUNPUBLISHED", "1" => "jPUBLISHED"));
+		$this->addListFilter("filter_active", "select", "end", array("-1" => "FILTER_SELECT_STATUS", "NULL" => "CURRENT", "NOT NULL"=>"TERMINATED"));
 		if ($component != "") {
 			$bjob = $this->getSelectionArray("-1=FILTER_SELECT_BOARDJOBS;".$params->get( 'board_jobs' ));
 		}
