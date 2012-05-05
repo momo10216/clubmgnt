@@ -1,0 +1,16 @@
+Credits to all contributers all over the world:
+
+Coding inspirators
+==================
+- Martin Mooser (Initial idea, mailing lists)
+
+Developers
+==========
+- Norbert Kuemin
+
+Translators
+===========
+- Frank de Kort (Dutch)
+
+Bughunters
+==========
