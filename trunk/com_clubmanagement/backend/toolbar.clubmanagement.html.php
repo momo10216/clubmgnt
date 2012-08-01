@@ -23,7 +23,7 @@ require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMMembership.php');
 require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMBoard.php');
 
 JHTML::_('stylesheet', 'icon.css', 'administrator/components/com_clubmanagement/css/');
-
+$component="com_clubmanagement";
 class TOOLBAR_clubmanagement {
 	function _DEFAULT() {
 		$object = JRequest::getCmd('cmobj');
