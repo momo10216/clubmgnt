@@ -14,7 +14,7 @@ require_once( dirname(__FILE__).DS.'nokTable.class.php');
 
 class nokCMPerson extends nokTable {
 
-	function nokCMPerson($component = "") {
+	function nokCMPerson($component) {
 		$this->nokTable('#__nokCM_persons','person');
 
 		// Table columns
