@@ -17,9 +17,10 @@ require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMBoard.php');
 
 function com_install() {
 	// Init
-	$objPerson = new nokCMPerson('com_clubmanagement');
-	$objMember = new nokCMMembership('com_clubmanagement');
-	$objBoard = new nokCMBoard('com_clubmanagement');
+	$component = "com_clubmanagement";
+	$objPerson = new nokCMPerson($component);
+	$objMember = new nokCMMembership($component);
+	$objBoard = new nokCMBoard($component);
 
 	$objPerson->install();
 	$objMember->install();
