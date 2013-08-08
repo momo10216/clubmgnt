@@ -6,7 +6,7 @@
 	<authorEmail>momo_102@bluemail.ch</authorEmail>
 	<copyright>(C) 2011 Norbert Kuemin</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<version>1.0</version>
+	<version>2.5.2</version>
 	<description>Show birthday of members.</description>
 	<files>
 		<filename module="mod_cm_birthday">mod_cm_birthday.php</filename>
@@ -57,4 +57,7 @@
 			</fieldset>
 		</fields>
 	</config>
+    <updateservers>
+	<server type="extension" priority="2" name="Club Management Updates">http://joomlacode.org/gf/project/clubmgnt/scmsvn/?action=browse&path=%2F*checkout*%2Ftags%2Fupdate%2Fmod_cm_birthday%2Fupdate_2.5.xml</server>
+    </updateservers>
 </extension>
