@@ -55,5 +55,8 @@
 			<language tag="nl-NL">de-DE.com_clubmanagement.sys.ini</language>
 		</languages>
     </administration>
+    <updateservers>
+	<server type="extension" priority="2" name="Club Management Updates">http://joomlacode.org/gf/project/clubmgnt/scmsvn/?action=browse&path=%2F*checkout*%2Ftags%2Fupdate%2Fcom_clubmanagement%2Fupdate_2.5.xml</server>
+    </updateservers>
 </extension>
 
