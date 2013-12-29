@@ -10,7 +10,7 @@
 */
 
 // Define object b ased on the table object
-require_once( dirname(__FILE__).DS.'nokTable.class.php');
+require_once( dirname(__FILE__).DIRECTORY_SEPARATOR.'nokTable.class.php');
 
 class nokCMBoard extends nokTable {
 

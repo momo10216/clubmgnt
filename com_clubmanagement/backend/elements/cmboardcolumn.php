@@ -12,7 +12,7 @@
 defined('JPATH_BASE') or die;
 
 JFormHelper::loadFieldClass('list');
-require_once( dirname(__FILE__).DS.'..'.DS.'classes'.DS.'nokCMBoard.php');
+require_once( dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR.'nokCMBoard.php');
 
 /**
  * Form Field class for the Joomla Framework.

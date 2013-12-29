@@ -13,7 +13,7 @@
 defined('_JEXEC') or die;
 
 jimport( 'joomla.application.component.view' );
-require_once( JPATH_COMPONENT_ADMINISTRATOR.DS.'classes'.DS.'nokCMBoard.php');
+require_once( JPATH_COMPONENT_ADMINISTRATOR.DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR.'nokCMBoard.php');
 
 class ClubmanagementViewboard extends JView {
 	var $user;
