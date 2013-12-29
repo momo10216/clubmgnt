@@ -20,8 +20,7 @@
 
 	<media/>
 
-	<installfile>install.com_clubmanagement.php</installfile>
-	<uninstallfile>uninstall.com_clubmanagement.php</uninstallfile>
+	<scriptfile>installerscript.php</scriptfile>
 
 	<languages folder="backend/language">
 		<language tag="en-GB">en-GB.com_clubmanagement.ini</language>
