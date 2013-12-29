@@ -11,7 +11,7 @@
 
 defined('JPATH_BASE') or die;
 
-require_once( dirname(__FILE__).DS.'..'.DS.'classes'.DS.'nokCMPerson.php');
+require_once( dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR.'nokCMPerson.php');
 
 /**
  * Supports a modal person picker.

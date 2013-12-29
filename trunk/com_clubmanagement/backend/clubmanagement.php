@@ -21,9 +21,9 @@ function nokCM_error ($text, $back=true) {
 }
 
 // Include object related functions
-require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMPerson.php');
-require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMMembership.php');
-require_once( dirname(__FILE__).DS.'classes'.DS.'nokCMBoard.php');
+require_once( dirname(__FILE__).DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR.'nokCMPerson.php');
+require_once( dirname(__FILE__).DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR.'nokCMMembership.php');
+require_once( dirname(__FILE__).DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR.'nokCMBoard.php');
 
 // Submenus
 JSubMenuHelper::addEntry(JText::_('SUBMENU_CLUBMANAGEMENT_PERSON'), 'index.php?option=com_clubmanagement&amp;amp;cmobj=person&amp;amp;task=list');
