@@ -1812,6 +1812,7 @@ CurrentIP
 	}
 	
 	function install() {
+		$statusOk = true;
 		// field, type, NULL, Index, Default, Extra
 		if ($this->_table_exists($this->table) === false) {
 			// Table doesn't exist -> create
@@ -1844,6 +1845,7 @@ CurrentIP
 				echo "Table `".$this->table."` added.<br/>";
 			} else {
 				echo 'Error: '.$this->db->getErrorMsg(true)."<br/>";
+				$statusOk = false;
 			}
 		} else {
 			// Table exist -> alter
@@ -1884,6 +1886,7 @@ CurrentIP
 							echo "Modified field `".$row[0]."` on table `".$this->table."`.<br/>";
 						} else {
 							echo "Error: ".$this->db->getErrorMsg(true)."<br/>";
+							$statusOk = false;
 						}
 					}
 				} else {
@@ -1894,6 +1897,7 @@ CurrentIP
 						echo "Removed field `".$row[0]."` from table `".$this->table."`.<br/>";
 					} else {
 						echo "Error: ".$this->db->getErrorMsg(true)."<br/>";
+						$statusOk = false;
 					}
 				}
 			}
@@ -1925,6 +1929,7 @@ CurrentIP
 						echo "Added field `".$strColumn."` on table `".$this->table."`.<br/>";
 					} else {
 						echo "Error: ".$this->db->getErrorMsg(true)."<br/>";
+						$statusOk = false;
 					}
 				}
 			}
@@ -1972,6 +1977,7 @@ CurrentIP
 						}
 					} else {
 						echo "Error: ",$this->db->getErrorMsg(true)."<br/>";
+						$statusOk = false;
 					}
 				}
 			} else {
@@ -1982,6 +1988,7 @@ CurrentIP
 					echo "Removed index `".$strName."` from table `".$this->table."`.<br/>";
 				} else {
 					echo "Error: ".$this->db->getErrorMsg(true)."<br/>";
+					$statusOk = false;
 				}
 			}
 		}
@@ -1998,9 +2005,11 @@ CurrentIP
 					echo "Created index `".$strName."` on table `".$this->table."`.<br/>";
 				} else {
 					echo "Error :".$this->db->getErrorMsg(true)."<br/>";
+					$statusOk = false;
 				}
 			}
 		}
+		return $statusOk;
 	}
 
 	function uninstall() {
@@ -2010,10 +2019,13 @@ CurrentIP
 			$this->db->setQuery($strSQL);
 			if ($this->db->query()) {
 				echo "Table `".$this->table."` removed.<br/>\n";
+				return true;
 			} else {
 				echo "Error: ".$this->db->getErrorMsg(true)."<br/>";
+				return false;
 			}
 		}
+		return true;
 	}
 }
 ?>
