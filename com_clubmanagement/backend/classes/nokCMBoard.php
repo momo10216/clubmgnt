@@ -9,7 +9,7 @@
 * @authorEmail	momo_102@bluemail.ch
 */
 
-// Define object b ased on the table object
+// Define object based on the table object
 require_once( dirname(__FILE__).DIRECTORY_SEPARATOR.'nokTable.class.php');
 
 class nokCMBoard extends nokTable {
@@ -31,9 +31,10 @@ class nokCMBoard extends nokTable {
 		$this->addTableColumn("modifieddate", "datetime", "Y", "", "");
 		$this->addTableIndex("person_id", "person_id", "N");
 
+		$picdir = "none";
 		if ($component != "") {
-			$params = &JComponentHelper::getParams( 'com_clubmanagement' );
-			$picdir = $params->get( 'image_dir' );
+			$params = &JComponentHelper::getParams($component);
+			$picdir = $params->get('image_dir');
 		}
 
 		// Settings
@@ -54,7 +55,7 @@ class nokCMBoard extends nokTable {
 		$this->addColumnRepresentation("published", "publish");
 		$this->addColumnRepresentation("person_id", "selection", "id", "CONCAT(IFNULL(`name`,''),' ',IFNULL(`firstname`,''),',',',',IFNULL(`address`,''),',',IFNULL(`city`,''))", "#__nokCM_persons", "", "`name`,`firstname`,`city`");
 		if ($component != "") {
-			$this->addColumnRepresentation("job", "textselect", $params->get( 'board_jobs' ));
+			$this->addColumnRepresentation("job", "textselect", $params->get('board_jobs'));
 		}
 		$this->addColumnRepresentation("sortorder", "text");
 		$this->addColumnRepresentation("begin", "date");
@@ -103,7 +104,7 @@ class nokCMBoard extends nokTable {
 		$this->addColumnAutoSet("modifiedby");
 		$this->addColumnAutoSet("modifieddate");
 
-		//No updatebel columns
+		//Read only columns
 		$this->addColumnNoUpdate("id");
 		$this->addColumnNoUpdate("createdby");
 		$this->addColumnNoUpdate("createddate");
@@ -200,7 +201,7 @@ class nokCMBoard extends nokTable {
 		$this->setImportForeignKey("name:firstname:address:city:birthday", "person_id", "#__nokCM_persons", "name:firstname:address:city:birthday", "id");
 		$this->setImportPrimaryKey("person_id:job:begin");
 
-		// Define toolbar itemms
+		// Define toolbar items
 		$this->addToolbarEntry("publish");
 		$this->addToolbarEntry("unpublish");
 		$this->addToolbarEntry("add");
