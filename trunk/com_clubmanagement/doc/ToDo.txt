@@ -1,5 +1,0 @@
-Later releases
-==============
-- WayBack (Board/Member)
-- Input more complex formulare (new person and new membership)
-- View for mail lists (MAILTO: <a href="mailto:eierschale@irgend.wo?bcc=heidi.bratze@vergiss.es">) also fo teams.
