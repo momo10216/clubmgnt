@@ -21,6 +21,7 @@ class JFormFieldCmPersonColumn extends JFormField {
         protected $type = 'cmpersoncolumn';
  
         public function getInput() {
+		$param = JComponentHelper::getParams('com_clubmanagement');
 		$fields = array(
 			"" => JText::_('COM_CLUBMANAGEMENT_SELECT_FIELD'),
 			"person_id" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_ID_LABEL'),
@@ -30,6 +31,7 @@ class JFormFieldCmPersonColumn extends JFormField {
 			"person_name" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_LABEL'),
 			"person_birthname" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHNAME_LABEL'),
 			"person_nickname" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NICKNAME_LABEL'),
+			"person_nickfirstname" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NICKFIRSTNAME_LABEL'),
 			"person_address" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_ADDRESS_LABEL'),
 			"person_city" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_LABEL'),
 			"person_zip" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_ZIP_LABEL'),
@@ -43,12 +45,13 @@ class JFormFieldCmPersonColumn extends JFormField {
 			"person_description" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_DESCRIPTION_LABEL'),
 			"person_image" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_IMAGE_LABEL'),
 			"person_birthday" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL'),
+			"person_nextbirthday" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NEXT_BIRTHDAY_LABEL'),
 			"person_deceased" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_LABEL'),
-			"person_custom1" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM1_LABEL'),
-			"person_custom2" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM2_LABEL'),
-			"person_custom3" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM3_LABEL'),
-			"person_custom4" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM4_LABEL'),
-			"person_custom5" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM5_LABEL'),
+			"person_custom1" => $param->get('custom1'),
+			"person_custom2" => $param->get('custom2'),
+			"person_custom3" => $param->get('custom3'),
+			"person_custom4" => $param->get('custom4'),
+			"person_custom5" => $param->get('custom5'),
 			"person_createdby" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CREATEDBY_LABEL'),
 			"person_createddate" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CREATEDDATE_LABEL'),
 			"person_modifiedby" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_MODIFIEDBY_LABEL'),
