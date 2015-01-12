@@ -57,7 +57,7 @@ if ($this->paramsMenuEntry->get('show_header', '1') == '1') {
 	echo "<tr>";
 	foreach($header as $strSingle) {
 		if ($strSingle != "") {
-			echo "<th>".JText::_($strSingle,true)."</th>";
+			echo "<th>".$strSingle."</th>";
 		}
 	}
 	echo "</tr>\n";

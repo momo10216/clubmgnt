@@ -52,7 +52,7 @@ if (($this->paramsMenuEntry->get('show_header') == "1") && ($this->paramsMenuEnt
 		$headerFields = array();
 		for($j=0;$j<$FieldPerLine;$j++) {
 			$colnr = $i*$FieldPerLine+$j;
-			array_push($headerFields,JText::_($header[$colnr],true));
+			array_push($headerFields,$header[$colnr]);
 		}
 		echo "<th>".implode(' ',$headerFields)."</th>";
 	}

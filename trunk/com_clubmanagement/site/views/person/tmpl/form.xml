@@ -8,7 +8,7 @@
 	<fields name="params" addfieldpath="/administrator/components/com_clubmanagement/models/fields">
 		<!-- Basic options. -->
 		<fieldset name="basic" label="COM_CLUBMANAGEMENT_BASIC_OPTIONS_FIELDSET_LABEL">
-			<field name="allow_edit" type="radio" default="0" label="USER_EDIT_ALLOW_LABEL" description="USER_EDIT_ALLOW_DESC">
+			<field name="allow_edit" type="radio" default="0" label="COM_CLUBMANAGEMENT_USER_EDIT_ALLOW_LABEL" description="COM_CLUBMANAGEMENT_USER_EDIT_ALLOW_DESC">
 				<option value="0">JNO</option>
 				<option value="1">JYES</option>
 			</field>

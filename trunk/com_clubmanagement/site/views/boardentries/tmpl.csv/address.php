@@ -33,7 +33,7 @@ for($i=0;$i<$Line;$i++) {
 	$headerFields = array();
 	for($j=0;$j<$FieldPerLine;$j++) {
 		$colnr = $i*$FieldPerLine+$j;
-		array_push($headerFields,JText::_($header[$colnr],true));
+		array_push($headerFields,$header[$colnr]);
 	}
 	array_push($headers,implode(' ',$headerFields));
 }

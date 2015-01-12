@@ -13,16 +13,6 @@ defined('_JEXEC') or die; // no direct access
 // Get columns
 $confCols = $this->paramsMenuEntry->get("allow_columns");
 $cols = $this->getModel()->translateFieldsToColumns($confCols);
-
-$script = <<<EOD
-/* <![CDATA[ */
-Joomla.submitbutton = function(pressbutton) {
-	submitform(pressbutton);
-	return true;
-}
-/* ]]> */
-EOD;
-JFactory::getDocument()->addScriptDeclaration($script);
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_clubmanagement&layout='.$this->getLayout().'&id='.$this->item->id); ?>" method="post" name="adminForm" id="adminForm">
@@ -31,14 +21,15 @@ JFactory::getDocument()->addScriptDeclaration($script);
 	<?php } ?>
 
 <p align="center">
-	<button type="button" onclick="submitbutton('save')">
+	<button type="submit">
 		<?php echo JText::_('JSAVE') ?>
 	</button>
-	<button type="button" onclick="submitbutton('cancel')">
+	<button type="submit" onClick="document.adminForm.task.value='cancel';">
 		<?php echo JText::_('JCANCEL') ?>
 	</button>
 </p>
-	<input type="hidden" name="task" value="person.submit" />
+	<input type="hidden" name="option" value="com_clubmanagement" />
+	<input type="hidden" name="task" value="save" />
 	<?php echo JHtml::_('form.token'); ?>
 </form>
 

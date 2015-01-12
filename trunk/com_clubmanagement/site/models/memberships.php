@@ -11,6 +11,8 @@
 
 defined('_JEXEC') or die;
 
+jimport('joomla.application.component.helper');
+
 class ClubManagementModelMemberships extends JModelList
 {
 	public $_context = 'com_clubmanagement.memberships';
@@ -18,49 +20,6 @@ class ClubManagementModelMemberships extends JModelList
 	protected $paramsComponent;
 	protected $paramsMenuEntry;
 	private $_items = null;
-	protected $fields = array (
-			"member_id" => array('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_ID_LABEL','m.id'),
-			"person_id" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_ID_LABEL','p.id'),
-			"person_salutation" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_SALUTATION_LABEL','p.salutation'),
-			"person_firstname" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_LABEL','p.firstname'),
-			"person_middlename" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_MIDDLENAME_LABEL','p.middlename'),
-			"person_name" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_LABEL','p.name'),
-			"person_birthname" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHNAME_LABEL','p.birthname'),
-			"person_nickname" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_NICKNAME_LABEL','p.nickname'),
-			"person_address" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_ADDRESS_LABEL','p.address'),
-			"person_city" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_LABEL','p.city'),
-			"person_zip" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_ZIP_LABEL','p.zip'),
-			"person_state" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_STATE_LABEL','p.state'),
-			"person_country" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_COUNTRY_LABEL','p.country'),
-			"person_telephone" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_TELEPHONE_LABEL','p.telephone'),
-			"person_mobile" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_MOBILE_LABEL','p.mobile'),
-			"person_url" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_URL_LABEL','p.url'),
-			"person_email" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_EMAIL_LABEL','p.email'),
-			"user_username" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_USERNAME_LABEL','u.username'),
-			"person_description" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_DESCRIPTION_LABEL','p.description'),
-			"person_image" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_IMAGE_LABEL','p.image'),
-			"person_birthday" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL','p.birthday'),
-			"person_deceased" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_LABEL','p.deceased'),
-			"person_custom1" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM1_LABEL','p.custom1'),
-			"person_custom2" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM2_LABEL','p.custom2'),
-			"person_custom3" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM3_LABEL','p.custom3'),
-			"person_custom4" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM4_LABEL','p.custom4'),
-			"person_custom5" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM5_LABEL','p.custom5'),
-			"person_hh_person_id" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_PERSON_ID_LABEL','p.hh_person_id'),
-			"person_hh_salutation_override" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_SALUTATION_OVERWRITE_LABEL','p.hh_salutation_override'),
-			"person_hh_name_override" => array('COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_NAME_OVERWRITE_LABEL','p.hh_name_override'),
-			"member_type" => array('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL','m.type'),
-			"member_begin" => array('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_LABEL','m.begin'),
-			"member_end" => array('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_END_LABEL','m.end'),
-			"member_beginyear" => array('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGINYEAR_LABEL','YEAR(m.begin)'),
-			"member_endyear" => array('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_ENDYEAR_LABEL','YEAR(m.end)'),
-			"member_beginendyear" => array('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGINENDYEAR_LABEL',"CONCAT(YEAR(m.begin),'-',IFNULL(YEAR(NULLIF(m.end,0)),''))"),
-			"member_published" => array('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL','m.published'),
-			"member_createdby" => array('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDBY_LABEL','m.createdby'),
-			"member_createddate" => array('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDDATE_LABEL','m.createddate'),
-			"member_modifiedby" => array('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDBY_LABEL','m.modifiedby'),
-			"member_modifieddate" => array('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDDATE_LABEL','m.modifieddate')
-		);
 
 	/**
 	 * Constructor.
@@ -87,8 +46,56 @@ class ClubManagementModelMemberships extends JModelList
 				'sortname3', 'a.sortname3'
 			);
 		}
-
 		parent::__construct($config);
+	}
+
+	private function getFields() {
+		$params = JComponentHelper::getParams('com_clubmanagement');
+		return array (
+			"member_id" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_ID_LABEL',true),'`m`.`id`'),
+			"person_id" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_ID_LABEL',true),'`p`.`id`'),
+			"person_salutation" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_SALUTATION_LABEL',true),'`p`.`salutation`'),
+			"person_firstname" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_LABEL',true),'`p`.`firstname`'),
+			"person_middlename" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_MIDDLENAME_LABEL',true),'`p`.`middlename`'),
+			"person_name" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_LABEL',true),'`p`.`name`'),
+			"person_birthname" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHNAME_LABEL',true),'`p`.`birthname`'),
+			"person_nickname" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NICKNAME_LABEL',true),'`p`.`nickname`'),
+			"person_nickfirstname" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NICKFIRSTNAME_LABEL',true),"IFNULL(NULLIF(`p`.`nickname`,''),`p`.`firstname`)"),
+			"person_address" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_ADDRESS_LABEL',true),'`p`.`address`'),
+			"person_city" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_LABEL',true),'`p`.`city`'),
+			"person_zip" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_ZIP_LABEL',true),'`p`.`zip`'),
+			"person_state" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_STATE_LABEL',true),'`p`.`state`'),
+			"person_country" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_COUNTRY_LABEL',true),'`p`.`country`'),
+			"person_telephone" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_TELEPHONE_LABEL',true),'`p`.`telephone`'),
+			"person_mobile" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_MOBILE_LABEL',true),'`p`.`mobile`'),
+			"person_url" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_URL_LABEL',true),'`p`.`url`'),
+			"person_email" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_EMAIL_LABEL',true),'`p`.`email`'),
+			"user_username" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_USERNAME_LABEL',true),'`u`.`username`'),
+			"person_description" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_DESCRIPTION_LABEL',true),'`p`.`description`'),
+			"person_image" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_IMAGE_LABEL',true),'`p`.`image`'),
+			"person_birthday" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL',true),'`p`.`birthday`'),
+			"person_nextbirthday" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NEXT_BIRTHDAY_LABEL',true),'IF(DATE_ADD(`p`.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(`p`.`birthday`)) YEAR) < CURDATE(),DATE_ADD(p.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(`p`.`birthday`) + 1) YEAR),DATE_ADD(`p`.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(`p`.`birthday`)) YEAR))'),
+			"person_deceased" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_LABEL',true),'`p`.`deceased`'),
+			"person_custom1" => array($params->get('custom1'),'`p`.`custom1`'),
+			"person_custom2" => array($params->get('custom2'),'`p`.`custom2`'),
+			"person_custom3" => array($params->get('custom3'),'`p`.`custom3`'),
+			"person_custom4" => array($params->get('custom4'),'`p`.`custom4`'),
+			"person_custom5" => array($params->get('custom5'),'`p`.`custom5`'),
+			"person_hh_person_id" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_PERSON_ID_LABEL',true),'`p`.`hh_person_id`'),
+			"person_hh_salutation_override" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_SALUTATION_OVERWRITE_LABEL',true),'`p`.`hh_salutation_override`'),
+			"person_hh_name_override" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_NAME_OVERWRITE_LABEL',true),'`p`.`hh_name_override`'),
+			"member_type" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL',true),'`m`.`type`'),
+			"member_begin" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_LABEL',true),'`m`.`begin`'),
+			"member_end" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_END_LABEL',true),'`m`.`end`'),
+			"member_beginyear" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGINYEAR_LABEL',true),'YEAR(`m`.`begin`)'),
+			"member_endyear" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_ENDYEAR_LABEL',true),'YEAR(`m`.`end`)'),
+			"member_beginendyear" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGINENDYEAR_LABEL',true),"CONCAT(YEAR(`m`.`begin`),'-',IFNULL(YEAR(NULLIF(`m`.`end`,0)),''))"),
+			"member_published" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL',true),'`m`.`published`'),
+			"member_createdby" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDBY_LABEL',true),'`m`.`createdby`'),
+			"member_createddate" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDDATE_LABEL',true),'`m`.`createddate`'),
+			"member_modifiedby" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDBY_LABEL',true),'`m`.`modifiedby`'),
+			"member_modifieddate" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDDATE_LABEL',true),'`m`.`modifieddate`')
+		);
 	}
 
 	/**
@@ -114,24 +121,18 @@ class ClubManagementModelMemberships extends JModelList
 	 */
         protected function getListQuery()
         {
-		// Get configurations
-		$this->paramsComponent = $this->state->get('params');
-		$app = JFactory::getApplication();
-		$currentMenu = $app->getMenu()->getActive();
-		if (is_object( $currentMenu )) {
-			$this->paramsMenuEntry = $currentMenu->params;
-		}
-
                 // Create a new query object.           
                 $db = JFactory::getDBO();
                 $query = $db->getQuery(true);
 
                 // Select some fields from the hello table
+		$allFields = $this->getFields();
 		$fields = array();
-		foreach (array_keys($this->fields) as $key)
+		foreach (array_keys($allFields) as $key)
 		{
-			if ($this->fields[$key]) {
-				$field = $this->fields[$key];
+			if ($allFields[$key])
+			{
+				$field = $allFields[$key];
 				array_push($fields,$field[1]." AS ".$key);
 			}
 		}
@@ -141,25 +142,42 @@ class ClubManagementModelMemberships extends JModelList
 			->join('LEFT', $db->quoteName('#__nokCM_persons', 'p').' ON ('.$db->quoteName('m.person_id').'='.$db->quoteName('p.id').')')
 			->join('LEFT', $db->quoteName('#__users', 'u').' ON ('.$db->quoteName('p.user_id').'='.$db->quoteName('u.id').')');
 
+		// Get configurations
+		$this->paramsComponent = $this->state->get('params');
+		$app = JFactory::getApplication();
+		$currentMenu = $app->getMenu()->getActive();
+		if (is_object( $currentMenu ))
+		{
+			$this->paramsMenuEntry = $currentMenu->params;
+		} else {
+			return $query;
+		}
+
 		// Filter by search in name.
 		$where = array();
-		$memberstate = $this->paramsMenuEntry->get('memberstate');
-		$memberTYPE = $this->paramsMenuEntry->get('membertype');
+		$state = $this->paramsMenuEntry->get('memberstate');
+		$membertype = $this->paramsMenuEntry->get('membertype');
 		$publicity = $this->paramsMenuEntry->get('publicity');
-		if ($memberstate == "current") {
-			array_push($where,$db->quoteName('m.end')." IS NULL");
+		if ($state == "current")
+		{
+			array_push($where,"(".$db->quoteName('m.end')." IS NULL OR ".$db->quoteName('m.end')." = '0000-00-00')");
 		}
-		if ($memberstate == "closed") {
+		if ($state == "closed")
+		{
 			array_push($where,$db->quoteName('m.end')." IS NOT NULL");
+			array_push($where,$db->quoteName('m.end')." <> '0000-00-00'");
 		}
-		if (($membertype != "*") && ($membertype != "")) {
+		if (($membertype != "*") && ($membertype != ""))
+		{
 			array_push($where,$db->quoteName('m.type')." = ".$db->quote($this->paramsMenuEntry->get('membertype')));
 		}
-		if ($publicity == "published") {
+		if ($publicity == "published")
+		{
 			array_push($where,$db->quoteName('m.published')." = 1");
 		}
-		if ($publicity == "unpublished") {
-			array_push($where,$db->quoteName('m.published')." = 1");
+		if ($publicity == "unpublished")
+		{
+			array_push($where,$db->quoteName('m.published')." = 0");
 		}
 		if (count($where) > 0)
 		{
@@ -168,14 +186,17 @@ class ClubManagementModelMemberships extends JModelList
 
 		// Add the list ordering clause.
 		$sort = array();
-		for ($i=1;$i<=4;$i++) {
+		for ($i=1;$i<=4;$i++)
+			{
 			$fieldKeyCol = "sort_column_".$i;
 			$fieldKeyDir = "sort_direction_".$i;
 			$key = $this->paramsMenuEntry->get($fieldKeyCol);
-			if (!empty($key)) {
-				if ($this->fields[$key]) {
-					$fieldname = $this->fields[$key][1];
-					array_push($sort, $db->quoteName($fieldname).' '.$this->paramsMenuEntry->get($fieldKeyDir));
+			if (!empty($key))
+			{
+				if ($allFields[$key])
+				{
+					$fieldname = $allFields[$key][1];
+					array_push($sort, $fieldname.' '.$this->paramsMenuEntry->get($fieldKeyDir));
 				}
 			}
 		}
@@ -190,12 +211,38 @@ class ClubManagementModelMemberships extends JModelList
         public function getHeader($cols)
         {
 		$fields = array();
+		$allFields = $this->getFields();
 		foreach ($cols as $col)
 		{
-			$field = $this->fields[$col];
+			$field = $allFields[$col];
 			array_push($fields,$field[0]);
 		}
 		return $fields;
 	}
+
+	public function translateFieldsToColumns($searchFields, $removePrefix=true)
+	{
+		$result = array();
+		$allFields = $this->getFields();
+		foreach($searchFields as $field)
+		{
+			if ($allFields[$field])
+			{
+				if ($removePrefix)
+				{
+					$resultField = str_replace('`p`.', '' , $allFields[$field][1]);
+					$resultField = str_replace('`m`.', '' , $resultField);
+					$resultField = str_replace('`b`.', '' , $resultField);
+					$resultField = str_replace('`u`.', '' , $resultField);
+					$resultField = str_replace('`', '' , $resultField);
+					array_push($result,$resultField);
+				} else {
+					array_push($result,$allFields[$field][1]);
+				}
+			}
+		}
+		return $result;
+	}
+
 }
 ?>
