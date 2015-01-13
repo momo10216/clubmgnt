@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset addfieldpath="/administrator/components/com_clubmanagement/models/fields" >
+		<field name="id"  type="text" class="readonly" label="JGLOBAL_FIELD_ID_LABEL"
+			description ="JGLOBAL_FIELD_ID_DESC" size="10" default="0"
+			readonly="true" />
+
+		<field name="salutation" type="text" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_SALUTATION_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_SALUTATION_DESC"
+			size="25"
+			required="false" />
+
+		<field name="name" type="text" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_DESC"
+			size="40"
+			required="true" />
+
+		<field name="birthname" type="text" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHNAME_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHNAME_DESC"
+			size="40"
+			required="false" />
+
+		<field name="firstname" type="text" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_DESC"
+			size="40"
+			required="false" />
+
+		<field name="middlename" type="text" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_MIDDLENAME_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_MIDDLENAME_DESC"
+			size="40"
+			required="false" />
+
+		<field name="nickname" type="text" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_NICKNAME_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_NICKNAME_DESC"
+			size="40"
+			required="false" />
+
+		<field name="address" type="text" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_ADDRESS_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_ADDRESS_DESC"
+			size="40"
+			required="false" />
+
+		<field name="zip" type="text" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_ZIP_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_ZIP_DESC"
+			size="10"
+			required="false" />
+
+		<field name="city" type="text" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_DESC"
+			size="40"
+			required="true" />
+
+		<field name="state" type="text" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_STATE_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_STATE_DESC"
+			size="40"
+			required="false" />
+
+		<field name="country" type="text" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_COUNTRY_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_COUNTRY_DESC"
+			size="40"
+			required="true" />
+
+		<field name="telephone" type="tel" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_TELEPHONE_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_TELEPHONE_DESC"
+			size="25"
+			required="false" />
+
+		<field name="mobile" type="tel" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_MOBILE_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_MOBILE_DESC"
+			size="25"
+			required="false" />
+
+		<field name="url" type="URL" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_URL_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_URL_DESC"
+			size="40"
+			required="false" />
+
+		<field name="email" type="email" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_EMAIL_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_EMAIL_DESC"
+			size="40"
+			required="false" />
+
+		<field name="user_id" type="user" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_USERNAME_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_USERNAME_DESC"
+			size="40"
+			required="false" />
+
+		<field name="description" type="textarea" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_DESCRIPTION_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_DESCRIPTION_DESC"
+			cols="40" rows="7"
+			required="false" />
+
+		<field name="image" type="imagelist" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_IMAGE_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_IMAGE_DESC"
+			directory=""
+			required="false" />
+
+		<field name="birthday" type="calendar" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_DESC"
+			directory=""
+			required="false" />
+
+		<field name="deceased" type="calendar" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_DESC"
+			directory=""
+			required="false" />
+
+		<field name="custom1" type="cmcustom" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM1_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM1_DESC"
+			size="40"
+			required="false" />
+
+		<field name="custom2" type="cmcustom" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM2_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM2_DESC"
+			size="40"
+			required="false" />
+
+		<field name="custom3" type="cmcustom" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM3_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM3_DESC"
+			size="40"
+			required="false" />
+
+		<field name="custom4" type="cmcustom" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM4_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM4_DESC"
+			size="40"
+			required="false" />
+
+		<field name="custom5" type="cmcustom" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM5_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM5_DESC"
+			size="40"
+			required="false" />
+
+		<field name="hh_person_id" type="modal_persons"
+			label="COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_PERSON_ID_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_PERSON_ID_DESC"
+			size="40"
+			required="false"
+			household="true"
+			excludeCurrentId="true" />
+
+		<field name="hh_salutation_override" type="text"
+			label="COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_SALUTATION_OVERWRITE_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_SALUTATION_OVERWRITE_DESC"
+			size="40"
+			required="false" />
+
+		<field name="hh_name_override" type="text"
+			label="COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_NAME_OVERWRITE_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_NAME_OVERWRITE_DESC"
+			size="40"
+			required="false" />
+
+		<field name="createdby" type="user" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CREATEDBY_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CREATEDBY_DESC"
+			required="false"
+			readonly="true" />
+
+		<field name="createddate" type="calendar" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CREATEDDATE_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CREATEDDATE_DESC"
+			size="22"
+			format="%Y-%m-%d %H:%M:%S" filter="user_utc"
+			required="false"
+			readonly="true" />
+
+		<field name="modifiedby" type="user" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_MODIFIEDBY_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_MODIFIEDBY_DESC"
+			required="false"
+			readonly="true" />
+
+		<field name="modifieddate" type="calendar" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_MODIFIEDDATE_LABEL"
+			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_MODIFIEDDATE_DESC"
+			size="22"
+			format="%Y-%m-%d %H:%M:%S" filter="user_utc"
+			required="false"
+			readonly="true" />
+	</fieldset>
+</form>
+

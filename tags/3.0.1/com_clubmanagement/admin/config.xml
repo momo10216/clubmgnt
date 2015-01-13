@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<fieldset name="common"
+		  label="COM_CLUBMANAGEMENT_CONFIGSET_COMMON_LABEL"
+		  description="COM_CLUBMANAGEMENT_CONFIGSET_COMMON_DESC">
+		<field name="image_dir" type="text" default="/images/member" label="COM_CLUBMANAGEMENT_CONFIGFIELD_IMAGE_DIRECTORY_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_IMAGE_DIRECTORY_DESC"/>
+		<field name="member_types" type="text" default="ACTIVE=Active;PASSIVE=Passive;SUPPORTER=Supporter;SPONSOR=Sponsor" label="COM_CLUBMANAGEMENT_CONFIGFIELD_MEMBERSHIP_TYPES_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_MEMBERSHIP_TYPES_DESC"/>
+		<field name="board_jobs" type="text" default="PRESIDENT=President;VICEPRESIDENT=Vice-President;TREASURE=Treasure;ACTUARY=Actuary;ASSESSOR=Assessor;CONTROLLER=Controller" label="COM_CLUBMANAGEMENT_CONFIGFIELD_BOARD_JOBS_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_BOARD_JOBS_DESC"/>
+	</fieldset>
+
+	<fieldset name="customfields"
+		  label="COM_CLUBMANAGEMENT_CONFIGSET_CUSTOM_LABEL"
+		  description="COM_CLUBMANAGEMENT_CONFIGSET_CUSTOM_DESC">
+		<field name="custom1" type="text" default="Custom field 1" label="COM_CLUBMANAGEMENT_CONFIGFIELD_CUSTOM_1_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_CUSTOM_1_DESC"/>
+		<field name="custom2" type="text" default="Custom field 2" label="COM_CLUBMANAGEMENT_CONFIGFIELD_CUSTOM_2_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_CUSTOM_2_DESC"/>
+		<field name="custom3" type="text" default="Custom field 3" label="COM_CLUBMANAGEMENT_CONFIGFIELD_CUSTOM_3_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_CUSTOM_3_DESC"/>
+		<field name="custom4" type="text" default="Custom field 4" label="COM_CLUBMANAGEMENT_CONFIGFIELD_CUSTOM_4_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_CUSTOM_4_DESC"/>
+		<field name="custom5" type="text" default="Custom field 5" label="COM_CLUBMANAGEMENT_CONFIGFIELD_CUSTOM_5_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_CUSTOM_5_DESC"/>
+	</fieldset>
+
+	<fieldset name="details"
+		  label="COM_CLUBMANAGEMENT_CONFIGSET_DETAILS_LABEL"
+		  description="COM_CLUBMANAGEMENT_CONFIGSET_DETAILS_DESC"
+		  addfieldpath="/administrator/components/com_clubmanagement/models/fields">
+		<field name="detail_column_image" type="cmpersoncolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_IMAGE_COLUMN_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_IMAGE_COLUMN_DESC"/>
+		<field name="detail_height" type="text" default="400" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_HEIGHT_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_HEIGHT_DESC"/>
+		<field name="detail_width" type="text" default="500" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_WIDTH_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_WIDTH_DESC"/>
+		<field name="detail_show_label" type="radio" default="0" label="COM_CLUBMANAGEMENT_CONFIGFIELD_ENABLE_DETAIL_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_ENABLE_DETAIL_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="detail_css" type="textarea" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_CSS_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_CSS_DESC" rows="5" cols="50"/>
+		<field name="detail_column_1" type="cmpersoncolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_1_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_1_DESC"/>
+		<field name="detail_column_2" type="cmpersoncolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_2_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_2_DESC"/>
+		<field name="detail_column_3" type="cmpersoncolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_3_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_3_DESC"/>
+		<field name="detail_column_4" type="cmpersoncolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_4_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_4_DESC"/>
+		<field name="detail_column_5" type="cmpersoncolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_5_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_5_DESC"/>
+		<field name="detail_column_6" type="cmpersoncolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_6_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_6_DESC"/>
+		<field name="detail_column_7" type="cmpersoncolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_7_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_7_DESC"/>
+		<field name="detail_column_8" type="cmpersoncolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_8_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_8_DESC"/>
+		<field name="detail_column_9" type="cmpersoncolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_9_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_9_DESC"/>
+		<field name="detail_column_10" type="cmpersoncolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_10_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_10_DESC"/>
+		<field name="detail_member_title" type="text" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_TITLE_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_TITLE_DESC"/>
+		<field name="detail_member_column_1" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_COLUMN_1_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_COLUMN_1_DESC"/>
+		<field name="detail_member_column_2" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_COLUMN_2_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_COLUMN_2_DESC"/>
+		<field name="detail_member_column_3" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_COLUMN_3_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_COLUMN_3_DESC"/>
+		<field name="detail_member_column_4" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_COLUMN_4_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_COLUMN_4_DESC"/>
+		<field name="detail_member_column_5" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_COLUMN_5_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_COLUMN_5_DESC"/>
+		<field name="detail_member_sort_column_1" type="cmmembershipcolumn" columntype="view" default="begin" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_SORT_COLUMN_1_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_SORT_COLUMN_1_DESC"/>
+		<field name="detail_member_sort_direction_1" type="radio" default="ASC" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_SORT_DIRECTION_1_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_SORT_DIRECTION_1_DESC">
+			<option value="ASC">JGLOBAL_ORDER_ASCENDING</option>
+			<option value="DESC">JGLOBAL_ORDER_DESCENDING</option>
+		</field>
+		<field name="detail_member_sort_column_2" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_SORT_COLUMN_2_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_SORT_COLUMN_2_DESC"/>
+		<field name="detail_member_sort_direction_2" type="radio" default="ASC" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_SORT_DIRECTION_2_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_MEMBERSHIP_SORT_DIRECTION_2_DESC">
+			<option value="ASC">JGLOBAL_ORDER_ASCENDING</option>
+			<option value="DESC">JGLOBAL_ORDER_DESCENDING</option>
+		</field>
+		<field name="detail_board_title" type="text" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_TITLE_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_TITLE_DESC"/>
+		<field name="detail_board_column_1" type="cmboardcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_COLUMN_1_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_COLUMN_1_DESC"/>
+		<field name="detail_board_column_2" type="cmboardcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_COLUMN_2_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_COLUMN_2_DESC"/>
+		<field name="detail_board_column_3" type="cmboardcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_COLUMN_3_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_COLUMN_3_DESC"/>
+		<field name="detail_board_column_4" type="cmboardcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_COLUMN_4_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_COLUMN_4_DESC"/>
+		<field name="detail_board_column_5" type="cmboardcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_COLUMN_5_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_COLUMN_5_DESC"/>
+		<field name="detail_board_sort_column_1" type="cmboardcolumn" columntype="view" default="begin" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_SORT_COLUMN_1_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_SORT_COLUMN_1_DESC"/>
+		<field name="detail_board_sort_direction_1" type="radio" default="ASC" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_SORT_DIRECTION_1_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_SORT_DIRECTION_1_DESC">
+			<option value="ASC">JGLOBAL_ORDER_ASCENDING</option>
+			<option value="DESC">JGLOBAL_ORDER_DESCENDING</option>
+		</field>
+		<field name="detail_board_sort_column_2" type="cmboardcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_SORT_COLUMN_2_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_SORT_COLUMN_2_DESC"/>
+		<field name="detail_board_sort_direction_2" type="radio" default="ASC" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_SORT_DIRECTION_2_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BOARD_SORT_DIRECTION_2_DESC">
+			<option value="ASC">JGLOBAL_ORDER_ASCENDING</option>
+			<option value="DESC">JGLOBAL_ORDER_DESCENDING</option>
+		</field>
+	</fieldset>
+</config>
