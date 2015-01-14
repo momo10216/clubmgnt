@@ -76,6 +76,10 @@ if ($this->items) {
 	foreach($this->items as $item) {
 		$row = (array) $item;
 		$lines = array();
+		$imageCol = $this->paramsMenuEntry->get( "column_image" );
+		if ($imageCol != "") {
+			$image = $row[$imageCol];
+		}
 		for($i=0;$i<$Line;$i++) {
 			for($j=0;$j<$FieldPerLine;$j++) {
 				$colnr = $i*$FieldPerLine+$j;
@@ -99,6 +103,7 @@ if ($this->items) {
 				$lines[$i] = "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$this->paramsComponent->get( 'detail_width' ).", y: ".$this->paramsComponent->get( 'detail_height' )."}}\">".$lines[$i]."</a>";
 			}
 		}
+		echo "<table".$borderStyle.">\n";
 		switch ($this->paramsMenuEntry->get( "picpos" )) {
 			case "right": //picture on the left side
 				echo "<tr valign=\"top\">\n";
