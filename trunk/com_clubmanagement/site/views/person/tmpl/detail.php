@@ -65,10 +65,13 @@ if ($this->paramsComponent->get("detail_css") != "") {
 	echo "<style type=\"text/css\" media=\"screen\">\n".$this->paramsComponent->get("detail_css")."\n</style>\n";
 }
 echo "<div class=\"cmdetail\"><table class=\"cmdetail_table\">\n";
+$imageCol = $this->paramsComponent->get( "detail_column_image" );
+$label = $this->paramsComponent->get( "detail_show_label" );
 for ($i=0;$i<$personColumnCount;$i++) {
 	$field = $personColumns[$i];
 	echo "\t<tr class=\"cmdetail_row\">\n";
-	if (($i == 0) && ($this->paramsComponent->get("detail_column_image") != "")) {
+	if (($i == 0) && ($imageCol != "")) {
+		$image = $row[$imageCol];
 		echo "\t\t<td class=\"cmdetail_imagefield\" rowspan=\"".$personColumnCount."\"><img class=\"cmdetail_image\" src=\"".$imageDir.$image."\"></td>\n";
 	}
 	if ($label != "0") {
@@ -103,7 +106,7 @@ if ($memberColumnCount > 0) {
 	$data = $model->getMembershipItems($id,$sort);
 	echo "<div class=\"cmdetail_member\">\n";
 	if ($this->paramsComponent->get("detail_member_title") != "") {
-		echo "<span class=\"cmdetail_member_title\">".$this->paramsComponent->get($this,"detail_member_title")."</span>\n";
+		echo "<span class=\"cmdetail_member_title\">".$this->paramsComponent->get("detail_member_title")."</span>\n";
 	}
 	echo "<table class=\"cmdetail_member_table\">\n";
 	if ($label != "0") {

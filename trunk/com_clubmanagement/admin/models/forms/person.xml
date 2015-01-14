@@ -90,9 +90,8 @@
 			cols="40" rows="7"
 			required="false" />
 
-		<field name="image" type="imagelist" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_IMAGE_LABEL"
+		<field name="image" type="cmimagelist" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_IMAGE_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_IMAGE_DESC"
-			directory=""
 			required="false" />
 
 		<field name="birthday" type="calendar" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL"
