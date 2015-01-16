@@ -37,13 +37,18 @@ class JFormFieldCmSelection extends JFormField {
 			$values = explode("=",$selectionRow,2);
 			$fields[$values[0]] = $values[1];
 		}
-		if (!array_key_exists($this->value, $fields)) {
-			$fields[$this->value] = $this->value;
+		if (is_array($this->value)) {
+			$values = $this->value;
+		} else {
+			$values = array($this->value);
+			if (!array_key_exists($this->value, $fields)) {
+				$fields[$this->value] = $this->value;
+			}
 		}
 		$option = "";
 		foreach(array_keys($fields) as $key) {
 			$option .= '<option value="'.$key.'"';
-			if ($this->value == $key)  {
+			if (array_search($key,$values) !== false)  {
 				$option .= ' selected';
 			}
 			$option .= '>'.$fields[$key].'</option>';
