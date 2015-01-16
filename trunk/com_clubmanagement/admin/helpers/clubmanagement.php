@@ -90,11 +90,11 @@ class ClubManagementHelper extends JHelperContent
 					}
 					array_push($values, $db->quote($row[$key]));
 				}
-				if (!array_search("createddate",$fields)) {
+				if (array_search($db->quoteName("createddate"),$fields) === false) {
 					array_push($fields, $db->quoteName("createddate"));
 					array_push($values, $db->quote(JFactory::getDate()->toSql()));
 				}
-				if (!array_search("createdby",$fields)) {
+				if (array_search($db->quoteName("createdby"),$fields) === false) {
 					array_push($fields, $db->quoteName("createdby"));
 					array_push($values, $db->quote($userId));
 				}

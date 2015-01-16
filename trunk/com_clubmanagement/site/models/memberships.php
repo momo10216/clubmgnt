@@ -167,9 +167,13 @@ class ClubManagementModelMemberships extends JModelList
 			array_push($where,$db->quoteName('m.end')." IS NOT NULL");
 			array_push($where,$db->quoteName('m.end')." <> '0000-00-00'");
 		}
-		if (($membertype != "*") && ($membertype != ""))
-		{
-			array_push($where,$db->quoteName('m.type')." = ".$db->quote($this->paramsMenuEntry->get('membertype')));
+		if (is_array($membertype)) {
+			array_push($where,$db->quoteName('m.type')." IN (".implode(", ",$db->quote($membertype)).")");
+		} else {
+			if (($membertype != "*") && ($membertype != ""))
+			{
+				array_push($where,$db->quoteName('m.type')." = ".$db->quote($membertype));
+			}
 		}
 		if ($publicity == "published")
 		{
