@@ -29,6 +29,10 @@ class JFormFieldCmSelection extends JFormField {
 		if ($this->element["hide_none"] != "true") {
 			$fields[""] = JText::alt('JOPTION_DO_NOT_USE', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname));
 		}
+		$multiple = '';
+		if ($this->element['multiple'] == 'true') {
+			$multiple = 'multiple ';
+		}
 		foreach($selectionRows as $selectionRow) {
 			$values = explode("=",$selectionRow,2);
 			$fields[$values[0]] = $values[1];
@@ -44,6 +48,6 @@ class JFormFieldCmSelection extends JFormField {
 			}
 			$option .= '>'.$fields[$key].'</option>';
 		}
-		return '<select id="'.$this->id.'" name="'.$this->name.'">'.$option.'</select>';
+		return '<select '.$multiple.'id="'.$this->id.'" name="'.$this->name.'">'.$option.'</select>';
         }
 }

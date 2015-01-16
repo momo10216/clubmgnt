@@ -73,6 +73,23 @@ JHtml::_('behavior.tooltip');
 		</div>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
 
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'communication', JText::_('COM_CLUBMANAGEMENT_PERSONS_TAB_COMMUNICATION', true)); ?>
+		<div class="row-fluid">
+			<div class="span9">
+				<div class="row-fluid form-horizontal-desktop">
+					<div class="span6">
+						<?php echo $this->form->renderField('telephone'); ?>
+						<?php echo $this->form->renderField('mobile'); ?>
+					</div>
+					<div class="span6">
+						<?php echo $this->form->renderField('email'); ?>
+						<?php echo $this->form->renderField('url'); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php echo JHtml::_('bootstrap.endTab'); ?>
+
 		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'custom', JText::_('COM_CLUBMANAGEMENT_PERSONS_TAB_CUSTOM_AND_RECORDINFO', true)); ?>
 		<div class="row-fluid">
 			<div class="span9">
