@@ -21,11 +21,26 @@
 			<field name="membertype" type="cmselection" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL"
 				description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_DESC" paramname="member_types" hide_none="true" multiple="true"/>
 			<field name="memberstate" type="list" default="current" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_DESC">
-				<option value="current">Current</option>
-				<option value="closed">Terminated</option>
+				<option value="current">current</option>
+				<option value="closed">terminated</option>
 				<option value="all">JALL</option>
 			</field>
-			<field name="publicity" type="list" default="published" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_DESC">
+			<field name="memberpublicity" type="list" default="published" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_DESC">
+				<option value="all">JALL</option>
+				<option value="published">JPUBLISHED</option>
+				<option value="unpublished">JUNPUBLISHED</option>
+			</field>
+ 			<field name="@spacer" type="spacer" default="" label="" description="" />
+			<field name="boardshow" type="radio" default="0" label="COM_CLUBMANAGEMENT_BOARDENTRIES_SHOW_LABEL" description="COM_CLUBMANAGEMENT_BOARDENTRIES_SHOW_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="boardstate" type="list" default="current" label="COM_CLUBMANAGEMENT_BOARDENTRIES_STATE_LABEL" description="COM_CLUBMANAGEMENT_BOARDENTRIES_STATE_DESC">
+				<option value="current">current</option>
+				<option value="closed">terminated</option>
+				<option value="all">JALL</option>
+			</field>
+			<field name="boardpublicity" type="list" default="published" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_PUBLISHED_LABEL" description="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_PUBLISHED_DESC">
 				<option value="all">JALL</option>
 				<option value="published">JPUBLISHED</option>
 				<option value="unpublished">JUNPUBLISHED</option>
