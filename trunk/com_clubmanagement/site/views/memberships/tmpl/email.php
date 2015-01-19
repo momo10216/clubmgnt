@@ -50,21 +50,46 @@ function display_email_link ($label, $data, $max_email_addr, $target_field) {
 	echo "<br/>\n";
 }
 
-function splitdata ($items, $published) {
+function calculateKey($row, $mode) {
+	if ($mode == 'member') {
+		$key = $row['member_type'];
+		if (($row['member_end'] <> '') && ($row['member_end'] <> '0000-00-00')) {
+			$key .= '_terminated';
+		} else {
+			$key .= '_current';
+		}
+		return $key;
+	}
+	if ($mode == 'board') {
+		if (($row['board_end'] <> '') && ($row['board_end'] <> '0000-00-00')) {
+			return 'terminated';
+		} else {
+			return 'current';
+		}
+	}
+}
+
+function splitdata ($items, $published, $mode) {
 	$result = array();
 	if ($items) {
 		foreach($items as $item) {
 			$row = (array) $item;
-			$key = $row['member_type'];
-			if (($row['member_end'] <> '') && ($row['member_end'] <> '0000-00-00')) {
-				$key .= '_terminated';
-			} else {
-				$key .= '_current';
-			}
+			$key = calculateKey($row, $mode);
 			if ($row['person_email']) {
+				switch ($mode) {
+					case "member":
+						$rowPublished = $row['member_published'];
+						break;
+					case "board":
+						$rowPublished = $row['board_published'];
+						break;
+					default:
+						$rowPublished = '0';
+						break;
+				}
 				if (($published == "all") ||
-				   ($published == 'unpublished' && $row['member_published'] == '0') ||
-				   ($published == 'published' && $row['member_published'] == '1')) {
+				   ($published == 'unpublished' && $rowPublished == '0') ||
+				   ($published == 'published' && $rowPublished == '1')) {
 					if (!$result[$key]) {
 						$result[$key] = array();
 					}
@@ -83,47 +108,63 @@ function getMemberType($type, $memberTypes) {
 	return $type;
 }
 
+function getStates($state) {
+	$states = array();
+	switch ($state) {
+		case "terminated": // Only terminated
+			$states[]="terminated";
+			break;
+		case "current": // Only Current
+			$states[]="current";
+			break;
+		default: // All
+			$states[]="terminated";
+			$states[]="current";
+			break;
+	}
+	return $states;
+}
+
 /*
  * Get parameters
  */
-$member_type = $this->paramsMenuEntry->get("membertype");
-$member_publicity = $this->paramsMenuEntry->get("publicity");
-$member_state = $this->paramsMenuEntry->get("memberstate");
-$max_email_addr = $this->paramsMenuEntry->get("max_email_addr");
-$target_field = $this->paramsMenuEntry->get("target_field");
+$memberType = $this->paramsMenuEntry->get("membertype");
+$memberPublicity = $this->paramsMenuEntry->get("memberpublicity");
+$memberState = $this->paramsMenuEntry->get("memberstate");
+$boardPublicity = $this->paramsMenuEntry->get("memberpublicity");
+$boardState = $this->paramsMenuEntry->get("memberstate");
+$maxEmailAddr = $this->paramsMenuEntry->get("max_email_addr");
+$targetField = $this->paramsMenuEntry->get("target_field");
 
 /*
  * Get email addresses for members
  */
 $cols = array();
 $cols[] = "email";
-$mstate = array();
-switch ($member_state) {
-	case "terminated": // Only terminated
-		$mstate[]="terminated";
-		break;
-	case "current": // Only Current
-		$mstate[]="current";
-		break;
-	default: // All
-		$mstate[]="terminated";
-		$mstate[]="current";
-		break;
+$mstate = getStates($memberState);
+$bstate = getStates($boardState);
+if (!is_array($memberType)) {
+	$temp = $memberType;
+	$memberType = array();
+	$memberType[0] = $temp;
 }
-
-if (!is_array($member_type)) {
-	$temp = $member_type;
-	$member_type = array();
-	$member_type[0] = $temp;
-}
-reset($member_type);
+reset($memberType);
 JLoader::register('SelectionHelper', JPATH_COMPONENT_ADMINISTRATOR.'/helpers/selection.php', true);
 $memberTypes = SelectionHelper::getSelection("member_types");
-$data = splitdata($this->items, $member_publicity);
-foreach($member_type as $type) {
+$data = splitdata($this->items, $memberPublicity,'member');
+foreach($memberType as $type) {
 	foreach($mstate as $state) {
-		display_email_link (getMemberType($type, $memberTypes)." (".JText::_($state)."):", $data[$type.'_'.$state], $max_email_addr, $target_field);
+		display_email_link (getMemberType($type, $memberTypes)." (".JText::_($state)."):", $data[$type.'_'.$state], $maxEmailAddr, $targetField);
 	}
 }
+/*
+if ($this->paramsMenuEntry->get('boardshow') == '1') {
+	$modelBoard = $this->getModel( 'boardentries' );
+	$data = splitdata($modelBoard->get('items'), $boardPublicity,'board');
+	foreach($bstate as $state) {
+		display_email_link (JText::_("COM_CLUBMANAGEMENT_BOARD")." (".JText::_($state)."):", $data[$state], $maxEmailAddr, $targetField);
+	}
+}
+*/
 ?>
 
