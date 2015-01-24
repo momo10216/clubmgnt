@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<view title="COM_CLUBMANAGEMENT_PERSON_VIEW_TITLE">
-		<message>
-			<![CDATA[COM_CLUBMANAGEMENT_PERSON_VIEW_DESC]]>
-		</message>
+	<view
+		title="COM_CLUBMANAGEMENT_PERSON_VIEW_TITLE">
+		<message><![CDATA[TYPECATEGLAYDESCCOM_CLUBMANAGEMENT_PERSON_VIEW_DESC]]></message>
 	</view>
 </metadata>
