@@ -12,7 +12,7 @@
 			<field name="max_email_addr" type="text" size="3" default="0" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MAX_EMAIL_ADDRESS_LABEL"
 				description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MAX_EMAIL_ADDRESS_DESC" />
 			<field name="target_field" type="list" default="to" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_EMAIL_TARGET_FIELD_LABEL"
-				description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_EMAIL_TARGET_FIELD_DESCRIPTION">
+				description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_EMAIL_TARGET_FIELD_DESC">
 				<option value="to">To:</option>
 				<option value="cc">CC:</option>
 				<option value="bcc">BCC:</option>
@@ -20,27 +20,12 @@
  			<field name="@spacer" type="spacer" default="" label="" description="" />
 			<field name="membertype" type="cmselection" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL"
 				description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_DESC" paramname="member_types" hide_none="true" multiple="true"/>
-			<field name="memberstate" type="list" default="current" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_DESC">
+			<field name="memberstate" type="list" default="current" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_STATE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_DESC">
 				<option value="current">current</option>
 				<option value="closed">terminated</option>
 				<option value="all">JALL</option>
 			</field>
 			<field name="memberpublicity" type="list" default="published" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_DESC">
-				<option value="all">JALL</option>
-				<option value="published">JPUBLISHED</option>
-				<option value="unpublished">JUNPUBLISHED</option>
-			</field>
- 			<field name="@spacer" type="spacer" default="" label="" description="" />
-			<field name="boardshow" type="radio" default="0" label="COM_CLUBMANAGEMENT_BOARDENTRIES_SHOW_LABEL" description="COM_CLUBMANAGEMENT_BOARDENTRIES_SHOW_DESC">
-				<option value="0">JNO</option>
-				<option value="1">JYES</option>
-			</field>
-			<field name="boardstate" type="list" default="current" label="COM_CLUBMANAGEMENT_BOARDENTRIES_STATE_LABEL" description="COM_CLUBMANAGEMENT_BOARDENTRIES_STATE_DESC">
-				<option value="current">current</option>
-				<option value="closed">terminated</option>
-				<option value="all">JALL</option>
-			</field>
-			<field name="boardpublicity" type="list" default="published" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_PUBLISHED_LABEL" description="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_PUBLISHED_DESC">
 				<option value="all">JALL</option>
 				<option value="published">JPUBLISHED</option>
 				<option value="unpublished">JUNPUBLISHED</option>
