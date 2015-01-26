@@ -11,10 +11,6 @@
 
 defined('_JEXEC') or die; // no direct access
 
-$uri = JFactory::getURI();
-$id = intval($uri->getVar("id"));
-$model = $this->getModel();
-
 function getParamList($obj, $prefix, $amount) {
 	$cols = array();
 	for ($i=1;$i<=$amount;$i++) {
@@ -28,6 +24,7 @@ function getParamList($obj, $prefix, $amount) {
 /*
  * Get paramlist (person, membership and board)
  */
+$model = $this->getModel();
 $personColumns = getParamList($this->paramsComponent, "detail_column_", 10);
 $personColumnCount = count($personColumns);
 $personColumnsHeader = $model->getPersonHeader($personColumns);
@@ -61,8 +58,27 @@ if (!empty($imageDir)) {
 		}
 	}
 }
-if ($this->paramsComponent->get("detail_css") != "") {
-	echo "<style type=\"text/css\" media=\"screen\">\n".$this->paramsComponent->get("detail_css")."\n</style>\n";
+if (!is_object($this->paramsMenuEntry) || ($this->paramsMenuEntry->get("id") == "")) {
+	$detailCss = $this->paramsComponent->get("detail_css");
+	$detailColor = $this->paramsComponent->get("detail_color");
+	$detailBackground = $this->paramsComponent->get("detail_background");
+	echo "<style type=\"text/css\" media=\"screen\">\n";
+	if ($detailCss != "") {
+		echo $detailCss."\n";
+	}
+	if (($detailColor != "") || ($detailBackground != "")) {
+		echo "body {\n";
+		if ($detailColor != "") {
+			echo "color: ".$detailColor.";\n";
+		}
+		if ($detailBackground != "") {
+			echo "background-color: ".$detailBackground.";\n";
+		}
+		echo "}\n";
+	}
+	echo "</style>\n";
+} else {
+   echo "***".$this->paramsMenuEntry->get("id")."***\n";
 }
 echo "<div class=\"cmdetail\"><table class=\"cmdetail_table\">\n";
 $imageCol = $this->paramsComponent->get( "detail_column_image" );
