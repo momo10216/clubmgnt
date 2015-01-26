@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<extension type="module" version="3.2" client="site" method="upgrade">
+	<name>ClubManagement Birthday</name>
+	<creationDate>January 2015</creationDate>
+	<author>Norbert Kuemin</author>
+	<authorEmail>momo_102@bluemail.ch</authorEmail>
+	<copyright>(C) 2011-2015 Norbert Kuemin</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<version>3.0.0</version>
+	<description>MOD_CM_BIRTHDAY_XML_DESC</description>
+	<files>
+		<filename module="mod_cm_birthday">mod_cm_birthday.php</filename>
+	</files>
+	<languages folder="language">
+		<language tag="en-GB">en-GB.mod_cm_birthday.ini</language>
+		<language tag="de-DE">de-DE.mod_cm_birthday.ini</language>
+		<language tag="en-GB">en-GB.mod_cm_birthday.sys.ini</language>
+		<language tag="de-DE">de-DE.mod_cm_birthday.sys.ini</language>
+	</languages>
+	<media />
+	<config>
+		<fields name="params">
+			<fieldset name="basic"
+				  addfieldpath="/administrator/components/com_clubmanagement/models/fields">
+				<field name="membertype" type="cmselection" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_DESC" paramname="member_types" hide_none="false"/>
+				<field name="memberstate" type="list" default="current" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_STATE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_STATE_DESC">
+					<option value="current">Current</option>
+					<option value="closed">Terminated</option>
+					<option value="all">JALL</option>
+				</field>
+				<field name="publicity" type="list" default="published" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_DESC">
+					<option value="all">JALL</option>
+					<option value="published">JPUBLISHED</option>
+					<option value="unpublished">JUNPUBLISHED</option>
+				</field>
+				<field name="days_before" type="text" size="2" default="6" label="MOD_CM_BIRTHDAY_DAYS_BEFORE_LABEL" description="MOD_CM_BIRTHDAY_DAYS_BEFORE_DESC"/>
+				<field name="@spacer" type="spacer" default="" label="" description="" />
+				<field name="column_1" type="cmmembershipcolumn" columntype="view" default="" label="MOD_CM_BIRTHDAY_COLUMN_1_LABEL" description="MOD_CM_BIRTHDAY_COLUMN_1_DESC"/>
+				<field name="column_2" type="cmmembershipcolumn" columntype="view" default="" label="MOD_CM_BIRTHDAY_COLUMN_2_LABEL" description="MOD_CM_BIRTHDAY_COLUMN_2_DESC"/>
+				<field name="column_3" type="cmmembershipcolumn" columntype="view" default="" label="MOD_CM_BIRTHDAY_COLUMN_3_LABEL" description="MOD_CM_BIRTHDAY_COLUMN_3_DESC"/>
+				<field name="column_4" type="cmmembershipcolumn" columntype="view" default="" label="MOD_CM_BIRTHDAY_COLUMN_4_LABEL" description="MOD_CM_BIRTHDAY_COLUMN_4_DESC"/>
+				<field name="column_next" type="list" default="1" label="MOD_CM_BIRTHDAY_FIELD_UPCOMMING_LABEL" description="MOD_CM_BIRTHDAY_FIELD_UPCOMMING_DESC">
+					<option value=""></option>
+					<option value="1">MOD_CM_BIRTHDAY_FIELD_UPCOMMING_OPTION_1</option>
+					<option value="2">MOD_CM_BIRTHDAY_FIELD_UPCOMMING_OPTION_2</option>
+					<option value="3">MOD_CM_BIRTHDAY_FIELD_UPCOMMING_OPTION_3</option>
+				</field>
+				<field name="@spacer" type="spacer" default="" label="" description="" />
+				<field name="titel_today" type="text" size="50" default="" label="MOD_CM_BIRTHDAY_TITEL_NOW_LABEL" description="MOD_CM_BIRTHDAY_TITEL_NOW_DESC"/>
+				<field name="titel_next" type="text" size="50" default="" label="MOD_CM_BIRTHDAY_TITEL_NEXT_LABEL" description="MOD_CM_BIRTHDAY_TITEL_NEXT_DESC"/>
+				<field name="delimiter" type="text" size="50" default=", " label="MOD_CM_BIRTHDAY_DELIMITER_LABEL" description="MOD_CM_BIRTHDAY_DELIMITER_DESC"/>
+				<field name="css" type="textarea" default="" label="MOD_CM_BIRTHDAY_CSS_LABEL" description="MOD_CM_BIRTHDAY_CSS_DESC" rows="5" cols="50"/>
+				<field name="@spacer" type="spacer" default="" label="" description="" />
+				<field name="detail_enable" type="radio" default="0" label="MOD_CM_BIRTHDAY_ENABLE_DETAILS_LABEL" description="MOD_CM_BIRTHDAY_ENABLE_DETAILS_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="detail_column_link" type="cmmembershipcolumn" columntype="view" default="" label="MOD_CM_BIRTHDAY_DETAIL_LINK_COLUMN_LABEL" description="MOD_CM_BIRTHDAY_DETAIL_LINK_COLUMN_DESC"/>
+			</fieldset>
+		</fields>
+	</config>
+    <updateservers>
+	<server type="extension" priority="2" name="Club Management Updates">http://kuem.in/joomlaupdate/mod_cm_birthday.xml</server>
+    </updateservers>
+</extension>
