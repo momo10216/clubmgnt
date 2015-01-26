@@ -33,7 +33,7 @@
 					<option value="published">JPUBLISHED</option>
 					<option value="unpublished">JUNPUBLISHED</option>
 				</field>
-				<field name="days_before" type="text" size="2" default="6" label="MOD_CM_BIRTHDAY_DAYS_BEFORE_LABEL" description="MOD_CM_BIRTHDAY_DAYS BEFORE_DESC"/>
+				<field name="days_before" type="text" size="2" default="6" label="MOD_CM_BIRTHDAY_DAYS_BEFORE_LABEL" description="MOD_CM_BIRTHDAY_DAYS_BEFORE_DESC"/>
 				<field name="@spacer" type="spacer" default="" label="" description="" />
 				<field name="column_1" type="cmmembershipcolumn" columntype="view" default="" label="MOD_CM_BIRTHDAY_COLUMN_1_LABEL" description="MOD_CM_BIRTHDAY_COLUMN_1_DESC"/>
 				<field name="column_2" type="cmmembershipcolumn" columntype="view" default="" label="MOD_CM_BIRTHDAY_COLUMN_2_LABEL" description="MOD_CM_BIRTHDAY_COLUMN_2_DESC"/>
@@ -60,6 +60,6 @@
 		</fields>
 	</config>
     <updateservers>
-	<server type="extension" priority="2" name="Club Management Updates">http://kuem.in/joomlaupdate/com_cm_birthday.xml</server>
+	<server type="extension" priority="2" name="Club Management Updates">http://kuem.in/joomlaupdate/mod_cm_birthday.xml</server>
     </updateservers>
 </extension>
