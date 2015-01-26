@@ -1,63 +1,65 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<extension type="module" version="2.5.0" client="site" method="upgrade">
+<extension type="module" version="3.2" client="site" method="upgrade">
 	<name>ClubManagement Birthday</name>
-	<creationDate>July 2011</creationDate>
+	<creationDate>January 2015</creationDate>
 	<author>Norbert Kuemin</author>
 	<authorEmail>momo_102@bluemail.ch</authorEmail>
-	<copyright>(C) 2011 Norbert Kuemin</copyright>
+	<copyright>(C) 2011-2015 Norbert Kuemin</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<version>2.5.2</version>
-	<description>Show birthday of members.</description>
+	<version>3.0.0</version>
+	<description>MOD_CM_BIRTHDAY_XML_DESC</description>
 	<files>
 		<filename module="mod_cm_birthday">mod_cm_birthday.php</filename>
 	</files>
-	<languages>
+	<languages folder="language">
 		<language tag="en-GB">en-GB.mod_cm_birthday.ini</language>
 		<language tag="de-DE">de-DE.mod_cm_birthday.ini</language>
+		<language tag="en-GB">en-GB.mod_cm_birthday.sys.ini</language>
+		<language tag="de-DE">de-DE.mod_cm_birthday.sys.ini</language>
 	</languages>
 	<media />
 	<config>
 		<fields name="params">
 			<fieldset name="basic"
-				  addfieldpath="/administrator/components/com_clubmanagement/elements">
-				<field name="membertype" type="cmmembertype" label="MEMBERSHIP_TYPE_LABEL" description="MEMBERSHIP_TYPE_DESCRIPTION"/>
-				<field name="memberstate" type="list" default="current" label="MEMBERSHIP_STATE_LABEL" description="MEMBERSHIP_STATE_DESCRIPTION">
+				  addfieldpath="/administrator/components/com_clubmanagement/models/fields">
+				<field name="membertype" type="cmselection" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_DESC" paramname="member_types" hide_none="false"/>
+				<field name="memberstate" type="list" default="current" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_STATE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_STATE_DESC">
 					<option value="current">Current</option>
 					<option value="closed">Terminated</option>
 					<option value="all">JALL</option>
 				</field>
-				<field name="publicity" type="list" default="published" label="PUBLICITY_STATE_LABEL" description="PUBLICITY_STATE_DESCRIPTION">
+				<field name="publicity" type="list" default="published" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_DESC">
 					<option value="all">JALL</option>
 					<option value="published">JPUBLISHED</option>
 					<option value="unpublished">JUNPUBLISHED</option>
 				</field>
-				<field name="days_before" type="text" size="2" default="6" label="DAYS_BEFORE_LABEL" description="DAYS BEFORE_DESCRIPTION"/>
+				<field name="days_before" type="text" size="2" default="6" label="MOD_CM_BIRTHDAY_DAYS_BEFORE_LABEL" description="MOD_CM_BIRTHDAY_DAYS BEFORE_DESC"/>
 				<field name="@spacer" type="spacer" default="" label="" description="" />
-				<field name="column_1" type="cmmembercolumn" columntype="view" default="" label="FIELD_1_LABEL" description="FIELD_1_DESCRIPTION"/>
-				<field name="column_2" type="cmmembercolumn" columntype="view" default="" label="FIELD_2_LABEL" description="FIELD_2_DESCRIPTION"/>
-				<field name="column_3" type="cmmembercolumn" columntype="view" default="" label="FIELD_3_LABEL" description="FIELD_3_DESCRIPTION"/>
-				<field name="column_4" type="cmmembercolumn" columntype="view" default="" label="FIELD_4_LABEL" description="FIELD_4_DESCRIPTION"/>
-				<field name="column_next" type="list" default="1" label="FIELD_UPCOMMING_LABEL" description="FIELD_UPCOMMING_DESCRIPTION">
+				<field name="column_1" type="cmmembershipcolumn" columntype="view" default="" label="MOD_CM_BIRTHDAY_COLUMN_1_LABEL" description="MOD_CM_BIRTHDAY_COLUMN_1_DESC"/>
+				<field name="column_2" type="cmmembershipcolumn" columntype="view" default="" label="MOD_CM_BIRTHDAY_COLUMN_2_LABEL" description="MOD_CM_BIRTHDAY_COLUMN_2_DESC"/>
+				<field name="column_3" type="cmmembershipcolumn" columntype="view" default="" label="MOD_CM_BIRTHDAY_COLUMN_3_LABEL" description="MOD_CM_BIRTHDAY_COLUMN_3_DESC"/>
+				<field name="column_4" type="cmmembershipcolumn" columntype="view" default="" label="MOD_CM_BIRTHDAY_COLUMN_4_LABEL" description="MOD_CM_BIRTHDAY_COLUMN_4_DESC"/>
+				<field name="column_next" type="list" default="1" label="MOD_CM_BIRTHDAY_FIELD_UPCOMMING_LABEL" description="MOD_CM_BIRTHDAY_FIELD_UPCOMMING_DESC">
 					<option value=""></option>
-					<option value="1">FIELD_UPCOMMING_OPTION_1</option>
-					<option value="2">FIELD_UPCOMMING_OPTION_2</option>
-					<option value="3">FIELD_UPCOMMING_OPTION_3</option>
+					<option value="1">MOD_CM_BIRTHDAY_FIELD_UPCOMMING_OPTION_1</option>
+					<option value="2">MOD_CM_BIRTHDAY_FIELD_UPCOMMING_OPTION_2</option>
+					<option value="3">MOD_CM_BIRTHDAY_FIELD_UPCOMMING_OPTION_3</option>
 				</field>
 				<field name="@spacer" type="spacer" default="" label="" description="" />
-				<field name="titel_today" type="text" size="50" default="" label="TITEL_NOW_LABEL" description="TITEL_NOW_DESCRIPTION"/>
-				<field name="titel_next" type="text" size="50" default="" label="TITEL_NEXT_LABEL" description="TITEL_NEXT_DESCRIPTION"/>
-				<field name="delimiter" type="text" size="50" default=", " label="DELIMITER_LABEL" description="DELIMITER_DESCRIPTION"/>
-				<field name="css" type="textarea" default="" label="DETAIL_CSS_LABEL" description="DETAIL_CSS_DESCRIPTION" rows="5" cols="50"/>
+				<field name="titel_today" type="text" size="50" default="" label="MOD_CM_BIRTHDAY_TITEL_NOW_LABEL" description="MOD_CM_BIRTHDAY_TITEL_NOW_DESC"/>
+				<field name="titel_next" type="text" size="50" default="" label="MOD_CM_BIRTHDAY_TITEL_NEXT_LABEL" description="MOD_CM_BIRTHDAY_TITEL_NEXT_DESC"/>
+				<field name="delimiter" type="text" size="50" default=", " label="MOD_CM_BIRTHDAY_DELIMITER_LABEL" description="MOD_CM_BIRTHDAY_DELIMITER_DESC"/>
+				<field name="css" type="textarea" default="" label="MOD_CM_BIRTHDAY_CSS_LABEL" description="MOD_CM_BIRTHDAY_CSS_DESC" rows="5" cols="50"/>
 				<field name="@spacer" type="spacer" default="" label="" description="" />
-				<field name="detail_enable" type="radio" default="0" label="ENABLE_DETAILS_LABEL" description="ENABLE_DETAILS_DESCRIPTION">
+				<field name="detail_enable" type="radio" default="0" label="MOD_CM_BIRTHDAY_ENABLE_DETAILS_LABEL" description="MOD_CM_BIRTHDAY_ENABLE_DETAILS_DESC">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
-				<field name="detail_column_link" type="cmmembercolumn" columntype="view" default="" label="DETAIL_LINK_COLUMN_LABEL" description="DETAIL_LINK_COLUMN_DESCRIPTION"/>
+				<field name="detail_column_link" type="cmmembershipcolumn" columntype="view" default="" label="MOD_CM_BIRTHDAY_DETAIL_LINK_COLUMN_LABEL" description="MOD_CM_BIRTHDAY_DETAIL_LINK_COLUMN_DESC"/>
 			</fieldset>
 		</fields>
 	</config>
     <updateservers>
-	<server type="extension" priority="2" name="Club Management Updates">http://joomlacode.org/gf/project/clubmgnt/scmsvn/?action=browse&amp;path=%2F*checkout*%2Ftags%2Fupdate%2Fmod_cm_birthday%2Fupdate_2.5.xml</server>
+	<server type="extension" priority="2" name="Club Management Updates">http://kuem.in/joomlaupdate/com_cm_birthday.xml</server>
     </updateservers>
 </extension>
