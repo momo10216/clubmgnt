@@ -10,7 +10,7 @@
 */
 defined( '_JEXEC' ) or die;
 
-function getData($fields, $where, $order) {
+function getBirthdayData($fields, $where, $order) {
 	$fields[0] = "DISTINCT ".$fields[0]; //Ugly hack to eliminate duplicates
 	$db = JFactory::getDBO();
 	$query = $db->getQuery(true);
@@ -131,10 +131,10 @@ if ($params->get( 'publicity' ) == "unpublished") {
 }
 $where = $where_orig." AND ".$calc_days." = 0";
 
-$dataToday = getData($fields, $where, $order);
+$dataToday = getBirthdayData($fields, $where, $order);
 if ($days > 0) {
 	$where = $where_orig." AND ".$calc_days." BETWEEN 1 AND ".$days;
-	$dataNext = getData($fields, $where, $order);
+	$dataNext = getBirthdayData($fields, $where, $order);
 } else {
 	$dataNext = array();
 }
