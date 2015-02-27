@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_CLUBMANAGEMENT_BOARDENTRIES_VIEW_EMAIL_LAYOUT_TITLE">
+		<message><![CDATA[COM_CLUBMANAGEMENT_BOARDENTRIES_VIEW_EMAIL_LAYOUT_DESC]]></message>
+	</layout>
+
+	<!-- Add fields to the parameters object for the layout. -->
+	<fields name="params" addfieldpath="/administrator/components/com_clubmanagement/models/fields">
+
+		<!-- Basic options. -->
+		<fieldset name="basic" label="COM_CLUBMANAGEMENT_BASIC_OPTIONS_FIELDSET_LABEL">
+			<field name="max_email_addr" type="text" size="3" default="0" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_MAX_EMAIL_ADDRESS_LABEL"
+				description="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_MAX_EMAIL_ADDRESS_DESC" />
+			<field name="target_field" type="list" default="to" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_EMAIL_TARGET_FIELD_LABEL"
+				description="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_EMAIL_TARGET_FIELD_DESC">
+				<option value="to">To:</option>
+				<option value="cc">CC:</option>
+				<option value="bcc">BCC:</option>
+			</field>
+ 			<field name="@spacer" type="spacer" default="" label="" description="" />
+			<field name="boardstate" type="list" default="current" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_STATE_LABEL"
+				description="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_STATE_DESC">
+				<option value="current">current</option>
+				<option value="closed">terminated</option>
+				<option value="all">JALL</option>
+			</field>
+			<field name="boardpublicity" type="list" default="published" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_PUBLISHED_LABEL"
+				description="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_PUBLISHED_DESC">
+				<option value="all">JALL</option>
+				<option value="published">JPUBLISHED</option>
+				<option value="unpublished">JUNPUBLISHED</option>
+			</field>
+		</fieldset>
+	</fields>
+</metadata>
+
