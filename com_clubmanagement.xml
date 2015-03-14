@@ -3,10 +3,10 @@
 	<name>Club Management</name>
 	<author>Norbert Kuemin</author>
 	<authorEmail>momo_102@bluemail.ch</authorEmail>
-	<creationDate>January 2015</creationDate>
+	<creationDate>March 2015</creationDate>
 	<copyright>(C) 2015 Norbert Kuemin</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<version>3.0.5</version>
+	<version>3.0.6</version>
 	<description>COM_CLUBMANAGEMENT_XML_DESC</description>
 
 	<install>
