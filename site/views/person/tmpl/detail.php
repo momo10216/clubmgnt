@@ -21,6 +21,7 @@ function getParamList($obj, $prefix, $amount) {
 	}
 	return $cols;
 }
+
 /*
  * Get paramlist (person, membership and board)
  */
@@ -63,11 +64,31 @@ if (!is_object($this->paramsMenuEntry) || ($this->paramsMenuEntry->get("id") == 
 	$detailColor = $this->paramsComponent->get("detail_color");
 	$detailBackground = $this->paramsComponent->get("detail_background");
 	echo "<style type=\"text/css\" media=\"screen\">\n";
+	echo ".cmdetail_image {\n";
+	echo "\tfloat: left;\n";
+	echo "}\n\n";
+	echo ".tablerow label {\n";
+	echo "\twidth: 110px;\n";
+	echo "\tdisplay:block;\n";
+	echo "\tfloat: left;\n";
+	echo "\text-align: left;\n";
+	echo "}\n\n";
+	echo ".tablerow {\n";
+	echo "\toverflow: hidden;\n";
+	echo "}\n\n";
+	echo ".cmpersondetail_data {\n";
+	echo "\tmargin-left: 4px;\n";
+	echo "\tfloat: left;\n";
+    echo "}\n\n";
+	echo ".cmdetail_member {\n";
+	echo "\twidth: 220px;\n";
+	echo "\tfloat: left;\n";
+    echo "}\n\n";
 	if ($detailCss != "") {
 		echo $detailCss."\n";
 	}
 	if (($detailColor != "") || ($detailBackground != "")) {
-		echo "body {\n";
+		echo ".cmdetail {\n";
 		if ($detailColor != "") {
 			echo "color: ".$detailColor.";\n";
 		}
@@ -80,23 +101,23 @@ if (!is_object($this->paramsMenuEntry) || ($this->paramsMenuEntry->get("id") == 
 } else {
    echo "***".$this->paramsMenuEntry->get("id")."***\n";
 }
-echo "<div class=\"cmdetail\"><table class=\"cmdetail_table\">\n";
+echo "<div class=\"cmdetail\">\n";
 $imageCol = $this->paramsComponent->get( "detail_column_image" );
+if ($imageCol != "") {
+	$image = $row[$imageCol];
+	echo "\t<img class=\"cmdetail_image\" src=\"".$imageDir.$image."\" />\n";
+}
 $label = $this->paramsComponent->get( "detail_show_label" );
+echo "\t<div class=\"cmpersondetail\">\n";
 for ($i=0;$i<$personColumnCount;$i++) {
 	$field = $personColumns[$i];
-	echo "\t<tr class=\"cmdetail_row\">\n";
-	if (($i == 0) && ($imageCol != "")) {
-		$image = $row[$imageCol];
-		echo "\t\t<td class=\"cmdetail_imagefield\" rowspan=\"".$personColumnCount."\"><img class=\"cmdetail_image\" src=\"".$imageDir.$image."\"></td>\n";
-	}
+	echo "\t\t";
 	if ($label != "0") {
-		echo "\t\t<td class=\"cmdetail_field_title\"><span class=\"cmdetail_title\">".$personColumnsHeader[$i]." :</span></td>\n";
+		echo "<div class=\"tablerow\"><label for=\"cmpersondetail_".$i."\">".$personColumnsHeader[$i]." :</label>";
 	}
-	echo "\t\t<td class=\"cmdetail_field_data\"><span class=\"cmdetail_data\">".$row{$field}."</span></td>\n";
-	echo "\t</tr>\n";
+	echo "<span class=\"cmpersondetail_data\" id=\"cmpersondetail_".$i."\">".$row{$field}."</span></div>\n";
 }
-echo "</table></div>\n";
+echo "\t</div>\n";
 
 /*
  * Get sort (memberlist)
@@ -120,37 +141,41 @@ JLoader::register('SelectionHelper', JPATH_COMPONENT_ADMINISTRATOR.'/helpers/sel
 if ($memberColumnCount > 0) {
 	$memberTypes = SelectionHelper::getSelection("member_types");
 	$data = $model->getMembershipItems($id,$sort);
-	echo "<div class=\"cmdetail_member\">\n";
+	echo "\t<div class=\"cmdetail_member\">\n";
 	if ($this->paramsComponent->get("detail_member_title") != "") {
-		echo "<span class=\"cmdetail_member_title\">".$this->paramsComponent->get("detail_member_title")."</span>\n";
+		echo "\t\t<span class=\"cmdetail_member_title\">".$this->paramsComponent->get("detail_member_title")."</span>\n";
 	}
-	echo "<table class=\"cmdetail_member_table\">\n";
+	echo "\t\t<table class=\"cmdetail_member_table\">\n";
 	if ($label != "0") {
-		echo "<tr class=\"cmdetail_member_row_title\">";
+		echo "\t\t\t<thead>\n";
+		echo "\t\t\t\t<tr class=\"cmdetail_member_row_title\">";
 		foreach($memberColumnsHeader as $strSingle) {
 			if ($strSingle != "") {
 				echo "<th class=\"cmdetail_member_field_title\">".$strSingle."</th>";
 			}
 		}
 		echo "</tr>\n";
+		echo "\t\t\t</thead>\n";
 	}
+	echo "\t\t\t<tbody>\n";
 	foreach($data as $item) {
 		$row = (array) $item;
-		echo "<tr class=\"cmdetail_member_row_data\">\n";
+		echo "\t\t\t\t<tr class=\"cmdetail_member_row_data\">\n";
 		for($j=0;$j<$memberColumnCount;$j++) {
 			$field = $memberColumns[$j];
-			echo "<td class=\"cmdetail_member_field_data\">";
+			echo "\t\t\t\t\t<td class=\"cmdetail_member_field_data\">";
 			if (($field == "member_type") && !empty($memberTypes[$row[$field]])) {
 				$data = $memberTypes[$row[$field]];
 			} else {
 				$data = $row[$field];
 			}
 			echo $data;
-			echo "</td>";
+			echo "</td>\n";
 		}
-		echo "</tr>\n";
+		echo "\t\t\t\t</tr>\n";
 	}
-	echo "</table></div>\n";
+	echo "\t\t\t</tbody>\n";
+	echo "\t\t</table>\n\t</div>\n";
 }
 
 /*
@@ -173,25 +198,28 @@ if ($sort != "") $sort = substr($sort,1);
 if ($boardColumnCount > 0) {
 	$boardJobs = SelectionHelper::getSelection("board_jobs");
 	$data = $model->getBoardItems($id,$sort);
-	echo "<div class=\"cmdetail_board\">\n";
+	echo "\t<div class=\"cmdetail_board\">\n";
 	if ($this->paramsComponent->get("detail_board_title") != "") {
-		echo "<span class=\"cmdetail_board_title\">".$this->paramsComponent->get("detail_board_title")."</span>\n";
+		echo "\t\t<span class=\"cmdetail_board_title\">".$this->paramsComponent->get("detail_board_title")."</span>\n";
 	}
-	echo "<table class=\"cmdetail_board_table\">\n";
+	echo "\t\t<table class=\"cmdetail_board_table\">\n";
 	if ($label != "0") {
-		echo "<tr class=\"cmdetail_board_row_title\">";
+		echo "\t\t\t<thead>\n";
+		echo "\t\t\t\t<tr class=\"cmdetail_board_row_title\">";
 		foreach($boardColumnsHeader as $strSingle) {
 			if ($strSingle != "") {
 				echo "<th class=\"cmdetail_board_field_title\">".$strSingle."</th>";
 			}
 		}
 		echo "</tr>\n";
+		echo "\t\t\t</thead>\n";
 	}
+	echo "\t\t\t<tbody>\n";
 	foreach($data as $item) {
 		$row = (array) $item;
-		echo "<tr class=\"cmdetail_board_row_data\">\n";
+		echo "\t\t\t\t<tr class=\"cmdetail_board_row_data\">\n";
 		for($j=0;$j<$boardColumnCount;$j++) {
-			echo "<td class=\"cmdetail_board_field_data\">";
+			echo "\t\t\t\t\t<td class=\"cmdetail_board_field_data\">";
 			$field = $boardColumns[$j];
 			if (($field == "board_job") && !empty($boardJobs[$row[$field]])) {
 				$data = $boardJobs[$row[$field]];
@@ -199,10 +227,12 @@ if ($boardColumnCount > 0) {
 				$data = $row[$field];
 			}
 			echo $data;
-			echo "</td>";
+			echo "</td>\n";
 		}
-		echo "</tr>\n";
+		echo "\t\t\t\t</tr>\n";
 	}
-	echo "</table></div>\n";
+	echo "\t\t\t</tbody>\n";
+	echo "\t\t</table>\n\t</div>\n";
 }
+echo "</div>\n";
 ?>
