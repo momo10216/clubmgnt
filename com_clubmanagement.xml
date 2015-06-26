@@ -6,7 +6,7 @@
 	<creationDate>March 2015</creationDate>
 	<copyright>(C) 2015 Norbert Kuemin</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<version>3.0.6</version>
+	<version>3.0.7</version>
 	<description>COM_CLUBMANAGEMENT_XML_DESC</description>
 
 	<install>
@@ -42,6 +42,8 @@
 		<language tag="en-GB">en-GB.com_clubmanagement.sys.ini</language>
 		<language tag="de-DE">de-DE.com_clubmanagement.ini</language>
 		<language tag="de-DE">de-DE.com_clubmanagement.sys.ini</language>
+		<language tag="nl-NL">nl-NL.com_clubmanagement.ini</language>
+		<language tag="nl-NL">nl-NL.com_clubmanagement.sys.ini</language>
 	</languages>
 	<administration>
 		<menu>COM_CLUBMANAGEMENT_MENU_MAIN</menu>
