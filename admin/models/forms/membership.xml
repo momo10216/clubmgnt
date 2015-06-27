@@ -40,6 +40,14 @@
 			description ="JGLOBAL_FIELD_ID_DESC" size="10" default="0"
 			readonly="true" />
 
+		<field name="catid" type="category" extension="com_clubmanagement" class="inputbox" default=""
+			label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_CATID_LABEL"
+			description="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_CATID_DESC"
+			required="false"
+		>
+			<option value="0">JOPTION_SELECT_CATEGORY</option>
+		</field>
+
 		<field name="createdby" type="user" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDBY_LABEL"
 			description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDBY_DESC"
 			required="false"

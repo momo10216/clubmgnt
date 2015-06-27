@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
 * @version	$Id$
 * @package	Joomla
@@ -30,10 +30,15 @@ class ClubManagementHelper extends JHelperContent
 			'index.php?option=com_clubmanagement&view=boardentries',
 			$vName == 'boardentries'
 		);
+		JHtmlSidebar::addEntry(
+			JText::_('COM_CLUBMANAGEMENT_MENU_CATEGORIES'),
+			'index.php?option=com_categories&view=categories&extension=com_clubmanagement',
+			$vName == 'categories'
+		);
 	}
 
-        public function exportData($model)
-        {
+	public function exportData($model)
+	{
 		$export_columns = $model->getExportColumns();
 		$known_fields = $model->getFieldMapping();
 		$export_fields = array();
@@ -41,18 +46,17 @@ class ClubManagementHelper extends JHelperContent
 		{
 			$export_fields[$column] = $known_fields[$column];
 		}
-
-                $db = JFactory::getDBO();
-                $query = $model->getExportQuery($export_fields);
+		$db = JFactory::getDBO();
+		$query = $model->getExportQuery($export_fields);
  		$db->setQuery($query);
 		$rows = $db->loadRowList();
 		return array_merge(array(array_keys($export_fields)), $rows);
 	}
 
-        public function importData($model, $header, $data)
-        {
+	public function importData($model, $header, $data)
+	{
 		$known_fields = $model->getFieldMapping();
-                $db = JFactory::getDBO();
+		$db = JFactory::getDBO();
 		$userId = JFactory::getUser()->get('id');
 		foreach ($data as $entry)
 		{
@@ -109,7 +113,8 @@ class ClubManagementHelper extends JHelperContent
 		}
 	}
 
-	public function getNamedArray($header, $entry) {
+	public function getNamedArray($header, $entry)
+	{
 		$result= array();
 		$count = count($header);
 		if ($count > 0)
@@ -122,15 +127,15 @@ class ClubManagementHelper extends JHelperContent
 		return $result;
 	}
 
-	public function findRecordWithPrimaryFields($model, $row) {
-                $db = JFactory::getDBO();
+	public function findRecordWithPrimaryFields($model, $row)
+	{
+		$db = JFactory::getDBO();
 		$primaryKeys = $model->getImportPrimaryFields();
 		$expressions = array();
 		foreach (array_keys($primaryKeys) as $key) {
 			$field = $primaryKeys[$key];
 			array_push($expressions,$db->quoteName($field)."=".$db->quote($row[$key]));
 		}
-                $db = JFactory::getDBO();
 		$query = $db->getQuery(true);
 		$where = implode(" AND ",$expressions);
 		$query
@@ -148,7 +153,7 @@ class ClubManagementHelper extends JHelperContent
 	public function resolveForeignKeys($model, $row) {
 		$known_fields = $model->getFieldMapping();
 		$foreign_keys = $model->getForeignKeys();
-                $db = JFactory::getDBO();
+		$db = JFactory::getDBO();
 		foreach (array_keys($foreign_keys) as $key)
 		{
 			$foreign_key = $foreign_keys[$key];

@@ -30,6 +30,7 @@ JHtml::_('behavior.tooltip');
 					<?php echo $this->form->renderField('published'); ?>
 				</div>
 				<div class="span6">
+					<?php echo $this->form->renderField('catid'); ?>
 					<?php echo $this->form->renderField('id'); ?>
 					<?php echo $this->form->renderField('createdby'); ?>
 					<?php echo $this->form->renderField('createddate'); ?>

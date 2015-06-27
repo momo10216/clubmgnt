@@ -54,22 +54,22 @@ class ClubManagementModelBoardEntries extends JModelList
 		parent::populateState('b.end', 'asc');
 	}
 
-        /**
-         * Method to build an SQL query to load the list data.
-         *
-         * @return      string  An SQL query
-         */
-        protected function getListQuery()
-        {
-                // Create a new query object.           
-                $db = JFactory::getDBO();
-                $query = $db->getQuery(true);
+	/**
+	 * Method to build an SQL query to load the list data.
+	 *
+	 * @return      string  An SQL query
+	 */
+	protected function getListQuery()
+	{
+		// Create a new query object.           
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(true);
 
-                // Select some fields from the hello table
-                $query->select($db->quoteName(array('b.id', 'p.name', 'p.firstname', 'p.city', 'b.job', 'b.sortorder', 'b.begin', 'b.end', 'b.published')))
-			->from($db->quoteName('#__nokCM_board','b'))
-			->join('LEFT', $db->quoteName('#__nokCM_persons', 'p').' ON ('.$db->quoteName('b.person_id').'='.$db->quoteName('p.id').')');
- 
+		// Select some fields from the tables
+		$query->select($db->quoteName(array('b.id', 'p.name', 'p.firstname', 'p.city', 'b.job', 'b.sortorder', 'b.begin', 'b.end', 'b.published')))
+		->from($db->quoteName('#__nokCM_board','b'))
+		->join('LEFT', $db->quoteName('#__nokCM_persons', 'p').' ON ('.$db->quoteName('b.person_id').'='.$db->quoteName('p.id').')');
+
 		// Filter by search in name.
 		$search = $this->getState('filter.search');
 		if (!empty($search))
@@ -95,17 +95,16 @@ class ClubManagementModelBoardEntries extends JModelList
 			array_push($orderEntry,$db->escape($orderCol . ' ' . $orderDirn));
 		}
 		$query->order(implode(", ",$orderEntry));
+		return $query;
+	}
 
-                return $query;
-        }
-
-        /**
-         * Method to build an SQL query to load the list data.
-         *' 
-         * @return      string  An SQL query
-         */
-        public function getFieldMapping()
-        {
+	/**
+	 * Method to build an SQL query to load the list data.
+	 *' 
+	 * @return      string  An SQL query
+	 */
+	public function getFieldMapping()
+	{
 		return array(
 			'name'=>'p.name',
 			'firstname'=>'p.firstname',
@@ -118,20 +117,22 @@ class ClubManagementModelBoardEntries extends JModelList
 			'begin'=>'b.begin',
 			'end'=>'b.end',
 			'published'=>'b.published',
+			'category_alias'=>'c.alias',
+			'category_extension'=>'c.extension',
 			'createdby'=>'b.createdby',
 			'createddate'=>'b.createddate'
 		);
 	}
 
-        public function getExportColumns()
-        {
+	public function getExportColumns()
+	{
 		return array(
 			'name','firstname','address','city','birthday', 
-			'job','sortorder','begin','end','published','createdby','createddate');
+			'job','sortorder','begin','end','published','category_extension','category_alias','createdby','createddate');
 	}
 
-        public function getImportPrimaryFields()
-        {
+	public function getImportPrimaryFields()
+	{
 		return array(
 			'person_id'=>'person_id',
 			'job'=>'job',
@@ -139,62 +140,69 @@ class ClubManagementModelBoardEntries extends JModelList
 		);
 	}
 
-        public function getForeignKeys()
-        {
+	public function getForeignKeys()
+	{
 		return array(
 			'p' => array (
 				'localKeyField' => 'person_id',
 				'remoteTable' => '#__nokCM_persons',
 				'remoteKeyField' => 'id',
 				'remoteUniqueKey' => array('name', 'firstname', 'address', 'city', 'birthday')
+			),
+			'c' => array (
+				'localKeyField' => 'catid',
+				'remoteTable' => '#__categories',
+				'remoteKeyField' => 'id',
+				'remoteUniqueKey' => array('category_extension','category_alias')
 			)
 		);
 	}
 
-        public function getTableName()
-        {
+	public function getTableName()
+	{
 		return "#__nokCM_board";
 	}
 
-        public function getIdFieldName()
-        {
+	public function getIdFieldName()
+	{
 		return "id";
 	}
 
 
-        public function getExportQuery($export_fields)
-        {
-                $db = JFactory::getDBO();
-                $query = $db->getQuery(true);
-                $query->select($db->quoteName(array_values($export_fields)))
-                	->from($db->quoteName($this->getTableName(),'b'))
-			->join('LEFT', $db->quoteName('#__nokCM_persons', 'p').' ON ('.$db->quoteName('b.person_id').'='.$db->quoteName('p.id').')');
+	public function getExportQuery($export_fields)
+	{
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(true);
+		$query->select($db->quoteName(array_values($export_fields)))
+			->from($db->quoteName($this->getTableName(),'b'))
+			->join('LEFT', $db->quoteName('#__nokCM_persons', 'p').' ON ('.$db->quoteName('b.person_id').'='.$db->quoteName('p.id').')')
+			->join('LEFT', $db->quoteName('#__categories', 'c').' ON ('.$db->quoteName('b.catid').'='.$db->quoteName('c.id').')');
 		return $query;
 	}
 
-        /**
-         * Method to build an SQL query to load the list data.
-         *
-         * @return      string  An SQL query
-         */
-        public function getExportData()
-        {
+	/**
+	 * Method to build an SQL query to load the list data.
+	 *
+	 * @return      string  An SQL query
+	 */
+	public function getExportData()
+	{
 		return ClubManagementHelper::exportData($this);
 	}
 
-        /**
-         * Method to build an SQL query to load the list data.
-         *
-         * @return      string  An SQL query
-         */
-        public function saveImportData($data)
+	/**
+	 * Method to build an SQL query to load the list data.
+	 *
+	 * @return      string  An SQL query
+	 */
+	public function saveImportData($data)
 	{
 		$header = array_shift($data);
 		$this->saveImportData_stage($header, $data);
 	}
 
-        private function saveImportData_stage($header, $data)
-        {
+	private function saveImportData_stage($header, $data)
+	{
 		ClubManagementHelper::importData($this, $header, $data);
 	}
 }
