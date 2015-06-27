@@ -21,34 +21,6 @@ class ClubManagementModelMemberships extends JModelList
 	protected $paramsMenuEntry;
 	private $_items = null;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param   array  An optional associative array of configuration settings.
-	 * @see     JController
-	 * @since   1.6
-	 */
-	public function __construct($config = array())
-	{
-		if (empty($config['filter_fields']))
-		{
-			$config['filter_fields'] = array(
-				'id', 'a.id',
-				'name', 'a.name',
-				'con_position', 'a.con_position',
-				'suburb', 'a.suburb',
-				'state', 'a.state',
-				'country', 'a.country',
-				'ordering', 'a.ordering',
-				'sortname',
-				'sortname1', 'a.sortname1',
-				'sortname2', 'a.sortname2',
-				'sortname3', 'a.sortname3'
-			);
-		}
-		parent::__construct($config);
-	}
-
 	private function getFields() {
 		$params = JComponentHelper::getParams('com_clubmanagement');
 		return array (
@@ -91,10 +63,14 @@ class ClubManagementModelMemberships extends JModelList
 			"member_endyear" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_ENDYEAR_LABEL',true),'YEAR(`m`.`end`)'),
 			"member_beginendyear" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGINENDYEAR_LABEL',true),"CONCAT(YEAR(`m`.`begin`),'-',IFNULL(YEAR(NULLIF(`m`.`end`,0)),''))"),
 			"member_published" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL',true),'`m`.`published`'),
+			"member_catid" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CATID_LABEL',true),'`m`.`catid`'),
 			"member_createdby" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDBY_LABEL',true),'`m`.`createdby`'),
 			"member_createddate" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDDATE_LABEL',true),'`m`.`createddate`'),
 			"member_modifiedby" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDBY_LABEL',true),'`m`.`modifiedby`'),
-			"member_modifieddate" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDDATE_LABEL',true),'`m`.`modifieddate`')
+			"member_modifieddate" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDDATE_LABEL',true),'`m`.`modifieddate`'),
+			"category_title" => array(JText::_('COM_CLUBMANAGEMENT_CATEGORIES_FIELD_TITLE_LABEL',true),'`c`.`title`'),
+			"category_alias" => array(JText::_('COM_CLUBMANAGEMENT_CATEGORIES_FIELD_ALIAS_LABEL',true),'`c`.`alias`'),
+			"category_path" => array(JText::_('COM_CLUBMANAGEMENT_CATEGORIES_FIELD_PATH_LABEL',true),'`c`.`path`')
 		);
 	}
 
@@ -119,13 +95,13 @@ class ClubManagementModelMemberships extends JModelList
 	 * @return  string    An SQL query
 	 * @since   1.6
 	 */
-        protected function getListQuery()
-        {
-                // Create a new query object.           
-                $db = JFactory::getDBO();
-                $query = $db->getQuery(true);
+	protected function getListQuery()
+	{
+		// Create a new query object.           
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(true);
 
-                // Select some fields from the hello table
+		// Select some fields from the hello table
 		$allFields = $this->getFields();
 		$fields = array();
 		foreach (array_keys($allFields) as $key)
@@ -137,10 +113,11 @@ class ClubManagementModelMemberships extends JModelList
 			}
 		}
 		
-                $query->select($fields)
+		$query->select($fields)
 			->from($db->quoteName('#__nokCM_memberships','m'))
 			->join('LEFT', $db->quoteName('#__nokCM_persons', 'p').' ON ('.$db->quoteName('m.person_id').'='.$db->quoteName('p.id').')')
-			->join('LEFT', $db->quoteName('#__users', 'u').' ON ('.$db->quoteName('p.user_id').'='.$db->quoteName('u.id').')');
+			->join('LEFT', $db->quoteName('#__users', 'u').' ON ('.$db->quoteName('p.user_id').'='.$db->quoteName('u.id').')')
+			->join('LEFT', $db->quoteName('#__categories', 'c').' ON ('.$db->quoteName('m.catid').'='.$db->quoteName('c.id').')');
 
 		// Get configurations
 		$this->paramsComponent = $this->state->get('params');
@@ -158,6 +135,7 @@ class ClubManagementModelMemberships extends JModelList
 		$state = $this->paramsMenuEntry->get('memberstate');
 		$membertype = $this->paramsMenuEntry->get('membertype');
 		$publicity = $this->paramsMenuEntry->get('publicity');
+		$catid = $this->paramsMenuEntry->get('catid');
 		if ($state == "current")
 		{
 			array_push($where,"(".$db->quoteName('m.end')." IS NULL OR ".$db->quoteName('m.end')." = '0000-00-00')");
@@ -182,6 +160,10 @@ class ClubManagementModelMemberships extends JModelList
 		if ($publicity == "unpublished")
 		{
 			array_push($where,$db->quoteName('m.published')." = 0");
+		}
+		if ($catid != "0")
+		{
+			array_push($where,$db->quoteName('m.catid')." = ".$db->quote($catid));
 		}
 		if (count($where) > 0)
 		{
@@ -208,12 +190,11 @@ class ClubManagementModelMemberships extends JModelList
 		{
 			$query->order(implode(", ",$sort));
 		}
-
-                return $query;
+			return $query;
         }
 
-        public function getHeader($cols)
-        {
+	public function getHeader($cols)
+	{
 		$fields = array();
 		$allFields = $this->getFields();
 		foreach ($cols as $col)
@@ -238,6 +219,7 @@ class ClubManagementModelMemberships extends JModelList
 					$resultField = str_replace('`m`.', '' , $resultField);
 					$resultField = str_replace('`b`.', '' , $resultField);
 					$resultField = str_replace('`u`.', '' , $resultField);
+					$resultField = str_replace('`c`.', '' , $resultField);
 					$resultField = str_replace('`', '' , $resultField);
 					array_push($result,$resultField);
 				} else {

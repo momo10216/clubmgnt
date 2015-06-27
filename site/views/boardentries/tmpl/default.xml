@@ -26,6 +26,9 @@
 				<option value="published">JPUBLISHED</option>
 				<option value="unpublished">JUNPUBLISHED</option>
 			</field>
+			<field name="catid" type="category" extension="com_clubmanagement" class="inputbox" default="" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_CATID_LABEL" description="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_CATID_DESC" required="false">
+				<option value="0">JOPTION_SELECT_CATEGORY</option>
+			</field>
 			<field name="@spacer" type="spacer" default="" label="" description="" />
 			<field name="show_header" type="radio" default="1" label="COM_CLUBMANAGEMENT_BOARDENTRIES_SHOW_HEADER_LABEL" description="COM_CLUBMANAGEMENT_BOARDENTRIES_SHOW_HEADER_DESC">
 				<option value="0">JNO</option>

@@ -64,7 +64,10 @@ class JFormFieldCmBoardColumn extends JFormField {
 			"board_createdby" => JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_CREATEDBY_LABEL'),
 			"board_createddate" => JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_CREATEDDATE_LABEL'),
 			"board_modifiedby" => JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_MODIFIEDBY_LABEL'),
-			"board_modifieddate" => JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_MODIFIEDDATE_LABEL')
+			"board_modifieddate" => JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_MODIFIEDDATE_LABEL'),
+			"category_title" => JText::_('COM_CLUBMANAGEMENT_CATEGORIES_FIELD_TITLE_LABEL'),
+			"category_alias" => JText::_('COM_CLUBMANAGEMENT_CATEGORIES_FIELD_ALIAS_LABEL'),
+			"category_path" => JText::_('COM_CLUBMANAGEMENT_CATEGORIES_FIELD_PATH_LABEL')
 		);
 		$option = '';
 		$multiple = '';

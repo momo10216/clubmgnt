@@ -19,6 +19,9 @@
 				<option value="published">JPUBLISHED</option>
 				<option value="unpublished">JUNPUBLISHED</option>
 			</field>
+			<field name="catid" type="category" extension="com_clubmanagement" class="inputbox" default="" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_CATID_LABEL" description="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_CATID_DESC" required="false">
+				<option value="0">JOPTION_SELECT_CATEGORY</option>
+			</field>
 			<field name="@spacer" type="spacer" default="" label="" description="" />
 			<field name="column_image" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_IMAGE_COLUMN_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_IMAGE_COLUMN_DESC"/>
 			<field name="image_size" type="list" default="100%" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_IMAGE_SIZE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_IMAGE_SIZE_DESC">

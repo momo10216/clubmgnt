@@ -63,7 +63,10 @@ class JFormFieldCmMembershipColumn extends JFormField {
 			"member_createdby" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDBY_LABEL'),
 			"member_createddate" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDDATE_LABEL'),
 			"member_modifiedby" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDBY_LABEL'),
-			"member_modifieddate" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDDATE_LABEL')
+			"member_modifieddate" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDDATE_LABEL'),
+			"category_title" => JText::_('COM_CLUBMANAGEMENT_CATEGORIES_FIELD_TITLE_LABEL'),
+			"category_alias" => JText::_('COM_CLUBMANAGEMENT_CATEGORIES_FIELD_ALIAS_LABEL'),
+			"category_path" => JText::_('COM_CLUBMANAGEMENT_CATEGORIES_FIELD_PATH_LABEL')
 		);
 		$option = '';
 		$multiple = '';
