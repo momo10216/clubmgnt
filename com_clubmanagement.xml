@@ -68,7 +68,7 @@
 		</languages>
 	</administration>
 	<updateservers>
-		<server type="extension" priority="2" name="COM_CLUBMANAGEMENT_UPDATE_NAME">http://kuem.in/joomlaupdate/com_clubmanagement.xml</server>
+		<server type="extension" priority="2" name="Club Management Updates">http://kuem.in/joomlaupdate/com_clubmanagement.xml</server>
 	</updateservers>
 </extension>
 
