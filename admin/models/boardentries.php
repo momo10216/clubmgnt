@@ -153,7 +153,7 @@ class ClubManagementModelBoardEntries extends JModelList
 				'localKeyField' => 'catid',
 				'remoteTable' => '#__categories',
 				'remoteKeyField' => 'id',
-				'remoteUniqueKey' => array('category_extension','category_alias')
+				'remoteUniqueKey' => array('extension','alias')
 			)
 		);
 	}
