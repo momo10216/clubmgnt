@@ -79,11 +79,7 @@ if (!is_object($this->paramsMenuEntry) || ($this->paramsMenuEntry->get("id") == 
 	echo ".cmpersondetail_data {\n";
 	echo "\tmargin-left: 4px;\n";
 	echo "\tfloat: left;\n";
-    echo "}\n\n";
-	echo ".cmdetail_member {\n";
-	echo "\twidth: 220px;\n";
-	echo "\tfloat: left;\n";
-    echo "}\n\n";
+	echo "}\n\n";
 	if ($detailCss != "") {
 		echo $detailCss."\n";
 	}
@@ -111,9 +107,9 @@ $label = $this->paramsComponent->get( "detail_show_label" );
 echo "\t<div class=\"cmpersondetail\">\n";
 for ($i=0;$i<$personColumnCount;$i++) {
 	$field = $personColumns[$i];
-	echo "\t\t";
+	echo "\t\t<div class=\"tablerow\">";
 	if ($label != "0") {
-		echo "<div class=\"tablerow\"><label for=\"cmpersondetail_".$i."\">".$personColumnsHeader[$i]." :</label>";
+		echo "<label for=\"cmpersondetail_".$i."\">".$personColumnsHeader[$i]." :</label>";
 	}
 	echo "<span class=\"cmpersondetail_data\" id=\"cmpersondetail_".$i."\">".$row{$field}."</span></div>\n";
 }
