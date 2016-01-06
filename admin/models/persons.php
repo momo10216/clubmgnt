@@ -73,7 +73,7 @@ class ClubManagementModelPersons extends JModelList
 
                 // Select some fields from the hello table
                 $query
-                    ->select($db->quoteName(array('p.id', 'p.name', 'p.firstname', 'p.address', 'p.zip', 'p.city', 'p.state', 'p.country')))
+                    ->select($db->quoteName(array('p.id', 'p.name', 'p.firstname', 'p.address', 'p.zip', 'p.city', 'p.state', 'p.country', 'p.birthday')))
                     ->from($db->quoteName('#__nokCM_persons','p'));
  
 		// special filtering (houshold, excludeid).
