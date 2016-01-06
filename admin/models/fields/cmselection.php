@@ -35,7 +35,11 @@ class JFormFieldCmSelection extends JFormField {
 		}
 		foreach($selectionRows as $selectionRow) {
 			$values = explode("=",$selectionRow,2);
-			$fields[$values[0]] = $values[1];
+			if (count($values) == 2) {
+				$fields[$values[0]] = $values[1];
+			} else {
+				$fields[$values[0]] = "";
+			}
 		}
 		if (is_array($this->value)) {
 			$values = $this->value;
