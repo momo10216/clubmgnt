@@ -66,7 +66,7 @@ class ClubManagementModelMemberships extends JModelList
 		$query = $db->getQuery(true);
 
 		// Select some fields from the hello table
-		$query->select($db->quoteName(array('m.id', 'p.name', 'p.firstname', 'p.city', 'p.birthday', 'm.type', 'm.begin', 'm.begin', 'm.published')))
+		$query->select($db->quoteName(array('m.id', 'p.name', 'p.firstname', 'p.city', 'p.birthday', 'm.type', 'm.begin', 'm.end', 'm.published')))
 			->from($db->quoteName('#__nokCM_memberships','m'))
 			->join('LEFT', $db->quoteName('#__nokCM_persons', 'p').' ON ('.$db->quoteName('m.person_id').'='.$db->quoteName('p.id').')');
  
