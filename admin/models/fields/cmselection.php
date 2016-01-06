@@ -21,7 +21,7 @@ class JFormFieldCmSelection extends JFormField {
         protected $type = 'cmselection';
  
         public function getInput() {
-		$app = &JFactory::getApplication();
+		$app = JFactory::getApplication();
 		$params = JComponentHelper::getParams('com_clubmanagement');
 		$selectionText = $params->get($this->element["paramname"]);
 		$selectionRows = explode(";",$selectionText);
