@@ -23,7 +23,7 @@ class ClubManagementViewMemberships extends JViewLegacy
 		/*
 		 * Init variables
 		 */
-		$this->user =& JFactory::getUser();
+		$this->user = JFactory::getUser();
 		$app = JFactory::getApplication();
 		$this->items = $this->get('Items');
 		$this->state = $this->get('State');
