@@ -36,7 +36,7 @@ class JFormFieldCmImageList extends JFormField {
 		$files = array("");
 		if ($handle = opendir($dir)) {
 			while (false !== ($file = readdir($handle))) {
-				if (!is_dir($directory. "/" . $file)) {
+				if (!is_dir($dir. "/" . $file)) {
 					$files[] = $file;
 				}
 			}
