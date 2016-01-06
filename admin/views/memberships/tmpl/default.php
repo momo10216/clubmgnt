@@ -58,7 +58,7 @@ JFactory::getDocument()->addScriptDeclaration($script);
 <?php endif;?>
 <?php echo $this->loadTemplate('filter');?>
 		<div class="clearfix"> </div>
-		<table class="adminlist">
+		<table class="table adminlist">
 		        <thead><?php echo $this->loadTemplate('head');?></thead>
 		        <tfoot><?php echo $this->loadTemplate('foot');?></tfoot>
 		        <tbody><?php echo $this->loadTemplate('body');?></tbody>
