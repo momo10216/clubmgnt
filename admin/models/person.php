@@ -11,8 +11,7 @@
 
 defined('_JEXEC') or die;
 
-class ClubManagementModelPerson extends JModelAdmin
-{
+class ClubManagementModelPerson extends JModelAdmin {
 	protected $text_prefix = 'COM_CLUBMANAGEMENT';
 	public $typeAlias = 'com_clubmanagement.person';
 
@@ -24,10 +23,8 @@ class ClubManagementModelPerson extends JModelAdmin
 	 * @return  boolean  True if allowed to delete the record. Defaults to the permission set in the component.
 	 * @since   1.6
 	 */
-	protected function canDelete($record)
-	{
-		if (!empty($record->id))
-		{
+	protected function canDelete($record) {
+		if (!empty($record->id)) {
 			$user = JFactory::getUser();
 			return $user->authorise('core.delete', $this->typeAlias.'.' . (int) $record->id);
 		}
@@ -41,18 +38,13 @@ class ClubManagementModelPerson extends JModelAdmin
 	 * @return  boolean  True if allowed to change the state of the record. Defaults to the permission set in the component.
 	 * @since   1.6
 	 */
-	protected function canEditState($record)
-	{
+	protected function canEditState($record) {
 		$user = JFactory::getUser();
-
 		// Check for existing article.
-		if (!empty($record->id))
-		{
+		if (!empty($record->id)) {
 			return $user->authorise('core.edit.state', $this->typeAlias.'.' . (int) $record->id);
-		}
-		// Default to component settings if neither article nor category known.
-		else
-		{
+		} else {
+			// Default to component settings if neither article nor category known.
 			return parent::canEditState('com_clubmanagement');
 		}
 	}
@@ -66,8 +58,7 @@ class ClubManagementModelPerson extends JModelAdmin
 	 *
 	 * @return  JTable    A database object
 	 */
-	public function getTable($type = 'Person', $prefix = 'ClubManagementTable', $config = array())
-	{
+	public function getTable($type = 'Person', $prefix = 'ClubManagementTable', $config = array()) {
 		return JTable::getInstance($type, $prefix, $config);
 	}
 
@@ -80,14 +71,10 @@ class ClubManagementModelPerson extends JModelAdmin
 	 * @return  mixed  A JForm object on success, false on failure
 	 * @since   1.6
 	 */
-	public function getForm($data = array(), $loadData = true)
-	{
+	public function getForm($data = array(), $loadData = true) {
 		// Get the form.
 		$form = $this->loadForm($this->typeAlias, 'person', array('control' => 'jform', 'load_data' => $loadData));
-		if (empty($form))
-		{
-			return false;
-		}
+		if (empty($form)) { return false; }
 		return $form;
 	}
 
@@ -97,19 +84,14 @@ class ClubManagementModelPerson extends JModelAdmin
 	 * @return  mixed  The data for the form.
 	 * @since   1.6
 	 */
-	protected function loadFormData()
-	{
+	protected function loadFormData() {
 		// Check the session for previously entered form data.
 		$app = JFactory::getApplication();
 		$data = $app->getUserState('com_clubmanagement.edit.person.data', array());
-
-		if (empty($data))
-		{
+		if (empty($data)) {
 			$data = $this->getItem();
 		}
-
 		$this->preprocessData('com_clubmanagement.person', $data);
-
 		return $data;
 	}
 
@@ -118,8 +100,7 @@ class ClubManagementModelPerson extends JModelAdmin
 	 *
 	 * @since   1.6
 	 */
-	protected function cleanCache($group = null, $client_id = 0)
-	{
+	protected function cleanCache($group = null, $client_id = 0) {
 		parent::cleanCache('com_clubmanagement');
 	}
 

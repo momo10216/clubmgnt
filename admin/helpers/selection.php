@@ -20,14 +20,18 @@ defined('_JEXEC') or die;
  */
 class SelectionHelper {
 	public static function getSelection($paramName) {
-		$app = &JFactory::getApplication();
+		$app = JFactory::getApplication();
 		$params = JComponentHelper::getParams('com_clubmanagement');
 		$selectionText = $params->get($paramName);
 		$selectionRows = explode(";",$selectionText);
 		$result = array();
 		foreach ($selectionRows as $selectionRow) {
 			$fields = explode("=",$selectionRow,2);
-			$result[$fields[0]] = $fields[1];
+			if (count($fields) < 2) {
+				$result[$fields[0]] = $fields[0];
+			} else {
+				$result[$fields[0]] = $fields[1];
+			}
 		}
 		return $result;
 	}

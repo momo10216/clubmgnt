@@ -8,33 +8,28 @@
 * @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
-
 defined('_JEXEC') or die; // no direct access
-
-
 function showError($msg) {
 	echo $msg;
 }
-
-if ($this->paramsMenuEntry->get("allow_edit") == "0") {
+if ($this->paramsMenuEntry->get('allow_edit') == '0') {
 	// Not allowed to edit
 	showError(JText::_('COM_CLUBMANAGEMENT_ERROR_PERSON_EDIT_NOT_ALLOWED'));
 	return;
 }
-
-$task = JRequest::getVar("task");
+$task = JRequest::getVar('task');
 switch ($task) {
-	case "save":
+	case 'save':
 		echo $this->loadTemplate('save');
 		break;
-	case "cancel":
-		showError(JText::_("COM_CLUBMANAGEMENT_DATA_NOT_SAVED"));
+	case 'cancel':
+		showError(JText::_('COM_CLUBMANAGEMENT_DATA_NOT_SAVED'));
 		break;
-	case "edit":
+	case 'edit':
 	default:
 		$uri = JFactory::getURI();
 		$id = $uri->getVar('id');
-		if (!$id) $id = JRequest::getVar("id");
+		if (!$id) $id = JRequest::getVar('id');
 		if (!$id) {
 			$id_list = $this->getModel()->getPersonIdListForCurrentUser();
 		} else {

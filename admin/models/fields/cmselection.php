@@ -16,7 +16,6 @@ jimport('joomla.form.formfield');
  
 // The class name must always be the same as the filename (in camel case)
 class JFormFieldCmSelection extends JFormField {
- 
         //The field class must know its own type through the variable $type.
         protected $type = 'cmselection';
  
@@ -26,11 +25,11 @@ class JFormFieldCmSelection extends JFormField {
 		$selectionText = $params->get($this->element["paramname"]);
 		$selectionRows = explode(";",$selectionText);
 		$fields = array();
-		if ($this->element["hide_none"] != "true") {
+		if (isset($this->element["hide_none"]) && ($this->element["hide_none"] != "true")) {
 			$fields[""] = JText::alt('JOPTION_DO_NOT_USE', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname));
 		}
 		$multiple = '';
-		if ($this->element['multiple'] == 'true') {
+		if (isset($this->element["multiple"]) && ($this->element['multiple'] == 'true')) {
 			$multiple = 'multiple ';
 		}
 		foreach($selectionRows as $selectionRow) {

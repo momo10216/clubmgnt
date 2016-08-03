@@ -18,13 +18,10 @@ defined('_JEXEC') or die;
  * @subpackage  com_clubmanagement
  * @since       3.0
  */
-class CvsHelper
-{
-	public static function saveCVS($data, $encoding, $filename, $delimiter = ';')
-	{
+class CvsHelper {
+	public static function saveCVS($data, $encoding, $filename, $delimiter = ';') {
 		$content = self::array2cvs($data, $delimiter);
-		if ($encoding != "utf-8")
-		{
+		if ($encoding != "utf-8") {
 			$content = iconv("UTF-8", strtoupper($encoding)."//TRANSLIT", $content); 
 		}
 		header('Content-Type: application/cvs; charset='.$encoding);
@@ -34,29 +31,25 @@ class CvsHelper
 		header('Expires: 0');
 		header('Pragma: no-cache');
 		print $content;
-
 		// Close the application.
-		$app = &JFactory::getApplication();
+		$app = JFactory::getApplication();
 		$app->close();
 	}
 
-	public static function loadCVS($content, $encoding, $delimiter = ';')
-	{
+	public static function loadCVS($content, $encoding, $delimiter = ';') {
 		if ($encoding != "UTF-8") {
 			$content = iconv($encoding, "UTF-8"."//TRANSLIT", $content); 
 		}
 		return self::cvs2array($content, $delimiter);
 	}
 
-	public function array2cvs ($data, $delimiter) {
+	public static function array2cvs ($data, $delimiter) {
 		$content = "";
 		foreach ($data as $row) {
 			$count = count($row);
-			if ($count > 0)
-			{
-				for ($i=0; $i < $count; $i++)
-				{
-					$row[$i] = self::cvs_encode_field($row[$i]);
+			if ($count > 0) {
+				for ($i=0; $i < $count; $i++) {
+					$row[$i] = self::cvs_encode_field($row[$i],$delimiter);
 				}
 			}
 			$content .= self::cvs_encode_line(implode($delimiter,$row))."\n";
@@ -64,21 +57,18 @@ class CvsHelper
 		return $content;
 	}
 
-	public function cvs2array($content, $delimiter) {
+	public static function cvs2array($content, $delimiter) {
 		$data = array();
 		$content = str_replace("\r","\n",$content);
 		$content = str_replace("\n\n","\n",$content);
 		$rows = explode("\n",trim($content));
-		foreach ($rows as $row)
-		{
-			if (trim($row))
-			{
+		foreach ($rows as $row) {
+			if (trim($row)) {
 				$row = self::cvs_decode_line($row);
 				$fields = explode($delimiter,$row);
 				$result_fields = array();
-				foreach ($fields as $field)
-				{
-					array_push($result_fields, self::cvs_decode_field($field));
+				foreach ($fields as $field) {
+					array_push($result_fields, self::cvs_decode_field($field,$delimiter));
 				}
 				array_push($data, $result_fields);
 			}
@@ -86,29 +76,25 @@ class CvsHelper
 		return $data;
 	}
 
-	public function cvs_encode_field($text)
-	{
-		$text = str_replace("%","%25",$text);
-		$text = str_replace(";","%3B",$text);
+	public static function cvs_encode_field($text,$delimiter) {
+		$text = str_replace('%','%25',$text);
+		$text = str_replace($delimiter,'%'.dechex(ord($delimiter)),$text);
 		return $text;
 	}
 
-	public function cvs_encode_line($text)
-	{
+	public static function cvs_encode_line($text) {
 		$text = str_replace("\n","%0A",$text);
 		$text = str_replace("\r","%0D",$text);
 		return $text;
 	}
 
-	public function cvs_decode_field($text)
-	{
-		$text = str_replace("%3B",";",$text);
+	public static function cvs_decode_field($text,$delimiter) {
+		$text = str_replace("%".dechex(ord($delimiter)),$delimiter,$text);
 		$text = str_replace("%25","%",$text);
 		return $text;
 	}
 
-	public function cvs_decode_line($text)
-	{
+	public static function cvs_decode_line($text) {
 		$text = str_replace("%0A","\n",$text);
 		$text = str_replace("%0D","\r",$text);
 		return $text;

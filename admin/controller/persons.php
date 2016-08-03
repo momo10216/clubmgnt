@@ -11,20 +11,16 @@
 
 defined('_JEXEC') or die;
 
-class ClubManagementControllerPersons extends JControllerAdmin
-{
-	public function getModel($name = 'Person', $prefix = 'ClubManagementModel', $config = array('ignore_request' => true))
-	{
+class ClubManagementControllerPersons extends JControllerAdmin {
+	public function getModel($name = 'Person', $prefix = 'ClubManagementModel', $config = array('ignore_request' => true)) {
 		$model = parent::getModel($name, $prefix, $config);
 		return $model;
 	}
 
-	protected function postDeleteHook(JModelLegacy $model, $ids = null)
-	{
+	protected function postDeleteHook(JModelLegacy $model, $ids = null) {
 	}
 
-	public function export()
-        {
+	public function export() {
 		$model = $this->getModel('Persons');
  		$data = $model->getExportData();
 		//$encoding = strtolower($this->params_menu->get('csv_encoding'));
@@ -34,20 +30,21 @@ class ClubManagementControllerPersons extends JControllerAdmin
 		CvsHelper::saveCVS($data, $encoding, $filename);
         }
 
-	public function import()
-        {
+	public function import() {
 		$view = $this->getView('Persons', 'html');
 		$view->setLayout('import');
 		$view->display();
 	}
 
-	public function import_do()
-        {
+	public function import_do() {
 		// Get the input
 		$input = JFactory::getApplication()->input;
 		$file = $input->files->get('importfile');
-		$content = file_get_contents($file['tmp_name']);
-		unlink($file['tmp_name']);
+		$content = '';
+		if (isset($file['tmp_name'])) {
+			$content = file_get_contents($file['tmp_name']);
+			unlink($file['tmp_name']);
+		}
 		$encoding = $input->get('encoding');
 		JLoader::register('CvsHelper', __DIR__.'/../helpers/cvs.php', true);
 		$data  = CvsHelper::loadCVS($content, $encoding);
@@ -56,13 +53,11 @@ class ClubManagementControllerPersons extends JControllerAdmin
 		$this->setRedirect(JRoute::_('index.php?option='.$this->option, false));
 	}
 
-	public function import_cancel()
-        {
+	public function import_cancel() {
 		$this->setRedirect(JRoute::_('index.php?option='.$this->option, false));
 	}
 
-	public function delete()
-	{
+	public function delete() {
 		$cid = JFactory::getApplication()->input->get('cid', array(), 'array');
 		$model = $this->getModel('Person');
 		$model->delete($cid);

@@ -18,8 +18,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_clubmanagement
  * @since       3.0
  */
-class EmailListHelper
-{
+class EmailListHelper {
 	public static function display_link($name, $data, $target) {
 		switch ($target) {
 			case "cc":
@@ -34,7 +33,9 @@ class EmailListHelper
 		}
 		$emails = array();
 		foreach ($data as $row) {
-			array_push($emails, $row['person_email']);
+			if (isset($row['person_email']) && !empty($row['person_email'])) {
+				array_push($emails, $row['person_email']);
+			}
 		}
 		if (count($emails) > 0) {
 			echo "<a href=\"MAILTO:".$tfexpr.implode(",",$emails)."\">".$name."</a>\n";
@@ -61,8 +62,9 @@ class EmailListHelper
 
 	public static function calculateKey($row, $mode) {
 		if ($mode == 'member') {
-			$key = $row['member_type'];
-			if (($row['member_end'] <> '') && ($row['member_end'] <> '0000-00-00')) {
+			$key = '';
+			if (isset($row['member_type'])) { $key = $row['member_type']; }
+			if (isset($row['member_end']) && ($row['member_end'] <> '') && ($row['member_end'] <> '0000-00-00')) {
 				$key .= '_terminated';
 			} else {
 				$key .= '_current';
@@ -70,7 +72,7 @@ class EmailListHelper
 			return $key;
 		}
 		if ($mode == 'board') {
-			if (($row['board_end'] <> '') && ($row['board_end'] <> '0000-00-00')) {
+			if (isset($row['member_end']) && ($row['board_end'] <> '') && ($row['board_end'] <> '0000-00-00')) {
 				return 'terminated';
 			} else {
 				return 'current';
@@ -84,22 +86,20 @@ class EmailListHelper
 			foreach($items as $item) {
 				$row = (array) $item;
 				$key = self::calculateKey($row, $mode);
-				if ($row['person_email']) {
+				if (isset($row['person_email']) && !empty($row['person_email'])) {
+					$rowPublished = '0';
 					switch ($mode) {
 						case "member":
-							$rowPublished = $row['member_published'];
+							if (isset($row['member_published'])) { $rowPublished = $row['member_published']; }
 							break;
 						case "board":
-							$rowPublished = $row['board_published'];
-							break;
-						default:
-							$rowPublished = '0';
+							if (isset($row['board_published'])) { $rowPublished = $row['board_published']; }
 							break;
 					}
 					if (($published == "all") ||
 					   ($published == 'unpublished' && $rowPublished == '0') ||
 					   ($published == 'published' && $rowPublished == '1')) {
-						if (!$result[$key]) {
+						if (!isset($result[$key]) || !$result[$key]) {
 							$result[$key] = array();
 						}
 						array_push($result[$key], $row);

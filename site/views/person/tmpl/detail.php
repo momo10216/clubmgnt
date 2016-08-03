@@ -8,9 +8,7 @@
 * @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
-
 defined('_JEXEC') or die; // no direct access
-
 function getParamList($obj, $prefix, $amount) {
 	$cols = array();
 	for ($i=1;$i<=$amount;$i++) {
@@ -21,25 +19,20 @@ function getParamList($obj, $prefix, $amount) {
 	}
 	return $cols;
 }
-
-/*
- * Get paramlist (person, membership and board)
- */
+// Get paramlist (person, membership and board)
 $model = $this->getModel();
-$personColumns = getParamList($this->paramsComponent, "detail_column_", 10);
+$personColumns = getParamList($this->paramsComponent, 'detail_column_', 10);
 $personColumnCount = count($personColumns);
 $personColumnsHeader = $model->getPersonHeader($personColumns);
-$memberColumns = getParamList($this->paramsComponent, "detail_member_column_", 5);
+$memberColumns = getParamList($this->paramsComponent, 'detail_member_column_', 5);
 $memberColumnCount = count($memberColumns);
 $memberColumnsHeader = $model->getMembershipHeader($memberColumns);
-$boardColumns = getParamList($this->paramsComponent, "detail_board_column_", 5);
+$boardColumns = getParamList($this->paramsComponent, 'detail_board_column_', 5);
 $boardColumnCount = count($boardColumns);
 $boardColumnsHeader = $model->getBoardHeader($boardColumns);
-
-/*
- * Display data  (person)
- */
+// Display data  (person)
 $row = (array) $this->item;
+$id = $row['person_id'];
 $imageDir = $this->paramsComponent->get('image_dir');
 if (!empty($imageDir)) {
 	if (substr($imageDir,-1) != DIRECTORY_SEPARATOR) {
@@ -59,10 +52,10 @@ if (!empty($imageDir)) {
 		}
 	}
 }
-if (!is_object($this->paramsMenuEntry) || ($this->paramsMenuEntry->get("id") == "")) {
-	$detailCss = $this->paramsComponent->get("detail_css");
-	$detailColor = $this->paramsComponent->get("detail_color");
-	$detailBackground = $this->paramsComponent->get("detail_background");
+if (!is_object($this->paramsMenuEntry) || ($this->paramsMenuEntry->get('id') == '')) {
+	$detailCss = $this->paramsComponent->get('detail_css');
+	$detailColor = $this->paramsComponent->get('detail_color');
+	$detailBackground = $this->paramsComponent->get('detail_background');
 	echo "<style type=\"text/css\" media=\"screen\">\n";
 	echo ".cmdetail_image {\n";
 	echo "\tfloat: left;\n";
@@ -80,15 +73,15 @@ if (!is_object($this->paramsMenuEntry) || ($this->paramsMenuEntry->get("id") == 
 	echo "\tmargin-left: 4px;\n";
 	echo "\tfloat: left;\n";
 	echo "}\n\n";
-	if ($detailCss != "") {
+	if ($detailCss != '') {
 		echo $detailCss."\n";
 	}
-	if (($detailColor != "") || ($detailBackground != "")) {
+	if (($detailColor != "") || ($detailBackground != '')) {
 		echo ".cmdetail {\n";
-		if ($detailColor != "") {
+		if ($detailColor != '') {
 			echo "color: ".$detailColor.";\n";
 		}
-		if ($detailBackground != "") {
+		if ($detailBackground != '') {
 			echo "background-color: ".$detailBackground.";\n";
 		}
 		echo "}\n";
@@ -114,12 +107,8 @@ for ($i=0;$i<$personColumnCount;$i++) {
 	echo "<span class=\"cmpersondetail_data\" id=\"cmpersondetail_".$i."\">".$row{$field}."</span></div>\n";
 }
 echo "\t</div>\n";
-
-/*
- * Get sort (memberlist)
- */
-//die("<pre>".print_r($this->item)."</pre>");
-$sort = "";
+// Get sort (memberlist)
+$sort = '';
 for ($i=1;$i<=2;$i++) {
 	$field1 = "detail_member_sort_column_".$i;
 	$field2 = "detail_member_sort_direction_".$i;
@@ -128,11 +117,7 @@ for ($i=1;$i<=2;$i++) {
 	}
 }
 if ($sort != "") $sort = substr($sort,1);
-
-/*
- * Get data  (memberlist)
- */
-
+// Get data  (memberlist)
 JLoader::register('SelectionHelper', JPATH_COMPONENT_ADMINISTRATOR.'/helpers/selection.php', true);
 if ($memberColumnCount > 0) {
 	$memberTypes = SelectionHelper::getSelection("member_types");
@@ -173,11 +158,8 @@ if ($memberColumnCount > 0) {
 	echo "\t\t\t</tbody>\n";
 	echo "\t\t</table>\n\t</div>\n";
 }
-
-/*
- * Get sort (boardlist)
- */
-$sort = "";
+// Get sort (boardlist)
+$sort = '';
 for ($i=1;$i<=2;$i++) {
 	$field1 = "detail_board_sort_column_".$i;
 	$field2 = "detail_board_sort_direction_".$i;
@@ -186,11 +168,7 @@ for ($i=1;$i<=2;$i++) {
 	}
 }
 if ($sort != "") $sort = substr($sort,1);
-
-/*
- * Get data  (boardlist)
- */
-
+// Get data  (boardlist)
 if ($boardColumnCount > 0) {
 	$boardJobs = SelectionHelper::getSelection("board_jobs");
 	$data = $model->getBoardItems($id,$sort);

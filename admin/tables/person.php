@@ -18,15 +18,13 @@ jimport('joomla.database.table');
 /**
  * Hello Table class
  */
-class ClubManagementTablePerson extends JTable
-{
+class ClubManagementTablePerson extends JTable {
         /**
          * Constructor
          *
          * @param object Database connector object
          */
-        function __construct(&$db) 
-        {
+        function __construct(&$db)  {
                 parent::__construct('#__nokCM_persons', 'id', $db);
         }
 
@@ -39,27 +37,20 @@ class ClubManagementTablePerson extends JTable
 	 *
 	 * @since   1.6
 	 */
-	public function store($updateNulls = false)
-	{
+	public function store($updateNulls = false) {
 		// Transform the params field
-		if (is_array($this->params))
-		{
+		if (is_array($this->params)) {
 			$registry = new JRegistry;
 			$registry->loadArray($this->params);
 			$this->params = (string) $registry;
 		}
-
 		JLoader::register('TableHelper', __DIR__.'/../helpers/table.php', true);
 		TableHelper::updateCommonFieldsOnSave($this);
-
 		// Store utf8 email as punycode
 		$this->email = JStringPunycode::emailToPunycode($this->email);
-
 		// Convert IDN urls to punycode
 		$this->url = JStringPunycode::urlToPunycode($this->url);
-
 		return parent::store($updateNulls);
 	}
 }
 ?>
-

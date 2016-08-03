@@ -8,13 +8,9 @@
 * @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
-
 defined('_JEXEC') or die;
-
 jimport('joomla.application.component.helper');
-
-class ClubManagementModelMemberships extends JModelList
-{
+class ClubManagementModelMemberships extends JModelList {
 	public $_context = 'com_clubmanagement.memberships';
 	protected $_extension = 'com_clubmanagement';
 	protected $paramsComponent;
@@ -81,8 +77,7 @@ class ClubManagementModelMemberships extends JModelList
 	 *
 	 * @since   1.6
 	 */
-	protected function populateState($ordering = null, $direction = null)
-	{
+	protected function populateState($ordering = null, $direction = null) {
 		$app = JFactory::getApplication();
 		$params = $app->getParams();
 		$this->setState('params', $params);
@@ -95,126 +90,104 @@ class ClubManagementModelMemberships extends JModelList
 	 * @return  string    An SQL query
 	 * @since   1.6
 	 */
-	protected function getListQuery()
-	{
+	protected function getListQuery() {
 		// Create a new query object.           
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
-
 		// Select some fields from the hello table
 		$allFields = $this->getFields();
 		$fields = array();
-		foreach (array_keys($allFields) as $key)
-		{
-			if ($allFields[$key])
-			{
+		foreach (array_keys($allFields) as $key) {
+			if (isset($allFields[$key]) && !empty($allFields[$key])) {
 				$field = $allFields[$key];
 				array_push($fields,$field[1]." AS ".$key);
 			}
 		}
-		
 		$query->select($fields)
 			->from($db->quoteName('#__nokCM_memberships','m'))
 			->join('LEFT', $db->quoteName('#__nokCM_persons', 'p').' ON ('.$db->quoteName('m.person_id').'='.$db->quoteName('p.id').')')
 			->join('LEFT', $db->quoteName('#__users', 'u').' ON ('.$db->quoteName('p.user_id').'='.$db->quoteName('u.id').')')
 			->join('LEFT', $db->quoteName('#__categories', 'c').' ON ('.$db->quoteName('m.catid').'='.$db->quoteName('c.id').')');
-
 		// Get configurations
 		$this->paramsComponent = $this->state->get('params');
 		$app = JFactory::getApplication();
 		$currentMenu = $app->getMenu()->getActive();
-		if (is_object( $currentMenu ))
-		{
+		if (is_object( $currentMenu )) {
 			$this->paramsMenuEntry = $currentMenu->params;
 		} else {
 			return $query;
 		}
-
 		// Filter by search in name.
 		$where = array();
 		$state = $this->paramsMenuEntry->get('memberstate');
 		$membertype = $this->paramsMenuEntry->get('membertype');
 		$publicity = $this->paramsMenuEntry->get('publicity');
 		$catid = $this->paramsMenuEntry->get('catid');
-		if ($state == "current")
-		{
+		if ($state == "current") {
 			array_push($where,"(".$db->quoteName('m.end')." IS NULL OR ".$db->quoteName('m.end')." = '0000-00-00')");
 		}
-		if ($state == "closed")
-		{
+		if ($state == "closed") {
 			array_push($where,$db->quoteName('m.end')." IS NOT NULL");
 			array_push($where,$db->quoteName('m.end')." <> '0000-00-00'");
 		}
 		if (is_array($membertype)) {
 			array_push($where,$db->quoteName('m.type')." IN (".implode(", ",$db->quote($membertype)).")");
 		} else {
-			if (($membertype != "*") && ($membertype != ""))
-			{
+			if (($membertype != "*") && ($membertype != "")) {
 				array_push($where,$db->quoteName('m.type')." = ".$db->quote($membertype));
 			}
 		}
-		if ($publicity == "published")
-		{
+		if ($publicity == "published") {
 			array_push($where,$db->quoteName('m.published')." = 1");
 		}
-		if ($publicity == "unpublished")
-		{
+		if ($publicity == "unpublished") {
 			array_push($where,$db->quoteName('m.published')." = 0");
 		}
-		if ($catid != "0")
-		{
+		if ($catid != "0") {
 			array_push($where,$db->quoteName('m.catid')." = ".$db->quote($catid));
 		}
-		if (count($where) > 0)
-		{
+		if (count($where) > 0) {
 			$query->where(implode(' AND ',$where));
 		}
-
 		// Add the list ordering clause.
 		$sort = array();
-		for ($i=1;$i<=4;$i++)
-			{
+		for ($i=1;$i<=4;$i++) {
 			$fieldKeyCol = "sort_column_".$i;
 			$fieldKeyDir = "sort_direction_".$i;
 			$key = $this->paramsMenuEntry->get($fieldKeyCol);
-			if (!empty($key))
-			{
-				if ($allFields[$key])
-				{
+			if (!empty($key)) {
+				if (isset($allFields[$key]) && !empty($allFields[$key])) {
 					$fieldname = $allFields[$key][1];
 					array_push($sort, $fieldname.' '.$this->paramsMenuEntry->get($fieldKeyDir));
 				}
 			}
 		}
-		if (count($sort) > 0)
-		{
+		if (count($sort) > 0) {
 			$query->order(implode(", ",$sort));
 		}
-			return $query;
+		return $query;
         }
 
-	public function getHeader($cols)
-	{
+	public function getHeader($cols) {
 		$fields = array();
 		$allFields = $this->getFields();
-		foreach ($cols as $col)
-		{
-			$field = $allFields[$col];
-			array_push($fields,$field[0]);
+		foreach ($cols as $col) {
+			if (isset($allFields[$col])) {
+				$field = $allFields[$col];
+				array_push($fields,$field[0]);
+			} else {
+				array_push($fields,$col);
+			}
 		}
 		return $fields;
 	}
 
-	public function translateFieldsToColumns($searchFields, $removePrefix=true)
-	{
+	public function translateFieldsToColumns($searchFields, $removePrefix=true) {
 		$result = array();
 		$allFields = $this->getFields();
-		foreach($searchFields as $field)
-		{
-			if ($allFields[$field])
-			{
-				if ($removePrefix)
-				{
+		foreach($searchFields as $field) {
+			if (isset($allFields[$field]) && !empty($allFields[$field])) {
+				if ($removePrefix) {
 					$resultField = str_replace('`p`.', '' , $allFields[$field][1]);
 					$resultField = str_replace('`m`.', '' , $resultField);
 					$resultField = str_replace('`b`.', '' , $resultField);

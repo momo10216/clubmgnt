@@ -32,7 +32,6 @@ Joomla.submitbutton = function(pressbutton) {
 }
 /* ]]> */";
 JFactory::getDocument()->addScriptDeclaration($script);
-
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_clubmanagement'); ?>" method="post" name="adminForm" id="adminForm" enctype="multipart/form-data">
 	<fieldset class="uploadform">

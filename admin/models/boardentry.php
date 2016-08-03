@@ -11,8 +11,7 @@
 
 defined('_JEXEC') or die;
 
-class ClubManagementModelBoardEntry extends JModelAdmin
-{
+class ClubManagementModelBoardEntry extends JModelAdmin {
 	protected $text_prefix = 'COM_CLUBMANAGEMENT';
 	public $typeAlias = 'com_clubmanagement.boardentry';
 
@@ -24,12 +23,10 @@ class ClubManagementModelBoardEntry extends JModelAdmin
 	 * @return  boolean  True if allowed to delete the record. Defaults to the permission set in the component.
 	 * @since   1.6
 	 */
-	protected function canDelete($record)
-	{
-		if (!empty($record->id))
-		{
+	protected function canDelete($record) {
+		if (!empty($record->id)) {
 			$user = JFactory::getUser();
-			return $user->authorise('core.delete', $this->typeAlias.'.' . (int) $record->id);
+			return $user->authorise('core.delete', $this->typeAlias.'.'.(int) $record->id);
 		}
 	}
 
@@ -41,18 +38,13 @@ class ClubManagementModelBoardEntry extends JModelAdmin
 	 * @return  boolean  True if allowed to change the state of the record. Defaults to the permission set in the component.
 	 * @since   1.6
 	 */
-	protected function canEditState($record)
-	{
+	protected function canEditState($record) {
 		$user = JFactory::getUser();
-
 		// Check for existing article.
-		if (!empty($record->id))
-		{
-			return $user->authorise('core.edit.state', $this->typeAlias.'.' . (int) $record->id);
-		}
-		// Default to component settings if neither article nor category known.
-		else
-		{
+		if (!empty($record->id)) {
+			return $user->authorise('core.edit.state', $this->typeAlias.'.'.(int) $record->id);
+		} else {
+			// Default to component settings if neither article nor category known.
 			return parent::canEditState('com_clubmanagement');
 		}
 	}
@@ -66,8 +58,7 @@ class ClubManagementModelBoardEntry extends JModelAdmin
 	 *
 	 * @return  JTable    A database object
 	 */
-	public function getTable($type = 'BoardEntry', $prefix = 'ClubManagementTable', $config = array())
-	{
+	public function getTable($type = 'BoardEntry', $prefix = 'ClubManagementTable', $config = array()) {
 		return JTable::getInstance($type, $prefix, $config);
 	}
 
@@ -80,14 +71,10 @@ class ClubManagementModelBoardEntry extends JModelAdmin
 	 * @return  mixed  A JForm object on success, false on failure
 	 * @since   1.6
 	 */
-	public function getForm($data = array(), $loadData = true)
-	{
+	public function getForm($data = array(), $loadData = true) {
 		// Get the form.
 		$form = $this->loadForm($this->typeAlias, 'boardentry', array('control' => 'jform', 'load_data' => $loadData));
-		if (empty($form))
-		{
-			return false;
-		}
+		if (empty($form)) { return false; }
 		return $form;
 	}
 
@@ -97,19 +84,14 @@ class ClubManagementModelBoardEntry extends JModelAdmin
 	 * @return  mixed  The data for the form.
 	 * @since   1.6
 	 */
-	protected function loadFormData()
-	{
+	protected function loadFormData() {
 		// Check the session for previously entered form data.
 		$app = JFactory::getApplication();
 		$data = $app->getUserState('com_clubmanagement.edit.boardentry.data', array());
-
-		if (empty($data))
-		{
+		if (empty($data)) {
 			$data = $this->getItem();
 		}
-
 		$this->preprocessData('com_clubmanagement.boardentry', $data);
-
 		return $data;
 	}
 
@@ -118,10 +100,8 @@ class ClubManagementModelBoardEntry extends JModelAdmin
 	 *
 	 * @since   1.6
 	 */
-	protected function cleanCache($group = null, $client_id = 0)
-	{
+	protected function cleanCache($group = null, $client_id = 0) {
 		parent::cleanCache('com_clubmanagement');
 	}
-
 }
 ?>

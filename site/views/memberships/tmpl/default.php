@@ -8,16 +8,13 @@
 * @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
-
 defined('_JEXEC') or die; // no direct access
-
 JHTML::_( 'behavior.modal' );
-
 $details = false;
 if ($this->paramsMenuEntry->get('detail_enable') != "0") {
 	$details = true;
-	$curi =& JFactory::getURI();
-	$uri =& JURI::getInstance( $curi->toString() );
+	$curi = JFactory::getURI();
+	$uri = JURI::getInstance( $curi->toString() );
 	$uri->setVar("layout","detail");
 	$uri->setVar("tmpl","component");
 	$uri->setVar("Itemid","");
@@ -26,21 +23,14 @@ if ($this->paramsMenuEntry->get('detail_enable') != "0") {
 	$detailWidth = $this->paramsComponent->get('detail_width');
 	$detailHeight = $this->paramsComponent->get('detail_height');
 }
-
-/*
- * Get columns
- */
+// Get columns
 $cols = array();
 for ($i=1;$i<=20;$i++) {
 	$field = "column_".$i;
 	$cols[] = $this->paramsMenuEntry->get( $field );
 }
 $colcount = count($cols);
-
-
-/*
- * Display
- */
+// Display
 if ($details) {
 	JHTML::_('behavior.modal');
 }

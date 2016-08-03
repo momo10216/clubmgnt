@@ -11,10 +11,8 @@
 
 defined('_JEXEC') or die;
 
-class ClubManagementHelper extends JHelperContent
-{
-	public static function addSidebar($vName)
-	{
+class ClubManagementHelper extends JHelperContent {
+	public static function addSidebar($vName) {
 		JHtmlSidebar::addEntry(
 			JText::_('COM_CLUBMANAGEMENT_MENU_PERSONS'),
 			'index.php?option=com_clubmanagement&view=persons',
@@ -37,8 +35,7 @@ class ClubManagementHelper extends JHelperContent
 		);
 	}
 
-	public function exportData($model)
-	{
+	public function exportData($model) {
 		$export_columns = $model->getExportColumns();
 		$known_fields = $model->getFieldMapping();
 		$export_fields = array();
@@ -53,19 +50,16 @@ class ClubManagementHelper extends JHelperContent
 		return array_merge(array(array_keys($export_fields)), $rows);
 	}
 
-	public function importData($model, $header, $data)
-	{
+	public function importData($model, $header, $data) {
 		$known_fields = $model->getFieldMapping();
 		$db = JFactory::getDBO();
 		$userId = JFactory::getUser()->get('id');
-		foreach ($data as $entry)
-		{
+		foreach ($data as $entry) {
 			$row = self::getNamedArray($header,$entry);
 			$row = self::resolveForeignKeys($model, $row);
 			$id = self::findRecordWithPrimaryFields($model, $row);
 			$query = $db->getQuery(true);
-			if ($id)
-			{
+			if ($id) {
 				// Update
 				$fields = array();
 				foreach(array_keys($row) as $key) {
@@ -77,9 +71,7 @@ class ClubManagementHelper extends JHelperContent
 					->update($db->quoteName($model->getTableName()))
 					->set($fields)
 					->where($db->quoteName($model->getIdFieldName()).'='.$id);
-			}
-			else
-			{
+			} else {
 				// Insert
 				$fields = array();
 				$values = array();
@@ -102,7 +94,6 @@ class ClubManagementHelper extends JHelperContent
 					array_push($fields, $db->quoteName("createdby"));
 					array_push($values, $db->quote($userId));
 				}
-
 				$query
 					->insert($db->quoteName($model->getTableName()))
 					->columns($fields)
@@ -113,22 +104,18 @@ class ClubManagementHelper extends JHelperContent
 		}
 	}
 
-	public function getNamedArray($header, $entry)
-	{
+	public function getNamedArray($header, $entry) {
 		$result= array();
 		$count = count($header);
-		if ($count > 0)
-		{
-			for ($i=0; $i < $count; $i++)
-			{
+		if ($count > 0) {
+			for ($i=0; $i < $count; $i++) {
 				$result[$header[$i]] = $entry[$i];
 			}
 		}
 		return $result;
 	}
 
-	public function findRecordWithPrimaryFields($model, $row)
-	{
+	public function findRecordWithPrimaryFields($model, $row) {
 		$db = JFactory::getDBO();
 		$primaryKeys = $model->getImportPrimaryFields();
 		$expressions = array();
@@ -154,21 +141,15 @@ class ClubManagementHelper extends JHelperContent
 		$known_fields = $model->getFieldMapping();
 		$foreign_keys = $model->getForeignKeys();
 		$db = JFactory::getDBO();
-		foreach (array_keys($foreign_keys) as $key)
-		{
-			$foreign_key = $foreign_keys[$key];
+		foreach ($foreign_keys as $key => $foreign_key) {
 			$conditions = array();
-			foreach ($foreign_key['remoteUniqueKey'] as $remote_field)
-			{
+			foreach ($foreign_key['remoteUniqueKey'] as $remote_field) {
 				$column_name = array_search($key.".".$remote_field, $known_fields);
-				if (empty($row[$column_name]))
-				{
+				if (empty($row[$column_name])) {
 					array_push($conditions, "(".$db->quoteName($key.".".$remote_field)." IS NULL OR ".
 						$db->quoteName($key.".".$remote_field)."='0000-00-00' OR ".
 						$db->quoteName($key.".".$remote_field)."='')");
-				}
-				else
-				{
+				} else {
 					array_push($conditions, $db->quoteName($key.".".$remote_field)."=".$db->quote($row[$column_name]));
 				}
 				unset($row[$column_name]);
@@ -179,8 +160,7 @@ class ClubManagementHelper extends JHelperContent
 				->where(implode(" AND ",$conditions));
 			$db->setQuery($query);
 			$results = $db->loadRowList();
-			if ($results)
-			{
+			if ($results) {
 				$row[$foreign_key['localKeyField']] = $results[0][0];
 			}
 		}

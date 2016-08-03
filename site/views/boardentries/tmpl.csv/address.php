@@ -49,10 +49,10 @@ if ($this->items) {
 	foreach($this->items as $item) {
 		$row = (array) $item;
 		if (empty($item->person_hh_person_id)) {
-			if (!empty($row["person_hh_salutation_overwrite"])) {
+			if (isset($row["person_hh_salutation_overwrite"]) && !empty($row["person_hh_salutation_overwrite"])) {
 				$row["person_salutation"] = $row["person_hh_salutation_overwrite"];
 			}
-			if (!empty($row["person_hh_name_overwrite"])) {
+			if (isset($row["person_hh_name_overwrite"]) && !empty($row["person_hh_name_overwrite"])) {
 				$row["person_name"] = $row["person_hh_name_overwrite"];
 				$row["person_firstname"] = "";
 			}

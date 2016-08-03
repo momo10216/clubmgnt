@@ -8,11 +8,8 @@
 * @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
-
 defined('_JEXEC') or die;
-
-class ClubManagementViewMemberships extends JViewLegacy
-{
+class ClubManagementViewMemberships extends JViewLegacy {
 	protected $items;
 	protected $pageHeading = 'COM_CLUBMANAGEMENT_PAGE_TITLE_DEFAULT';
 	protected $paramsComponent;
@@ -20,9 +17,7 @@ class ClubManagementViewMemberships extends JViewLegacy
 	protected $user;
 
 	function display($tpl = null) {
-		/*
-		 * Init variables
-		 */
+		// Init variables
 		$this->user = JFactory::getUser();
 		$app = JFactory::getApplication();
 		$this->items = $this->get('Items');
@@ -32,10 +27,7 @@ class ClubManagementViewMemberships extends JViewLegacy
 		if (is_object( $currentMenu )) {
 			$this->paramsMenuEntry = $currentMenu->params;
 		}
-
-		/*
-		 * Init document
-		 */
+		// Init document
 		JFactory::getDocument()->setMetaData('robots', 'noindex, nofollow');
 		parent::display($tpl);
     }

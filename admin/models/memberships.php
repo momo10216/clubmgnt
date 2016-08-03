@@ -18,12 +18,9 @@ jimport('joomla.application.component.modellist');
 /**
  * ClubManagementList Model
  */
-class ClubManagementModelMemberships extends JModelList
-{
-	public function __construct($config = array())
-	{
-		if (empty($config['filter_fields']))
-		{
+class ClubManagementModelMemberships extends JModelList {
+	public function __construct($config = array()) {
+		if (!isset($config['filter_fields']) || empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
 				'id', 'm.id',
 				'type', 'm.type',
@@ -37,19 +34,14 @@ class ClubManagementModelMemberships extends JModelList
 		parent::__construct($config);
 	}
 
-	protected function populateState($ordering = null, $direction = null)
-	{
+	protected function populateState($ordering = null, $direction = null) {
 		$app = JFactory::getApplication();
-
 		// Adjust the context to support modal layouts.
-		if ($layout = $app->input->get('layout'))
-		{
+		if ($layout = $app->input->get('layout')) {
 			$this->context .= '.' . $layout;
 		}
-
 		$search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
 		$this->setState('filter.search', $search);
-
 		// List state information.
 		parent::populateState('m.end', 'asc');
 	}
@@ -59,43 +51,33 @@ class ClubManagementModelMemberships extends JModelList
 	 *
 	 * @return      string  An SQL query
 	 */
-	protected function getListQuery()
-	{
+	protected function getListQuery() {
 		// Create a new query object.           
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
-
 		// Select some fields from the hello table
 		$query->select($db->quoteName(array('m.id', 'p.name', 'p.firstname', 'p.city', 'p.birthday', 'm.type', 'm.begin', 'm.end', 'm.published')))
 			->from($db->quoteName('#__nokCM_memberships','m'))
 			->join('LEFT', $db->quoteName('#__nokCM_persons', 'p').' ON ('.$db->quoteName('m.person_id').'='.$db->quoteName('p.id').')');
- 
 		// Filter by search in name.
 		$search = $this->getState('filter.search');
-		if (!empty($search))
-		{
-			if (stripos($search, 'id:') === 0)
-			{
-				$query->where('m.id = ' . (int) substr($search, 3));
-			}
-			else
-			{
-				$search = $db->quote('%' . $db->escape($search, true) . '%');
-				$query->where('(p.name LIKE ' . $search . ' OR p.firstname LIKE ' . $search . ')');
+		if (!empty($search)) {
+			if (stripos($search, 'id:') === 0) {
+				$query->where('m.id = '.(int) substr($search, 3));
+			} else {
+				$search = $db->quote('%'.$db->escape($search, true).'%');
+				$query->where('(p.name LIKE '.$search.' OR p.firstname LIKE '.$search.')');
 			}
 		}
-
 		// Add the list ordering clause.
 		$orderColText = $this->state->get('list.ordering', 'm.end');
 		$orderDirn = $this->state->get('list.direction', 'asc');
 		$orderCols = explode(",",$orderColText);
 		$orderEntry = array();
-		foreach ($orderCols as $orderCol)
-		{
+		foreach ($orderCols as $orderCol) {
 			array_push($orderEntry,$db->escape($orderCol . ' ' . $orderDirn));
 		}
 		$query->order(implode(", ",$orderEntry));
-
 		return $query;
 	}
 
@@ -104,9 +86,8 @@ class ClubManagementModelMemberships extends JModelList
 	 *' 
 	 * @return      string  An SQL query
 	 */
-	public function getFieldMapping()
-	{
-		return array(
+	public function getFieldMapping() {
+		return array (
 			'name'=>'p.name',
 			'firstname'=>'p.firstname',
 			'address'=>'p.address',
@@ -124,25 +105,22 @@ class ClubManagementModelMemberships extends JModelList
 		);
 	}
 
-	public function getExportColumns()
-	{
-		return array(
+	public function getExportColumns() {
+		return array (
 			'name','firstname','address','city','birthday', 
 			'type','begin','end','published','category_extension','category_alias','createdby','createddate');
 	}
 
-	public function getImportPrimaryFields()
-	{
-		return array(
+	public function getImportPrimaryFields() {
+		return array (
 			'person_id'=>'person_id',
 			'type'=>'type',
 			'begin'=>'begin'
 		);
 	}
 
-	public function getForeignKeys()
-	{
-		return array(
+	public function getForeignKeys() {
+		return array (
 			'p' => array (
 				'localKeyField' => 'person_id',
 				'remoteTable' => '#__nokCM_persons',
@@ -158,19 +136,16 @@ class ClubManagementModelMemberships extends JModelList
 		);
 	}
 
-	public function getTableName()
-	{
+	public function getTableName() {
 		return "#__nokCM_memberships";
 	}
 
-	public function getIdFieldName()
-	{
+	public function getIdFieldName() {
 		return "id";
 	}
 
 
-	public function getExportQuery($export_fields)
-	{
+	public function getExportQuery($export_fields) {
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
 		$query->select($db->quoteName(array_values($export_fields)))
@@ -185,8 +160,7 @@ class ClubManagementModelMemberships extends JModelList
 	 *
 	 * @return      string  An SQL query
 	 */
-	public function getExportData()
-	{
+	public function getExportData() {
 		return ClubManagementHelper::exportData($this);
 	}
 
@@ -195,14 +169,12 @@ class ClubManagementModelMemberships extends JModelList
 	 *
 	 * @return      string  An SQL query
 	 */
-	public function saveImportData($data)
-	{
+	public function saveImportData($data) {
 		$header = array_shift($data);
 		$this->saveImportData_stage($header, $data);
 	}
 
-	private function saveImportData_stage($header, $data)
-	{
+	private function saveImportData_stage($header, $data) {
 		ClubManagementHelper::importData($this, $header, $data);
 	}
 }

@@ -8,10 +8,8 @@
 * @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
-
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die;
-
 class ClubManagementViewPerson extends JViewLegacy {
 	protected $item;
 	protected $pageHeading = 'COM_CLUBMANAGEMENT_PAGE_TITLE_DEFAULT';
@@ -20,15 +18,13 @@ class ClubManagementViewPerson extends JViewLegacy {
 	protected $user;
 
 	function display($tpl = null) {
-		/*
-		 * Init variables
-		 */
+		// Init variables
 		$this->state = $this->get('State');
 		if ($this->getLayout() =='form') {
 			$this->getModel()->setUseAlias(false);
 			$uri = JFactory::getURI();
 			$id = $uri->getVar('id');
-			if (!$id) $id = JRequest::getVar("id");
+			if (!$id) $id = JRequest::getVar('id');
 			if (!$id) $id = $this->state->get('person.id');
 			if (!$id) {
 				$this->idList = $this->getModel()->getPersonIdListForCurrentUser();
@@ -37,9 +33,9 @@ class ClubManagementViewPerson extends JViewLegacy {
 			}
 			if (count($this->idList) == 1) $this->getModel()->setPk($this->idList[0]);
 		}
-		$this->user =& JFactory::getUser();
+		$this->user = JFactory::getUser();
 		$app = JFactory::getApplication();
-		$this->document =& JFactory::getDocument();
+		$this->document = JFactory::getDocument();
 		$this->item = $this->get('Item');
 		$this->form = $this->get('Form');
 		$this->paramsComponent = $this->state->get('params');
@@ -50,10 +46,7 @@ class ClubManagementViewPerson extends JViewLegacy {
 				$this->paramsMenuEntry = $currentMenu->params;
 			}
 		}
-
-		/*
-		 * Init document
-		 */
+		// Init document
 		JFactory::getDocument()->setMetaData('robots', 'noindex, nofollow');
 		parent::display($tpl);
 	}

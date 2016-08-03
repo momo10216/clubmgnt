@@ -17,7 +17,6 @@ jimport('joomla.application.component.helper');
 
 // The class name must always be the same as the filename (in camel case)
 class JFormFieldCmMembershipColumn extends JFormField {
- 
         //The field class must know its own type through the variable $type.
         protected $type = 'cmmembershipcolumn';
  
@@ -70,7 +69,7 @@ class JFormFieldCmMembershipColumn extends JFormField {
 		);
 		$option = '';
 		$multiple = '';
-		if ($this->element['multiple'] == 'true') {
+		if (isset($this->element['multiple']) && ($this->element['multiple'] == 'true')) {
 			$multiple = 'multiple ';
 		}
 		if (is_array($this->value)) {

@@ -8,12 +8,8 @@
 * @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
-
 defined('_JEXEC') or die; // no direct access
-
-/*
- * Get columns
- */
+// Get columns
 $cols = array();
 for ($i=1;$i<=10;$i++) {
 	$field = "column_".$i;
@@ -23,10 +19,7 @@ for ($i=1;$i<=10;$i++) {
 	}
 }
 $colcount = count($cols);
-
-/*
- * Get sort columns
- */
+// Get sort columns
 $sort = array();
 for ($i=1;$i<=2;$i++) {
 	$fieldSortCol = "sort_column_".$i;
@@ -34,10 +27,7 @@ for ($i=1;$i<=2;$i++) {
 	$sort[] = $this->paramsMenuEntry->get($fieldSortCol)." ".$this->paramsMenuEntry->get($fieldSortOrder);
 }
 $sortcount = count($sort);
-
-/*
- * Display
- */
+// Display
 $border="border-style:solid; border-width:1px";
 $width="";
 if ($this->paramsComponent->get('width') != "0") {

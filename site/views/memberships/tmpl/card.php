@@ -8,34 +8,27 @@
 * @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
-
 defined('_JEXEC') or die; // no direct access
 $FieldPerLine=4;
 $Line=5;
 $details = false;
 if ($this->paramsMenuEntry->get( 'detail_enable' ) != "0") {
 	$details = true;
-	$curi =& JFactory::getURI();
-	$uri =& JURI::getInstance( $curi->toString() );
+	$curi = JFactory::getURI();
+	$uri = JURI::getInstance( $curi->toString() );
 	$uri->setVar("layout","detail");
 	$uri->setVar("tmpl","component");
 	$uri->setVar("Itemid","");
 	$uri->setVar("view","person");
 }
-
-/*
- * Get columns
- */
+// Get columns
 $cols = array();
 for ($i=1;$i<=20;$i++) {
 	$field = "column_".$i;
 	$cols[] = $this->paramsMenuEntry->get($field );
 }
 $colcount = count($cols);
-
-/*
- * Display
- */
+// Display
 $imageDir = $this->paramsComponent->get('image_dir');
 if (!empty($imageDir)) {
 	if (substr($imageDir,-1) != DIRECTORY_SEPARATOR) {
@@ -81,13 +74,15 @@ if ($this->items) {
 			$image = $row[$imageCol];
 		}
 		for($i=0;$i<$Line;$i++) {
+			$lines[$i] = '';
 			for($j=0;$j<$FieldPerLine;$j++) {
 				$colnr = $i*$FieldPerLine+$j;
 				$field = $cols[$colnr];
+				$data = '';
 				if (($field == "member_type") && !empty($memberTypes[$row[$field]])) {
 					$data = $memberTypes[$row[$field]];
 				} else {
-					$data = $row[$field];
+					if (isset($row[$field])) { $data = $row[$field]; }
 				}
 
 				if (strlen($data) > 0) {

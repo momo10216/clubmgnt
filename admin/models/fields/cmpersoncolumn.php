@@ -16,7 +16,6 @@ jimport('joomla.form.formfield');
  
 // The class name must always be the same as the filename (in camel case)
 class JFormFieldCmPersonColumn extends JFormField {
- 
         //The field class must know its own type through the variable $type.
         protected $type = 'cmpersoncolumn';
  
@@ -64,7 +63,7 @@ class JFormFieldCmPersonColumn extends JFormField {
 		} else {
 			$values = array($this->value);
 		}
-		if ($this->element['multiple'] == 'true') {
+		if (isset($this->element['multiple']) && ($this->element['multiple'] == 'true')) {
 			$multiple = 'multiple ';
 		}
 		foreach(array_keys($fields) as $key) {

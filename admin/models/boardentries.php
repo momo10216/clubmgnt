@@ -18,12 +18,9 @@ jimport('joomla.application.component.modellist');
 /**
  * ClubManagementList Model
  */
-class ClubManagementModelBoardEntries extends JModelList
-{
-	public function __construct($config = array())
-	{
-		if (empty($config['filter_fields']))
-		{
+class ClubManagementModelBoardEntries extends JModelList {
+	public function __construct($config = array()) {
+		if (!isset($config['filter_fields']) || empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
 				'id', 'b.id',
 				'job', 'b.job',
@@ -37,13 +34,11 @@ class ClubManagementModelBoardEntries extends JModelList
 		parent::__construct($config);
 	}
 
-	protected function populateState($ordering = null, $direction = null)
-	{
+	protected function populateState($ordering = null, $direction = null) {
 		$app = JFactory::getApplication();
 
 		// Adjust the context to support modal layouts.
-		if ($layout = $app->input->get('layout'))
-		{
+		if ($layout = $app->input->get('layout')) {
 			$this->context .= '.' . $layout;
 		}
 
@@ -59,8 +54,7 @@ class ClubManagementModelBoardEntries extends JModelList
 	 *
 	 * @return      string  An SQL query
 	 */
-	protected function getListQuery()
-	{
+	protected function getListQuery() {
 		// Create a new query object.           
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
@@ -72,14 +66,10 @@ class ClubManagementModelBoardEntries extends JModelList
 
 		// Filter by search in name.
 		$search = $this->getState('filter.search');
-		if (!empty($search))
-		{
-			if (stripos($search, 'id:') === 0)
-			{
+		if (!empty($search)) {
+			if (stripos($search, 'id:') === 0) {
 				$query->where('b.id = ' . (int) substr($search, 3));
-			}
-			else
-			{
+			} else {
 				$search = $db->quote('%' . $db->escape($search, true) . '%');
 				$query->where('(p.name LIKE ' . $search . ' OR p.firstname LIKE ' . $search . ')');
 			}
@@ -90,8 +80,7 @@ class ClubManagementModelBoardEntries extends JModelList
 		$orderDirn = $this->state->get('list.direction', 'asc');
 		$orderCols = explode(",",$orderColText);
 		$orderEntry = array();
-		foreach ($orderCols as $orderCol)
-		{
+		foreach ($orderCols as $orderCol) {
 			array_push($orderEntry,$db->escape($orderCol . ' ' . $orderDirn));
 		}
 		$query->order(implode(", ",$orderEntry));
@@ -103,9 +92,8 @@ class ClubManagementModelBoardEntries extends JModelList
 	 *' 
 	 * @return      string  An SQL query
 	 */
-	public function getFieldMapping()
-	{
-		return array(
+	public function getFieldMapping() {
+		return array (
 			'name'=>'p.name',
 			'firstname'=>'p.firstname',
 			'address'=>'p.address',
@@ -124,25 +112,22 @@ class ClubManagementModelBoardEntries extends JModelList
 		);
 	}
 
-	public function getExportColumns()
-	{
-		return array(
+	public function getExportColumns() {
+		return array (
 			'name','firstname','address','city','birthday', 
 			'job','sortorder','begin','end','published','category_extension','category_alias','createdby','createddate');
 	}
 
-	public function getImportPrimaryFields()
-	{
-		return array(
+	public function getImportPrimaryFields() {
+		return array (
 			'person_id'=>'person_id',
 			'job'=>'job',
 			'begin'=>'begin'
 		);
 	}
 
-	public function getForeignKeys()
-	{
-		return array(
+	public function getForeignKeys() {
+		return array (
 			'p' => array (
 				'localKeyField' => 'person_id',
 				'remoteTable' => '#__nokCM_persons',
@@ -158,19 +143,16 @@ class ClubManagementModelBoardEntries extends JModelList
 		);
 	}
 
-	public function getTableName()
-	{
+	public function getTableName() {
 		return "#__nokCM_board";
 	}
 
-	public function getIdFieldName()
-	{
+	public function getIdFieldName() {
 		return "id";
 	}
 
 
-	public function getExportQuery($export_fields)
-	{
+	public function getExportQuery($export_fields) {
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
 		$query->select($db->quoteName(array_values($export_fields)))
@@ -185,8 +167,7 @@ class ClubManagementModelBoardEntries extends JModelList
 	 *
 	 * @return      string  An SQL query
 	 */
-	public function getExportData()
-	{
+	public function getExportData() {
 		return ClubManagementHelper::exportData($this);
 	}
 
@@ -195,14 +176,12 @@ class ClubManagementModelBoardEntries extends JModelList
 	 *
 	 * @return      string  An SQL query
 	 */
-	public function saveImportData($data)
-	{
+	public function saveImportData($data) {
 		$header = array_shift($data);
 		$this->saveImportData_stage($header, $data);
 	}
 
-	private function saveImportData_stage($header, $data)
-	{
+	private function saveImportData_stage($header, $data) {
 		ClubManagementHelper::importData($this, $header, $data);
 	}
 }

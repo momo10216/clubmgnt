@@ -18,12 +18,9 @@ jimport('joomla.application.component.modellist');
 /**
  * ClubManagementList Model
  */
-class ClubManagementModelPersons extends JModelList
-{
-	public function __construct($config = array())
-	{
-		if (empty($config['filter_fields']))
-		{
+class ClubManagementModelPersons extends JModelList {
+	public function __construct($config = array()) {
+		if (!isset($config['filter_fields']) || empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
 				'id', 'p.id',
 				'name', 'p.name',
@@ -36,26 +33,19 @@ class ClubManagementModelPersons extends JModelList
 				'createddate', 'p.createddate',
 				'createdby', 'p.createdby'
 			);
-
 			$app = JFactory::getApplication();
 		}
-
 		parent::__construct($config);
 	}
 
-	protected function populateState($ordering = null, $direction = null)
-	{
+	protected function populateState($ordering = null, $direction = null) {
 		$app = JFactory::getApplication();
-
 		// Adjust the context to support modal layouts.
-		if ($layout = $app->input->get('layout'))
-		{
+		if ($layout = $app->input->get('layout')) {
 			$this->context .= '.' . $layout;
 		}
-
 		$search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
 		$this->setState('filter.search', $search);
-
 		// List state information.
 		parent::populateState('p.name', 'asc');
 	}
@@ -65,62 +55,48 @@ class ClubManagementModelPersons extends JModelList
          *
          * @return      string  An SQL query
          */
-        protected function getListQuery()
-        {
+        protected function getListQuery() {
                 // Create a new query object.           
                 $db = JFactory::getDBO();
                 $query = $db->getQuery(true);
-
                 // Select some fields from the hello table
                 $query
                     ->select($db->quoteName(array('p.id', 'p.name', 'p.firstname', 'p.address', 'p.zip', 'p.city', 'p.state', 'p.country', 'p.birthday')))
                     ->from($db->quoteName('#__nokCM_persons','p'));
- 
 		// special filtering (houshold, excludeid).
 		$whereExtList = array();
 		$app = JFactory::getApplication();
-		if ($household = $app->input->get('hh'))
-		{
+		if ($household = $app->input->get('hh')) {
 			array_push($whereExtList,$db->quoteName("p.hh_person_id")." IS NULL");
 		}
-		if ($excludeId = $app->input->get('excludeid'))
-		{
+		if ($excludeId = $app->input->get('excludeid')) {
 			array_push($whereExtList,"NOT ".$db->quoteName("p.id")." = ".$excludeId);
 		}
 		$whereExt = implode(" AND ",$whereExtList);
-
 		// Filter by search in name.
 		$search = $this->getState('filter.search');
-		if (!empty($search))
-		{
+		if (!empty($search)) {
 			if (!empty($whereExt)) $whereExt = " AND ".$whereExt;
-			if (stripos($search, 'id:') === 0)
-			{
+			if (stripos($search, 'id:') === 0) {
 				$query->where('p.id = ' . (int) substr($search, 3).$whereExt);
-			}
-			else
-			{
+			} else {
 				$search = $db->quote('%' . $db->escape($search, true) . '%');
 				$query->where('(p.name LIKE ' . $search . ' OR p.firstname LIKE ' . $search . ')'.$whereExt);
 			}
 		} else {
-			if (!empty($whereExt))
-			{
+			if (!empty($whereExt)) {
 				$query->where($whereExt);
 			}
 		}
-
 		// Add the list ordering clause.
 		$orderColText = $this->state->get('list.ordering', 'p.name,p.firstname');
 		$orderDirn = $this->state->get('list.direction', 'asc');
 		$orderCols = explode(",",$orderColText);
 		$orderEntry = array();
-		foreach ($orderCols as $orderCol)
-		{
+		foreach ($orderCols as $orderCol) {
 			array_push($orderEntry,$db->escape($orderCol . ' ' . $orderDirn));
 		}
 		$query->order(implode(", ",$orderEntry));
-
                 return $query;
         }
 
@@ -129,9 +105,8 @@ class ClubManagementModelPersons extends JModelList
          *' 
          * @return      string  An SQL query
          */
-        public function getFieldMapping()
-        {
-		return array(
+        public function getFieldMapping() {
+		return array (
 			'salutation'=>'p.salutation',
 			'name'=>'p.name',
 			'birthname'=>'p.birthname',
@@ -171,18 +146,16 @@ class ClubManagementModelPersons extends JModelList
 		);
 	}
 
-        public function getExportColumns()
-        {
-		return array(
+        public function getExportColumns() {
+		return array (
 			'salutation', 'name', 'birthname', 'firstname', 'middlename', 'nickname', 'address', 'zip', 'city', 'state', 'country',
 			'hh_salutation_override','hh_name_override','hh_name','hh_firstname','hh_address','hh_city','hh_birthday', 
 			'birthday','deceased','telephone','mobile','email','url','image','username', 
 			'custom1','custom2','custom3','custom4','custom5','description','createdby','createddate');
 	}
 
-        public function getImportPrimaryFields()
-        {
-		return array(
+        public function getImportPrimaryFields() {
+		return array (
 			'name'=>'name',
 			'firstname'=>'firstname',
 			'address'=>'address',
@@ -191,9 +164,8 @@ class ClubManagementModelPersons extends JModelList
 		);
 	}
 
-        public function getForeignKeys()
-        {
-		return array(
+        public function getForeignKeys() {
+		return array (
 			'hh' => array (
 				'localKeyField' => 'hh_person_id',
 				'remoteTable' => '#__nokCM_persons',
@@ -209,18 +181,15 @@ class ClubManagementModelPersons extends JModelList
 		);
 	}
 
-        public function getTableName()
-        {
+        public function getTableName() {
 		return "#__nokCM_persons";
 	}
 
-        public function getIdFieldName()
-        {
+        public function getIdFieldName() {
 		return "id";
 	}
 
-        public function getExportQuery($export_fields)
-        {
+        public function getExportQuery($export_fields) {
                 $db = JFactory::getDBO();
                 $query = $db->getQuery(true);
                 $query
@@ -236,8 +205,7 @@ class ClubManagementModelPersons extends JModelList
          *
          * @return      string  An SQL query
          */
-        public function getExportData()
-        {
+        public function getExportData() {
 		return ClubManagementHelper::exportData($this);
 	}
 
@@ -246,21 +214,21 @@ class ClubManagementModelPersons extends JModelList
          *
          * @return      string  An SQL query
          */
-        public function saveImportData($data)
-	{
+        public function saveImportData($data) {
 		$header = array_shift($data);
 		$data_stage1 = array();
 		$data_stage2 = array();
-		foreach ($data as $entry)
-		{
+		foreach ($data as $entry) {
 			$row = ClubManagementHelper::getNamedArray($header, $entry);
-			$hh_key = $row['hh_name'].$row['hh_firstname'].$row['hh_address'].$row['hh_city'].$row['hh_birthday'];
-			if ($hh_key == '')
-			{
+			$hh_key = '';
+			if (isset($row['hh_name'])) { $hh_key .= $row['hh_name']; }
+			if (isset($row['hh_firstname'])) { $hh_key .= $row['hh_firstname']; }
+			if (isset($row['hh_address'])) { $hh_key .= $row['hh_address']; }
+			if (isset($row['hh_city'])) { $hh_key .= $row['hh_city']; }
+			if (isset($row['hh_birthday'])) { $hh_key .= $row['hh_birthday']; }
+			if ($hh_key == '') {
 				array_push($data_stage1, $entry);
-			}
-			else
-			{
+			} else {
 				array_push($data_stage2, $entry);
 			}
 		}
@@ -268,8 +236,7 @@ class ClubManagementModelPersons extends JModelList
 		$this->saveImportData_stage($header, $data_stage2);
 	}
 
-        private function saveImportData_stage($header, $data)
-        {
+        private function saveImportData_stage($header, $data) {
 		ClubManagementHelper::importData($this, $header, $data);
 	}
 
