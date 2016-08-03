@@ -79,13 +79,15 @@ if ($this->items) {
 			$image = $row[$imageCol];
 		}
 		for($i=0;$i<$Line;$i++) {
+			$lines[$i] = '';
 			for($j=0;$j<$FieldPerLine;$j++) {
 				$colnr = $i*$FieldPerLine+$j;
 				$field = $cols[$colnr];
+				$data = '';
 				if (($field == "board_job") && !empty($boardJobs[$row[$field]])) {
 					$data = $boardJobs[$row[$field]];
 				} else {
-					$data = $row[$field];
+					if (isset($row[$field])) { $data = $row[$field]; }
 				}
 
 				if (strlen($data) > 0) {

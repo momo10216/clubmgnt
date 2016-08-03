@@ -39,9 +39,9 @@ $colcount = count($cols);
  */
 if ($this->paramsMenuEntry->get( "table_center") == "1") echo "<center>\n";
 if ($this->paramsMenuEntry->get( "border_type") != "") {
-	echo "<table ".$width."border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"".$border."\">\n";
+	echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"".$border."\">\n";
 } else {
-	echo "<table ".$width."border=\"0\" style=\"border-style:none; border-width:0px\">\n";
+	echo "<table border=\"0\" style=\"border-style:none; border-width:0px\">\n";
 }
 if (($this->paramsMenuEntry->get('show_header') == "1") && ($this->paramsMenuEntry->get('display_empty') == "1")) {
 	$header = $this->getModel()->getHeader($cols);
@@ -50,7 +50,9 @@ if (($this->paramsMenuEntry->get('show_header') == "1") && ($this->paramsMenuEnt
 		$headerFields = array();
 		for($j=0;$j<$FieldPerLine;$j++) {
 			$colnr = $i*$FieldPerLine+$j;
-			array_push($headerFields,$header[$colnr]);
+			if (isset($header[$colnr])) {
+				array_push($headerFields,$header[$colnr]);
+			}
 		}
 		echo "<th>".implode(' ',$headerFields)."</th>";
 	}
@@ -79,13 +81,15 @@ if ($this->items) {
 			}
 			$lines = array();
 			for($i=0;$i<$Line;$i++) {
+				$lines[$i] = '';
 				for($j=0;$j<$FieldPerLine;$j++) {
 					$colnr = $i*$FieldPerLine+$j;
 					$field = $cols[$colnr];
+					$data = '';
 					if (($field == "board_job") && !empty($boardJobs[$row[$field]])) {
 						$data = $boardJobs[$row[$field]];
 					} else {
-						$data = $row[$field];
+						if (isset($row[$field])) { $data = $row[$field]; }
 					}
 
 					if (strlen($data) > 0) {

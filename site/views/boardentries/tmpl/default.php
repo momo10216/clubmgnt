@@ -16,8 +16,8 @@ $details = false;
 if ($this->paramsMenuEntry->get('detail_enable') != "0") {
 	JHTML::_('behavior.modal');
 	$details = true;
-	$curi =& JFactory::getURI();
-	$uri =& JURI::getInstance( $curi->toString() );
+	$curi = JFactory::getURI();
+	$uri = JURI::getInstance( $curi->toString() );
 	$uri->setVar("layout","detail");
 	$uri->setVar("tmpl","component");
 	$uri->setVar("Itemid","");

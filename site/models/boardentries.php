@@ -102,7 +102,7 @@ class ClubManagementModelBoardentries extends JModelList {
 		$allFields = $this->getFields();
 		$fields = array();
 		foreach (array_keys($allFields) as $key) {
-			if ($allFields[$key] && (!$this->distinct || ($key != "board_id"))) {
+			if ($allFields[$key] && ($key != "board_id")) {
 				$field = $allFields[$key];
 				array_push($fields,$field[1]." AS ".$key);
 			}
@@ -157,7 +157,7 @@ class ClubManagementModelBoardentries extends JModelList {
 			$fieldKeyDir = "sort_direction_".$i;
 			$key = $this->paramsMenuEntry->get($fieldKeyCol);
 			if (!empty($key)) {
-				if ($allFields[$key]) {
+				if (isset($allFields[$key]) && $allFields[$key]) {
 					$fieldname = $allFields[$key][1];
 					array_push($sort, $fieldname.' '.$this->paramsMenuEntry->get($fieldKeyDir));
 				}

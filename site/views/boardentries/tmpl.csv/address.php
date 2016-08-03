@@ -33,7 +33,9 @@ for($i=0;$i<$Line;$i++) {
 	$headerFields = array();
 	for($j=0;$j<$FieldPerLine;$j++) {
 		$colnr = $i*$FieldPerLine+$j;
-		array_push($headerFields,$header[$colnr]);
+		if(isset($header[$colnr]))  {
+			array_push($headerFields,$header[$colnr]);
+		}
 	}
 	array_push($headers,implode(' ',$headerFields));
 }
@@ -58,13 +60,17 @@ if ($this->items) {
 			}
 			$lines = array();
 			for($i=0;$i<$Line;$i++) {
+				$lines[$i] = '';
 				for($j=0;$j<$FieldPerLine;$j++) {
 					$colnr = $i*$FieldPerLine+$j;
 					$field = $cols[$colnr];
+					$data = '';
 					if (($field == "board_job") && !empty($boardJobs[$row[$field]])) {
 						$data = $boardJobs[$row[$field]];
 					} else {
-						$data = $row[$field];
+						if (isset($row[$field])) {
+							$data = $row[$field];
+						}
 					}
 					if (strlen($data) > 0) {
 						if ($lines[$i]) { $lines[$i] .= " "; }
