@@ -29,7 +29,9 @@ $cols[] = "email";
 $states = EmailListHelper::getStates($boardState);
 $data = EmailListHelper::splitdata($this->items, $boardPublicity, 'board');
 foreach($states as $state) {
-	EmailListHelper::display_email_link(JText::_("COM_CLUBMANAGEMENT_BOARD")." (".JText::_($state)."):", $data[$state], $maxEmailAddr, $targetField);
+	if (isset($data[$state])) {
+		EmailListHelper::display_email_link(JText::_("COM_CLUBMANAGEMENT_BOARD")." (".JText::_($state)."):", $data[$state], $maxEmailAddr, $targetField);
+	}
 }
 ?>
 
