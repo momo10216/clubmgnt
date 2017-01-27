@@ -135,8 +135,11 @@ class ClubManagementModelBoardentries extends JModelList {
 			array_push($where,$db->quoteName('b.end')." IS NOT NULL");
 			array_push($where,$db->quoteName('b.end')." <> '0000-00-00'");
 		}
-		if (($job != "*") && ($job != "")) {
-			array_push($where,$db->quoteName('b.job')." = ".$db->quote($this->paramsMenuEntry->get('boardjob')));
+		if (is_array($job)) {
+			array_push($where,$db->quoteName('b.job')." IN (".implode(", ",$db->quote($job)).")");
+		} else {
+			if (($job != "*") && ($job != "")) {
+			}
 		}
 		if ($publicity == "published") {
 			array_push($where,$db->quoteName('b.published')." = 1");

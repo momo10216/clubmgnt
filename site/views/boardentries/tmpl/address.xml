@@ -17,7 +17,7 @@
 	<fields name="params" addfieldpath="/administrator/components/com_clubmanagement/models/fields">
 		<!-- Basic options. -->
 		<fieldset name="basic" label="COM_CLUBMANAGEMENT_BASIC_OPTIONS_FIELDSET_LABEL">
-			<field name="boardjob" type="cmselection" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_JOB_LABEL" description="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_JOB_DESC" paramname="board_jobs" hide_none="true"/>
+			<field name="boardjob" type="cmselection" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_JOB_LABEL" description="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_JOB_DESC" paramname="board_jobs" hide_none="true" multiple="true"/>
 			<field name="boardstate" type="list" default="current" label="COM_CLUBMANAGEMENT_BOARDENTRIES_STATE_LABEL" description="COM_CLUBMANAGEMENT_BOARDENTRIES_STATE_DESC">
 				<option value="current">Current</option>
 				<option value="closed">Terminated</option>
