@@ -139,6 +139,7 @@ class ClubManagementModelBoardentries extends JModelList {
 			array_push($where,$db->quoteName('b.job')." IN (".implode(", ",$db->quote($job)).")");
 		} else {
 			if (($job != "*") && ($job != "")) {
+				array_push($where,$db->quoteName('b.job')." = ".$db->quote($job));
 			}
 		}
 		if ($publicity == "published") {
