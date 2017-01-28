@@ -77,11 +77,13 @@ if ($this->items) {
 			if ($details) {
 				$uri->setVar("id",$item->person_id);
 			}
-			if (isset($row["person_hh_salutation_overwrite"]) && !empty($row["person_hh_salutation_overwrite"])) {
-				$row["person_salutation"] = $row["person_hh_salutation_overwrite"];
-			}
-			if (isset($row["person_hh_name_overwrite"]) && !empty($row["person_hh_name_overwrite"])) {
-				$row["person_name"] = $row["person_hh_name_overwrite"];
+			if (isset($row["person_hh_name_override"]) && !empty($row["person_hh_name_override"])) {
+				if (isset($row["person_hh_salutation_override"]) && !empty($row["person_hh_salutation_override"])) {
+					$row["person_salutation"] = $row["person_hh_salutation_override"];
+				} else {
+					$row["person_salutation"] = "";
+				}
+				$row["person_name"] = $row["person_hh_name_override"];
 				$row["person_firstname"] = "";
 			}
 			$lines = array();

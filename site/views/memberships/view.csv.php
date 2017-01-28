@@ -22,7 +22,6 @@ class ClubManagementViewMemberships extends JViewLegacy {
 	protected $encoding;
 	protected $delimiter;
 
-
 	function display($tpl = null)   {
 		// Init variables
 		$this->user = JFactory::getUser();
