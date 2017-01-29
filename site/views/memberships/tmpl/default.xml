@@ -105,7 +105,7 @@
 			</field>
 			<field name="detail_column_link" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_DETAIL_LINK_COLUMN_LABEL" description="COM_CLUBMANAGEMENT_DETAIL_LINK_COLUMN_DESC"/>
  			<field name="@spacer" type="spacer" default="" label="" description="" />
-			<field name="csv_encoding" type="list" default="UTF-8" label="COM_CLUBMANAGEMENT_CSV_ENCODING_LABEL" description="COM_CLUBMANAGEMENT_CSV_ENCODING_DESC">
+			<field name="csv_encoding" type="combo" default="UTF-8" label="COM_CLUBMANAGEMENT_CSV_ENCODING_LABEL" description="COM_CLUBMANAGEMENT_CSV_ENCODING_DESC">
 				<option value="ASCII">ASCII</option>
 				<option value="ISO-8859-1">ISO-8859-1</option>
 				<option value="ISO-8859-2">ISO-8859-2</option>
@@ -122,6 +122,18 @@
 				<option value="ISO-8859-13">ISO-8859-13</option>
 				<option value="ISO-8859-14">ISO-8859-14</option>
 				<option value="ISO-8859-15">ISO-8859-15</option>
+				<option value="MAC">MAC</option>
+				<option value="MACCENTRALEUROPE">MACCENTRALEUROPE</option>
+				<option value="MACICELAND">MACICELAND</option>
+				<option value="MACCROATIAN">MACCROATIAN</option>
+				<option value="MACROMANIA">MACROMANIA</option>
+				<option value="MACCYRILLIC">MACCYRILLIC</option>
+				<option value="MACUKRAINE">MACUKRAINE</option>
+				<option value="MACGREEK">MACGREEK</option>
+				<option value="MACTURKISH">MACTURKISH</option>
+				<option value="MACHEBREW">MACHEBREW</option>
+				<option value="MACARABIC">MACARABIC</option>
+				<option value="MACTHAI">MACTHAI</option>
 				<option value="UTF-8">UTF-8</option>
 				<option value="UTF-16">UTF-16</option>
 			</field>
