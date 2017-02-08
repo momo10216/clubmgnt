@@ -7,7 +7,7 @@
 	</layout>
 	<fields name="request">
 		<fieldset name="request" label="COM_CLUBMANAGEMENT_REQUEST_OPTIONS_FIELDSET_LABEL">
-			<field name="format" type="list" default="html" label="OUTPUT_FORMAT_LABEL" description="OUTPUT_FORMAT_DESC" >
+			<field name="format" type="list" default="html" label="COM_CLUBMANAGEMENT_OUTPUT_FORMAT_LABEL" description="COM_CLUBMANAGEMENT_OUTPUT_FORMAT_DESC" >
 				<option value="csv">CSV (Excel)</option>
 				<option value="html">HTML</option>
 				<!-- <option value="pdf">PDF</option> -->
