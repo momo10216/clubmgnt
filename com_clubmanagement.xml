@@ -6,7 +6,7 @@
 	<creationDate>August 2016</creationDate>
 	<copyright>(C) 2016 Norbert Kuemin</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<version>3.0.12</version>
+	<version>3.0.13</version>
 	<description>COM_CLUBMANAGEMENT_XML_DESC</description>
 
 	<install>
@@ -71,4 +71,3 @@
 		<server type="extension" priority="2" name="Club Management Updates">http://kuem.in/joomlaupdate/com_clubmanagement.xml</server>
 	</updateservers>
 </extension>
-
