@@ -86,7 +86,7 @@ class EmailListHelper {
 			foreach($items as $item) {
 				$row = (array) $item;
 				$key = self::calculateKey($row, $mode);
-				if (isset($row['person_email']) && !empty($row['person_email'])) {
+				if (isset($row['person_email']) && !empty($row['person_email']) && (array_search($row['person_email'],$result) === false)) {
 					$rowPublished = '0';
 					switch ($mode) {
 						case "member":
