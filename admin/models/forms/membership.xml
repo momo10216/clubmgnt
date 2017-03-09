@@ -48,7 +48,7 @@
 			<option value="0">JOPTION_SELECT_CATEGORY</option>
 		</field>
 
-		<field name="createdby" type="user" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDBY_LABEL"
+		<field name="createdby" type="text" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDBY_LABEL"
 			description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDBY_DESC"
 			required="false"
 			readonly="true" />
@@ -60,7 +60,7 @@
 			required="false"
 			readonly="true" />
 
-		<field name="modifiedby" type="user" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDBY_LABEL"
+		<field name="modifiedby" type="text" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDBY_LABEL"
 			description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDBY_DESC"
 			required="false"
 			readonly="true" />
