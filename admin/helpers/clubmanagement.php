@@ -53,7 +53,7 @@ class ClubManagementHelper extends JHelperContent {
 	public function importData($model, $header, $data) {
 		$known_fields = $model->getFieldMapping();
 		$db = JFactory::getDBO();
-		$userId = JFactory::getUser()->get('id');
+		$userId = JFactory::getUser()->get('name');
 		foreach ($data as $entry) {
 			$row = self::getNamedArray($header,$entry);
 			$row = self::resolveForeignKeys($model, $row);
