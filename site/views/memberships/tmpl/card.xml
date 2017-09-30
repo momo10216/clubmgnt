@@ -24,17 +24,10 @@
 			</field>
 			<field name="@spacer" type="spacer" default="" label="" description="" />
 			<field name="column_image" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_IMAGE_COLUMN_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_IMAGE_COLUMN_DESC"/>
-			<field name="image_size" type="list" default="100%" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_IMAGE_SIZE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_IMAGE_SIZE_DESC">
-				<option value="10%">10%</option>
-				<option value="20%">20%</option>
-				<option value="30%">30%</option>
-				<option value="40%">40%</option>
-				<option value="50%">50%</option>
-				<option value="60%">60%</option>
-				<option value="70%">70%</option>
-				<option value="80%">80%</option>
-				<option value="90%">90%</option>
-				<option value="100%">100%</option>
+			<field name="image_size_value" type="text" default="" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_IMAGE_SIZE_VALUE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_IMAGE_SIZE_VALUE_DESC" />
+			<field name="image_size_uom" type="list" default="px" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_IMAGE_SIZE_UOM_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_IMAGE_SIZE_UOM_DESC">
+				<option value="px">px</option>
+				<option value="%">%</option>
 			</field>
 			<field name="line_1" type="spacer" default="" label="COM_CLUBMANAGEMENT_LINE_1_LABEL" description="COM_CLUBMANAGEMENT_LINE_1_DESC" />
 			<field name="column_1" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_1_FIELD_1_LABEL" description="COM_CLUBMANAGEMENT_LINE_1_FIELD_1_DESC"/>
