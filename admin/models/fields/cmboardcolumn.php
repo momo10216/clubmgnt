@@ -25,6 +25,7 @@ class JFormFieldCmBoardColumn extends JFormField {
 		$fields = array(
 			"" => JText::_('COM_CLUBMANAGEMENT_SELECT_FIELD'),
 			"board_id" => JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_ID_LABEL'),
+			"person_id" => JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_PERSON_ID_LABEL'),
 			"person_fullname" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_FULLNAME_LABEL'),
 			"person_salutation" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_SALUTATION_LABEL'),
 			"person_firstname" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_LABEL'),
