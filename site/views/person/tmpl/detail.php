@@ -9,6 +9,7 @@
 * @authorEmail	momo_102@bluemail.ch
 */
 defined('_JEXEC') or die; // no direct access
+
 function getParamList($obj, $prefix, $amount) {
 	$cols = array();
 	for ($i=1;$i<=$amount;$i++) {
@@ -19,6 +20,7 @@ function getParamList($obj, $prefix, $amount) {
 	}
 	return $cols;
 }
+
 // Get paramlist (person, membership and board)
 $model = $this->getModel();
 $personColumns = getParamList($this->paramsComponent, 'detail_column_', 10);
@@ -52,44 +54,52 @@ if (!empty($imageDir)) {
 		}
 	}
 }
-if (!is_object($this->paramsMenuEntry) || ($this->paramsMenuEntry->get('id') == '')) {
+$cssText = '';
+if ($this->iframe == '1') {
 	$detailCss = $this->paramsComponent->get('detail_css');
 	$detailColor = $this->paramsComponent->get('detail_color');
 	$detailBackground = $this->paramsComponent->get('detail_background');
-	echo "<style type=\"text/css\" media=\"screen\">\n";
-	echo ".cmdetail_image {\n";
-	echo "\tfloat: left;\n";
-	echo "}\n\n";
-	echo ".tablerow label {\n";
-	echo "\twidth: 110px;\n";
-	echo "\tdisplay:block;\n";
-	echo "\tfloat: left;\n";
-	echo "\text-align: left;\n";
-	echo "}\n\n";
-	echo ".tablerow {\n";
-	echo "\toverflow: hidden;\n";
-	echo "}\n\n";
-	echo ".cmpersondetail_data {\n";
-	echo "\tmargin-left: 4px;\n";
-	echo "\tfloat: left;\n";
-	echo "}\n\n";
+	$detailImageWidth = intval($this->paramsComponent->get('detail_image_width'));
+	$cssText .= ".cmdetail_image {\n";
+	$cssText .= "\tfloat: left;\n";
+	if ($detailImageWidth > 0) {
+		$cssText .= "\twidth: ".$detailImageWidth."px;\n";
+		$cssText .= "\theight: auto;\n";
+	}
+	$cssText .= "}\n\n";
 	if ($detailCss != '') {
-		echo $detailCss."\n";
+		$cssText .= $detailCss."\n";
 	}
 	if (($detailColor != "") || ($detailBackground != '')) {
-		echo ".cmdetail {\n";
+		$cssText .= ".cmdetail {\n";
 		if ($detailColor != '') {
-			echo "color: ".$detailColor.";\n";
+			$cssText .= "\tcolor: ".$detailColor.";\n";
 		}
 		if ($detailBackground != '') {
-			echo "background-color: ".$detailBackground.";\n";
+			$cssText .= "\tbackground-color: ".$detailBackground.";\n";
 		}
-		echo "}\n";
+		$cssText .= "}\n";
 	}
-	echo "</style>\n";
 } else {
-   echo "***".$this->paramsMenuEntry->get("id")."***\n";
+	$cssText .= ".cmdetail_image {\n";
+	$cssText .= "\tfloat: left;\n";
+	$cssText .= "}\n\n";
 }
+$cssText .= ".tablerow label {\n";
+$cssText .= "\twidth: 110px;\n";
+$cssText .= "\tdisplay:block;\n";
+$cssText .= "\tfloat: left;\n";
+$cssText .= "\text-align: left;\n";
+$cssText .= "}\n\n";
+$cssText .= ".tablerow {\n";
+$cssText .= "\toverflow: hidden;\n";
+$cssText .= "}\n\n";
+$cssText .= ".cmpersondetail_data {\n";
+$cssText .= "\tmargin-left: 4px;\n";
+$cssText .= "\tfloat: left;\n";
+$cssText .= "}\n\n";
+$doc = JFactory::getDocument();
+$doc->addStyleDeclaration($cssText);
 echo "<div class=\"cmdetail\">\n";
 $imageCol = $this->paramsComponent->get( "detail_column_image" );
 if ($imageCol != "") {

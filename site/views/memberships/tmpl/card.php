@@ -44,6 +44,10 @@ if ($this->paramsMenuEntry->get('detail_enable') != '0') {
 	$uri->setVar('tmpl','component');
 	$uri->setVar('Itemid','');
 	$uri->setVar('view','person');
+	$uri->setVar('option','com_clubmanagement');
+	$uri->setVar('iframe','1');
+	$detailWidth = $this->paramsComponent->get('detail_width');
+	$detailHeight = $this->paramsComponent->get('detail_height');
 }
 // Get columns
 $cols = array();
@@ -90,6 +94,10 @@ if ($this->items) {
 		if ($imageCol != '') {
 			$image = $row[$imageCol];
 		}
+		if ($details) {
+			$id = $item->person_id;
+			$uri->setVar('id',$id);
+		}
 		for($i=0;$i<$Line;$i++) {
 			$lines[$i] = '';
 			for($j=0;$j<$FieldPerLine;$j++) {
@@ -104,15 +112,15 @@ if ($this->items) {
 
 				if (strlen($data) > 0) {
 					if ($lines[$i]) { $lines[$i] .= " "; }
-					if ($details && ($this->paramsMenuEntry->get( 'detail_column_link' ) == $field) && ($data != "")) {
-						$data = '<a href="'.$uri->toString().'" class="modal" rel="{handler: \'iframe\', size: {x: '.$this->paramsMenuComponent->get('detail_width').', y: '.$this->paramsComponent->get('detail_height').'}}">'.$data.'</a>';
+					if ($details && ($this->paramsMenuEntry->get('detail_column_link') == $field) && ($data != "")) {
+						$data = '<a href="'.$uri->toString().'" class="modal" rel="{handler: \'iframe\', size: {x: '.$detailWidth.', y: '.$detailHeight.'}}">'.$data.'</a>';
 					}
 					$lines[$i] .= $data;
 					$lines[$i] = trim($lines[$i]);
 				}
 			}
 			if ($details && ($this->paramsMenuEntry->get('detail_column_link') == '') && ($data != '')) {
-				$lines[$i] = '<a href="'.$uri->toString().'" class="modal" rel="{handler: \'iframe\', size: {x: '.$this->paramsComponent->get('detail_width').', y: '.$this->paramsComponent->get('detail_height').'}}">'.$lines[$i].'</a>';
+				$lines[$i] = '<a href="'.$uri->toString().'" class="modal" rel="{handler: \'iframe\', size: {x: '.$detailWidth.', y: '.$detailHeight.'}}">'.$lines[$i].'</a>';
 			}
 		}
 		echo '<table class="cmTableBorder">'.$EOL;

@@ -35,6 +35,7 @@
 		<field name="detail_background" class="" type="color" default="#ffffff"
 			label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BACKGROUND_LABEL"
 			description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_BACKGROUND_DESC" />
+		<field name="detail_image_width" type="text" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_IMAGE_WIDTH_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_IMAGE_WIDTH_DESC"/>
 		<field name="detail_css" type="textarea" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_CSS_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_CSS_DESC" rows="5" cols="50"/>
 		<field name="detail_column_1" type="cmpersoncolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_1_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_1_DESC"/>
 		<field name="detail_column_2" type="cmpersoncolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_2_LABEL" description="COM_CLUBMANAGEMENT_CONFIGFIELD_DETAIL_COLUMN_2_DESC"/>

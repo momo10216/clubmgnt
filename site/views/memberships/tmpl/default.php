@@ -20,6 +20,7 @@ if ($this->paramsMenuEntry->get('detail_enable') != "0") {
 	$uri->setVar("Itemid","");
 	$uri->setVar("view","person");
 	$uri->setVar('option','com_clubmanagement');
+	$uri->setVar('iframe','1');
 	$detailWidth = $this->paramsComponent->get('detail_width');
 	$detailHeight = $this->paramsComponent->get('detail_height');
 }
