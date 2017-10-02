@@ -12,7 +12,16 @@
 defined('_JEXEC') or die;
 
 class ClubManagementHelper extends JHelperContent {
-	public static function addSidebar($vName) {
+	public static $extension = 'com_newsfeeds';
+
+	/**
+	 * Configure the Linkbar.
+	 *
+	 * @param   string  $vName  The name of the active view.
+	 *
+	 * @return  void
+	 */
+	public static function addSubmenu($vName) {
 		JHtmlSidebar::addEntry(
 			JText::_('COM_CLUBMANAGEMENT_MENU_PERSONS'),
 			'index.php?option=com_clubmanagement&view=persons',

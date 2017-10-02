@@ -25,7 +25,7 @@ class ClubManagementViewPersons extends JViewLegacy {
 	 * @return void
 	 */
 	function display($tpl = null)  {
-		ClubManagementHelper::addSidebar('persons');
+		ClubManagementHelper::addSubmenu('persons');
 		// Get data from the model
 		$this->items = $this->get('Items');
 		$this->pagination = $this->get('Pagination');

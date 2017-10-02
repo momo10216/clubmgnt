@@ -26,7 +26,7 @@ class ClubManagementViewBoardEntries extends JViewLegacy {
 	 */
 
 	function display($tpl = null)  {
-		ClubManagementHelper::addSidebar('boardentries');
+		ClubManagementHelper::addSubmenu('boardentries');
 		// Get data from the model
 		$this->items = $this->get('Items');
 		$this->pagination = $this->get('Pagination');
