@@ -4,7 +4,7 @@ CREATE TABLE `#__nokCM_persons` (
   `firstname` varchar(50) default NULL,
   `middlename` varchar(50) default NULL,
   `name` varchar(50) NOT NULL default '',
-  `biRthname` varchar(50) default NULL,
+  `birthname` varchar(50) default NULL,
   `nickname` varchar(50) default NULL,
   `address` varchar(100) default NULL,
   `city` varchar(50) NOT NULL default '',
