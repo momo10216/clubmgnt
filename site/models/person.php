@@ -319,7 +319,7 @@ class ClubManagementModelPerson extends JModelForm {
 		foreach ($cols as $key) {
 			if (isset($allFields[$key])) {
 				$field = $allFields[$key];
-				array_push($fields,$db->quoteName($field[1])." AS ".$key);
+				array_push($fields,$field[1]." AS ".$key);
 			}
 		}
 		array_push($fields,$db->quoteName('p.id')." AS person_id");
