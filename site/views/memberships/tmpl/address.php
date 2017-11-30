@@ -3,13 +3,15 @@
 * @version	$Id$
 * @package	Joomla
 * @subpackage	ClubManagement-Member
-* @copyright	Copyright (c) 2012 Norbert Kümin. All rights reserved.
+* @copyright	Copyright (c) 2012 Norbert KUEmin. All rights reserved.
 * @license	http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
 * @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
 
-defined('_JEXEC') or die; // no direct access
+// Check to ensure this file is included in Joomla!
+defined('_JEXEC') or die('Restricted access');
+
 $FieldPerLine=4;
 $Line=5;
 $details = false;

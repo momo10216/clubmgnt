@@ -2,6 +2,6 @@
 <metadata>
 	<view
 		title="COM_CLUBMANAGEMENT_MEMBERSHIPS_VIEW_TITLE">
-		<message><![CDATA[TYPECATEGLAYDESCCOM_CLUBMANAGEMENT_MEMBERSHIPS_VIEW_DESC]]></message>
+		<message><![CDATA[COM_CLUBMANAGEMENT_MEMBERSHIPS_VIEW_DESC]]></message>
 	</view>
 </metadata>

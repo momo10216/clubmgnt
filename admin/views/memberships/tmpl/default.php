@@ -3,14 +3,14 @@
 * @version	$Id$
 * @package	Joomla
 * @subpackage	ClubManagement-Member
-* @copyright	Copyright (c) 2014 Norbert Kümin. All rights reserved.
+* @copyright	Copyright (c) 2014 Norbert Kuemin. All rights reserved.
 * @license	http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
 * @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
 
-// No direct access to this file
-defined('_JEXEC') or die('Restricted Access');
+// Check to ensure this file is included in Joomla!
+defined('_JEXEC') or die('Restricted access');
 
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.multiselect');
@@ -70,4 +70,3 @@ JFactory::getDocument()->addScriptDeclaration($script);
 	<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
 	<?php echo JHtml::_('form.token'); ?>
 </form>
-

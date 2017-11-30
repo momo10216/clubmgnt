@@ -37,7 +37,7 @@
 
 	<media/>
 
-	<languages folder="language">
+	<languages folder="language/site">
 		<language tag="en-GB">en-GB.com_clubmanagement.ini</language>
 		<language tag="en-GB">en-GB.com_clubmanagement.sys.ini</language>
 		<language tag="de-DE">de-DE.com_clubmanagement.ini</language>
@@ -60,7 +60,7 @@
 			<folder>tables</folder>
 			<folder>views</folder>
 		</files>
-		<languages folder="language">
+		<languages folder="language/admin">
 			<language tag="en-GB">en-GB.com_clubmanagement.ini</language>
 			<language tag="en-GB">en-GB.com_clubmanagement.sys.ini</language>
 			<language tag="de-DE">de-DE.com_clubmanagement.ini</language>

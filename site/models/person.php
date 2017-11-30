@@ -3,13 +3,15 @@
 * @version	$Id$
 * @package	Joomla
 * @subpackage	ClubManagement-Person
-* @copyright	Copyright (c) 2014 Norbert Kümin. All rights reserved.
+* @copyright	Copyright (c) 2014 Norbert Kuemin. All rights reserved.
 * @license	http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
 * @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
-defined('_JEXEC') or die;
-// Include dependancy of the main model form
+
+// Check to ensure this file is included in Joomla!
+defined('_JEXEC') or die('Restricted access');
+
 jimport('joomla.application.component.modelform');
 // import Joomla modelitem library
 jimport('joomla.application.component.modelitem');

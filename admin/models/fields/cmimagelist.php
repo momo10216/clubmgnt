@@ -3,7 +3,7 @@
 * @version	$Id$
 * @package	Joomla
 * @subpackage	ClubManagement-Main
-* @copyright	Copyright (c) 2015 Norbert Kümin. All rights reserved.
+* @copyright	Copyright (c) 2015 Norbert Kuemin. All rights reserved.
 * @license	http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
 * @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
@@ -52,3 +52,4 @@ class JFormFieldCmImageList extends JFormField {
 		return '<select '.$multiple.'id="'.$this->id.'" name="'.$this->name.'">'.$option.'</select>';
         }
 }
+?>
