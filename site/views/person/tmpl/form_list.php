@@ -86,10 +86,6 @@ if ($items) {
 	foreach($items as $item) {
 		$row = (array) $item;
 		echo "<tr>\n";
-		if ($details) {
-			$id = $item->person_id;
-			$uri->setVar('id',$id);
-		}
 		for($j=0;$j<$colcount;$j++) {
 			$field = $cols[$j];
 			if (!empty($field)) {
