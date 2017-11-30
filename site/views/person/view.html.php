@@ -27,8 +27,6 @@ class ClubManagementViewPerson extends JViewLegacy {
 		$this->user = JFactory::getUser();
 		$app = JFactory::getApplication();
 		$this->document = JFactory::getDocument();
-		$this->item = $this->get('Item');
-		$this->form = $this->get('Form');
 		$this->paramsComponent = $this->state->get('params');
 		$menu = $app->getMenu();
 		if (is_object($menu)) {
@@ -47,7 +45,11 @@ class ClubManagementViewPerson extends JViewLegacy {
 		} else {
 			$this->idList = array($id);
 		}
-		if (count($this->idList) == 1) $this->getModel()->setPk($this->idList[0]);
+		if (count($this->idList) == 1) {
+			$this->getModel()->setPk($this->idList[0]);
+		}
+		$this->item = $this->get('Item');
+		$this->form = $this->get('Form');
 		$this->iframe = $uri->getVar('iframe');
 		if (!$this->iframe) $this->iframe = JRequest::getVar('iframe');
 		if (!$this->iframe) $this->iframe = '0';
