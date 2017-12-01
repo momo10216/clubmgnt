@@ -32,13 +32,13 @@
 			<field name="@spacer" type="spacer" default="" label="" description="" />
 			<field name="sort_column_1" type="cmpersoncolumn" columntype="view" label="COM_CLUBMANAGEMENT_SORT_COLUMN_1_LABEL" description="COM_CLUBMANAGEMENT_SORT_COLUMN_1_DESC" default="person_name"/>
 			<field name="sort_direction_1" type="radio" default="ASC" label="COM_CLUBMANAGEMENT_SORT_DIRECTION_1_LABEL" description="COM_CLUBMANAGEMENT_SORT_DIRECTION_1_DESC">
-				<option value="ASC">Ascending</option>
-				<option value="DESC">Descending</option>
+				<option value="ASC">COM_CLUBMANAGEMENT_SORT_DIRECTION_ASC</option>
+				<option value="DESC">COM_CLUBMANAGEMENT_SORT_DIRECTION_DESC</option>
 			</field>
 			<field name="sort_column_2" type="cmpersoncolumn" columntype="view" label="COM_CLUBMANAGEMENT_SORT_COLUMN_2_LABEL" description="COM_CLUBMANAGEMENT_SORT_COLUMN_2_DESC" default="person_firstname"/>
 			<field name="sort_direction_2" type="radio" default="ASC" label="COM_CLUBMANAGEMENT_SORT_DIRECTION_2_LABEL" description="COM_CLUBMANAGEMENT_SORT_DIRECTION_2_DESC">
-				<option value="ASC">Ascending</option>
-				<option value="DESC">Descending</option>
+				<option value="ASC">COM_CLUBMANAGEMENT_SORT_DIRECTION_ASC</option>
+				<option value="DESC">COM_CLUBMANAGEMENT_SORT_DIRECTION_DESC</option>
 			</field>
 		</fieldset>
 	</fields>

@@ -22,14 +22,14 @@ defined('_JEXEC') or die('Restricted access');
 class EmailListHelper {
 	public static function display_link($name, $data, $target) {
 		switch ($target) {
-			case "cc":
-				$tfexpr = "?cc=";
+			case 'cc':
+				$tfexpr = '?cc=';
 				break;
-			case "bcc":
-				$tfexpr = "?bcc=";
+			case 'bcc':
+				$tfexpr = '?bcc=';
 				break;
 			default:
-				$tfexpr = "";
+				$tfexpr = '';
 				break;
 		}
 		$emails = array();
@@ -39,9 +39,9 @@ class EmailListHelper {
 			}
 		}
 		if (count($emails) > 0) {
-			echo "<a href=\"MAILTO:".$tfexpr.implode(",",$emails)."\">".$name."</a>\n";
+			echo '<a href="MAILTO:'.$tfexpr.implode(',',$emails).'">'.$name."</a>\n";
 		} else {
-			echo JText::_("COM_CLUBMANAGEMENT_NO_DATA");
+			echo JText::_('COM_CLUBMANAGEMENT_NO_DATA');
 		}
 	}
 
@@ -49,13 +49,13 @@ class EmailListHelper {
 		echo $label."\n";
 		if (($max_email_addr == 0) || ($max_email_addr >= count($data))) {
 			// One link
-			self::display_link(JText::_("COM_CLUBMANAGEMENT_LINK"), $data, $target_field);
+			self::display_link(JText::_('COM_CLUBMANAGEMENT_LINK'), $data, $target_field);
 		} else {
 			// Multiple links
 			$max = intval(count($data) / $max_email_addr) + 1;
 			for ($i=1 ; $i<=$max ; $i++) {
 				$newdata = array_slice($data, (($i-1)*$max_email_addr), $max_email_addr);
-				self::display_link(JText::sprintf("COM_CLUBMANAGEMENT_LINK_NR",$i), $newdata, $target_field);
+				self::display_link(JText::sprintf('COM_CLUBMANAGEMENT_LINK_NR',$i), $newdata, $target_field);
 			}
 		}
 		echo "<br/>\n";
@@ -97,7 +97,7 @@ class EmailListHelper {
 							if (isset($row['board_published'])) { $rowPublished = $row['board_published']; }
 							break;
 					}
-					if (($published == "all") ||
+					if (($published == 'all') ||
 					   ($published == 'unpublished' && $rowPublished == '0') ||
 					   ($published == 'published' && $rowPublished == '1')) {
 						if (!isset($result[$key]) || !$result[$key]) {
@@ -114,15 +114,15 @@ class EmailListHelper {
 	public static function getStates($state) {
 		$states = array();
 		switch ($state) {
-			case "terminated": // Only terminated
-				$states[]="terminated";
+			case 'terminated': // Only terminated
+				$states[]='terminated';
 				break;
-			case "current": // Only Current
-				$states[]="current";
+			case 'current': // Only Current
+				$states[]='current';
 				break;
 			default: // All
-				$states[]="terminated";
-				$states[]="current";
+				$states[]='terminated';
+				$states[]='current';
 				break;
 		}
 		return $states;

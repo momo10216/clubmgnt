@@ -11,9 +11,9 @@
 		<fieldset name="basic" label="COM_CLUBMANAGEMENT_BASIC_OPTIONS_FIELDSET_LABEL">
 			<field name="membertype" type="cmselection" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL"
 				description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_DESC" paramname="member_types" hide_none="true" multiple="true"/>
-			<field name="memberstate" type="list" default="current" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_STATE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_DESC">
-				<option value="current">current</option>
-				<option value="closed">terminated</option>
+			<field name="memberstate" type="list" default="current" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_STATE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_STATE_DESC">
+				<option value="current">COM_CLUBMANAGEMENT_MEMBERSHIPS_STATE_CURRENT</option>
+				<option value="closed">COM_CLUBMANAGEMENT_MEMBERSHIPS_STATE_TERMINATED</option>
 				<option value="all">JALL</option>
 			</field>
 			<field name="memberpublicity" type="list" default="published" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_DESC">

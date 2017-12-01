@@ -41,8 +41,8 @@
 			readonly="true" />
 
 		<field name="catid" type="category" extension="com_clubmanagement" class="inputbox" default=""
-			label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_CATID_LABEL"
-			description="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_CATID_DESC"
+			label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CATID_LABEL"
+			description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CATID_DESC"
 			required="false"
 		>
 			<option value="0">JOPTION_SELECT_CATEGORY</option>

@@ -11,8 +11,8 @@
 		<fieldset name="basic" label="COM_CLUBMANAGEMENT_BASIC_OPTIONS_FIELDSET_LABEL">
 			<field name="boardstate" type="list" default="current" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_STATE_LABEL"
 				description="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_STATE_DESC">
-				<option value="current">current</option>
-				<option value="closed">terminated</option>
+				<option value="current">COM_CLUBMANAGEMENT_BOARDENTRIES_STATE_CURRENT</option>
+				<option value="closed">COM_CLUBMANAGEMENT_BOARDENTRIES_STATE_TERMINATED</option>
 				<option value="all">JALL</option>
 			</field>
 			<field name="boardpublicity" type="list" default="published" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_PUBLISHED_LABEL"

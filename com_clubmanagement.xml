@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.2" method="upgrade">
-	<name>Club Management</name>
+	<name>COM_CLUBMANAGEMENT_XML_NAME</name>
 	<author>Norbert Kuemin</author>
 	<authorEmail>momo_102@bluemail.ch</authorEmail>
 	<creationDate>Oktober 2017</creationDate>
@@ -68,6 +68,6 @@
 		</languages>
 	</administration>
 	<updateservers>
-		<server type="extension" priority="2" name="Club Management Updates">http://kuem.in/joomlaupdate/com_clubmanagement.xml</server>
+		<server type="extension" priority="2" name="COM_CLUBMANAGEMENT_UPDATE_NAME">http://kuem.in/joomlaupdate/com_clubmanagement.xml</server>
 	</updateservers>
 </extension>

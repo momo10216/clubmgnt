@@ -47,7 +47,7 @@ class ClubManagementViewBoardEntry extends JViewLegacy {
 		$isNew		= ($this->item->id == 0);
 		// Built the actions for new and existing records.
 		$canDo		= $this->canDo;
-		JToolbarHelper::title(JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_PAGE_'.($isNew ? 'ADD' : 'EDIT')), 'pencil-2 article-add');
+		JToolbarHelper::title(($isNew ? JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_PAGE_ADD') : JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_PAGE_EDIT'))), 'pencil-2 article-add');
 		// For new records, check the create permission.
 		if ($isNew && $canDo->get('core.create')) {
 			JToolbarHelper::apply('boardentry.apply');

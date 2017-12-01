@@ -8,7 +8,10 @@
 * @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
-defined('_JEXEC') or die; // no direct access
+
+// Check to ensure this file is included in Joomla!
+defined('_JEXEC') or die('Restricted access');
+
 // Get columns
 $cols = array();
 for ($i=1;$i<=10;$i++) {

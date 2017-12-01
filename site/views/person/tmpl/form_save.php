@@ -26,8 +26,8 @@ if (!$id) $id = JRequest::getVar("id");
 $updated = $model->updateCurrentUser($id, $data);
 // check if ok and display appropriate message.  This can also have a redirect if desired.
 if ($updated) {
-	echo JText::_("COM_CLUBMANAGEMENT_DATA_SAVED");
+	echo JText::_('COM_CLUBMANAGEMENT_DATA_SAVED');
 } else {
-	echo JText::_("COM_CLUBMANAGEMENT_DATA_NOT_SAVED");
+	echo JText::_('COM_CLUBMANAGEMENT_DATA_NOT_SAVED');
 }
 ?>

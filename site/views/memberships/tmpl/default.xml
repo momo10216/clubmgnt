@@ -6,9 +6,9 @@
 	<fields name="request">
 		<fieldset name="request" label="COM_CLUBMANAGEMENT_REQUEST_OPTIONS_FIELDSET_LABEL">
 			<field name="format" type="list" default="html" label="COM_CLUBMANAGEMENT_OUTPUT_FORMAT_LABEL" description="COM_CLUBMANAGEMENT_OUTPUT_FORMAT_DESC" >
-				<option value="csv">CSV (Excel)</option>
-				<option value="html">HTML</option>
-				<!-- <option value="pdf">PDF</option> -->
+				<option value="csv">COM_CLUBMANAGEMENT_OUTPUT_FORMAT_CSV</option>
+				<option value="html">COM_CLUBMANAGEMENT_OUTPUT_FORMAT_HTML</option>
+				<!-- <option value="pdf">COM_CLUBMANAGEMENT_OUTPUT_FORMAT_PDF</option> -->
 			</field>
 		</fieldset>
 	</fields>
@@ -16,9 +16,9 @@
 		<!-- Basic options. -->
 		<fieldset name="basic" label="COM_CLUBMANAGEMENT_BASIC_OPTIONS_FIELDSET_LABEL">
 			<field name="membertype" type="cmselection" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_DESC" paramname="member_types" hide_none="true" multiple="true"/>
-			<field name="memberstate" type="list" default="current" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_DESC">
-				<option value="current">Current</option>
-				<option value="closed">Terminated</option>
+			<field name="memberstate" type="list" default="current" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_STATE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_STATE_DESC">
+				<option value="current">COM_CLUBMANAGEMENT_MEMBERSHIPS_STATE_CURRENT</option>
+				<option value="closed">COM_CLUBMANAGEMENT_MEMBERSHIPS_STATE_TERMINATED</option>
 				<option value="all">JALL</option>
 			</field>
 			<field name="publicity" type="list" default="published" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_DESC">
@@ -60,23 +60,23 @@
 		<fieldset name="advanced" label="COM_CLUBMANAGEMENT_ADVANCED_OPTIONS_FIELDSET_LABEL">
 			<field name="sort_column_1" type="cmmembershipcolumn" columntype="view" default="name" label="COM_CLUBMANAGEMENT_SORT_COLUMN_1_LABEL" description="COM_CLUBMANAGEMENT_SORT_COLUMN_1_DESC"/>
 			<field name="sort_direction_1" type="radio" default="ASC" label="COM_CLUBMANAGEMENT_SORT_DIRECTION_1_LABEL" description="COM_CLUBMANAGEMENT_SORT_DIRECTION_1_DESC">
-				<option value="ASC">Ascending</option>
-				<option value="DESC">Descending</option>
+				<option value="ASC">COM_CLUBMANAGEMENT_SORT_DIRECTION_ASC</option>
+				<option value="DESC">COM_CLUBMANAGEMENT_SORT_DIRECTION_DESC</option>
 			</field>
 			<field name="sort_column_2" type="cmmembershipcolumn" columntype="view" default="firstname" label="COM_CLUBMANAGEMENT_SORT_COLUMN_2_LABEL" description="COM_CLUBMANAGEMENT_SORT_COLUMN_2_DESC"/>
 			<field name="sort_direction_2" type="radio" default="ASC" label="COM_CLUBMANAGEMENT_SORT_DIRECTION_2_LABEL" description="COM_CLUBMANAGEMENT_SORT_DIRECTION_2_DESC">
-				<option value="ASC">Ascending</option>
-				<option value="DESC">Descending</option>
+				<option value="ASC">COM_CLUBMANAGEMENT_SORT_DIRECTION_ASC</option>
+				<option value="DESC">COM_CLUBMANAGEMENT_SORT_DIRECTION_DESC</option>
 			</field>
 			<field name="sort_column_3" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_SORT_COLUMN_3_LABEL" description="COM_CLUBMANAGEMENT_SORT_COLUMN_3_DESC"/>
 			<field name="sort_direction_3" type="radio" default="ASC" label="COM_CLUBMANAGEMENT_SORT_DIRECTION_3_LABEL" description="COM_CLUBMANAGEMENT_SORT_DIRECTION_3_DESC">
-				<option value="ASC">Ascending</option>
-				<option value="DESC">Descending</option>
+				<option value="ASC">COM_CLUBMANAGEMENT_SORT_DIRECTION_ASC</option>
+				<option value="DESC">COM_CLUBMANAGEMENT_SORT_DIRECTION_DESC</option>
 			</field>
 			<field name="sort_column_4" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_SORT_COLUMN_4_LABEL" description="COM_CLUBMANAGEMENT_SORT_COLUMN_4_DESC"/>
 			<field name="sort_direction_4" type="radio" default="ASC" label="COM_CLUBMANAGEMENT_SORT_DIRECTION_4_LABEL" description="COM_CLUBMANAGEMENT_SORT_DIRECTION_4_DESC">
-				<option value="ASC">Ascending</option>
-				<option value="DESC">Descending</option>
+				<option value="ASC">COM_CLUBMANAGEMENT_SORT_DIRECTION_ASC</option>
+				<option value="DESC">COM_CLUBMANAGEMENT_SORT_DIRECTION_DESC</option>
 			</field>
 			<field name="@spacer" type="spacer" default="" label="" description="" />
 			<field name="table_center" type="radio" default="0" label="COM_CLUBMANAGEMENT_CENTER_LIST_LABEL" description="COM_CLUBMANAGEMENT_CENTER_LIST_DESC">
@@ -94,9 +94,9 @@
 			</field>
 			<field name="border_type" type="list" default="" label="COM_CLUBMANAGEMENT_BORDER_TYPE_LABEL" description="COM_CLUBMANAGEMENT_BORDER_TYPE_DESC">
 				<option value="">JNONE</option>
-				<option value="border">Border</option>
-				<option value="row">Row</option>
-				<option value="grid">Grid</option>
+				<option value="border">COM_CLUBMANAGEMENT_BORDER_TYPE_BORDER</option>
+				<option value="row">COM_CLUBMANAGEMENT_BORDER_TYPE_ROW</option>
+				<option value="grid">COM_CLUBMANAGEMENT_BORDER_TYPE_GRID</option>
 			</field>
 			<field name="@spacer" type="spacer" default="" label="" description="" />
 			<field name="detail_enable" type="radio" default="0" label="COM_CLUBMANAGEMENT_ENABLE_DETAILS_LABEL" description="COM_CLUBMANAGEMENT_ENABLE_DETAILS_DESC">
