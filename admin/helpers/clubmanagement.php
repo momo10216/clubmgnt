@@ -13,7 +13,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 class ClubManagementHelper extends JHelperContent {
-	public static $extension = 'com_newsfeeds';
+	public static $extension = 'com_clubmanagement';
 
 	/**
 	 * Configure the Linkbar.
@@ -45,7 +45,7 @@ class ClubManagementHelper extends JHelperContent {
 		);
 	}
 
-	public function exportData($model) {
+	public static function exportData($model) {
 		$export_columns = $model->getExportColumns();
 		$known_fields = $model->getFieldMapping();
 		$export_fields = array();
@@ -60,7 +60,7 @@ class ClubManagementHelper extends JHelperContent {
 		return array_merge(array(array_keys($export_fields)), $rows);
 	}
 
-	public function importData($model, $header, $data) {
+	public static function importData($model, $header, $data) {
 		$known_fields = $model->getFieldMapping();
 		$db = JFactory::getDBO();
 		$userId = JFactory::getUser()->get('name');
@@ -114,7 +114,7 @@ class ClubManagementHelper extends JHelperContent {
 		}
 	}
 
-	public function getNamedArray($header, $entry) {
+	public static function getNamedArray($header, $entry) {
 		$result= array();
 		$count = count($header);
 		if ($count > 0) {
@@ -125,7 +125,7 @@ class ClubManagementHelper extends JHelperContent {
 		return $result;
 	}
 
-	public function findRecordWithPrimaryFields($model, $row) {
+	public static function findRecordWithPrimaryFields($model, $row) {
 		$db = JFactory::getDBO();
 		$primaryKeys = $model->getImportPrimaryFields();
 		$expressions = array();
@@ -147,7 +147,7 @@ class ClubManagementHelper extends JHelperContent {
 		return false;
 	}
 
-	public function resolveForeignKeys($model, $row) {
+	public static function resolveForeignKeys($model, $row) {
 		$known_fields = $model->getFieldMapping();
 		$foreign_keys = $model->getForeignKeys();
 		$db = JFactory::getDBO();
