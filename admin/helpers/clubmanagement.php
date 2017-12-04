@@ -106,7 +106,7 @@ class ClubManagementHelper extends JHelperContent {
 				}
 				$query
 					->insert($db->quoteName($model->getTableName()))
-					->columns($fields)
+					->columns(implode(',',$fields))
 					->values(implode(',', $values));
 			}
 			$db->setQuery($query);

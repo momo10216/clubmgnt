@@ -1,4 +1,4 @@
-CREATE TABLE `#__nokCM_persons` (
+CREATE TABLE IF NOT EXISTS `#__nokCM_persons` (
   `id` integer NOT NULL auto_increment,
   `salutation` varchar(25) default NULL,
   `firstname` varchar(50) default NULL,
@@ -38,7 +38,7 @@ CREATE TABLE `#__nokCM_persons` (
   KEY `idx_remote` (`name`,`firstname`,`address`,`city`,`birthday`)
 )  DEFAULT CHARSET=utf8;
 
-CREATE TABLE `#__nokCM_memberships` (
+CREATE TABLE IF NOT EXISTS `#__nokCM_memberships` (
   `id` integer NOT NULL auto_increment,
   `person_id` integer NOT NULL,
   `type` varchar(25) NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE `#__nokCM_memberships` (
   KEY `idx_remote` (`person_id`,`type`,`begin`)
 )  DEFAULT CHARSET=utf8;
 
-CREATE TABLE `#__nokCM_board` (
+CREATE TABLE IF NOT EXISTS `#__nokCM_board` (
   `id` integer NOT NULL auto_increment,
   `person_id` integer NOT NULL,
   `job` varchar(25) NOT NULL,
