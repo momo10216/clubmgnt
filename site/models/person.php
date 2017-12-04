@@ -144,7 +144,6 @@ class ClubManagementModelPerson extends JModelForm {
 		if (empty($form)) {
 			return false;
 		}
-/*
 		$pk = $this->getState('person.id');
 		if (empty($pk)) $pk = $this->pk;
 		$params = $this->getState('params');
@@ -152,7 +151,6 @@ class ClubManagementModelPerson extends JModelForm {
 		if (is_object($person)) {
 			$params->merge($person->params);
 		}
-*/
 		return $form;
 	}
 

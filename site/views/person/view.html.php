@@ -22,7 +22,7 @@ class ClubManagementViewPerson extends JViewLegacy {
 
 	function display($tpl = null) {
 		// Init variables
-		$this->state = $his->get('State');
+		$this->state = $this->get('State');
 		if ($this->getLayout() =='form') {
 			$this->getModel()->setUseAlias(false);
 		}
@@ -40,8 +40,8 @@ class ClubManagementViewPerson extends JViewLegacy {
 		// Read infos from URI
 		$uri = JFactory::getURI();
 		$id = $uri->getVar('id');
-		if (!$id) $id = JRequest::getVar('id');
-		if (!$id) $id = $this->state->get('person.id');
+		if (!$id) { $id = JRequest::getVar('id'); }
+		if (!$id) { $id = $this->state->get('person.id'); }
 		if (!$id) {
 			$this->idList = $this->getModel()->getPersonIdListForCurrentUser();
 		} else {
