@@ -116,6 +116,9 @@ if ($this->items) {
 				if ($details && (($detailColumn == "") || ($detailColumn == $field))) {
 					echo "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$detailWidth.", y: ".$detailHeight."}}\">".$data."</a>";
 				} else {
+					if ($field == 'person_url') {
+						$data = '<a href="'.$data.'" target="_new">'.$data.'</a>';
+					}
 					echo $data;
 				}
 				echo "</td>";

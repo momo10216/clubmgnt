@@ -112,11 +112,14 @@ if ($this->items) {
 				} else {
 					if (isset($row[$field])) { $data = $row[$field]; }
 				}
-
 				if (strlen($data) > 0) {
 					if ($lines[$i]) { $lines[$i] .= " "; }
 					if ($details && ($this->paramsMenuEntry->get('detail_column_link') == $field) && ($data != "")) {
 						$data = '<a href="'.$uri->toString().'" class="modal" rel="{handler: \'iframe\', size: {x: '.$detailWidth.', y: '.$detailHeight.'}}">'.$data.'</a>';
+					} else {
+						if ($field == 'person_url') {
+							$data = '<a href="'.$data.'" target="_new">'.$data.'</a>';
+						}
 					}
 					$lines[$i] .= $data;
 					$lines[$i] = trim($lines[$i]);

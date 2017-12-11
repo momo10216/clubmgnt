@@ -98,6 +98,10 @@ if ($this->items) {
 						if ($lines[$i]) { $lines[$i] .= " "; }
 						if ($details && ($this->paramsMenuEntry->get( 'detail_column_link' ) == $field) && ($data != "")) {
 							$data = "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$this->paramsMenuComponent->get( 'detail_width' ).", y: ".$this->paramsComponent->get( 'detail_height' )."}}\">".$data."</a>";
+						} else {
+							if ($field == 'person_url') {
+								$data = '<a href="'.$data.'" target="_new">'.$data.'</a>';
+							}
 						}
 						$lines[$i] .= $data;
 						$lines[$i] = trim($lines[$i]);
