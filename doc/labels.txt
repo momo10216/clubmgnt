@@ -1,0 +1,10 @@
+https://www.herma.co.uk/
+https://www.avery.com/products/labels/usage/address-labels
+https://www.avery-zweckform.com/etiketten/adressetiketten
+https://www.sigel.de/en_gb/workflow/Labels/93-Address+Labels
+http://www.towerproducts.co.za/products/a4-labels/
+
+Flow:
+- Select Filter & Lable-Producer/Format
+- Display result list with checkbox (all selected)
+- Get PDF
