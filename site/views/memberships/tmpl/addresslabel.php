@@ -19,21 +19,11 @@ function showError($msg) {
 $task = JRequest::getVar('task');
 switch ($task) {
 	case 'input':
-		echo $this->loadTemplate('save');
+		echo $this->loadTemplate('input');
 		break;
 	case 'create_pdf':
 	default:
-		$uri = JFactory::getURI();
-		$id = $uri->getVar('id');
-		if (!$id) $id = JRequest::getVar('id');
-		if (!$id) {
-			$id_list = $this->getModel()->getPersonIdListForCurrentUser();
-		} else {
-			$id_list = array($id);
-		}
-		if (count($this->idList) < 1) showError(JText::_('COM_CLUBMANAGEMENT_ERROR_PERSON_EDIT_NO_RECORD'));
-		if (count($this->idList) == 1) echo $this->loadTemplate('edit');
-		if (count($this->idList) > 1) echo $this->loadTemplate('list');
+		$id_list = $this->getModel()->getPersonIdListForCurrentUser();
 		break;
 }
 ?>
