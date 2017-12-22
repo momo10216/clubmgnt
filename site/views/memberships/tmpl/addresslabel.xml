@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_CLUBMANAGEMENT_MEMBERSHIPS_VIEW_ADDRESS_LABEL_LAYOUT_TITLE">
+		<message>
+			<![CDATA[COM_CLUBMANAGEMENT_MEMBERSHIPS_VIEW_ADDRESS_LABEL_LAYOUT_DESC]]>
+		</message>
+	</layout>
+	<fields name="request">
+		<fieldset name="request" label="COM_CLUBMANAGEMENT_REQUEST_OPTIONS_FIELDSET_LABEL">
+		</fieldset>
+	</fields>
+	<fields name="params" addfieldpath="/administrator/components/com_clubmanagement/models/fields">
+		<!-- Basic options. -->
+		<fieldset name="basic" label="COM_CLUBMANAGEMENT_BASIC_OPTIONS_FIELDSET_LABEL">
+			<field name="membertype" type="cmselection" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_DESC" paramname="member_types" hide_none="true" multiple="true"/>
+			<field name="memberstate" type="list" default="current" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_STATE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_STATE_DESC">
+				<option value="current">COM_CLUBMANAGEMENT_MEMBERSHIPS_STATE_CURRENT</option>
+				<option value="closed">COM_CLUBMANAGEMENT_MEMBERSHIPS_STATE_TERMINATED</option>
+				<option value="all">JALL</option>
+			</field>
+			<field name="publicity" type="list" default="published" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_DESC">
+				<option value="all">JALL</option>
+				<option value="published">JPUBLISHED</option>
+				<option value="unpublished">JUNPUBLISHED</option>
+			</field>
+			<field name="catid" type="category" extension="com_clubmanagement" class="inputbox" default="" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_CATID_LABEL" description="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_CATID_DESC" required="false">
+				<option value="0">JOPTION_SELECT_CATEGORY</option>
+			</field>
+			<field name="@spacer" type="spacer" default="" label="" description="" />
+			<field name="display_empty" type="radio" default="0" label="COM_CLUBMANAGEMENT_DISPLAY_EMPTY_LINES_LABEL" description="COM_CLUBMANAGEMENT_DISPLAY_EMPTY_LINES_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="line_1" type="spacer" default="" label="COM_CLUBMANAGEMENT_LINE_1_LABEL" description="COM_CLUBMANAGEMENT_LINE_1_DESC" />
+			<field name="column_1" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_1_FIELD_1_LABEL" description="COM_CLUBMANAGEMENT_LINE_1_FIELD_1_DESC"/>
+			<field name="column_2" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_1_FIELD_2_LABEL" description="COM_CLUBMANAGEMENT_LINE_1_FIELD_2_DESC"/>
+			<field name="column_3" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_1_FIELD_3_LABEL" description="COM_CLUBMANAGEMENT_LINE_1_FIELD_3_DESC"/>
+			<field name="column_4" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_1_FIELD_4_LABEL" description="COM_CLUBMANAGEMENT_LINE_1_FIELD_4_DESC"/>
+			<field name="line_2" type="spacer" default="" label="COM_CLUBMANAGEMENT_LINE_2_LABEL" description="COM_CLUBMANAGEMENT_LINE_2_DESC" />
+			<field name="column_5" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_2_FIELD_1_LABEL" description="COM_CLUBMANAGEMENT_LINE_2_FIELD_1_DESC"/>
+			<field name="column_6" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_2_FIELD_2_LABEL" description="COM_CLUBMANAGEMENT_LINE_2_FIELD_2_DESC"/>
+			<field name="column_7" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_2_FIELD_3_LABEL" description="COM_CLUBMANAGEMENT_LINE_2_FIELD_3_DESC"/>
+			<field name="column_8" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_2_FIELD_4_LABEL" description="COM_CLUBMANAGEMENT_LINE_2_FIELD_4_DESC"/>
+			<field name="line_3" type="spacer" default="" label="COM_CLUBMANAGEMENT_LINE_3_LABEL" description="COM_CLUBMANAGEMENT_LINE_3_DESC" />
+			<field name="column_9" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_3_FIELD_1_LABEL" description="COM_CLUBMANAGEMENT_LINE_3_FIELD_1_DESC"/>
+			<field name="column_10" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_3_FIELD_2_LABEL" description="COM_CLUBMANAGEMENT_LINE_3_FIELD_2_DESC"/>
+			<field name="column_11" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_3_FIELD_3_LABEL" description="COM_CLUBMANAGEMENT_LINE_3_FIELD_3_DESC"/>
+			<field name="column_12" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_3_FIELD_4_LABEL" description="COM_CLUBMANAGEMENT_LINE_3_FIELD_4_DESC"/>
+			<field name="line_4" type="spacer" default="" label="COM_CLUBMANAGEMENT_LINE_4_LABEL" description="COM_CLUBMANAGEMENT_LINE_4_DESC" />
+			<field name="column_13" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_4_FIELD_1_LABEL" description="COM_CLUBMANAGEMENT_LINE_4_FIELD_1_DESC"/>
+			<field name="column_14" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_4_FIELD_2_LABEL" description="COM_CLUBMANAGEMENT_LINE_4_FIELD_2_DESC"/>
+			<field name="column_15" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_4_FIELD_3_LABEL" description="COM_CLUBMANAGEMENT_LINE_4_FIELD_3_DESC"/>
+			<field name="column_16" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_4_FIELD_4_LABEL" description="COM_CLUBMANAGEMENT_LINE_4_FIELD_4_DESC"/>
+			<field name="line_5" type="spacer" default="" label="COM_CLUBMANAGEMENT_LINE_5_LABEL" description="COM_CLUBMANAGEMENT_LINE_5_DESC" />
+			<field name="column_17" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_5_FIELD_1_LABEL" description="COM_CLUBMANAGEMENT_LINE_5_FIELD_1_DESC"/>
+			<field name="column_18" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_5_FIELD_2_LABEL" description="COM_CLUBMANAGEMENT_LINE_5_FIELD_2_DESC"/>
+			<field name="column_19" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_5_FIELD_3_LABEL" description="COM_CLUBMANAGEMENT_LINE_5_FIELD_3_DESC"/>
+			<field name="column_20" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_LINE_5_FIELD_4_LABEL" description="COM_CLUBMANAGEMENT_LINE_5_FIELD_4_DESC"/>
+		</fieldset>
+
+		<!-- Advanced options. -->
+		<fieldset name="advanced" label="COM_CLUBMANAGEMENT_ADVANCED_OPTIONS_FIELDSET_LABEL">
+			<field name="sort_column_1" type="cmmembershipcolumn" columntype="view" default="name" label="COM_CLUBMANAGEMENT_SORT_COLUMN_1_LABEL" description="COM_CLUBMANAGEMENT_SORT_COLUMN_1_DESC"/>
+			<field name="sort_direction_1" type="radio" default="ASC" label="COM_CLUBMANAGEMENT_SORT_DIRECTION_1_LABEL" description="COM_CLUBMANAGEMENT_SORT_DIRECTION_1_DESC">
+				<option value="ASC">COM_CLUBMANAGEMENT_SORT_DIRECTION_ASC</option>
+				<option value="DESC">COM_CLUBMANAGEMENT_SORT_DIRECTION_DESC</option>
+			</field>
+			<field name="sort_column_2" type="cmmembershipcolumn" columntype="view" default="firstname" label="COM_CLUBMANAGEMENT_SORT_COLUMN_2_LABEL" description="COM_CLUBMANAGEMENT_SORT_COLUMN_2_DESC"/>
+			<field name="sort_direction_2" type="radio" default="ASC" label="COM_CLUBMANAGEMENT_SORT_DIRECTION_2_LABEL" description="COM_CLUBMANAGEMENT_SORT_DIRECTION_2_DESC">
+				<option value="ASC">COM_CLUBMANAGEMENT_SORT_DIRECTION_ASC</option>
+				<option value="DESC">COM_CLUBMANAGEMENT_SORT_DIRECTION_DESC</option>
+			</field>
+			<field name="sort_column_3" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_SORT_COLUMN_3_LABEL" description="COM_CLUBMANAGEMENT_SORT_COLUMN_3_DESC"/>
+			<field name="sort_direction_3" type="radio" default="ASC" label="COM_CLUBMANAGEMENT_SORT_DIRECTION_3_LABEL" description="COM_CLUBMANAGEMENT_SORT_DIRECTION_3_DESC">
+				<option value="ASC">COM_CLUBMANAGEMENT_SORT_DIRECTION_ASC</option>
+				<option value="DESC">COM_CLUBMANAGEMENT_SORT_DIRECTION_DESC</option>
+			</field>
+			<field name="sort_column_4" type="cmmembershipcolumn" columntype="view" default="" label="COM_CLUBMANAGEMENT_SORT_COLUMN_4_LABEL" description="COM_CLUBMANAGEMENT_SORT_COLUMN_4_DESC"/>
+			<field name="sort_direction_4" type="radio" default="ASC" label="COM_CLUBMANAGEMENT_SORT_DIRECTION_4_LABEL" description="COM_CLUBMANAGEMENT_SORT_DIRECTION_4_DESC">
+				<option value="ASC">COM_CLUBMANAGEMENT_SORT_DIRECTION_ASC</option>
+				<option value="DESC">COM_CLUBMANAGEMENT_SORT_DIRECTION_DESC</option>
+			</field>
+		</fieldset>
+	</fields>
+</metadata>

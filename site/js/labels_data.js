@@ -118,7 +118,7 @@ format["Herma|A4"] = [
 	{
 		name:"4254 Address labels, white",
 		pageWidth:"210", pageHeight:"297", pageMarginTop:"0", pageMarginLeft:"0", pageOrientation:"portrait",
-		rows:"", columns:"", spacingHorizontal:"0", spacingVertical:"0", labelWidth:"", labelHeight:""
+		rows:"13", columns:"5", spacingHorizontal:"0", spacingVertical:"0", labelWidth:"38.1", labelHeight:"21.1"
 	},
 	{
 		name:"4265 Address labels, white",
