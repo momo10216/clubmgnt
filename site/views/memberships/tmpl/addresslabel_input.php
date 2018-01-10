@@ -12,126 +12,41 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-$FieldPerLine=4;
-$Line=5;
-$details = false;
-if ($this->paramsMenuEntry->get( 'detail_enable' ) != "0") {
-	$details = true;
-	$curi = JFactory::getURI();
-	$uri = JURI::getInstance( $curi->toString() );
-	$uri->setVar("layout","detail");
-	$uri->setVar("tmpl","component");
-	$uri->setVar("Itemid","");
-	$uri->setVar("view","person");
-}
-
-// Get columns
-$cols = array();
-for ($i=1;$i<=20;$i++) {
-	$field = "column_".$i;
-	$cols[$i-1] = $this->paramsMenuEntry->get($field);
-}
-$colcount = count($cols);
-
-// Display
-if ($details) {
-	JHTML::_('behavior.modal');
-}
-if ($this->paramsMenuEntry->get( "table_center") == "1") echo "<center>\n";
-if ($this->paramsMenuEntry->get( "border_type") != "") {
-	echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"".$border."\">\n";
-} else {
-	echo "<table border=\"0\" style=\"border-style:none; border-width:0px\">\n";
-}
-if (($this->paramsMenuEntry->get('show_header') == "1") && ($this->paramsMenuEntry->get('display_empty') == "1")) {
-	$header = $this->getModel()->getHeader($cols);
-	echo "<tr>";
-	for ($i=0;$i<$Line;$i++) {
-		$headerFields = array();
-		for($j=0;$j<$FieldPerLine;$j++) {
-			$colnr = $i*$FieldPerLine+$j;
-			if (isset($header[$colnr]) && !empty($header[$colnr])) {
-				array_push($headerFields,$header[$colnr]);
-			}
-		}
-		echo "<th>".implode(' ',$headerFields)."</th>";
-	}
-	echo "</tr>\n";
-}
-if ($this->items) {
-	JLoader::register('SelectionHelper', JPATH_COMPONENT_ADMINISTRATOR.'/helpers/selection.php', true);
-	$memberTypes = SelectionHelper::getSelection("member_types");
-	switch ($this->paramsMenuEntry->get( "border_type")) {
-		case "row":
-			$borderStyle = " style=\"border-top-style:solid; border-width:1px\"";
-			break;
-		case "grid":
-			$borderStyle = " style=\"".$border."\"";
-			break;
-		default:
-			$borderStyle = "";
-			break;
-	}
-	$lastLines = array();
-	foreach($this->items as $item) {
-		$row = (array) $item;
-		if (empty($item->person_hh_person_id)) {
-			if ($details) {
-				$uri->setVar("id",$item->person_id);
-			}
-			if (isset($row["person_hh_name_override"]) && !empty($row["person_hh_name_override"])) {
-				if (isset($row["person_hh_salutation_override"]) && !empty($row["person_hh_salutation_override"])) {
-					$row["person_salutation"] = $row["person_hh_salutation_override"];
-				} else {
-					$row["person_salutation"] = "";
-				}
-				$row["person_name"] = $row["person_hh_name_override"];
-				$row["person_firstname"] = "";
-			}
-			$lines = array();
-			for($i=0;$i<$Line;$i++) {
-				$lines[$i] = '';
-				for($j=0;$j<$FieldPerLine;$j++) {
-					$colnr = $i*$FieldPerLine+$j;
-					$field = $cols[$colnr];
-					$data = '';
-					if (($field == "member_type") && !empty($memberTypes[$row[$field]])) {
-						$data = $memberTypes[$row[$field]];
-					} else {
-						if (isset($row[$field])) { $data = $row[$field]; }
-					}
-					if (strlen($data) > 0) {
-						if ($lines[$i]) { $lines[$i] .= " "; }
-						if ($details && ($this->paramsMenuEntry->get( 'detail_column_link' ) == $field) && ($data != "")) {
-							$data = "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$this->paramsMenuComponent->get('detail_width').", y: ".$this->paramsComponent->get('detail_height')."}}\">".$data."</a>";
-						} else {
-							if ($field == 'person_url') {
-								$data = '<a href="'.$data.'" target="_new">'.$data.'</a>';
-							}
-						}
-						$lines[$i] .= $data;
-						$lines[$i] = trim($lines[$i]);
-					}
-				}
-				if ($details && ($this->paramsMenuEntry->get( 'detail_column_link' ) == "") && ($data != "")) {
-					$lines[$i] = "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$this->paramsComponent->get('detail_width').", y: ".$this->paramsComponent->get('detail_height')."}}\">".$lines[$i]."</a>";
-				}
-			}
-			if ($lastLines != $lines) {
-				echo "<tr valign=\"top\">\n";
-				for($i=0;$i<$Line;$i++) {
-					if ((strlen($lines[$i]) > 0) || ($this->paramsMenuEntry->get( "display_empty" ) == "1")) {
-						echo "<td align=\"".$this->paramsMenuEntry->get( "textalign" )."\">";
-						echo $lines[$i]."<br />\n";
-						echo "</td>\n";
-					}
-				}
-				echo "</tr>\n";
-				$lastLines = $lines;
-			}
-		}
-	}
-}
-echo "</table>\n";
-if ($this->paramsMenuEntry->get( "table_center") == "1") echo "</center>\n";
+$doc = JFactory::getDocument();
+$url = (isset($_SERVER['HTTPS']) ? "https" : "http").'://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'])[0].'components/com_clubmanagement/js/labels_data.js';
+$doc->addScript($url);
 ?>
+<form action="<?php echo JRoute::_('index.php?option=com_clubmanagement&layout='.$this->getLayout()); ?>" method="post" name="adminForm" id="adminForm">
+	<p align="left">
+		Producer:<select name="producer" value="" onSelect="producerSelected()"/>
+		Format:<select name="format" value="" onSelect="formatSelected()"/>
+		Product:<select name="product" value="" onSelect="productSelected()"/>
+	</p>
+	<p align="left">
+		Page width:<input type="number" name="pageWidth" value="210" />
+		height:<input type="number" name="pageHeight" value="297" />
+		marginTop:<input type="number" name="pageMarginTop" value="0" />
+		marginLeft:<input type="number" name="pageMarginLeft" value="0" />
+		oriontation:<select name="pageHeight" value="297"><option value="portrait">Portrait</option><option value="landscape">Landscape</option></select>
+		<br/>
+		Label rows:<input type="number" name="rows" value="0" />
+		columns:<input type="number" name="columns" value="0" />
+		spacing horizontal:<input type="number" name="spacingHorizontal" value="0" />
+		spacing vertical:<input type="number" name="spacingVertical" value="0" />
+		width:<input type="number" name="labelWidth" value="0" />
+		height:<input type="number" name="labelHeight" value="0" />
+	</p>
+
+	<p align="center">
+		<button type="submit">
+			<?php echo JText::_('JSAVE') ?>
+		</button>
+		<button type="submit" onClick="document.adminForm.task.value='cancel';">
+			<?php echo JText::_('JCANCEL') ?>
+		</button>
+	</p>
+	<input type="hidden" name="option" value="com_clubmanagement" />
+	<input type="hidden" name="task" value="create_pdf" />
+	<?php echo JHtml::_('form.token'); ?>
+</form>
+

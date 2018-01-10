@@ -12,18 +12,14 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-function showError($msg) {
-	echo $msg;
-}
-
 $task = JRequest::getVar('task');
 switch ($task) {
 	case 'input':
-		echo $this->loadTemplate('input');
+		$this->loadTemplate('input');
 		break;
 	case 'create_pdf':
 	default:
-		$id_list = $this->getModel()->getPersonIdListForCurrentUser();
+		$this->loadTemplate('output');
 		break;
 }
 ?>

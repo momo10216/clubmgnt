@@ -1,33 +1,33 @@
 var producer = ["Avery", "Herma", "Sigel", "Tower"];
-var format = [];
-format["Avery"] = ["A4","Letter"];
-format["Avery-Zweckform"] = ["A4"];
-format["Herma"] = ["A4","A5","Endless"];
-format["Sigel"] = ["A4"];
-format["Tower"] = ["A4"];
-var settings = [];
-format["Empty|"] = [
+var formats = [];
+formats["Avery"] = ["A4","Letter"];
+formats["Avery-Zweckform"] = ["A4"];
+formats["Herma"] = ["A4","A5","Endless"];
+formats["Sigel"] = ["A4"];
+formats["Tower"] = ["A4"];
+var products = [];
+products["Empty|"] = [
 	{
 		name:"",
 		pageWidth:"", pageHeight:"", pageMarginTop:"", pageMarginLeft:"", pageOrientation:"portrait|landscape",
 		rows:"", columns:"", spacingHorizontal:"", spacingVertical:"", labelWidth:"", labelHeight:""
 	}
 ];
-format["Avery|A4"] = [
+products["Avery|A4"] = [
 	{
 		name:"",
 		pageWidth:"210", pageHeight:"297", pageMarginTop:"", pageMarginLeft:"", pageOrientation:"portrait|landscape",
 		rows:"", columns:"", spacingHorizontal:"", spacingVertical:"", labelWidth:"", labelHeight:""
 	}
 ];
-format["Avery|Letter"] = [
+products["Avery|Letter"] = [
 	{
 		name:"",
 		pageWidth:"", pageHeight:"", pageMarginTop:"", pageMarginLeft:"", pageOrientation:"portrait|landscape",
 		rows:"", columns:"", spacingHorizontal:"", spacingVertical:"", labelWidth:"", labelHeight:""
 	}
 ];
-format["Avery-Zweckform|A4"] = [
+products["Avery-Zweckform|A4"] = [
 	{
 		name:"3422 Universal-Etiketten",
 		pageWidth:"210", pageHeight:"297", pageMarginTop:"8.4", pageMarginLeft:"0", pageOrientation:"portrait",
@@ -94,7 +94,7 @@ format["Avery-Zweckform|A4"] = [
 		rows:"4", columns:"2", spacingHorizontal:"0", spacingVertical:"0", labelWidth:"97", labelHeight:"67.7"
 	}
 ];
-format["Herma|A4"] = [
+products["Herma|A4"] = [
 	{
 		name:"4103 Labels, gold foil, glossy",
 		pageWidth:"210", pageHeight:"297", pageMarginTop:"15", pageMarginLeft:"7.2", pageOrientation:"portrait",
@@ -511,7 +511,7 @@ format["Herma|A4"] = [
 		rows:"", columns:"", spacingHorizontal:"0", spacingVertical:"0", labelWidth:"", labelHeight:""
 	}
 ];
-format["Herma|A5"] = [
+products["Herma|A5"] = [
 	{
 		name:"4628 PREMIUM, white",
 		pageWidth:"210", pageHeight:"148", pageMarginTop:"", pageMarginLeft:"", pageOrientation:"landscape",
@@ -538,7 +538,7 @@ format["Herma|A5"] = [
 		rows:"", columns:"", spacingHorizontal:"", spacingVertical:"", labelWidth:"", labelHeight:""
 	}
 ];
-format["Sigel|A4"] = [
+products["Sigel|A4"] = [
 	{
 		name:"DE115 Design-Etiketten",
 		pageWidth:"210", pageHeight:"297", pageMarginTop:"23.6", pageMarginLeft:"19.8", pageOrientation:"portrait",
@@ -550,7 +550,7 @@ format["Sigel|A4"] = [
 		rows:"8", columns:"3", spacingHorizontal:"3", spacingVertical:"3", labelWidth:"60", labelHeight:"30"
 	}
 ];
-format["Tower|A4"] = [
+products["Tower|A4"] = [
 	{
 		name:"CIL-W100 Mailing Label",
 		pageWidth:"210", pageHeight:"297", pageMarginTop:"0", pageMarginLeft:"0", pageOrientation:"portrait",
@@ -567,4 +567,44 @@ format["Tower|A4"] = [
 		rows:"6", columns:"2", spacingHorizontal:"4", spacingVertical:"1.2", labelWidth:"101", labelHeight:"46"
 	}
 ];
+
+var select = document.getElementById("producer"); 
+for(var i = 0; i < producer.length; i++) {
+	var opt = producer[i];
+	var el = document.createElement("option");
+	el.textContent = opt;
+	el.value = opt;
+	select.appendChild(el);
+}​
+
+function producerSelected() {
+	var producer = document.getElementById("producer").value; 
+	var select = document.getElementById("format"); 
+	for(var i = 0; i < formats[producer].length; i++) {
+		var opt = producer[i];
+		var el = document.createElement("option");
+		el.textContent = opt;
+		el.value = opt;
+		select.appendChild(el);
+	}​
+}
+
+function formatSelected() {
+	var producer = document.getElementById("producer").value; 
+	var format = document.getElementById("format").value; 
+	var select = document.getElementById("product"); 
+	for(var i = 0; i < products[producer+'|'+format].length; i++) {
+		var opt = producer[i].name;
+		var el = document.createElement("option");
+		el.textContent = opt;
+		el.value = opt;
+		select.appendChild(el);
+	}​
+}
+
+function productSelected() {
+	var producer = document.getElementById("producer").value; 
+	var format = document.getElementById("format").value; 
+	var product = document.getElementById("product").value; 
+}
 
