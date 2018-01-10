@@ -12,6 +12,12 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+function getDateDisplayValue($date) {
+	if ($date == '0000-00-00') { return ''; }
+	if ($date == '0000-00-00 00:00:00') { return ''; }
+	return $date;
+}
+
 ?>
 <?php foreach($this->items as $i => $item): ?>
         <tr class="row<?php echo $i % 2; ?>">
@@ -28,16 +34,16 @@ defined('_JEXEC') or die('Restricted access');
                         <?php echo $item->city; ?>
                 </td>
                 <td>
-                        <?php echo $item->birthday; ?>
+                        <?php echo getDateDisplayValue($item->birthday); ?>
                 </td>
                 <td>
                         <?php echo $item->type; ?>
                 </td>
                 <td>
-                        <?php echo $item->begin; ?>
+                        <?php echo getDateDisplayValue($item->begin); ?>
                 </td>
                 <td>
-                        <?php echo $item->end; ?>
+                        <?php echo getDateDisplayValue($item->end); ?>
                 </td>
                 <td>
                         <?php echo $item->published; ?>

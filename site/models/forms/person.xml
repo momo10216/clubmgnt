@@ -95,13 +95,15 @@
 			directory=""
 			required="false" />
 
-		<field name="birthday" type="calendar" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL"
+		<field name="birthday" type="cmdate" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_DESC"
+			default=""
 			directory=""
 			required="false" />
 
-		<field name="deceased" type="calendar" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_LABEL"
+		<field name="deceased" type="cmdate" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_DESC"
+			default=""
 			directory=""
 			required="false" />
 

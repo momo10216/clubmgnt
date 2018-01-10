@@ -94,38 +94,45 @@
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_IMAGE_DESC"
 			required="false" />
 
-		<field name="birthday" type="calendar" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL"
+		<field name="birthday" type="cmdate" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_DESC"
+			default=""
 			directory=""
 			required="false" />
 
-		<field name="deceased" type="calendar" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_LABEL"
+		<field name="deceased" type="cmdate" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_DESC"
+			default=""
 			directory=""
 			required="false" />
 
 		<field name="custom1" type="cmcustom" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM1_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM1_DESC"
+			default=""
 			size="40"
 			required="false" />
 
 		<field name="custom2" type="cmcustom" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM2_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM2_DESC"
+			default=""
 			size="40"
 			required="false" />
 
 		<field name="custom3" type="cmcustom" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM3_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM3_DESC"
+			default=""
 			size="40"
 			required="false" />
 
 		<field name="custom4" type="cmcustom" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM4_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM4_DESC"
+			default=""
 			size="40"
 			required="false" />
 
 		<field name="custom5" type="cmcustom" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM5_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM5_DESC"
+			default=""
 			size="40"
 			required="false" />
 
