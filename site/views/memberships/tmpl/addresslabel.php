@@ -14,12 +14,12 @@ defined('_JEXEC') or die('Restricted access');
 
 $task = JRequest::getVar('task');
 switch ($task) {
+	default:
 	case 'input':
-		$this->loadTemplate('input');
+		echo $this->loadTemplate('input');
 		break;
 	case 'create_pdf':
-	default:
-		$this->loadTemplate('output');
+		echo $this->loadTemplate('output');
 		break;
 }
 ?>
