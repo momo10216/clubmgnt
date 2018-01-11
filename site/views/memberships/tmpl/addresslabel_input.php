@@ -38,10 +38,7 @@ $url = JURI::base().'components/com_clubmanagement/js/labels_data.js';
 	</p>
 	<p align="center">
 		<button type="submit">
-			<?php echo JText::_('JSAVE') ?>
-		</button>
-		<button type="submit" onClick="document.adminForm.task.value='cancel';">
-			<?php echo JText::_('JCANCEL') ?>
+			<?php echo JText::_('JSUBMIT') ?>
 		</button>
 	</p>
 	<input type="hidden" name="option" value="com_clubmanagement" />
