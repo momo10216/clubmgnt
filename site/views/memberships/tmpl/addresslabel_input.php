@@ -27,10 +27,10 @@ $url = JURI::base().'components/com_clubmanagement/js/labels_data.js';
 		height:<input type="number" style="max-width:5em;" name="pageHeight" id="pageHeight" value="297" />
 		marginTop:<input type="number" style="max-width:5em;" name="pageMarginTop" id="pageMarginTop" value="0" />
 		marginLeft:<input type="number" style="max-width:5em;" name="pageMarginLeft" id="pageMarginLeft" value="0" />
-		oriontation:<select name="orientation" id="orientation" style="max-width:12em;" value="portrait"><option value="portrait">Portrait</option><option value="landscape">Landscape</option></select>
+		oriontation:<select name="pageOrientation" id="pageOrientation" style="max-width:12em;" value="portrait"><option value="portrait">Portrait</option><option value="landscape">Landscape</option></select>
 		<br/>
-		Label rows:<input type="number" style="max-width:2em;" name="rows" id="rows" value="0" />
-		columns:<input type="number" style="max-width:2em;" name="columns" id="columns" value="0" />
+		Label rows:<input type="number" style="max-width:3em;" name="rows" id="rows" value="0" />
+		columns:<input type="number" style="max-width:3em;" name="columns" id="columns" value="0" />
 		spacing horizontal:<input type="number" style="max-width:5em;" name="spacingHorizontal" id="spacingHorizontal" value="0" />
 		spacing vertical:<input type="number" style="max-width:5em;" name="spacingVertical" id="spacingVertical" value="0" />
 		width:<input type="number" style="max-width:5em;" name="labelWidth" id="labelWidth" value="0" />

@@ -618,7 +618,7 @@ function productSelected() {
 			document.getElementById('pageHeight').value = entry.pageHeight;
 			document.getElementById('pageMarginTop').value = entry.pageMarginTop;
 			document.getElementById('pageMarginLeft').value = entry.pageMarginLeft;
-			document.getElementById('orientation').value = entry.orientation;
+			document.getElementById('pageOrientation').value = entry.pageOrientation;
 			document.getElementById('rows').value = entry.rows;
 			document.getElementById('columns').value = entry.columns;
 			document.getElementById('spacingHorizontal').value = entry.spacingHorizontal;
