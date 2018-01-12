@@ -14,9 +14,17 @@ defined('_JEXEC') or die('Restricted access');
 
 $doc = JFactory::getDocument();
 $url = JURI::base().'components/com_clubmanagement/js/labels_data.js';
-//$doc->addScript($url);
+/*
+$doc->addScript("function checkAll(cbAll) {
+	if(!e.form)return!1;
+t=t?t:"cb";
+var o,n,r,i=0;
+for(o=0,r=e.form.elements.length;r>o;o++)
+	n=e.form.elements[o],
+	n.type==e.type&&0===n.id.indexOf(t)&&(n.checked=e.checked,i+=n.checked?1:0);return e.form.boxchecked&&(e.form.boxchecked.value=i),!0}");
+*/
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_clubmanagement&layout='.$this->getLayout()); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo JRoute::_('index.php?option=com_clubmanagement&layout='.$this->getLayout()); ?>" method="post" name="addressLabelForm" id="addressLabelForm">
 	<p align="left">
 		Producer:<select name="producer" id="producer" style="max-width:12em;" value="" onChange="producerSelected()"></select>
 		Format:<select name="format" id="format" style="max-width:12em;" value="" onChange="formatSelected()"></select>
@@ -36,9 +44,25 @@ $url = JURI::base().'components/com_clubmanagement/js/labels_data.js';
 		width:<input type="number" style="max-width:5em;" name="labelWidth" id="labelWidth" value="0" />
 		height:<input type="number" style="max-width:5em;" name="labelHeight" id="labelHeight" value="0" />
 	</p>
+	<table>
+		<tr>
+			<th><input name="checkall-toggle" value="" class="hasTooltip" title="" onclick="Joomla.checkAll(this)" type="checkbox"></th>
+			<th><?php echo JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_LABEL'); ?></th>
+			<th><?php echo JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_LABEL'); ?></th>
+			<th><?php echo JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_LABEL'); ?></th>
+		</tr>
+<?php foreach($this->items as $item) { ?>
+		<tr>
+			<td><input id="cb0" name="id[]" value="<?php echo $item->member_id; ?>" type="checkbox"></td>
+			<td><?php echo $item->person_name; ?></td>
+			<td><?php echo $item->person_firstname; ?></td>
+			<td><?php echo $item->person_city; ?></td>
+		</tr>
+<?php } ?>
+	</table>
 	<p align="center">
 		<button type="submit">
-			<?php echo JText::_('JSUBMIT') ?>
+			<?php echo JText::_('JSUBMIT'); ?>
 		</button>
 	</p>
 	<input type="hidden" name="option" value="com_clubmanagement" />
