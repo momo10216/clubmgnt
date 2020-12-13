@@ -38,9 +38,8 @@ class CvsHelper {
 	}
 
 	public static function loadCVS($content, $encoding, $delimiter = ';') {
-		if ($encoding != "UTF-8") {
-			$content = iconv($encoding, "UTF-8"."//TRANSLIT", $content); 
-		}
+		$content = mb_convert_encoding($content, $encoding, 'Windows-1252');
+		//$content = iconv($encoding, "UTF-8"."//TRANSLIT", $content); 
 		if (substr($content,0,3) == "\357\273\277") { $content = substr($content,3); } //Remove known BOM
 		return self::cvs2array($content, $delimiter);
 	}
