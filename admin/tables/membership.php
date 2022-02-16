@@ -45,7 +45,7 @@ class ClubManagementTableMembership extends JTable {
 			$this->params = (string) $registry;
 		}
 		JLoader::register('TableHelper', __DIR__.'/../helpers/table.php', true);
-		TableHelper::updateCommonFieldsOnSave($this);
+		$this->bind(TableHelper::updateCommonFieldsOnSave());
 		return parent::store($updateNulls);
 	}
 }

@@ -13,16 +13,19 @@
 defined('_JEXEC') or die('Restricted access');
  
 class TableHelper {
-	public function updateCommonFieldsOnSave(&$table) {
+	public function updateCommonFieldsOnSave() {
 		$date	= JFactory::getDate();
 		$user	= JFactory::getUser();
 		$db	= JFactory::getDbo();
+		$retval = array();
+
 		if (empty($table->id)) {
-				$table->createddate = $date->toSql();
-				$table->createdby = $user->get('name');
+				$retval['createddate'] = $date->toSql();
+				$retval['createdby'] = $user->get('name');
 		}
-		$table->modifieddate = $date->toSql();
-		$table->modifiedby = $user->get('name');
+		$retval['modifieddate'] = $date->toSql();
+		$retval['modifiedby'] = $user->get('name');
+		return $retval;
 	}
 }
 ?>
