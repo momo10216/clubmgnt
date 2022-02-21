@@ -38,6 +38,8 @@ if (!is_array($memberType)) {
 reset($memberType);
 $memberTypes = SelectionHelper::getSelection("member_types");
 $data = EmailListHelper::splitdata($this->items, $memberPublicity,'member');
+// Display
+if (!empty($this->paramsMenuEntry->get('pretext'))) { echo $this->paramsMenuEntry->get('pretext'); }
 foreach($memberType as $type) {
 	foreach($states as $state) {
 		$key = $type.'_'.$state;
@@ -46,4 +48,5 @@ foreach($memberType as $type) {
 		}
 	}
 }
+if (!empty($this->paramsMenuEntry->get('posttext'))) { echo $this->paramsMenuEntry->get('posttext'); }
 ?>

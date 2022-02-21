@@ -33,6 +33,13 @@
 				<option value="cc">CC:</option>
 				<option value="bcc">BCC:</option>
 			</field>
+ 			<field name="@spacer" type="spacer" default="" label="" description="" />
+			<field name="pretext" type="editor"
+				label="COM_CLUBMANAGEMENT_MEMBERSHIPS_PRETEXT_LABEL"
+				description="COM_CLUBMANAGEMENT_MEMBERSHIPS_PRETEXT_DESC" filter="safehtml" />
+			<field name="posttext" type="editor"
+				label="COM_CLUBMANAGEMENT_MEMBERSHIPS_POSTTEXT_LABEL"
+				description="COM_CLUBMANAGEMENT_MEMBERSHIPS_POSTTEXT_DESC" filter="safehtml" />
 		</fieldset>
 	</fields>
 </metadata>

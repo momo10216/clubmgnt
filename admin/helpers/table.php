@@ -13,7 +13,7 @@
 defined('_JEXEC') or die('Restricted access');
  
 class TableHelper {
-	public static function updateCommonFieldsOnSave(&$table) {
+	public function updateCommonFieldsOnSave(&$table) {
 		$date	= JFactory::getDate();
 		$user	= JFactory::getUser();
 		$db	= JFactory::getDbo();

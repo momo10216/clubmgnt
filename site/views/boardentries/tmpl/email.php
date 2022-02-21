@@ -29,10 +29,13 @@ $cols = array();
 $cols[] = "email";
 $states = EmailListHelper::getStates($boardState);
 $data = EmailListHelper::splitdata($this->items, $boardPublicity, 'board');
+// Display
+if (!empty($this->paramsMenuEntry->get('pretext'))) { echo $this->paramsMenuEntry->get('pretext'); }
 foreach($states as $state) {
 	if (isset($data[$state])) {
 		EmailListHelper::display_email_link(JText::_("COM_CLUBMANAGEMENT_BOARD")." (".JText::_($state)."):", $data[$state], $maxEmailAddr, $targetField);
 	}
 }
+if (!empty($this->paramsMenuEntry->get('posttext'))) { echo $this->paramsMenuEntry->get('posttext'); }
 ?>
 
