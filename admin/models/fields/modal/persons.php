@@ -34,6 +34,10 @@ class JFormFieldModal_Persons extends JFormField {
 		$script[] = '		document.getElementById("'.$this->id.'_name").value = name+", "+firstname+", "+address+", "+city;';
 		$script[] = '		SqueezeBox.close();';
 		$script[] = '	}';
+		$script[] = '	function jClearPerson_'.$this->id.'(id) {';
+		$script[] = '		document.getElementById("'.$this->id.'_id").value = "";';
+		$script[] = '		document.getElementById("'.$this->id.'_name").value = "";';
+		$script[] = '	}';
 		// Add the script to the document head.
 		JFactory::getDocument()->addScriptDeclaration(implode("\n", $script));
 		// Setup variables for display.
@@ -71,7 +75,12 @@ class JFormFieldModal_Persons extends JFormField {
 		// The current article display field.
 		$html[] = '<span class="input-append">';
 		$html[] = '<input type="text" class="input-medium" id="'.$this->id.'_name" value="'.$fullname.'" disabled="disabled" size="35" />';
-		$html[] = '<a class="modal btn hasTooltip" title="'.JHtml::tooltipText('COM_CLUBMANAGEMENT_CHANGE_PERSON').'"  href="'.$link.'&amp;'.JSession::getFormToken().'=1" rel="{handler: \'iframe\', size: {x: 800, y: 450}}"><i class="icon-file"></i> '.JText::_('JSELECT').'</a>';
+		if (isset($this->element['select']) && ($this->element['select'] == 'true')) {
+			$html[] = '<a class="modal btn hasTooltip" title="'.JHtml::tooltipText('COM_CLUBMANAGEMENT_CHANGE_PERSON').'"  href="'.$link.'&amp;'.JSession::getFormToken().'=1" rel="{handler: \'iframe\', size: {x: 800, y: 450}}"><i class="icon-file"></i> '.JText::_('JSELECT').'</a>';
+		}
+		if (isset($this->element['clear']) && ($this->element['clear'] == 'true')) {
+			$html[] = '<button type="button" class="btn" id="' . $this->id . '_clear" onclick="window.jClearPerson_' . $this->id . '(\'' . $this->id . '\'); return false;"><span class="icon-remove" aria-hidden="true"></span>' . JText::_('JCLEAR').'</button>';
+		}
 		$html[] = '</span>';
 		// class='required' for client side validation
 		$class = '';

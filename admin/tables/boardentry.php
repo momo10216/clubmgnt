@@ -45,7 +45,7 @@ class ClubManagementTableBoardEntry extends JTable {
 			$this->params = (string) $registry;
 		}
 		JLoader::register('TableHelper', __DIR__.'/../helpers/table.php', true);
-		$this->bind(TableHelper::updateCommonFieldsOnSave());
+		TableHelper::updateCommonFieldsOnSave($this);
 		return parent::store($updateNulls);
 	}
 }

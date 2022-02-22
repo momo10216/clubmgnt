@@ -142,7 +142,11 @@
 			size="40"
 			required="false"
 			household="true"
-			excludeCurrentId="true" />
+			excludeCurrentId="true"
+			select="true"
+			new="true"
+			edit="true"
+			clear="true" />
 
 		<field name="hh_salutation_override" type="text"
 			label="COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_SALUTATION_OVERWRITE_LABEL"
