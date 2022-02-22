@@ -17,8 +17,6 @@ class TableHelper {
 		$date	= JFactory::getDate();
 		$user	= JFactory::getUser();
 		$db	= JFactory::getDbo();
-		$retval = array();
-
 		if (empty($table->id)) {
 				$table->createddate = $date->toSql();
 				$table->createdby = $user->get('name');
