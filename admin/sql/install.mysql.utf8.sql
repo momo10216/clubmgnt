@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `#__nokCM_persons` (
   KEY `idx_hh_person_id` (`hh_person_id`),
   KEY `idx_user_id` (`user_id`),
   KEY `idx_remote` (`name`,`firstname`,`address`,`city`,`birthday`)
-)  DEFAULT CHARSET=utf8;
+)  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__nokCM_memberships` (
   `id` integer NOT NULL auto_increment,
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `#__nokCM_memberships` (
   PRIMARY KEY  (`id`),
   KEY `idx_person_id` (`person_id`),
   KEY `idx_remote` (`person_id`,`type`,`begin`)
-)  DEFAULT CHARSET=utf8;
+)  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__nokCM_board` (
   `id` integer NOT NULL auto_increment,
@@ -71,5 +71,5 @@ CREATE TABLE IF NOT EXISTS `#__nokCM_board` (
   PRIMARY KEY  (`id`),
   KEY `idx_person_id` (`person_id`),
   KEY `idx_remote` (`person_id`,`job`,`begin`)
-)  DEFAULT CHARSET=utf8;
+)  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
