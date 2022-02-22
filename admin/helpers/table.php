@@ -20,12 +20,11 @@ class TableHelper {
 		$retval = array();
 
 		if (empty($table->id)) {
-				$retval['createddate'] = $date->toSql();
-				$retval['createdby'] = $user->get('name');
+				$table->createddate = $date->toSql();
+				$table->createdby = $user->get('name');
 		}
-		$retval['modifieddate'] = $date->toSql();
-		$retval['modifiedby'] = $user->get('name');
-		return $retval;
+		$table->modifieddate = $date->toSql();
+		$table->modifiedby = $user->get('name');
 	}
 }
 ?>
