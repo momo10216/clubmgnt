@@ -6,7 +6,10 @@
 			size="40"
 			required="true"
 			household="false"
-			excludeCurrentId="false" />
+			excludeCurrentId="false"
+			select="true"
+			new="true"
+			edit="true" />
 
 		<field name="type" type="cmselection" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL"
 			description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_DESC"
