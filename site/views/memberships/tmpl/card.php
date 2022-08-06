@@ -12,6 +12,11 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Version;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Factory;
+
 $FieldPerLine=4;
 $Line=5;
 $details = false;
@@ -41,8 +46,12 @@ function getImageDir($imageDir) {
 
 if ($this->paramsMenuEntry->get('detail_enable') != '0') {
 	$details = true;
-	$curi = JFactory::getURI();
-	$uri = JURI::getInstance( $curi->toString() );
+	if (Version::MAJOR_VERSION == '3') {
+		$curi = JFactory::getURI();
+		$uri = JURI::getInstance( $curi->toString() );
+	} else {
+		$uri = Uri::getInstance();
+	}
 	$uri->setVar('layout','detail');
 	$uri->setVar('tmpl','component');
 	$uri->setVar('Itemid','');
@@ -84,7 +93,43 @@ $doc = JFactory::getDocument();
 $doc->addStyleDeclaration($cssText);
 $imageDir = getImageDir($this->paramsComponent->get('image_dir'));
 if ($details) {
-	JHTML::_('behavior.modal');
+	if (Version::MAJOR_VERSION == '3') {
+		JHTML::_('behavior.modal');
+	}
+	if (Version::MAJOR_VERSION == '4') {
+		$document = Factory::getApplication()->getDocument();
+		$document->addScriptDeclaration("function clickModal(url, title) {
+	modalbox = document.getElementById('modal-box');
+	if (modalbox) {
+		var modalTitle = modalbox.querySelector('.modal-title');
+		modalTitle.textContent = title;
+		var modalBody = modalbox.querySelector('.modal-body');
+		fetch(url).then((response) => 
+			response.text().then((content) => {
+				modalBody.innerHTML = content;
+			})
+		)
+	}
+	return false;
+}
+");
+		echo HTMLHelper::_(
+			'bootstrap.renderModal',
+			'modal-box',
+			array(
+				'modal-dialog-scrollable' => true,
+				'url'    => '',
+				'title'  => '',
+				'height' => '100%',
+				'width'  => '100%',
+				'modalWidth'  => $detailHeight,
+				'bodyHeight'  => $detailWidth,
+				'footer' => '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-hidden="true">'
+					. \Joomla\CMS\Language\Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>'
+			),
+			'<div id="modal-body">Content set by ajax.</div>'
+		);
+	} 
 }
 if ($this->paramsMenuEntry->get('table_center') == '1') echo '<center>'.$EOL;
 if ($this->items) {
@@ -115,7 +160,12 @@ if ($this->items) {
 				if (strlen($data) > 0) {
 					if ($lines[$i]) { $lines[$i] .= " "; }
 					if ($details && ($this->paramsMenuEntry->get('detail_column_link') == $field) && ($data != "")) {
-						$data = '<a href="'.$uri->toString().'" class="modal" rel="{handler: \'iframe\', size: {x: '.$detailWidth.', y: '.$detailHeight.'}}">'.$data.'</a>';
+						if (Version::MAJOR_VERSION == '3') {
+							$data = '<a href="'.$uri->toString().'" class="modal" rel="{handler: \'iframe\', size: {x: '.$detailWidth.', y: '.$detailHeight.'}}">'.$data.'</a>';
+						} elseif (Version::MAJOR_VERSION == '4') {
+							$title = $item->person_firstname.' '.$item->person_name;
+							$data = "<a href=\"#\" data-bs-toggle=\"modal\" data-bs-target=\"#modal-box\" onClick=\"return clickModal('".$uri->toString()."','".$title."');\">".$data."</a>";
+						}
 					} else {
 						switch ($field) {
 							case 'person_url':

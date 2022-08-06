@@ -116,7 +116,7 @@ class ClubManagementModelMemberships extends JModelList {
 		$app = JFactory::getApplication();
 		$currentMenu = $app->getMenu()->getActive();
 		if (is_object( $currentMenu )) {
-			$this->paramsMenuEntry = $currentMenu->params;
+			$this->paramsMenuEntry = $currentMenu->getParams();
 		} else {
 			return $query;
 		}

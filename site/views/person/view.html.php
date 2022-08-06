@@ -12,6 +12,9 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Version;
+
 class ClubManagementViewPerson extends JViewLegacy {
 	protected $item;
 	protected $pageHeading = 'COM_CLUBMANAGEMENT_PAGE_TITLE_DEFAULT';
@@ -19,6 +22,7 @@ class ClubManagementViewPerson extends JViewLegacy {
 	protected $paramsMenuEntry;
 	protected $user;
 	protected $iframe;
+	protected $idList = array();
 
 	function display($tpl = null) {
 		// Init variables
@@ -34,13 +38,10 @@ class ClubManagementViewPerson extends JViewLegacy {
 		if (is_object($menu)) {
 			$currentMenu = $menu->getActive();
 			if (is_object($currentMenu)) {
-				$this->paramsMenuEntry = $currentMenu->params;
+				$this->paramsMenuEntry = $currentMenu->getParams();
 			}
 		}
-		// Read infos from URI
-		$uri = JFactory::getURI();
-		$id = $uri->getVar('id');
-		if (!$id) { $id = JRequest::getVar('id'); }
+		$id = JFactory::getApplication()->input->getString('id');
 		if (!$id) { $id = $this->state->get('person.id'); }
 		if (!$id) {
 			$this->idList = $this->getModel()->getPersonIdListForCurrentUser();
@@ -52,9 +53,8 @@ class ClubManagementViewPerson extends JViewLegacy {
 		}
 		$this->item = $this->get('Item');
 		$this->form = $this->get('Form');
-		$this->iframe = $uri->getVar('iframe');
-		if (!$this->iframe) $this->iframe = JRequest::getVar('iframe');
-		if (!$this->iframe) $this->iframe = '0';
+		$this->iframe = JFactory::getApplication()->input->getString('iframe');
+		if ($this->iframe != '1') $this->iframe = '0';
 		// Init document
 		JFactory::getDocument()->setMetaData('robots', 'noindex, nofollow');
 		parent::display($tpl);

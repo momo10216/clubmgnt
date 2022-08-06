@@ -33,7 +33,7 @@ class ClubManagementViewMemberships extends JViewLegacy {
 		$this->paramsComponent = $this->state->get('params');
 		$currentMenu = $app->getMenu()->getActive();
 		if (is_object( $currentMenu )) {
-			$this->paramsMenuEntry = $currentMenu->params;
+			$this->paramsMenuEntry = $currentMenu->getParams();
 		}
 		$csvData = array();
 		$this->encoding = $this->paramsMenuEntry->get('csv_encoding', 'utf-8');

@@ -147,9 +147,8 @@ class ClubManagementModelPerson extends JModelForm {
 		$pk = $this->getState('person.id');
 		if (empty($pk)) $pk = $this->pk;
 		$params = $this->getState('params');
-		$person = $this->_item[$pk];
-		if (is_object($person)) {
-			$params->merge($person->params);
+		if (is_object($params)) {
+			$params->merge(JFactory::getApplication()->getParams('com_clubmanagement'));
 		}
 		return $form;
 	}

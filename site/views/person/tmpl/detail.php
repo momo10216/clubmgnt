@@ -34,6 +34,7 @@ $memberColumnsHeader = $model->getMembershipHeader($memberColumns);
 $boardColumns = getParamList($this->paramsComponent, 'detail_board_column_', 5);
 $boardColumnCount = count($boardColumns);
 $boardColumnsHeader = $model->getBoardHeader($boardColumns);
+
 // Display data  (person)
 $row = (array) $this->item;
 $id = $row['person_id'];
@@ -102,13 +103,13 @@ $cssText .= "\tfloat: left;\n";
 $cssText .= "}\n\n";
 $doc = JFactory::getDocument();
 $doc->addStyleDeclaration($cssText);
-echo "<div class=\"cmdetail\">\n";
-$imageCol = $this->paramsComponent->get( "detail_column_image" );
+echo "\n<div class=\"cmdetail\">\n";
+$imageCol = $this->paramsComponent->get("detail_column_image");
 if ($imageCol != "") {
 	$image = $row[$imageCol];
 	echo "\t<img class=\"cmdetail_image\" src=\"".$imageDir.$image."\" />\n";
 }
-$label = $this->paramsComponent->get( "detail_show_label" );
+$label = $this->paramsComponent->get("detail_show_label");
 echo "\t<div class=\"cmpersondetail\">\n";
 for ($i=0;$i<$personColumnCount;$i++) {
 	$field = $personColumns[$i];
@@ -116,7 +117,7 @@ for ($i=0;$i<$personColumnCount;$i++) {
 	if ($label != "0") {
 		echo "<label for=\"cmpersondetail_".$i."\">".$personColumnsHeader[$i]." :</label>";
 	}
-	echo "<span class=\"cmpersondetail_data\" id=\"cmpersondetail_".$i."\">".$row{$field}."</span></div>\n";
+	echo "<span class=\"cmpersondetail_data\" id=\"cmpersondetail_".$i."\">".$row[$field]."</span></div>\n";
 }
 echo "\t</div>\n";
 // Get sort (memberlist)

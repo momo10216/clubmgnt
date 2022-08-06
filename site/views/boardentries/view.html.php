@@ -28,7 +28,7 @@ class ClubManagementViewBoardentries extends JViewLegacy {
 		$this->paramsComponent = $this->state->get('params');
 		$currentMenu = $app->getMenu()->getActive();
 		if (is_object( $currentMenu )) {
-			$this->paramsMenuEntry = $currentMenu->params;
+			$this->paramsMenuEntry = $currentMenu->getParams();
 		}
 		// Init document
 		JFactory::getDocument()->setMetaData('robots', 'noindex, nofollow');
