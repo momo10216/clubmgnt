@@ -36,8 +36,8 @@ class JFormFieldModal_Persons extends JFormField {
 		if (Version::MAJOR_VERSION == '4') {
 			// Create the modal id.
 			$modalId = 'Persons_' . $this->id;
-
 		}
+
 		// attributes
 		$allowHousehold = ((string) $this->element['household'] != 'false');
 		$allowExcludeCurrentId = ((string) $this->element['excludeCurrentId'] != 'false');
@@ -78,10 +78,6 @@ class JFormFieldModal_Persons extends JFormField {
 		// The active person id field.
 		if (0 == (int) $this->value) { $value = ''; } else { $value = (int) $this->value;}
 
-		// The current person display field.
-		$html[] = '<span class="input-append">';
-		$html[] = '<input type="text" class="input-medium" id="'.$this->id.'_name" value="'.$fullname.'" disabled="disabled" size="35" />';
-
 		// Select preparation
 		if ($allowSelect) {
 			$script[] = '	function jSelectPerson_'.$this->id.'(id, name, firstname, address, city) {';
@@ -116,16 +112,23 @@ class JFormFieldModal_Persons extends JFormField {
 			$script[] = '	}';
 		}
 
-		// display buttons
-		if (Version::MAJOR_VERSION == '4') {
+		// display input & buttons
+		if (Version::MAJOR_VERSION == '3') {
+			$html[] = '<span class="input-append">';
+			$html[] = '<input type="text" class="input-medium" id="'.$this->id.'_name" value="'.$fullname.'" disabled="disabled" size="35" />';
+			if ($allowSelect) {
+				$html[] = '<a class="modal btn hasTooltip" title="'.JHtml::tooltipText('COM_CLUBMANAGEMENT_CHANGE_PERSON').'"  href="'.$link.'&amp;'.JSession::getFormToken().'=1" rel="{handler: \'iframe\', size: {x: 800, y: 450}}"><i class="icon-file"></i> '.JText::_('JSELECT').'</a>';
+			}
+			if ($allowClear) {
+				$html[] = '<button type="button" class="btn" id="' . $this->id . '_clear" onclick="window.jClearPerson_' . $this->id . '(\'' . $this->id . '\'); return false;"><span class="icon-remove" aria-hidden="true"></span>' . JText::_('JCLEAR').'</button>';
+			}
+			$html[] = '</span>';
+		} elseif (Version::MAJOR_VERSION == '4') {
 			if ($allowSelect || $allowClear) {
 				$html[] = '<span class="input-group">';
 			}
-		}
-		if ($allowSelect) {
-			if (Version::MAJOR_VERSION == '3') {
-				$html[] = '<a class="modal btn hasTooltip" title="'.JHtml::tooltipText('COM_CLUBMANAGEMENT_CHANGE_PERSON').'"  href="'.$link.'&amp;'.JSession::getFormToken().'=1" rel="{handler: \'iframe\', size: {x: 800, y: 450}}"><i class="icon-file"></i> '.JText::_('JSELECT').'</a>';
-			} elseif (Version::MAJOR_VERSION == '4') {
+			$html[] = '<input class="form-control" id="' . $this->id . '_name" type="text" value="' . $title . '" readonly size="35">';
+			if ($allowSelect) {
 				$html[] = '<button'
 					. ' class="btn btn-primary"'
 					. ' id="' . $this->id . '_select"'
@@ -135,12 +138,7 @@ class JFormFieldModal_Persons extends JFormField {
 					. '<span class="icon-file" aria-hidden="true"></span> ' . Text::_('JSELECT')
 					. '</button>';
 			}
-
-		}
-		if ($allowClear) {
-			if (Version::MAJOR_VERSION == '3') {
-				$html[] = '<button type="button" class="btn" id="' . $this->id . '_clear" onclick="window.jClearPerson_' . $this->id . '(\'' . $this->id . '\'); return false;"><span class="icon-remove" aria-hidden="true"></span>' . JText::_('JCLEAR').'</button>';
-			} elseif (Version::MAJOR_VERSION == '4') {
+			if ($allowClear) {
 				$html[] = '<button'
 					. ' class="btn btn-secondary' . ($value ? '' : ' hidden') . '"'
 					. ' id="' . $this->id . '_clear"'
@@ -149,14 +147,11 @@ class JFormFieldModal_Persons extends JFormField {
 					. '<span class="icon-times" aria-hidden="true"></span> ' . Text::_('JCLEAR')
 					. '</button>';
 			}
-		}
-		if (Version::MAJOR_VERSION == '4') {
 			if ($allowSelect || $allowClear) {
 				$html[] = '</span>';
 			}
 		}
 
-		$html[] = '</span>';
 		// class='required' for client side validation
 		$class = '';
 		if ($this->required) {
