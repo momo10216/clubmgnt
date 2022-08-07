@@ -21,7 +21,7 @@ class ClubManagementTablePerson extends JTable {
     }
 
 	public function check() {
-		// Set user_id to null if not set
+		// Set fields to null if not set
 		if (!$this->birthday) {
 			$this->birthday = null;
 		}
