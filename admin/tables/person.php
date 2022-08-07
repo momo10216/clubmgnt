@@ -15,29 +15,29 @@ defined('_JEXEC') or die('Restricted access');
 // import Joomla table library
 jimport('joomla.database.table');
  
-/**
- * Hello Table class
- */
 class ClubManagementTablePerson extends JTable {
-        /**
-         * Constructor
-         *
-         * @param object Database connector object
-         */
-        function __construct(&$db)  {
-                parent::__construct('#__nokCM_persons', 'id', $db);
-        }
+    function __construct(&$db)  {
+        parent::__construct('#__nokCM_persons', 'id', $db);
+    }
 
-	/**
-	 * Stores a contact
-	 *
-	 * @param   boolean  True to update fields even if they are null.
-	 *
-	 * @return  boolean  True on success, false on failure.
-	 *
-	 * @since   1.6
-	 */
-	public function store($updateNulls = false) {
+	public function check() {
+		// Set user_id to null if not set
+		if (!$this->birthday) {
+			$this->birthday = null;
+		}
+		if (!$this->deceased) {
+			$this->deceased = null;
+		}
+		if (!$this->user_id) {
+			$this->user_id = null;
+		}
+		if (!$this->hh_person_id) {
+			$this->hh_person_id = null;
+		}
+		return parent::check();
+    }
+
+	public function store($updateNulls = true) {
 		// Transform the params field
 		if (is_array($this->params)) {
 			$registry = new JRegistry;

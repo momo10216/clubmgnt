@@ -27,7 +27,7 @@ Joomla.submitbutton = function(pressbutton) {
 		}
 		jQuery('#loading').css('display', 'block');
 	}
-	submitform(pressbutton);
+	Joomla.submitform(pressbutton);
 	return true;
 }
 /* ]]> */";

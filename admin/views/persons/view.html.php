@@ -56,7 +56,7 @@ class ClubManagementViewPersons extends JViewLegacy {
 		$canDo = JHelperContent::getActions('com_clubmanagement', 'category', $this->state->get('filter.category_id'));
 		$user  = JFactory::getUser();
 		// Get the toolbar object instance
-		$bar = JToolBar::getInstance('toolbar');
+		$toolbar = JToolBar::getInstance('toolbar');
 		JToolbarHelper::title(JText::_('COM_CLUBMANAGEMENT_PERSONS_TITLE'), 'stack person');
 		if ($canDo->get('core.create') || (count($user->getAuthorisedCategories('com_clubmanagement', 'core.create'))) > 0 ) {
 			JToolbarHelper::addNew('person.add');

@@ -33,14 +33,16 @@ class JFormFieldCmImageList extends JFormField {
 			$values = array($this->value);
 		}
 		$files = array("");
-		if ($handle = opendir($dir)) {
-			while (false !== ($file = readdir($handle))) {
-				if (!is_dir($dir. "/" . $file)) {
-					$files[] = $file;
-				}
-			}
-			closedir($handle);
-		}
+		if (file_exists($dir)) {
+            if ($handle = opendir($dir)) {
+                while (false !== ($file = readdir($handle))) {
+                    if (!is_dir($dir. "/" . $file)) {
+                        $files[] = $file;
+                    }
+                }
+                closedir($handle);
+            }
+        }
 		asort($files);
 		foreach($files as $file) {
 			$option .= '<option value="'.$file.'"';

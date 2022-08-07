@@ -23,7 +23,7 @@ $sortFields	= $this->getSortFields();
 $script = <<<EOD
 /* <![CDATA[ */
 Joomla.submitbutton = function(pressbutton) {
-	submitform(pressbutton);
+	Joomla.submitform(pressbutton);
 	return true;
 }
 /* ]]> */
