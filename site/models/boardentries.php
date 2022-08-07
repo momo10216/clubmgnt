@@ -163,7 +163,7 @@ class ClubManagementModelBoardentries extends JModelList {
 			$fieldKeyDir = "sort_direction_".$i;
 			$key = $this->paramsMenuEntry->get($fieldKeyCol);
 			if (!empty($key)) {
-				if (isset($allFields[$key]) && $allFields[$key]) {
+				if (isset($allFields[$key]) && !empty($allFields[$key])) {
 					$fieldname = $allFields[$key][1];
 					array_push($sort, $fieldname.' '.$this->paramsMenuEntry->get($fieldKeyDir));
 				}
@@ -173,7 +173,7 @@ class ClubManagementModelBoardentries extends JModelList {
 			$query->order(implode(", ",$sort));
 		}
 		return $query;
-        }
+    }
 
 	public function getHeader($cols) {
 		$fields = array();

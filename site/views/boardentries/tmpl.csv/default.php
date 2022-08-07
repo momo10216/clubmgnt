@@ -12,12 +12,10 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-/*
- * Get columns
- */
+// Get columns
 $cols = array();
 for ($i=1;$i<=20;$i++) {
-	$field = "column_".$i;
+	$field = 'column_'.$i;
 	$col = $this->paramsMenuEntry->get($field);
 	if (!empty($col)) {
 		$cols[] = $this->paramsMenuEntry->get($field);
@@ -29,16 +27,14 @@ $this->header = $this->getModel()->getHeader($cols);
 JLoader::register('SelectionHelper', JPATH_COMPONENT_ADMINISTRATOR.'/helpers/selection.php', true);
 $boardJobs = SelectionHelper::getSelection("board_jobs");
 
-/*
- * Prepare data
- */
+// Prepare data
 foreach($this->items as $item) {
 	$row = (array) $item;
 	$newrow = array();
 	for($j=0;$j<$colcount;$j++) {
-		if ($cols[$j] != "") {
+		if ($cols[$j] != '') {
 			$field = $cols[$j];
-			if (($field == "board_job") && !empty($boardJobs[$row[$field]])) {
+			if (($field == 'board_job') && !empty($boardJobs[$row[$field]])) {
 				$data = $boardJobs[$row[$field]];
 			} else {
 				$data = $row[$field];

@@ -13,6 +13,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.application.component.helper');
+
 class ClubManagementModelMemberships extends JModelList {
 	public $_context = 'com_clubmanagement.memberships';
 	protected $_extension = 'com_clubmanagement';
@@ -115,11 +116,12 @@ class ClubManagementModelMemberships extends JModelList {
 		$this->paramsComponent = $this->state->get('params');
 		$app = JFactory::getApplication();
 		$currentMenu = $app->getMenu()->getActive();
-		if (is_object( $currentMenu )) {
+		if (is_object($currentMenu)) {
 			$this->paramsMenuEntry = $currentMenu->getParams();
 		} else {
 			return $query;
 		}
+
 		// Filter by search in name.
 		$where = array();
 		$state = $this->paramsMenuEntry->get('memberstate');

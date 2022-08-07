@@ -22,15 +22,17 @@ for ($i=1;$i<=20;$i++) {
 	}
 }
 $colcount = count($cols);
+
 $this->header = $this->getModel()->getHeader($cols);
 JLoader::register('SelectionHelper', JPATH_COMPONENT_ADMINISTRATOR.'/helpers/selection.php', true);
 $memberTypes = SelectionHelper::getSelection('member_types');
+
 // Prepare data
 foreach($this->items as $item) {
 	$row = (array) $item;
 	$newrow = array();
 	for($j=0;$j<$colcount;$j++) {
-		if ($cols[$j] != "") {
+		if ($cols[$j] != '') {
 			$field = $cols[$j];
 			if (($field == 'member_type') && !empty($memberTypes[$row[$field]])) {
 				$data = $memberTypes[$row[$field]];
