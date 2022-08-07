@@ -11,7 +11,9 @@
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
- 
+
+use Joomla\CMS\Version;
+
 /**
  * Board View
  */
@@ -26,7 +28,9 @@ class ClubManagementViewBoardEntries extends JViewLegacy {
 	 */
 
 	function display($tpl = null)  {
-		ClubManagementHelper::addSubmenu('boardentries');
+        if (Version::MAJOR_VERSION == '3') {
+		    ClubManagementHelper::addSubmenu('boardentries');
+		}
 		// Get data from the model
 		$this->items = $this->get('Items');
 		$this->pagination = $this->get('Pagination');

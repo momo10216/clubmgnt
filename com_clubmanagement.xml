@@ -48,6 +48,13 @@
 	</languages>
 	<administration>
 		<menu>COM_CLUBMANAGEMENT_MENU_MAIN</menu>
+		<submenu>
+			<menu alt="COM_CLUBMANAGEMENT_MENU_PERSONS" view="persons" link="option=com_clubmanagement">COM_CLUBMANAGEMENT_MENU_PERSONS</menu>
+			<menu alt="COM_CLUBMANAGEMENT_MENU_MEMBERS" view="memberships" link="option=com_clubmanagement">COM_CLUBMANAGEMENT_MENU_MEMBERS</menu>
+			<menu alt="COM_CLUBMANAGEMENT_MENU_BOARD" view="boardentries" link="option=com_clubmanagement">COM_CLUBMANAGEMENT_MENU_BOARD</menu>
+			<menu alt="COM_CLUBMANAGEMENT_MENU_CATEGORIES" link="index.php?option=com_categories&amp;view=categories&amp;extension=com_clubmanagement">COM_CLUBMANAGEMENT_MENU_CATEGORIES</menu>
+		</submenu>
+
 		<files folder="admin">
 			<filename>access.xml</filename>
 			<filename>clubmanagement.php</filename>
