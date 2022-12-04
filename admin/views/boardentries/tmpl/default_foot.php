@@ -12,8 +12,11 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+$pagination = $this->pagination->getListFooter();
 ?>
+<?php if ($pagination) : ?>
 <tr>
-        <td colspan="3"><?php echo $this->pagination->getListFooter(); ?></td>
+        <td colspan="100%"><?php echo $pagination; ?></td>
 </tr>
+<?php endif;?>
 

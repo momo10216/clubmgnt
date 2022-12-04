@@ -27,7 +27,7 @@ function translate($key) {
 // load tooltip behavior
 $script = "/* <![CDATA[ */
 Joomla.submitbutton = function(pressbutton) {
-	if (pressbutton == 'persons.import_do')
+	if (pressbutton == 'boardentries.import_do')
 	{
 		// do field validation
 		var form = document.getElementById('adminForm');
