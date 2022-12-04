@@ -12,25 +12,30 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Uri\Uri;
+
+$currentUrl = Uri::getInstance()->toString();
+
 // Get columns
 $confCols = $this->paramsMenuEntry->get("allow_columns");
 $cols = $this->getModel()->translateFieldsToColumns($confCols);
 ?>
 
-<form action="<?php echo JRoute::_('index.php?option=com_clubmanagement&layout='.$this->getLayout().'&id='.$this->item->id); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo $currentUrl; ?>" method="post" name="adminForm" id="adminForm">
 <?php foreach($cols as $col) { ?>
 	<?php echo $this->form->renderField($col); ?>
 <?php } ?>
 	<p align="center">
 		<button type="submit">
-			<?php echo JText::_('JSAVE') ?>
+			<?php echo translate('JSAVE') ?>
 		</button>
 		<button type="submit" onClick="document.adminForm.task.value='cancel';">
-			<?php echo JText::_('JCANCEL') ?>
+			<?php echo translate('JCANCEL') ?>
 		</button>
 	</p>
 	<input type="hidden" name="option" value="com_clubmanagement" />
 	<input type="hidden" name="task" value="save" />
+	<input type="hidden" name="id" value="<?php echo $this->item->id; ?>" />
 	<?php echo JHtml::_('form.token'); ?>
 </form>
 

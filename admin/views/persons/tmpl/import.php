@@ -12,20 +12,33 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Version;
+use Joomla\CMS\Language\Text;
+
+function translate($key) {
+    if (Version::MAJOR_VERSION == '3') {
+        return JText::_($key);
+    } elseif (Version::MAJOR_VERSION == '4') {
+        return Text::_($key);
+    }
+    return $key;
+}
+
 // load tooltip behavior
-JHtml::_('behavior.tooltip');
 $script = "/* <![CDATA[ */
 Joomla.submitbutton = function(pressbutton) {
-	if (pressbutton == 'persons.import_do')
-	{
+	if (pressbutton == 'persons.import_do') {
 		// do field validation
 		var form = document.getElementById('adminForm');
-		if (form.importfile.value == \"\")
-		{
-			alert('".JText::_('COM_CLUBMANAGEMENT_PERSONS_IMPORT_ERROR')."');
+		if (form.importfile.value == \"\") {
+			alert('".translate('COM_CLUBMANAGEMENT_PERSONS_IMPORT_ERROR')."');
 			return false;
 		}
-		jQuery('#loading').css('display', 'block');
+		document.getElementById('btnImport').disabled = true;
+		const loading = document.getElementById('loading');
+		if (loading) {
+    		loading.setAttribute('style', 'display: block;');
+		}
 	}
 	Joomla.submitform(pressbutton);
 	return true;
@@ -36,16 +49,16 @@ JFactory::getDocument()->addScriptDeclaration($script);
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_clubmanagement'); ?>" method="post" name="adminForm" id="adminForm" enctype="multipart/form-data">
 	<fieldset class="uploadform">
-		<legend><?php echo JText::_('COM_CLUBMANAGEMENT_PERSONS_IMPORT_TITLE'); ?></legend>
+		<legend><?php echo translate('COM_CLUBMANAGEMENT_PERSONS_IMPORT_TITLE'); ?></legend>
 		<div class="control-group">
-			<label for="importfile" class="control-label"><?php echo JText::_('COM_CLUBMANAGEMENT_PERSONS_IMPORT_FILE_LABEL'); ?></label>
+			<label for="importfile" class="control-label"><?php echo translate('COM_CLUBMANAGEMENT_PERSONS_IMPORT_FILE_LABEL'); ?></label>
 			<div class="controls">
 				<input class="input_box" id="importfile" name="importfile" type="file" size="57" />
 			</div>
 		</div>
 
 		<div class="control-group " >
-			<div class="control-label"><label for="encoding" class="control-label"><?php echo JText::_('COM_CLUBMANAGEMENT_PERSONS_IMPORT_ENCODING_LABEL'); ?></label></div>
+			<div class="control-label"><label for="encoding" class="control-label"><?php echo translate('COM_CLUBMANAGEMENT_PERSONS_IMPORT_ENCODING_LABEL'); ?></label></div>
 			<div class="controls">
 				<select id="encoding" name="encoding" class="chzn-container chzn-container-single chzn-container-single-nosearch">
 					<option value="ASCII">ASCII</option>
@@ -71,7 +84,7 @@ JFactory::getDocument()->addScriptDeclaration($script);
 		</div>
 
 		<div class="form-actions">
-			<input class="btn btn-primary" type="button" value="<?php echo JText::_('COM_CLUBMANAGEMENT_PERSONS_IMPORT_BUTTON'); ?>" onclick="Joomla.submitbutton('persons.import_do')" />
+			<input class="btn btn-primary" id="btnImport" type="button" value="<?php echo translate('COM_CLUBMANAGEMENT_PERSONS_IMPORT_BUTTON'); ?>" onclick="Joomla.submitbutton('persons.import_do')" />
 		</div>
 	</fieldset>
 	<input type="hidden" name="task" value="" />

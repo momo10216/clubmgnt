@@ -12,6 +12,9 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Version;
+use Joomla\CMS\Language\Text;
+
 /**
  * Email list helper.
  *
@@ -41,21 +44,33 @@ class EmailListHelper {
 		if (count($emails) > 0) {
 			echo '<a href="MAILTO:'.$tfexpr.implode(',',$emails).'">'.$name."</a>\n";
 		} else {
-			echo JText::_('COM_CLUBMANAGEMENT_NO_DATA');
+            if (Version::MAJOR_VERSION == '3') {
+                echo JText::_('COM_CLUBMANAGEMENT_NO_DATA');
+            } elseif (Version::MAJOR_VERSION == '4') {
+                echo Text::_('COM_CLUBMANAGEMENT_NO_DATA');
+            }
 		}
 	}
 
-	public static function display_email_link ($label, $data, $max_email_addr, $target_field) {
+	public static function display_email_link($label, $data, $max_email_addr, $target_field) {
 		echo $label."\n";
 		if (($max_email_addr == 0) || ($max_email_addr >= count($data))) {
 			// One link
-			self::display_link(JText::_('COM_CLUBMANAGEMENT_LINK'), $data, $target_field);
+            if (Version::MAJOR_VERSION == '3') {
+    			self::display_link(JText::_('COM_CLUBMANAGEMENT_LINK'), $data, $target_field);
+            } elseif (Version::MAJOR_VERSION == '4') {
+    			self::display_link(Text::_('COM_CLUBMANAGEMENT_LINK'), $data, $target_field);
+            }
 		} else {
 			// Multiple links
 			$max = intval(count($data) / $max_email_addr) + 1;
 			for ($i=1 ; $i<=$max ; $i++) {
 				$newdata = array_slice($data, (($i-1)*$max_email_addr), $max_email_addr);
-				self::display_link(JText::sprintf('COM_CLUBMANAGEMENT_LINK_NR',$i), $newdata, $target_field);
+                if (Version::MAJOR_VERSION == '3') {
+    				self::display_link(JText::sprintf('COM_CLUBMANAGEMENT_LINK_NR',$i), $newdata, $target_field);
+                } elseif (Version::MAJOR_VERSION == '4') {
+    				self::display_link(Text::sprintf('COM_CLUBMANAGEMENT_LINK_NR',$i), $newdata, $target_field);
+                }
 			}
 		}
 		echo "<br/>\n";
@@ -81,7 +96,7 @@ class EmailListHelper {
 		}
 	}
 
-	public static function splitdata ($items, $published, $mode) {
+	public static function splitdata($items, $published, $mode) {
 		$result = array();
 		if ($items) {
 			foreach($items as $item) {

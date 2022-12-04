@@ -13,6 +13,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Version;
+use Joomla\CMS\Language\Text;
 
 /**
  * Board View
@@ -36,7 +37,7 @@ class ClubManagementViewBoardEntries extends JViewLegacy {
 		$this->pagination = $this->get('Pagination');
 		$this->state = $this->get('State');
 		// Check for errors.
-		if (count($errors = $this->get('Errors')))  {
+		if ($this->get('Errors') && count($errors = $this->get('Errors')) > 0) {
 			JError::raiseError(500, implode('<br />', $errors));
 			return false;
 		}
@@ -58,7 +59,7 @@ class ClubManagementViewBoardEntries extends JViewLegacy {
 		$user  = JFactory::getUser();
 		// Get the toolbar object instance
 		$bar = JToolBar::getInstance('toolbar');
-		JToolbarHelper::title(JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_TITLE'), 'stack board');
+		JToolbarHelper::title(self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_TITLE'), 'stack board');
 		if ($canDo->get('core.create') || (count($user->getAuthorisedCategories('com_clubmanagement', 'core.create'))) > 0 ) {
 			JToolbarHelper::addNew('boardentry.add');
 		}
@@ -71,10 +72,10 @@ class ClubManagementViewBoardEntries extends JViewLegacy {
 			JToolbarHelper::trash('boardentries.delete');
 		}
 		// Add a export button
-		JToolBarHelper::custom('boardentries.export', 'export.png', 'export_f2.png', JText::_('JTOOLBAR_EXPORT'), false);
+		JToolBarHelper::custom('boardentries.export', 'export.png', 'export_f2.png', self::translate('JTOOLBAR_EXPORT'), false);
 		// Add a import button
 		if ($user->authorise('core.create', 'com_clubmanagement')) {
-			JToolBarHelper::custom('boardentries.import', 'import.png', 'import_f2.png', JText::_('JTOOLBAR_IMPORT'), false);
+			JToolBarHelper::custom('boardentries.import', 'import.png', 'import_f2.png', self::translate('JTOOLBAR_IMPORT'), false);
 		}
 		if ($user->authorise('core.admin', 'com_clubmanagement')) {
 			JToolbarHelper::preferences('com_clubmanagement');
@@ -85,8 +86,8 @@ class ClubManagementViewBoardEntries extends JViewLegacy {
 	protected function addToolbarImport() {
 		// Get the toolbar object instance
 		$bar = JToolBar::getInstance('toolbar');
-		JToolbarHelper::title(JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_TITLE'), 'stack board');
-		JToolBarHelper::custom('boardentries.import_cancel', 'cancel.png', 'cancel_f2.png', JText::_('JTOOLBAR_CLOSE'), false);
+		JToolbarHelper::title(self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_TITLE'), 'stack board');
+		JToolBarHelper::custom('boardentries.import_cancel', 'cancel.png', 'cancel_f2.png', self::translate('JTOOLBAR_CLOSE'), false);
 	}
 
 	/**
@@ -98,17 +99,26 @@ class ClubManagementViewBoardEntries extends JViewLegacy {
 	 */
 	protected function getSortFields() {
 		return array (
-			'p.name,p.firstname' => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_FULLNAME_LABEL'),
-			'p.name' => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_LABEL'),
-			'p.firstname' => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_LABEL'),
-			'p.city' => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_LABEL'),
-			'p.birthday' => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL'),
-			'm.job' => JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_JOB_LABEL'),
-			'm.sortorder' => JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_SORTORDER_LABEL'),
-			'm.begin' => JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_BEGIN_LABEL'),
-			'm.end' => JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_END_LABEL'),
-			'm.published' => JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_PUBLISHED_LABEL')
+			'p.name,p.firstname' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_FULLNAME_LABEL'),
+			'p.name' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_LABEL'),
+			'p.firstname' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_LABEL'),
+			'p.city' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_LABEL'),
+			'p.birthday' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL'),
+			'm.job' => self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_JOB_LABEL'),
+			'm.sortorder' => self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_SORTORDER_LABEL'),
+			'm.begin' => self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_BEGIN_LABEL'),
+			'm.end' => self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_END_LABEL'),
+			'm.published' => self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_PUBLISHED_LABEL')
 		);
+	}
+
+	protected static function translate($key) {
+        if (Version::MAJOR_VERSION == '3') {
+            return JText::_($key);
+        } elseif (Version::MAJOR_VERSION == '4') {
+            return Text::_($key);
+        }
+        return $key;
 	}
 }
 ?>

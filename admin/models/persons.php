@@ -50,62 +50,62 @@ class ClubManagementModelPersons extends JModelList {
 		parent::populateState('p.name', 'asc');
 	}
 
-        /**
-         * Method to build an SQL query to load the list data.
-         *
-         * @return      string  An SQL query
-         */
-        protected function getListQuery() {
-                // Create a new query object.           
-                $db = JFactory::getDBO();
-                $query = $db->getQuery(true);
-                // Select some fields from the hello table
-                $query
-                    ->select($db->quoteName(array('p.id', 'p.name', 'p.firstname', 'p.address', 'p.zip', 'p.city', 'p.state', 'p.country', 'p.birthday')))
-                    ->from($db->quoteName('#__nokCM_persons','p'));
-		// special filtering (houshold, excludeid).
-		$whereExtList = array();
-		$app = JFactory::getApplication();
-		if ($household = $app->input->get('hh')) {
-			array_push($whereExtList,$db->quoteName("p.hh_person_id")." IS NULL");
-		}
-		if ($excludeId = $app->input->get('excludeid')) {
-			array_push($whereExtList,"NOT ".$db->quoteName("p.id")." = ".$excludeId);
-		}
-		$whereExt = implode(" AND ",$whereExtList);
-		// Filter by search in name.
-		$search = $this->getState('filter.search');
-		if (!empty($search)) {
-			if (!empty($whereExt)) $whereExt = " AND ".$whereExt;
-			if (stripos($search, 'id:') === 0) {
-				$query->where('p.id = ' . (int) substr($search, 3).$whereExt);
-			} else {
-				$search = $db->quote('%' . $db->escape($search, true) . '%');
-				$query->where('(p.name LIKE ' . $search . ' OR p.firstname LIKE ' . $search . ')'.$whereExt);
-			}
-		} else {
-			if (!empty($whereExt)) {
-				$query->where($whereExt);
-			}
-		}
-		// Add the list ordering clause.
-		$orderColText = $this->state->get('list.ordering', 'p.name,p.firstname');
-		$orderDirn = $this->state->get('list.direction', 'asc');
-		$orderCols = explode(",",$orderColText);
-		$orderEntry = array();
-		foreach ($orderCols as $orderCol) {
-			array_push($orderEntry,$db->escape($orderCol . ' ' . $orderDirn));
-		}
-		$query->order(implode(", ",$orderEntry));
-                return $query;
+    /**
+     * Method to build an SQL query to load the list data.
+     *
+     * @return      string  An SQL query
+     */
+    protected function getListQuery() {
+        // Create a new query object.
+        $db = JFactory::getDBO();
+        $query = $db->getQuery(true);
+        // Select some fields from the hello table
+        $query
+            ->select($db->quoteName(array('p.id', 'p.name', 'p.firstname', 'p.address', 'p.zip', 'p.city', 'p.state', 'p.country', 'p.birthday')))
+            ->from($db->quoteName('#__nokCM_persons','p'));
+        // special filtering (houshold, excludeid).
+        $whereExtList = array();
+        $app = JFactory::getApplication();
+        if ($household = $app->input->get('hh')) {
+            array_push($whereExtList,$db->quoteName("p.hh_person_id")." IS NULL");
         }
+        if ($excludeId = $app->input->get('excludeid')) {
+            array_push($whereExtList,"NOT ".$db->quoteName("p.id")." = ".$excludeId);
+        }
+        $whereExt = implode(" AND ",$whereExtList);
+        // Filter by search in name.
+        $search = $this->getState('filter.search');
+        if (!empty($search)) {
+            if (!empty($whereExt)) $whereExt = " AND ".$whereExt;
+            if (stripos($search, 'id:') === 0) {
+                $query->where('p.id = ' . (int) substr($search, 3).$whereExt);
+            } else {
+                $search = $db->quote('%' . $db->escape($search, true) . '%');
+                $query->where('(p.name LIKE ' . $search . ' OR p.firstname LIKE ' . $search . ')'.$whereExt);
+            }
+        } else {
+            if (!empty($whereExt)) {
+                $query->where($whereExt);
+            }
+        }
+        // Add the list ordering clause.
+        $orderColText = $this->state->get('list.ordering', 'p.name,p.firstname');
+        $orderDirn = $this->state->get('list.direction', 'asc');
+        $orderCols = explode(",",$orderColText);
+        $orderEntry = array();
+        foreach ($orderCols as $orderCol) {
+            array_push($orderEntry,$db->escape($orderCol . ' ' . $orderDirn));
+        }
+        $query->order(implode(", ",$orderEntry));
+        return $query;
+    }
 
-        /**
-         * Method to build an SQL query to load the list data.
-         *' 
-         * @return      string  An SQL query
-         */
-        public function getFieldMapping() {
+    /**
+     * Method to build an SQL query to load the list data.
+     *'
+     * @return      string  An SQL query
+     */
+    public function getFieldMapping() {
 		return array (
 			'salutation'=>'p.salutation',
 			'name'=>'p.name',
@@ -146,7 +146,7 @@ class ClubManagementModelPersons extends JModelList {
 		);
 	}
 
-        public function getExportColumns() {
+    public function getExportColumns() {
 		return array (
 			'salutation', 'name', 'birthname', 'firstname', 'middlename', 'nickname', 'address', 'zip', 'city', 'state', 'country',
 			'hh_salutation_override','hh_name_override','hh_name','hh_firstname','hh_address','hh_city','hh_birthday', 
@@ -154,7 +154,7 @@ class ClubManagementModelPersons extends JModelList {
 			'custom1','custom2','custom3','custom4','custom5','description','createdby','createddate');
 	}
 
-        public function getImportPrimaryFields() {
+    public function getImportPrimaryFields() {
 		return array (
 			'name'=>'name',
 			'firstname'=>'firstname',
@@ -164,7 +164,7 @@ class ClubManagementModelPersons extends JModelList {
 		);
 	}
 
-        public function getForeignKeys() {
+    public function getForeignKeys() {
 		return array (
 			'hh' => array (
 				'localKeyField' => 'hh_person_id',
@@ -181,40 +181,40 @@ class ClubManagementModelPersons extends JModelList {
 		);
 	}
 
-        public function getTableName() {
+    public function getTableName() {
 		return "#__nokCM_persons";
 	}
 
-        public function getIdFieldName() {
+    public function getIdFieldName() {
 		return "id";
 	}
 
-        public function getExportQuery($export_fields) {
-                $db = JFactory::getDBO();
-                $query = $db->getQuery(true);
-                $query
-                	->select($db->quoteName(array_values($export_fields)))
-                	->from($db->quoteName($this->getTableName(),'p'))
+    public function getExportQuery($export_fields) {
+        $db = JFactory::getDBO();
+        $query = $db->getQuery(true);
+        $query
+            ->select($db->quoteName(array_values($export_fields)))
+            ->from($db->quoteName($this->getTableName(),'p'))
 			->join('LEFT', $db->quoteName('#__nokCM_persons', 'hh').' ON ('.$db->quoteName('p.hh_person_id').'='.$db->quoteName('hh.id').')')
 			->join('LEFT', $db->quoteName('#__users', 'u').' ON ('.$db->quoteName('p.user_id').'='.$db->quoteName('u.id').')');
 		return $query;
 	}
 
-        /**
-         * Method to build an SQL query to load the list data.
-         *
-         * @return      string  An SQL query
-         */
-        public function getExportData() {
+    /**
+     * Method to build an SQL query to load the list data.
+     *
+     * @return      string  An SQL query
+     */
+    public function getExportData() {
 		return ClubManagementHelper::exportData($this);
 	}
 
-        /**
-         * Method to build an SQL query to load the list data.
-         *
-         * @return      string  An SQL query
-         */
-        public function saveImportData($data) {
+    /**
+     * Method to build an SQL query to load the list data.
+     *
+     * @return      string  An SQL query
+     */
+    public function saveImportData($data) {
 		$header = array_shift($data);
 		$data_stage1 = array();
 		$data_stage2 = array();
@@ -236,9 +236,8 @@ class ClubManagementModelPersons extends JModelList {
 		$this->saveImportData_stage($header, $data_stage2);
 	}
 
-        private function saveImportData_stage($header, $data) {
+    private function saveImportData_stage($header, $data) {
 		ClubManagementHelper::importData($this, $header, $data);
 	}
-
 }
 ?>

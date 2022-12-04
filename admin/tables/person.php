@@ -37,6 +37,19 @@ class ClubManagementTablePerson extends JTable {
 		return parent::check();
     }
 
+	public function load($keys=null, $reset=true) {
+	    if (parent::load($keys, $reset)) {
+            if ($this->birthday == null) {
+                $this->birthday = '';
+            }
+            if ($this->deceased == null) {
+                $this->deceased = '';
+            }
+            return true;
+	    }
+        return false;
+	}
+
 	public function store($updateNulls = true) {
 		// Transform the params field
 		if (is_array($this->params)) {

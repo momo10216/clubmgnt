@@ -89,7 +89,7 @@ if ($this->paramsMenuEntry->get( "border_type") != "") {
 	echo "<table border=\"0\" style=\"border-style:none; border-width:0px\">\n";
 }
 if (($this->paramsMenuEntry->get('show_header') == "1") && ($this->paramsMenuEntry->get('display_empty') == "1")) {
-	$header = $this->getModel()->getHeader($cols);
+	$header = $this->getModel()->getHeader($cols, true);
 	echo "<tr>";
 	for($i=0;$i<$Line;$i++) {
 		$headerFields = array();

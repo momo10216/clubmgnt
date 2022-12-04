@@ -12,8 +12,12 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Version;
+use Joomla\CMS\Language\Text;
+
 JLoader::register('EmailListHelper', JPATH_COMPONENT_ADMINISTRATOR.'/helpers/emaillist.php', true);
 JLoader::register('SelectionHelper', JPATH_COMPONENT_ADMINISTRATOR.'/helpers/selection.php', true);
+
 function getMemberType($type, $memberTypes) {
 	if (isset($memberTypes[$type]) && $memberTypes[$type]) {
 		return $memberTypes[$type];
@@ -44,7 +48,11 @@ foreach($memberType as $type) {
 	foreach($states as $state) {
 		$key = $type.'_'.$state;
 		if (isset($data[$key])) {
-			EmailListHelper::display_email_link (getMemberType($type, $memberTypes)." (".JText::_($state)."):", $data[$key], $maxEmailAddr, $targetField);
+            if (Version::MAJOR_VERSION == '3') {
+    			EmailListHelper::display_email_link(getMemberType($type, $memberTypes)." (".JText::_($state)."):", $data[$key], $maxEmailAddr, $targetField);
+            } elseif (Version::MAJOR_VERSION == '4') {
+    			EmailListHelper::display_email_link(getMemberType($type, $memberTypes)." (".Text::_($state)."):", $data[$key], $maxEmailAddr, $targetField);
+            }
 		}
 	}
 }

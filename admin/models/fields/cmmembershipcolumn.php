@@ -11,62 +11,64 @@
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
- 
+
 jimport('joomla.form.formfield');
 jimport('joomla.application.component.helper');
+use Joomla\CMS\Version;
+use Joomla\CMS\Language\Text;
 
 // The class name must always be the same as the filename (in camel case)
 class JFormFieldCmMembershipColumn extends JFormField {
-        //The field class must know its own type through the variable $type.
-        protected $type = 'cmmembershipcolumn';
- 
-        public function getInput() {
+    //The field class must know its own type through the variable $type.
+    protected $type = 'cmmembershipcolumn';
+
+    public function getInput() {
 		$param = JComponentHelper::getParams('com_clubmanagement');
 		$fields = array(
-			"" => JText::_('COM_CLUBMANAGEMENT_SELECT_FIELD'),
-			"member_id" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_ID_LABEL'),
-			"person_id" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PERSON_ID_LABEL'),
-			"person_salutation" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_SALUTATION_LABEL'),
-			"person_firstname" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_LABEL'),
-			"person_middlename" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_MIDDLENAME_LABEL'),
-			"person_name" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_LABEL'),
-			"person_birthname" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHNAME_LABEL'),
-			"person_nickname" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NICKNAME_LABEL'),
-			"person_nickfirstname" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NICKFIRSTNAME_LABEL'),
-			"person_address" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_ADDRESS_LABEL'),
-			"person_city" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_LABEL'),
-			"person_zip" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_ZIP_LABEL'),
-			"person_state" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_STATE_LABEL'),
-			"person_country" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_COUNTRY_LABEL'),
-			"person_telephone" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_TELEPHONE_LABEL'),
-			"person_mobile" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_MOBILE_LABEL'),
-			"person_url" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_URL_LABEL'),
-			"person_email" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_EMAIL_LABEL'),
-			"user_username" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_USERNAME_LABEL'),
-			"person_description" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_DESCRIPTION_LABEL'),
-			"person_image" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_IMAGE_LABEL'),
-			"person_birthday" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL'),
-			"person_nextbirthday" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NEXT_BIRTHDAY_LABEL'),
-			"person_deceased" => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_LABEL'),
+			"" => self::translate('COM_CLUBMANAGEMENT_SELECT_FIELD'),
+			"member_id" => self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_ID_LABEL'),
+			"person_id" => self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PERSON_ID_LABEL'),
+			"person_salutation" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_SALUTATION_LABEL'),
+			"person_firstname" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_LABEL'),
+			"person_middlename" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_MIDDLENAME_LABEL'),
+			"person_name" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_LABEL'),
+			"person_birthname" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHNAME_LABEL'),
+			"person_nickname" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_NICKNAME_LABEL'),
+			"person_nickfirstname" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_NICKFIRSTNAME_LABEL'),
+			"person_address" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_ADDRESS_LABEL'),
+			"person_city" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_LABEL'),
+			"person_zip" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_ZIP_LABEL'),
+			"person_state" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_STATE_LABEL'),
+			"person_country" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_COUNTRY_LABEL'),
+			"person_telephone" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_TELEPHONE_LABEL'),
+			"person_mobile" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_MOBILE_LABEL'),
+			"person_url" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_URL_LABEL'),
+			"person_email" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_EMAIL_LABEL'),
+			"user_username" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_USERNAME_LABEL'),
+			"person_description" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_DESCRIPTION_LABEL'),
+			"person_image" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_IMAGE_LABEL'),
+			"person_birthday" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL'),
+			"person_nextbirthday" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_NEXT_BIRTHDAY_LABEL'),
+			"person_deceased" => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_LABEL'),
 			"person_custom1" => $param->get('custom1'),
 			"person_custom2" => $param->get('custom2'),
 			"person_custom3" => $param->get('custom3'),
 			"person_custom4" => $param->get('custom4'),
 			"person_custom5" => $param->get('custom5'),
-			"member_type" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL'),
-			"member_begin" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_LABEL'),
-			"member_end" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_END_LABEL'),
-			"member_beginyear" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGINYEAR_LABEL'),
-			"member_endyear" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_ENDYEAR_LABEL'),
-			"member_beginendyear" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGINENDYEAR_LABEL'),
-			"member_published" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL'),
-			"member_createdby" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDBY_LABEL'),
-			"member_createddate" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDDATE_LABEL'),
-			"member_modifiedby" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDBY_LABEL'),
-			"member_modifieddate" => JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDDATE_LABEL'),
-			"category_title" => JText::_('COM_CLUBMANAGEMENT_CATEGORIES_FIELD_TITLE_LABEL'),
-			"category_alias" => JText::_('COM_CLUBMANAGEMENT_CATEGORIES_FIELD_ALIAS_LABEL'),
-			"category_path" => JText::_('COM_CLUBMANAGEMENT_CATEGORIES_FIELD_PATH_LABEL')
+			"member_type" => self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL'),
+			"member_begin" => self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_LABEL'),
+			"member_end" => self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_END_LABEL'),
+			"member_beginyear" => self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGINYEAR_LABEL'),
+			"member_endyear" => self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_ENDYEAR_LABEL'),
+			"member_beginendyear" => self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGINENDYEAR_LABEL'),
+			"member_published" => self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL'),
+			"member_createdby" => self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDBY_LABEL'),
+			"member_createddate" => self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDDATE_LABEL'),
+			"member_modifiedby" => self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDBY_LABEL'),
+			"member_modifieddate" => self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDDATE_LABEL'),
+			"category_title" => self::translate('COM_CLUBMANAGEMENT_CATEGORIES_FIELD_TITLE_LABEL'),
+			"category_alias" => self::translate('COM_CLUBMANAGEMENT_CATEGORIES_FIELD_ALIAS_LABEL'),
+			"category_path" => self::translate('COM_CLUBMANAGEMENT_CATEGORIES_FIELD_PATH_LABEL')
 		);
 		$option = '';
 		$multiple = '';
@@ -86,6 +88,15 @@ class JFormFieldCmMembershipColumn extends JFormField {
 			$option .= '>'.$fields[$key].'</option>';
 		}
 		return '<select '.$multiple.'id="'.$this->id.'" name="'.$this->name.'">'.$option.'</select>';
+    }
+
+	protected static function translate($key) {
+        if (Version::MAJOR_VERSION == '3') {
+            return JText::_($key);
+        } elseif (Version::MAJOR_VERSION == '4') {
+            return Text::_($key);
         }
+        return $key;
+	}
 }
 ?>

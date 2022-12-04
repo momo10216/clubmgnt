@@ -20,13 +20,19 @@ use Joomla\CMS\Uri\Uri;
 function showError($msg) {
 	echo $msg;
 }
+
+function translate($key) {
+    if (Version::MAJOR_VERSION == '3') {
+        return JText::_($key);
+    } elseif (Version::MAJOR_VERSION == '4') {
+        return Text::_($key);
+    }
+    return $key;
+}
+
 if ($this->paramsMenuEntry->get('allow_edit') == '0') {
 	// Not allowed to edit
-    if (Version::MAJOR_VERSION == '3') {
-    	showError(JText::_('COM_CLUBMANAGEMENT_ERROR_PERSON_EDIT_NOT_ALLOWED'));
-    } elseif (Version::MAJOR_VERSION == '4') {
-    	showError(Text::_('COM_CLUBMANAGEMENT_ERROR_PERSON_EDIT_NOT_ALLOWED'));
-    }
+    showError(translate('COM_CLUBMANAGEMENT_ERROR_PERSON_EDIT_NOT_ALLOWED'));
 	return;
 }
 $task = JFactory::getApplication()->input->getString('task');
@@ -35,11 +41,7 @@ switch ($task) {
 		echo $this->loadTemplate('save');
 		break;
 	case 'cancel':
-        if (Version::MAJOR_VERSION == '3') {
-            showError(JText::_('COM_CLUBMANAGEMENT_DATA_NOT_SAVED'));
-        } elseif (Version::MAJOR_VERSION == '4') {
-            showError(Text::_('COM_CLUBMANAGEMENT_DATA_NOT_SAVED'));
-        }
+        showError(translate('COM_CLUBMANAGEMENT_DATA_NOT_SAVED'));
 		break;
 	case 'edit':
 	default:
@@ -59,11 +61,7 @@ switch ($task) {
 			$id_list = array($id);
 		}
 		if (count($this->idList) < 1) {
-            if (Version::MAJOR_VERSION == '3') {
-                showError(JText::_('COM_CLUBMANAGEMENT_ERROR_PERSON_EDIT_NO_RECORD'));
-            } elseif (Version::MAJOR_VERSION == '4') {
-                showError(Text::_('COM_CLUBMANAGEMENT_ERROR_PERSON_EDIT_NO_RECORD'));
-            }
+            showError(translate('COM_CLUBMANAGEMENT_ERROR_PERSON_EDIT_NO_RECORD'));
 		}
 		if (count($this->idList) == 1) echo $this->loadTemplate('edit');
 		if (count($this->idList) > 1) echo $this->loadTemplate('list');

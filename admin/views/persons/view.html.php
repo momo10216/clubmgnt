@@ -13,6 +13,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Version;
+use Joomla\CMS\Language\Text;
 
 /**
  * Persons View
@@ -35,7 +36,7 @@ class ClubManagementViewPersons extends JViewLegacy {
 		$this->pagination = $this->get('Pagination');
 		$this->state = $this->get('State');
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
+		if ($this->get('Errors') && count($errors = $this->get('Errors')) > 0) {
 			JError::raiseError(500, implode('<br />', $errors));
 			return false;
 		}
@@ -57,7 +58,7 @@ class ClubManagementViewPersons extends JViewLegacy {
 		$user  = JFactory::getUser();
 		// Get the toolbar object instance
 		$toolbar = JToolBar::getInstance('toolbar');
-		JToolbarHelper::title(JText::_('COM_CLUBMANAGEMENT_PERSONS_TITLE'), 'stack person');
+		JToolbarHelper::title(self::translate('COM_CLUBMANAGEMENT_PERSONS_TITLE'), 'stack person');
 		if ($canDo->get('core.create') || (count($user->getAuthorisedCategories('com_clubmanagement', 'core.create'))) > 0 ) {
 			JToolbarHelper::addNew('person.add');
 		}
@@ -70,10 +71,10 @@ class ClubManagementViewPersons extends JViewLegacy {
 			JToolbarHelper::trash('persons.delete');
 		}
 		// Add a export button
-		JToolBarHelper::custom('persons.export', 'export.png', 'export_f2.png', JText::_('JTOOLBAR_EXPORT'), false);
+		JToolBarHelper::custom('persons.export', 'export.png', 'export_f2.png', self::translate('JTOOLBAR_EXPORT'), false);
 		// Add a import button
 		if ($user->authorise('core.create', 'com_clubmanagement')) {
-			JToolBarHelper::custom('persons.import', 'import.png', 'import_f2.png', JText::_('JTOOLBAR_IMPORT'), false);
+			JToolBarHelper::custom('persons.import', 'import.png', 'import_f2.png', self::translate('JTOOLBAR_IMPORT'), false);
 		}
 		if ($user->authorise('core.admin', 'com_clubmanagement')) {
 			JToolbarHelper::preferences('com_clubmanagement');
@@ -84,8 +85,8 @@ class ClubManagementViewPersons extends JViewLegacy {
 	protected function addToolbarImport() {
 		// Get the toolbar object instance
 		$bar = JToolBar::getInstance('toolbar');
-		JToolbarHelper::title(JText::_('COM_CLUBMANAGEMENT_PERSONS_TITLE'), 'stack person');
-		JToolBarHelper::custom('persons.import_cancel', 'cancel.png', 'cancel_f2.png', JText::_('JTOOLBAR_CLOSE'), false);
+		JToolbarHelper::title(self::translate('COM_CLUBMANAGEMENT_PERSONS_TITLE'), 'stack person');
+		JToolBarHelper::custom('persons.import_cancel', 'cancel.png', 'cancel_f2.png', self::translate('JTOOLBAR_CLOSE'), false);
 	}
 
 	/**
@@ -97,15 +98,24 @@ class ClubManagementViewPersons extends JViewLegacy {
 	 */
 	protected function getSortFields() {
 		return array (
-			'p.name,p.firstname' => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_FULLNAME_LABEL'),
-			'p.name' => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_LABEL'),
-			'p.firstname' => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_LABEL'),
-			'p.address' => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_ADDRESS_LABEL'),
-			'p.zip' => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_ZIP_LABEL'),
-			'p.city' => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_LABEL'),
-			'p.state' => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_STATE_LABEL'),
-			'p.country' => JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_COUNTRY_LABEL')
+			'p.name,p.firstname' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_FULLNAME_LABEL'),
+			'p.name' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_LABEL'),
+			'p.firstname' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_LABEL'),
+			'p.address' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_ADDRESS_LABEL'),
+			'p.zip' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_ZIP_LABEL'),
+			'p.city' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_LABEL'),
+			'p.state' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_STATE_LABEL'),
+			'p.country' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_COUNTRY_LABEL')
 		);
+	}
+
+	protected static function translate($key) {
+        if (Version::MAJOR_VERSION == '3') {
+            return JText::_($key);
+        } elseif (Version::MAJOR_VERSION == '4') {
+            return Text::_($key);
+        }
+        return $key;
 	}
 }
 ?>

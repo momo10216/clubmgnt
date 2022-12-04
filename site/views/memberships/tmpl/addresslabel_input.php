@@ -39,7 +39,7 @@ $doc->addScriptDeclaration("function checkAll(cbAll) {
 	}
 }");
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_clubmanagement&layout='.$this->getLayout()); ?>" method="post" name="addressLabelForm" id="addressLabelForm">
+<form action="<?php echo JRoute::_('index.php?option=com_clubmanagement&view=persons&layout='.$this->getLayout()); ?>" method="post" name="addressLabelForm" id="addressLabelForm">
 	<p align="left">
 		Producer:<select name="producer" id="producer" style="max-width:12em;" value="" onChange="producerSelected()"></select>
 		Format:<select name="format" id="format" style="max-width:12em;" value="" onChange="formatSelected()"></select>
@@ -62,9 +62,9 @@ $doc->addScriptDeclaration("function checkAll(cbAll) {
 	<table>
 		<tr>
 			<th><input name="checkall-toggle" id="checkall-toggle" value="" class="hasTooltip" title="" onclick="checkAll(this)" type="checkbox" /></th>
-			<th><?php echo JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_LABEL'); ?></th>
-			<th><?php echo JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_LABEL'); ?></th>
-			<th><?php echo JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_LABEL'); ?></th>
+			<th><?php echo translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_LABEL'); ?></th>
+			<th><?php echo translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_LABEL'); ?></th>
+			<th><?php echo translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_LABEL'); ?></th>
 		</tr>
 <?php
 foreach($this->items as $item) {
@@ -81,7 +81,7 @@ foreach($this->items as $item) {
 	</table>
 	<p align="center">
 		<button type="submit">
-			<?php echo JText::_('JSUBMIT'); ?>
+			<?php echo translate('JSUBMIT'); ?>
 		</button>
 	</p>
 	<input type="hidden" name="option" value="com_clubmanagement" />

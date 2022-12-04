@@ -16,11 +16,11 @@ JLoader::register('ClubManagementHelper', __DIR__.'/helpers/clubmanagement.php',
 
 // Get an instance of the controller prefixed by ClubManagement
 $controller = JControllerLegacy::getInstance('ClubManagement');
- 
+
 // Perform the Request task
 $input = JFactory::getApplication()->input;
 $controller->execute($input->get('task'));
- 
+
 // Redirect if set by the controller
 $controller->redirect();
 ?>

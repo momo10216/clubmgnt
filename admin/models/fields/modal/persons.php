@@ -72,7 +72,7 @@ class JFormFieldModal_Persons extends JFormField {
 		}
 
 		if (empty($fullname)) {
-			$fullname = JText::_('COM_CLUBMANAGEMENT_SELECT_A_PERSON');
+            $fullname = self::translate('COM_CLUBMANAGEMENT_SELECT_A_PERSON');
 		}
 		$title = htmlspecialchars($fullname, ENT_QUOTES, 'UTF-8');
 		// The active person id field.
@@ -80,11 +80,13 @@ class JFormFieldModal_Persons extends JFormField {
 
 		// Select preparation
 		if ($allowSelect) {
-			$script[] = '	function jSelectPerson_'.$this->id.'(id, name, firstname, address, city) {';
-			$script[] = '		document.getElementById("'.$this->id.'_id").value = id;';
-			$script[] = '		document.getElementById("'.$this->id.'_name").value = name+", "+firstname+", "+address+", "+city;';
-			$script[] = '		SqueezeBox.close();';
-			$script[] = '	}';
+			if (Version::MAJOR_VERSION == '3') {
+				$script[] = '	function jSelectPerson_'.$this->id.'(id, name, firstname, address, city) {';
+				$script[] = '		document.getElementById("'.$this->id.'_id").value = id;';
+				$script[] = '		document.getElementById("'.$this->id.'_name").value = name+", "+firstname+", "+address+", "+city;';
+				$script[] = '		SqueezeBox.close();';
+				$script[] = '	}';
+			}
 			if (Version::MAJOR_VERSION == '4') {
 				$html[] = HTMLHelper::_(
 					'bootstrap.renderModal',
@@ -100,6 +102,11 @@ class JFormFieldModal_Persons extends JFormField {
 											. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>',
 					)
 				);
+				$script[] = '	window.jSelectPerson_' . $this->id . ' = function(id, name, firstname, address, city) {';
+				$script[] = '		document.getElementById("' . $this->id . '_id").value = id;';
+				$script[] = '		document.getElementById("' . $this->id . '_name").value = name+", "+firstname+", "+address+", "+city;';
+			    $script[] = '       $(\'#ModalSelect' . $modalId . '\').modal(\'hide\');';
+				$script[] = '	}';
 			}
 
 		}
@@ -117,10 +124,10 @@ class JFormFieldModal_Persons extends JFormField {
 			$html[] = '<span class="input-append">';
 			$html[] = '<input type="text" class="input-medium" id="'.$this->id.'_name" value="'.$fullname.'" disabled="disabled" size="35" />';
 			if ($allowSelect) {
-				$html[] = '<a class="modal btn hasTooltip" title="'.JHtml::tooltipText('COM_CLUBMANAGEMENT_CHANGE_PERSON').'"  href="'.$link.'&amp;'.JSession::getFormToken().'=1" rel="{handler: \'iframe\', size: {x: 800, y: 450}}"><i class="icon-file"></i> '.JText::_('JSELECT').'</a>';
+				$html[] = '<a class="modal btn hasTooltip" title="'.JHtml::tooltipText('COM_CLUBMANAGEMENT_CHANGE_PERSON').'"  href="'.$link.'&amp;'.JSession::getFormToken().'=1" rel="{handler: \'iframe\', size: {x: 800, y: 450}}"><i class="icon-file"></i> '.self::translate('JSELECT').'</a>';
 			}
 			if ($allowClear) {
-				$html[] = '<button type="button" class="btn" id="' . $this->id . '_clear" onclick="window.jClearPerson_' . $this->id . '(\'' . $this->id . '\'); return false;"><span class="icon-remove" aria-hidden="true"></span>' . JText::_('JCLEAR').'</button>';
+				$html[] = '<button type="button" class="btn" id="' . $this->id . '_clear" onclick="window.jClearPerson_' . $this->id . '(\'' . $this->id . '\'); return false;"><span class="icon-remove" aria-hidden="true"></span>' . self::translate('JCLEAR').'</button>';
 			}
 			$html[] = '</span>';
 		} elseif (Version::MAJOR_VERSION == '4') {
@@ -133,6 +140,7 @@ class JFormFieldModal_Persons extends JFormField {
 					. ' class="btn btn-primary"'
 					. ' id="' . $this->id . '_select"'
 					. ' data-bs-toggle="modal"'
+					. ' data-bs-dismiss="modal"'
 					. ' type="button"'
 					. ' data-bs-target="#ModalSelect' . $modalId . '">'
 					. '<span class="icon-file" aria-hidden="true"></span> ' . Text::_('JSELECT')
@@ -163,6 +171,15 @@ class JFormFieldModal_Persons extends JFormField {
 		JFactory::getDocument()->addScriptDeclaration(implode("\n", $script));
 
 		return implode("\n", $html);
+	}
+
+	protected static function translate($key) {
+        if (Version::MAJOR_VERSION == '3') {
+            return JText::_($key);
+        } elseif (Version::MAJOR_VERSION == '4') {
+            return Text::_($key);
+        }
+        return $key;
 	}
 }
 ?>

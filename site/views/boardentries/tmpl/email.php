@@ -12,6 +12,9 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Version;
+use Joomla\CMS\Language\Text;
+
 JLoader::register('EmailListHelper', JPATH_COMPONENT_ADMINISTRATOR.'/helpers/emaillist.php', true);
 
 /*
@@ -33,7 +36,11 @@ $data = EmailListHelper::splitdata($this->items, $boardPublicity, 'board');
 if (!empty($this->paramsMenuEntry->get('pretext'))) { echo $this->paramsMenuEntry->get('pretext'); }
 foreach($states as $state) {
 	if (isset($data[$state])) {
-		EmailListHelper::display_email_link(JText::_("COM_CLUBMANAGEMENT_BOARD")." (".JText::_($state)."):", $data[$state], $maxEmailAddr, $targetField);
+        if (Version::MAJOR_VERSION == '3') {
+    		EmailListHelper::display_email_link(JText::_("COM_CLUBMANAGEMENT_BOARD")." (".JText::_($boardState)."):", $data[$state], $maxEmailAddr, $targetField);
+        } elseif (Version::MAJOR_VERSION == '4') {
+    		EmailListHelper::display_email_link(Text::_("COM_CLUBMANAGEMENT_BOARD")." (".Text::_($boardState)."):", $data[$state], $maxEmailAddr, $targetField);
+        }
 	}
 }
 if (!empty($this->paramsMenuEntry->get('posttext'))) { echo $this->paramsMenuEntry->get('posttext'); }

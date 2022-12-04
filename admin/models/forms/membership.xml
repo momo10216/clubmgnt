@@ -18,18 +18,22 @@
 			paramname="member_types"
 			hide_none="true" />
 
-		<field name="begin" type="cmdate" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_LABEL"
+		<field name="begin" type="calendar" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_LABEL"
 			description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_DESC"
 			size="22"
 			default="NOW"
-			format="%Y-%m-%d" filter="user_utc"
+			translateformat="true"
+			showtime="false"
+			filter="user_utc"
 			required="true" />
 
-		<field name="end" type="cmdate" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_END_LABEL"
+		<field name="end" type="calendar" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_END_LABEL"
 			description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_END_DESC"
 			size="22"
 			default=""
-			format="%Y-%m-%d" filter="user_utc"
+			translateformat="true"
+			showtime="false"
+			filter="user_utc"
 			required="false" />
 
 		<field name="published" type="list" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL"

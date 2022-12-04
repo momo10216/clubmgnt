@@ -12,22 +12,32 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Version;
+use Joomla\CMS\Factory;
+
 // Check for request forgeries.
-JRequest::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+if (Version::MAJOR_VERSION == '3') {
+    JRequest::checkToken() or jexit(translate('JINVALID_TOKEN'));
+}
 // Initialise variables.
 $app = JFactory::getApplication();
 $model = $this->getModel();
 // Get the data from the form POST
-$data = JRequest::getVar('jform', array(), 'post', 'array');
-$uri = JFactory::getURI();
-$id = $uri->getVar('id');
-if (!$id) $id = JRequest::getVar("id");
+if (Version::MAJOR_VERSION == '3') {
+    $data = JRequest::getVar('jform', array(), 'post', 'array');
+} elseif (Version::MAJOR_VERSION == '4') {
+    $data = JFactory::getApplication()->input->get('jform', array(), 'ARRAY');
+}
+$id = JFactory::getApplication()->input->getString('id');
+if ((Version::MAJOR_VERSION == '3') && (!$id)) {
+    $id = JRequest::getVar('id');
+}
 // Now update the loaded data to the database via a function in the model
 $updated = $model->updateCurrentUser($id, $data);
 // check if ok and display appropriate message.  This can also have a redirect if desired.
 if ($updated) {
-	echo JText::_('COM_CLUBMANAGEMENT_DATA_SAVED');
+    echo translate('COM_CLUBMANAGEMENT_DATA_SAVED');
 } else {
-	echo JText::_('COM_CLUBMANAGEMENT_DATA_NOT_SAVED');
+    echo translate('COM_CLUBMANAGEMENT_DATA_NOT_SAVED');
 }
 ?>

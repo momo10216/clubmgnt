@@ -12,6 +12,9 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Version;
+use Joomla\CMS\Language\Text;
+
 class ClubManagementHelper extends JHelperContent {
 	public static $extension = 'com_clubmanagement';
 
@@ -24,22 +27,22 @@ class ClubManagementHelper extends JHelperContent {
 	 */
 	public static function addSubmenu($vName) {
 		JHtmlSidebar::addEntry(
-			JText::_('COM_CLUBMANAGEMENT_MENU_PERSONS'),
+			self::translate('COM_CLUBMANAGEMENT_MENU_PERSONS'),
 			'index.php?option=com_clubmanagement&view=persons',
 			$vName == 'persons'
 		);
 		JHtmlSidebar::addEntry(
-			JText::_('COM_CLUBMANAGEMENT_MENU_MEMBERSHIPS'),
+			self::translate('COM_CLUBMANAGEMENT_MENU_MEMBERSHIPS'),
 			'index.php?option=com_clubmanagement&view=memberships',
 			$vName == 'memberships'
 		);
 		JHtmlSidebar::addEntry(
-			JText::_('COM_CLUBMANAGEMENT_MENU_BOARD'),
+			self::translate('COM_CLUBMANAGEMENT_MENU_BOARD'),
 			'index.php?option=com_clubmanagement&view=boardentries',
 			$vName == 'boardentries'
 		);
 		JHtmlSidebar::addEntry(
-			JText::_('COM_CLUBMANAGEMENT_MENU_CATEGORIES'),
+			self::translate('COM_CLUBMANAGEMENT_MENU_CATEGORIES'),
 			'index.php?option=com_categories&view=categories&extension=com_clubmanagement',
 			$vName == 'categories'
 		);
@@ -110,7 +113,7 @@ class ClubManagementHelper extends JHelperContent {
 					->values(implode(',', $values));
 			}
 			$db->setQuery($query);
-			$db->query();
+			$db->execute();
 		}
 	}
 
@@ -175,6 +178,15 @@ class ClubManagementHelper extends JHelperContent {
 			}
 		}
 		return $row;
+	}
+
+	protected static function translate($key) {
+        if (Version::MAJOR_VERSION == '3') {
+            echo JText::_($key);
+        } elseif (Version::MAJOR_VERSION == '4') {
+            echo Text::_($key);
+        }
+        return $key;
 	}
 }
 ?>

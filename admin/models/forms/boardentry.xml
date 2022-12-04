@@ -27,18 +27,22 @@
 			size="25"
 			required="true" />
 
-		<field name="begin" type="cmdate" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_BEGIN_LABEL"
+		<field name="begin" type="calendar" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_BEGIN_LABEL"
 			description="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_BEGIN_DESC"
 			default="NOW"
 			size="22"
-			format="%Y-%m-%d" filter="user_utc"
+			translateformat="true"
+			showtime="false"
+			filter="user_utc"
 			required="true" />
 
-		<field name="end" type="cmdate" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_END_LABEL"
+		<field name="end" type="calendar" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_END_LABEL"
 			description="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_END_DESC"
 			default=""
 			size="22"
-			format="%Y-%m-%d" filter="user_utc"
+			translateformat="true"
+			showtime="false"
+			filter="user_utc"
 			required="false" />
 
 		<field name="published" type="list" label="COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_PUBLISHED_LABEL"

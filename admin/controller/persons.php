@@ -51,18 +51,18 @@ class ClubManagementControllerPersons extends JControllerAdmin {
 		$data  = CvsHelper::loadCVS($content, $encoding);
 		$model = $this->getModel('Persons');
  		$model->saveImportData($data);
-		$this->setRedirect(JRoute::_('index.php?option='.$this->option, false));
+		$this->setRedirect(JRoute::_('index.php?option='.$this->option.'&view=persons', false));
 	}
 
 	public function import_cancel() {
-		$this->setRedirect(JRoute::_('index.php?option='.$this->option, false));
+		$this->setRedirect(JRoute::_('index.php?option='.$this->option.'&view=persons', false));
 	}
 
 	public function delete() {
 		$cid = JFactory::getApplication()->input->get('cid', array(), 'array');
 		$model = $this->getModel('Person');
 		$model->delete($cid);
-		$this->setRedirect(JRoute::_('index.php?option='.$this->option, false));
+		$this->setRedirect(JRoute::_('index.php?option='.$this->option.'&view=persons', false));
 	}
 }
 ?>

@@ -43,16 +43,14 @@
 		<language tag="en-GB">en-GB.com_clubmanagement.sys.ini</language>
 		<language tag="de-DE">de-DE.com_clubmanagement.ini</language>
 		<language tag="de-DE">de-DE.com_clubmanagement.sys.ini</language>
-		<language tag="nl-NL">nl-NL.com_clubmanagement.ini</language>
-		<language tag="nl-NL">nl-NL.com_clubmanagement.sys.ini</language>
 	</languages>
 	<administration>
 		<menu>COM_CLUBMANAGEMENT_MENU_MAIN</menu>
 		<submenu>
-			<menu alt="COM_CLUBMANAGEMENT_MENU_PERSONS" view="persons" link="option=com_clubmanagement">COM_CLUBMANAGEMENT_MENU_PERSONS</menu>
-			<menu alt="COM_CLUBMANAGEMENT_MENU_MEMBERS" view="memberships" link="option=com_clubmanagement">COM_CLUBMANAGEMENT_MENU_MEMBERS</menu>
-			<menu alt="COM_CLUBMANAGEMENT_MENU_BOARD" view="boardentries" link="option=com_clubmanagement">COM_CLUBMANAGEMENT_MENU_BOARD</menu>
-			<menu alt="COM_CLUBMANAGEMENT_MENU_CATEGORIES" link="index.php?option=com_categories&amp;view=categories&amp;extension=com_clubmanagement">COM_CLUBMANAGEMENT_MENU_CATEGORIES</menu>
+			<menu alt="COM_CLUBMANAGEMENT_MENU_PERSONS" view="persons" link="option=com_clubmanagement&amp;view=persons">COM_CLUBMANAGEMENT_MENU_PERSONS</menu>
+			<menu alt="COM_CLUBMANAGEMENT_MENU_MEMBERS" view="memberships" link="option=com_clubmanagement&amp;view=memberships">COM_CLUBMANAGEMENT_MENU_MEMBERS</menu>
+			<menu alt="COM_CLUBMANAGEMENT_MENU_BOARD" view="boardentries" link="option=com_clubmanagement&amp;view=boardentries">COM_CLUBMANAGEMENT_MENU_BOARD</menu>
+			<menu alt="COM_CLUBMANAGEMENT_MENU_CATEGORIES" link="option=com_categories&amp;view=categories&amp;view=categories&amp;extension=com_clubmanagement">COM_CLUBMANAGEMENT_MENU_CATEGORIES</menu>
 		</submenu>
 
 		<files folder="admin">

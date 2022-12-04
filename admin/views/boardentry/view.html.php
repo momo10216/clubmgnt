@@ -12,6 +12,9 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Version;
+use Joomla\CMS\Language\Text;
+
 class ClubManagementViewBoardEntry extends JViewLegacy {
 	protected $form;
 	protected $item;
@@ -47,7 +50,7 @@ class ClubManagementViewBoardEntry extends JViewLegacy {
 		$isNew		= ($this->item->id == 0);
 		// Built the actions for new and existing records.
 		$canDo		= $this->canDo;
-		JToolbarHelper::title(($isNew ? JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_PAGE_ADD') : JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_PAGE_EDIT')), 'pencil-2 article-add');
+		JToolbarHelper::title(($isNew ? self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_PAGE_ADD') : self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_PAGE_EDIT')), 'pencil-2 article-add');
 		// For new records, check the create permission.
 		if ($isNew && $canDo->get('core.create')) {
 			JToolbarHelper::apply('boardentry.apply');
@@ -72,6 +75,15 @@ class ClubManagementViewBoardEntry extends JViewLegacy {
 		}
 		JToolbarHelper::divider();
 		JToolbarHelper::help('JHELP_COM_CLUBMANAGEMENT_BOARDENTRIES_MANAGER_EDIT');
+	}
+
+	protected static function translate($key) {
+        if (Version::MAJOR_VERSION == '3') {
+            return JText::_($key);
+        } elseif (Version::MAJOR_VERSION == '4') {
+            return Text::_($key);
+        }
+        return $key;
 	}
 }
 ?>

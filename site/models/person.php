@@ -12,6 +12,8 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Version;
+use Joomla\CMS\Language\Text;
 jimport('joomla.application.component.modelform');
 // import Joomla modelitem library
 jimport('joomla.application.component.modelitem');
@@ -19,6 +21,7 @@ jimport('joomla.application.component.modelitem');
 jimport('joomla.event.dispatcher');
 // Include dependancy of the component helper
 jimport('joomla.application.component.helper');
+
 class ClubManagementModelPerson extends JModelForm {
 	/**
 	 * @since   1.6
@@ -33,76 +36,76 @@ class ClubManagementModelPerson extends JModelForm {
 	private function getPersonFields() {
 		$params = JComponentHelper::getParams('com_clubmanagement');
 		return array (
-			"person_id" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_ID_LABEL',true),'`p`.`id`'),
-			"person_salutation" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_SALUTATION_LABEL',true),'`p`.`salutation`'),
-			"person_firstname" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_LABEL',true),'`p`.`firstname`'),
-			"person_middlename" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_MIDDLENAME_LABEL',true),'`p`.`middlename`'),
-			"person_name" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_LABEL',true),'`p`.`name`'),
-			"person_birthname" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHNAME_LABEL',true),'`p`.`birthname`'),
-			"person_nickname" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NICKNAME_LABEL',true),'`p`.`nickname`'),
-			"person_nickfirstname" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NICKFIRSTNAME_LABEL',true),"IFNULL(NULLIF(`p`.`nickname`,''),`p`.`firstname`)"),
-			"person_address" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_ADDRESS_LABEL',true),'`p`.`address`'),
-			"person_city" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_LABEL',true),'`p`.`city`'),
-			"person_zip" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_ZIP_LABEL',true),'`p`.`zip`'),
-			"person_state" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_STATE_LABEL',true),'`p`.`state`'),
-			"person_country" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_COUNTRY_LABEL',true),'`p`.`country`'),
-			"person_telephone" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_TELEPHONE_LABEL',true),'`p`.`telephone`'),
-			"person_mobile" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_MOBILE_LABEL',true),'`p`.`mobile`'),
-			"person_url" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_URL_LABEL',true),'`p`.`url`'),
-			"person_email" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_EMAIL_LABEL',true),'`p`.`email`'),
-			"user_username" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_USERNAME_LABEL',true),'`u`.`username`'),
-			"person_description" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_DESCRIPTION_LABEL',true),'`p`.`description`'),
-			"person_image" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_IMAGE_LABEL',true),'`p`.`image`'),
-			"person_birthday" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL',true),'`p`.`birthday`'),
-			"person_nextbirthday" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NEXT_BIRTHDAY_LABEL',true),'IF(DATE_ADD(`p`.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(`p`.`birthday`)) YEAR) < CURDATE(),DATE_ADD(p.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(`p`.`birthday`) + 1) YEAR),DATE_ADD(`p`.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(`p`.`birthday`)) YEAR))'),
-			"person_deceased" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_LABEL',true),'`p`.`deceased`'),
+			"person_id" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_ID_LABEL',true),'`p`.`id`'),
+			"person_salutation" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_SALUTATION_LABEL',true),'`p`.`salutation`'),
+			"person_firstname" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_LABEL',true),'`p`.`firstname`'),
+			"person_middlename" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_MIDDLENAME_LABEL',true),'`p`.`middlename`'),
+			"person_name" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_LABEL',true),'`p`.`name`'),
+			"person_birthname" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHNAME_LABEL',true),'`p`.`birthname`'),
+			"person_nickname" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_NICKNAME_LABEL',true),'`p`.`nickname`'),
+			"person_nickfirstname" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_NICKFIRSTNAME_LABEL',true),"IFNULL(NULLIF(`p`.`nickname`,''),`p`.`firstname`)"),
+			"person_address" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_ADDRESS_LABEL',true),'`p`.`address`'),
+			"person_city" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_LABEL',true),'`p`.`city`'),
+			"person_zip" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_ZIP_LABEL',true),'`p`.`zip`'),
+			"person_state" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_STATE_LABEL',true),'`p`.`state`'),
+			"person_country" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_COUNTRY_LABEL',true),'`p`.`country`'),
+			"person_telephone" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_TELEPHONE_LABEL',true),'`p`.`telephone`'),
+			"person_mobile" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_MOBILE_LABEL',true),'`p`.`mobile`'),
+			"person_url" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_URL_LABEL',true),'`p`.`url`'),
+			"person_email" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_EMAIL_LABEL',true),'`p`.`email`'),
+			"user_username" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_USERNAME_LABEL',true),'`u`.`username`'),
+			"person_description" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_DESCRIPTION_LABEL',true),'`p`.`description`'),
+			"person_image" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_IMAGE_LABEL',true),'`p`.`image`'),
+			"person_birthday" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL',true),'`p`.`birthday`'),
+			"person_nextbirthday" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_NEXT_BIRTHDAY_LABEL',true),'IF(DATE_ADD(`p`.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(`p`.`birthday`)) YEAR) < CURDATE(),DATE_ADD(p.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(`p`.`birthday`) + 1) YEAR),DATE_ADD(`p`.`birthday`, INTERVAL (YEAR(NOW()) - YEAR(`p`.`birthday`)) YEAR))'),
+			"person_deceased" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_LABEL',true),'`p`.`deceased`'),
 			"person_custom1" => array($params->get('custom1'),'`p`.`custom1`'),
 			"person_custom2" => array($params->get('custom2'),'`p`.`custom2`'),
 			"person_custom3" => array($params->get('custom3'),'`p`.`custom3`'),
 			"person_custom4" => array($params->get('custom4'),'`p`.`custom4`'),
 			"person_custom5" => array($params->get('custom5'),'`p`.`custom5`'),
-			"person_hh_person_id" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_PERSON_ID_LABEL',true),'`p`.`hh_person_id`'),
-			"person_hh_salutation_override" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_SALUTATION_OVERWRITE_LABEL',true),'`p`.`hh_salutation_override`'),
-			"person_hh_name_override" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_NAME_OVERWRITE_LABEL',true),'`p`.`hh_name_override`'),
-			"person_createdby" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CREATEDBY_LABEL',true),'`p`.`createdby`'),
-			"person_createddate" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CREATEDDATE_LABEL',true),'`p`.`createddate`'),
-			"person_modifiedby" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_MODIFIEDBY_LABEL',true),'`p`.`modifiedby`'),
-			"person_modifieddate" => array(JText::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_MODIFIEDDATE_LABEL',true),'`p`.`modifieddate`')
+			"person_hh_person_id" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_PERSON_ID_LABEL',true),'`p`.`hh_person_id`'),
+			"person_hh_salutation_override" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_SALUTATION_OVERWRITE_LABEL',true),'`p`.`hh_salutation_override`'),
+			"person_hh_name_override" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_NAME_OVERWRITE_LABEL',true),'`p`.`hh_name_override`'),
+			"person_createdby" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_CREATEDBY_LABEL',true),'`p`.`createdby`'),
+			"person_createddate" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_CREATEDDATE_LABEL',true),'`p`.`createddate`'),
+			"person_modifiedby" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_MODIFIEDBY_LABEL',true),'`p`.`modifiedby`'),
+			"person_modifieddate" => array(self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_MODIFIEDDATE_LABEL',true),'`p`.`modifieddate`')
 		);
 	}
 
 	private function getMembershipFields() {
 		return array (
-			"member_id" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_ID_LABEL',true),'`m`.`id`'),
-			"member_type" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL',true),'`m`.`type`'),
-			"member_begin" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_LABEL',true),'`m`.`begin`'),
-			"member_end" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_END_LABEL',true),'`m`.`end`'),
-			"member_beginyear" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGINYEAR_LABEL',true),'YEAR(`m`.`begin`)'),
-			"member_endyear" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_ENDYEAR_LABEL',true),'YEAR(`m`.`end`)'),
-			"member_beginendyear" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGINENDYEAR_LABEL',true),"CONCAT(YEAR(`m`.`begin`),'-',IFNULL(YEAR(NULLIF(`m`.`end`,0)),''))"),
-			"member_published" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL',true),'`m`.`published`'),
-			"member_createdby" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDBY_LABEL',true),'`m`.`createdby`'),
-			"member_createddate" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDDATE_LABEL',true),'`m`.`createddate`'),
-			"member_modifiedby" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDBY_LABEL',true),'`m`.`modifiedby`'),
-			"member_modifieddate" => array(JText::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDDATE_LABEL',true),'`m`.`modifieddate`')
+			"member_id" => array(self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_ID_LABEL',true),'`m`.`id`'),
+			"member_type" => array(self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL',true),'`m`.`type`'),
+			"member_begin" => array(self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_LABEL',true),'`m`.`begin`'),
+			"member_end" => array(self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_END_LABEL',true),'`m`.`end`'),
+			"member_beginyear" => array(self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGINYEAR_LABEL',true),'YEAR(`m`.`begin`)'),
+			"member_endyear" => array(self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_ENDYEAR_LABEL',true),'YEAR(`m`.`end`)'),
+			"member_beginendyear" => array(self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGINENDYEAR_LABEL',true),"CONCAT(YEAR(`m`.`begin`),'-',IFNULL(YEAR(NULLIF(`m`.`end`,0)),''))"),
+			"member_published" => array(self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL',true),'`m`.`published`'),
+			"member_createdby" => array(self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDBY_LABEL',true),'`m`.`createdby`'),
+			"member_createddate" => array(self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_CREATEDDATE_LABEL',true),'`m`.`createddate`'),
+			"member_modifiedby" => array(self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDBY_LABEL',true),'`m`.`modifiedby`'),
+			"member_modifieddate" => array(self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_MODIFIEDDATE_LABEL',true),'`m`.`modifieddate`')
 		);
 	}
 
 	private function getBoardFields() {
 		return array (
-			"board_id" => array(JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_ID_LABEL',true),'`b`.`id`'),
-			"board_job" => array(JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_JOB_LABEL',true),'`b`.`job`'),
-			"board_sortorder" => array(JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_SORTORDER_LABEL',true),'`b`.`sortorder`'),
-			"board_begin" => array(JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_BEGIN_LABEL',true),'`b`.`begin`'),
-			"board_end" => array(JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_END_LABEL',true),'`b`.`end`'),
-			"board_beginyear" => array(JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_BEGINYEAR_LABEL',true),'YEAR(`b`.`begin`)'),
-			"board_endyear" => array(JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_ENDYEAR_LABEL',true),'YEAR(`b`.`end`)'),
-			"board_beginendyear" => array(JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_BEGINENDYEAR_LABEL',true),"CONCAT(YEAR(`b`.`begin`),'-',IFNULL(YEAR(NULLIF(`b`.`end`,0)),''))"),
-			"board_published" => array(JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_PUBLISHED_LABEL',true),'`b`.`published`'),
-			"board_createdby" => array(JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_CREATEDBY_LABEL',true),'`b`.`createdby`'),
-			"board_createddate" => array(JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_CREATEDDATE_LABEL',true),'`b`.`createddate`'),
-			"board_modifiedby" => array(JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_MODIFIEDBY_LABEL',true),'`b`.`modifiedby`'),
-			"board_modifieddate" => array(JText::_('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_MODIFIEDDATE_LABEL',true),'`b`.`modifieddate`')
+			"board_id" => array(self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_ID_LABEL',true),'`b`.`id`'),
+			"board_job" => array(self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_JOB_LABEL',true),'`b`.`job`'),
+			"board_sortorder" => array(self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_SORTORDER_LABEL',true),'`b`.`sortorder`'),
+			"board_begin" => array(self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_BEGIN_LABEL',true),'`b`.`begin`'),
+			"board_end" => array(self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_END_LABEL',true),'`b`.`end`'),
+			"board_beginyear" => array(self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_BEGINYEAR_LABEL',true),'YEAR(`b`.`begin`)'),
+			"board_endyear" => array(self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_ENDYEAR_LABEL',true),'YEAR(`b`.`end`)'),
+			"board_beginendyear" => array(self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_BEGINENDYEAR_LABEL',true),"CONCAT(YEAR(`b`.`begin`),'-',IFNULL(YEAR(NULLIF(`b`.`end`,0)),''))"),
+			"board_published" => array(self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_PUBLISHED_LABEL',true),'`b`.`published`'),
+			"board_createdby" => array(self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_CREATEDBY_LABEL',true),'`b`.`createdby`'),
+			"board_createddate" => array(self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_CREATEDDATE_LABEL',true),'`b`.`createddate`'),
+			"board_modifiedby" => array(self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_MODIFIEDBY_LABEL',true),'`b`.`modifiedby`'),
+			"board_modifieddate" => array(self::translate('COM_CLUBMANAGEMENT_BOARDENTRIES_FIELD_MODIFIEDDATE_LABEL',true),'`b`.`modifieddate`')
 		);
 	}
 
@@ -129,7 +132,7 @@ class ClubManagementModelPerson extends JModelForm {
 	}
 
 	/**
-	 * Method to get the contact form.
+	 * Method to get the person form.
 	 * The base form is loaded from XML and then an event is fired
 	 *
 	 * @param   array    $data      An optional array of data for the form to interrogate.
@@ -163,9 +166,9 @@ class ClubManagementModelPerson extends JModelForm {
 	}
 
 	/**
-	 * Gets a contact
+	 * Gets a person
 	 *
-	 * @param   integer  $pk  Id for the contact
+	 * @param   integer  $pk  Id for the person
 	 *
 	 * @return mixed Object or null
 	 */
@@ -379,7 +382,19 @@ class ClubManagementModelPerson extends JModelForm {
 			->set($fields)
 			->where($conditions);
 		$db->setQuery($query);
-		return $db->query();
+        if (Version::MAJOR_VERSION == '3') {
+	    	return $db->query();
+	    }
+        return $db->execute();
+	}
+
+	protected static function translate($key) {
+        if (Version::MAJOR_VERSION == '3') {
+            return JText::_($key);
+        } elseif (Version::MAJOR_VERSION == '4') {
+            return Text::_($key);
+        }
+        return $key;
 	}
 }
 ?>
