@@ -1,0 +1,97 @@
+Joomla 3
+========
+Administrator:
+	- Person:
+		- Add: 
+		- Modify: 
+		- Delete: 
+		- Export: 
+		- Import: 
+	- Membership:
+		- Add: 
+		- Modify: 
+		- Delete: 
+		- Export: 
+		- Import: 
+	- Board:
+		- Add: 
+		- Modify: 
+		- Delete: 
+		- Export: 
+		- Import: 
+	- Categories: 
+
+Site:
+	- Person:
+		- Detail (HTML): 
+		- Edit (HTML): 
+	- Membership:
+		- Default (HTML): 
+		- Address (HTML): 
+		- Card (HTML): 
+		- Email (HTML): 
+		- Default (CSV): 
+		- Address (CSV): 
+	- Board:
+		- Default (HTML): 
+		- Address (HTML): 
+		- Card (HTML): 
+		- Email (HTML): 
+		- Default (CSV): 
+		- Address (CSV): 
+
+Joomla 4
+========
+Administrator:
+	- Person:
+		- Add: OK
+		- Modify: OK
+		- Delete: OK
+		- Export: OK
+		- Import: OK
+	- Membership:
+		- Add: OK
+		- Modify: OK
+		- Delete: OK
+		- Export: OK
+		- Import: OK
+	- Board:
+		- Add: OK
+		- Modify: OK
+		- Delete: OK
+		- Export: OK
+		- Import: OK
+	- Categories: OK
+
+Site:
+	- Person:
+		- Detail (HTML): OK
+		- Edit (HTML): OK
+	- Membership:
+		- Default (HTML): OK
+		- Address (HTML): OK
+		- Card (HTML): OK
+		- Email (HTML): OK
+		- Default (CSV): OK
+		- Address (CSV): OK
+	- Board:
+		- Default (HTML): OK
+		- Address (HTML): OK
+		- Card (HTML): OK
+		- Email (HTML): OK
+		- Default (CSV): OK
+		- Address (CSV): OK
+
+Findings
+========
+- Person Details: Person Selection does not close
+- No Permissions in config
+- Translation
+	COM_CLUBMANAGEMENT_MEMBERSHIPS_VIEW_ADDRESS_LABEL_LAYOUT_TITLE
+	COM_CLUBMANAGEMENT_MEMBERSHIPS_VIEW_ADDRESS_LABEL_LAYOUT_DESC
+- Card HTML multiselect type not working
+
+Done
+====
+- No image warning meber/board
+

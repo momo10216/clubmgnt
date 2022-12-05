@@ -13,8 +13,6 @@
 defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Uri\Uri;
-use Joomla\CMS\Version;
-use Joomla\CMS\Language\Text;
 
 class ClubManagementViewPerson extends JViewLegacy {
 	protected $item;

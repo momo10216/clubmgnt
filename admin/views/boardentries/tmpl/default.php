@@ -16,18 +16,6 @@ JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.multiselect');
 JHtml::_('formbehavior.chosen', 'select');
 
-use Joomla\CMS\Version;
-use Joomla\CMS\Language\Text;
-
-function translate($key) {
-    if (Version::MAJOR_VERSION == '3') {
-        return JText::_($key);
-    } elseif (Version::MAJOR_VERSION == '4') {
-        return Text::_($key);
-    }
-    return $key;
-}
-
 $listDirn	= $this->escape($this->state->get('list.direction'));
 $listOrder	= $this->escape($this->state->get('list.ordering'));
 $sortFields	= $this->getSortFields();

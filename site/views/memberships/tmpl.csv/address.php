@@ -23,7 +23,7 @@ for ($i=1;$i<=20;$i++) {
 }
 $colcount = count($cols);
 // Calculate array
-$header = $this->getModel()->getHeader($cols);
+$header = $this->getModel()->getHeader($cols, true);
 $headers = array();
 for($i=0;$i<$Line;$i++) {
 	$headerFields = array();

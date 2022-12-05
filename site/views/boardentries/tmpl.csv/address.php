@@ -29,13 +29,13 @@ $colcount = count($cols);
 /*
  * Calculate array
  */
-$header = $this->getModel()->getHeader($cols);
+$header = $this->getModel()->getHeader($cols, true);
 $headers = array();
 for($i=0;$i<$Line;$i++) {
 	$headerFields = array();
 	for($j=0;$j<$FieldPerLine;$j++) {
 		$colnr = $i*$FieldPerLine+$j;
-		if(isset($header[$colnr]))  {
+		if (!empty($header[$colnr])) {
 			array_push($headerFields,$header[$colnr]);
 		}
 	}

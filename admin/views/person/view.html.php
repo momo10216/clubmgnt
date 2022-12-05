@@ -12,7 +12,6 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-use Joomla\CMS\Version;
 use Joomla\CMS\Language\Text;
 
 class ClubManagementViewPerson extends JViewLegacy {
@@ -27,8 +26,8 @@ class ClubManagementViewPerson extends JViewLegacy {
 	public function display($tpl = null) {
 		$this->form	= $this->get('Form');
 		$this->item	= $this->get('Item');
-		$this->state	= $this->get('State');
-		$this->canDo	= ClubManagementHelper::getActions('com_clubmanagement', 'person', $this->item->id);
+		$this->state = $this->get('State');
+		$this->canDo = ClubManagementHelper::getActions('com_clubmanagement', 'person', $this->item->id);
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode("\n", $errors));
@@ -50,7 +49,7 @@ class ClubManagementViewPerson extends JViewLegacy {
 		$isNew		= ($this->item->id == 0);
 		// Built the actions for new and existing records.
 		$canDo		= $this->canDo;
-		JToolbarHelper::title(($isNew ? self::translate('COM_CLUBMANAGEMENT_PERSONS_PAGE_ADD') : self::translate('COM_CLUBMANAGEMENT_PERSONS_PAGE_EDIT')), 'pencil-2 article-add');
+		JToolbarHelper::title(($isNew ? Text::_('COM_CLUBMANAGEMENT_PERSONS_PAGE_ADD') : Text::_('COM_CLUBMANAGEMENT_PERSONS_PAGE_EDIT')), 'pencil-2 article-add');
 
 		// For new records, check the create permission.
 		if ($isNew && $canDo->get('core.create')) {
@@ -76,15 +75,6 @@ class ClubManagementViewPerson extends JViewLegacy {
 		}
 		JToolbarHelper::divider();
 		JToolbarHelper::help('JHELP_COM_CLUBMANAGEMENT_PERSON_MANAGER_EDIT');
-	}
-
-	protected static function translate($key) {
-        if (Version::MAJOR_VERSION == '3') {
-            return JText::_($key);
-        } elseif (Version::MAJOR_VERSION == '4') {
-            return Text::_($key);
-        }
-        return $key;
 	}
 }
 ?>

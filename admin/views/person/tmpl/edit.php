@@ -12,17 +12,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-use Joomla\CMS\Version;
 use Joomla\CMS\Language\Text;
-
-function translate($key) {
-    if (Version::MAJOR_VERSION == '3') {
-        return JText::_($key);
-    } elseif (Version::MAJOR_VERSION == '4') {
-        return Text::_($key);
-    }
-    return $key;
-}
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_clubmanagement&view=person&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm">
     <div class="main-card">
@@ -37,7 +27,7 @@ function translate($key) {
 	</div>
 	<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
 
-	<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', translate('COM_CLUBMANAGEMENT_PERSONS_TAB_COMMON', true)); ?>
+	<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', Text::_('COM_CLUBMANAGEMENT_PERSONS_TAB_COMMON', true)); ?>
     <div class="row">
         <div class="col-lg-6">
             <?php echo $this->form->renderField('middlename'); ?>
@@ -54,7 +44,7 @@ function translate($key) {
 	</div>
     <?php echo JHtml::_('bootstrap.endTab'); ?>
 
-    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'address', translate('COM_CLUBMANAGEMENT_PERSONS_TAB_ADDRESS', true)); ?>
+    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'address', Text::_('COM_CLUBMANAGEMENT_PERSONS_TAB_ADDRESS', true)); ?>
     <div class="row">
         <div class="col-lg-6">
             <?php echo $this->form->renderField('address'); ?>
@@ -72,7 +62,7 @@ function translate($key) {
 	</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
 
-    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'communication', translate('COM_CLUBMANAGEMENT_PERSONS_TAB_COMMUNICATION', true)); ?>
+    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'communication', Text::_('COM_CLUBMANAGEMENT_PERSONS_TAB_COMMUNICATION', true)); ?>
     <div class="row">
         <div class="col-lg-6">
             <?php echo $this->form->renderField('telephone'); ?>
@@ -85,7 +75,7 @@ function translate($key) {
     </div>
     <?php echo JHtml::_('bootstrap.endTab'); ?>
 
-    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'custom', translate('COM_CLUBMANAGEMENT_PERSONS_TAB_CUSTOM_AND_RECORDINFO', true)); ?>
+    <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'custom', Text::_('COM_CLUBMANAGEMENT_PERSONS_TAB_CUSTOM_AND_RECORDINFO', true)); ?>
     <div class="row">
         <div class="col-lg-6">
             <?php echo $this->form->renderField('custom1'); ?>

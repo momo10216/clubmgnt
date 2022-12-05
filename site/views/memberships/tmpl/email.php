@@ -12,7 +12,6 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-use Joomla\CMS\Version;
 use Joomla\CMS\Language\Text;
 
 JLoader::register('EmailListHelper', JPATH_COMPONENT_ADMINISTRATOR.'/helpers/emaillist.php', true);
@@ -44,17 +43,15 @@ $memberTypes = SelectionHelper::getSelection("member_types");
 $data = EmailListHelper::splitdata($this->items, $memberPublicity,'member');
 // Display
 if (!empty($this->paramsMenuEntry->get('pretext'))) { echo $this->paramsMenuEntry->get('pretext'); }
+echo '<p>';
 foreach($memberType as $type) {
 	foreach($states as $state) {
 		$key = $type.'_'.$state;
 		if (isset($data[$key])) {
-            if (Version::MAJOR_VERSION == '3') {
-    			EmailListHelper::display_email_link(getMemberType($type, $memberTypes)." (".JText::_($state)."):", $data[$key], $maxEmailAddr, $targetField);
-            } elseif (Version::MAJOR_VERSION == '4') {
-    			EmailListHelper::display_email_link(getMemberType($type, $memberTypes)." (".Text::_($state)."):", $data[$key], $maxEmailAddr, $targetField);
-            }
+            EmailListHelper::display_email_link(getMemberType($type, $memberTypes)." (".Text::_($state)."):", $data[$key], $maxEmailAddr, $targetField);
 		}
 	}
 }
+echo '</p>';
 if (!empty($this->paramsMenuEntry->get('posttext'))) { echo $this->paramsMenuEntry->get('posttext'); }
 ?>

@@ -12,7 +12,6 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-use Joomla\CMS\Version;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Factory;
@@ -22,14 +21,9 @@ if ($this->paramsMenuEntry->get('detail_enable') != "0") {
 	$details = true;
 	$detailWidth = $this->paramsComponent->get('detail_width');
 	$detailHeight = $this->paramsComponent->get('detail_height');
-	if (Version::MAJOR_VERSION == '3') {
-		$curi = JFactory::getURI();
-		$uri = JURI::getInstance( $curi->toString() );
-	    JHTML::_('behavior.modal');
-	} else {
-		$uri = Uri::getInstance();
-		$document = Factory::getApplication()->getDocument();
-		$document->addScriptDeclaration("function clickModal(url, title) {
+    $uri = Uri::getInstance();
+    $document = Factory::getApplication()->getDocument();
+    $document->addScriptDeclaration("function clickModal(url, title) {
 	modalbox = document.getElementById('modal-box');
 	if (modalbox) {
 		var modalTitle = modalbox.querySelector('.modal-title');
@@ -44,23 +38,22 @@ if ($this->paramsMenuEntry->get('detail_enable') != "0") {
 	return false;
 }
 ");
-		echo HTMLHelper::_(
-			'bootstrap.renderModal',
-			'modal-box',
-			array(
-				'modal-dialog-scrollable' => true,
-				'url'    => '',
-				'title'  => '',
-				'height' => '100%',
-				'width'  => '100%',
-				'modalWidth'  => $detailHeight,
-				'bodyHeight'  => $detailWidth,
-				'footer' => '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-hidden="true">'
-					. \Joomla\CMS\Language\Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>'
-			),
-			'<div id="modal-body">Content set by ajax.</div>'
-		);
-	}
+    echo HTMLHelper::_(
+        'bootstrap.renderModal',
+        'modal-box',
+        array(
+            'modal-dialog-scrollable' => true,
+            'url'    => '',
+            'title'  => '',
+            'height' => '100%',
+            'width'  => '100%',
+            'modalWidth'  => $detailHeight,
+            'bodyHeight'  => $detailWidth,
+            'footer' => '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-hidden="true">'
+                . \Joomla\CMS\Language\Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>'
+        ),
+        '<div id="modal-body">Content set by ajax.</div>'
+    );
 	$uri->setVar("layout","detail");
 	$uri->setVar("tmpl","component");
 	$uri->setVar("Itemid","");
@@ -159,12 +152,8 @@ if ($this->items) {
 				}
 				echo "<td".$borderStyle.">";
 				if ($details && (($detailColumn == "") || ($detailColumn == $field))) {
-					if (Version::MAJOR_VERSION == '3') {
-					    echo "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$detailWidth.", y: ".$detailHeight."}}\">".$data."</a>";
-					} elseif (Version::MAJOR_VERSION == '4') {
-						$title = $item->person_firstname.' '.$item->person_name;
-						echo "<a href=\"#\" data-bs-toggle=\"modal\" data-bs-target=\"#modal-box\" onClick=\"return clickModal('".$uri->toString()."','".$title."');\">".$data."</a>";
-					}
+                    $title = $item->person_firstname.' '.$item->person_name;
+                    echo "<a href=\"#\" data-bs-toggle=\"modal\" data-bs-target=\"#modal-box\" onClick=\"return clickModal('".$uri->toString()."','".$title."');\">".$data."</a>";
 				} else {
 					switch ($field) {
 						case 'person_url':

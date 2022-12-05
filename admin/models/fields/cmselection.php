@@ -13,7 +13,6 @@
 defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.form.formfield');
-use Joomla\CMS\Version;
 use Joomla\CMS\Language\Text;
 
 // The class name must always be the same as the filename (in camel case)
@@ -28,11 +27,7 @@ class JFormFieldCmSelection extends JFormField {
 		$selectionRows = explode(";",$selectionText);
 		$fields = array();
 		if (isset($this->element["hide_none"]) && ($this->element["hide_none"] != "true")) {
-            if (Version::MAJOR_VERSION == '3') {
-    			$fields[""] = JText::alt('JOPTION_DO_NOT_USE', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname));
-            } elseif (Version::MAJOR_VERSION == '4') {
-    			$fields[""] = Text::alt('JOPTION_DO_NOT_USE', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname));
-            }
+            $fields[""] = Text::alt('JOPTION_DO_NOT_USE', preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname));
 		}
 		$multiple = '';
 		if (isset($this->element["multiple"]) && ($this->element['multiple'] == 'true')) {

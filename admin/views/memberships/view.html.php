@@ -12,7 +12,6 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-use Joomla\CMS\Version;
 use Joomla\CMS\Language\Text;
 
 /**
@@ -29,9 +28,6 @@ class ClubManagementViewMemberships extends JViewLegacy {
 	 */
 
 	function display($tpl = null) {
-        if (Version::MAJOR_VERSION == '3') {
-    		ClubManagementHelper::addSubmenu('memberships');
-		}
 		// Get data from the model
 		$this->items = $this->get('Items');
 		$this->pagination = $this->get('Pagination');
@@ -59,7 +55,7 @@ class ClubManagementViewMemberships extends JViewLegacy {
 		$user  = JFactory::getUser();
 		// Get the toolbar object instance
 		$bar = JToolBar::getInstance('toolbar');
-		JToolbarHelper::title(self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_TITLE'), 'stack person');
+		JToolbarHelper::title(Text::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_TITLE'), 'stack person');
 		if ($canDo->get('core.create') || (count($user->getAuthorisedCategories('com_clubmanagement', 'core.create'))) > 0 ) {
 			JToolbarHelper::addNew('membership.add');
 		}
@@ -72,10 +68,10 @@ class ClubManagementViewMemberships extends JViewLegacy {
 			JToolbarHelper::trash('memberships.delete');
 		}
 		// Add a export button
-		JToolBarHelper::custom('memberships.export', 'export.png', 'export_f2.png', self::translate('JTOOLBAR_EXPORT'), false);
+		JToolBarHelper::custom('memberships.export', 'export.png', 'export_f2.png', Text::_('JTOOLBAR_EXPORT'), false);
 		// Add a import button
 		if ($user->authorise('core.create', 'com_clubmanagement')) {
-			JToolBarHelper::custom('memberships.import', 'import.png', 'import_f2.png', self::translate('JTOOLBAR_IMPORT'), false);
+			JToolBarHelper::custom('memberships.import', 'import.png', 'import_f2.png', Text::_('JTOOLBAR_IMPORT'), false);
 		}
 		if ($user->authorise('core.admin', 'com_clubmanagement')) {
 			JToolbarHelper::preferences('com_clubmanagement');
@@ -86,8 +82,8 @@ class ClubManagementViewMemberships extends JViewLegacy {
 	protected function addToolbarImport() {
 		// Get the toolbar object instance
 		$bar = JToolBar::getInstance('toolbar');
-		JToolbarHelper::title(self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_TITLE'), 'stack person');
-		JToolBarHelper::custom('memberships.import_cancel', 'cancel.png', 'cancel_f2.png', self::translate('JTOOLBAR_CLOSE'), false);
+		JToolbarHelper::title(Text::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_TITLE'), 'stack person');
+		JToolBarHelper::custom('memberships.import_cancel', 'cancel.png', 'cancel_f2.png', Text::_('JTOOLBAR_CLOSE'), false);
 	}
 
 	/**
@@ -99,25 +95,16 @@ class ClubManagementViewMemberships extends JViewLegacy {
 	 */
 	protected function getSortFields() {
 		return array (
-			'p.name,p.firstname' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_FULLNAME_LABEL'),
-			'p.name' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_LABEL'),
-			'p.firstname' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_LABEL'),
-			'p.city' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_LABEL'),
-			'p.birthday' => self::translate('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL'),
-			'm.type' => self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL'),
-			'm.begin' => self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_LABEL'),
-			'm.end' => self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_END_LABEL'),
-			'm.published' => self::translate('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL')
+			'p.name,p.firstname' => Text::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_FULLNAME_LABEL'),
+			'p.name' => Text::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_NAME_LABEL'),
+			'p.firstname' => Text::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_FIRSTNAME_LABEL'),
+			'p.city' => Text::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_CITY_LABEL'),
+			'p.birthday' => Text::_('COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL'),
+			'm.type' => Text::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL'),
+			'm.begin' => Text::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_BEGIN_LABEL'),
+			'm.end' => Text::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_END_LABEL'),
+			'm.published' => Text::_('COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL')
 		);
-	}
-
-	protected static function translate($key) {
-        if (Version::MAJOR_VERSION == '3') {
-            return JText::_($key);
-        } elseif (Version::MAJOR_VERSION == '4') {
-            return Text::_($key);
-        }
-        return $key;
 	}
 }
 ?>

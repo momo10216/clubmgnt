@@ -12,7 +12,6 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-use Joomla\CMS\Version;
 use Joomla\CMS\Language\Text;
 
 /**
@@ -44,11 +43,7 @@ class EmailListHelper {
 		if (count($emails) > 0) {
 			echo '<a href="MAILTO:'.$tfexpr.implode(',',$emails).'">'.$name."</a>\n";
 		} else {
-            if (Version::MAJOR_VERSION == '3') {
-                echo JText::_('COM_CLUBMANAGEMENT_NO_DATA');
-            } elseif (Version::MAJOR_VERSION == '4') {
-                echo Text::_('COM_CLUBMANAGEMENT_NO_DATA');
-            }
+            echo Text::_('COM_CLUBMANAGEMENT_NO_DATA');
 		}
 	}
 
@@ -56,24 +51,15 @@ class EmailListHelper {
 		echo $label."\n";
 		if (($max_email_addr == 0) || ($max_email_addr >= count($data))) {
 			// One link
-            if (Version::MAJOR_VERSION == '3') {
-    			self::display_link(JText::_('COM_CLUBMANAGEMENT_LINK'), $data, $target_field);
-            } elseif (Version::MAJOR_VERSION == '4') {
-    			self::display_link(Text::_('COM_CLUBMANAGEMENT_LINK'), $data, $target_field);
-            }
+            self::display_link(Text::_('COM_CLUBMANAGEMENT_LINK'), $data, $target_field);
 		} else {
 			// Multiple links
 			$max = intval(count($data) / $max_email_addr) + 1;
 			for ($i=1 ; $i<=$max ; $i++) {
 				$newdata = array_slice($data, (($i-1)*$max_email_addr), $max_email_addr);
-                if (Version::MAJOR_VERSION == '3') {
-    				self::display_link(JText::sprintf('COM_CLUBMANAGEMENT_LINK_NR',$i), $newdata, $target_field);
-                } elseif (Version::MAJOR_VERSION == '4') {
-    				self::display_link(Text::sprintf('COM_CLUBMANAGEMENT_LINK_NR',$i), $newdata, $target_field);
-                }
+                self::display_link(Text::sprintf('COM_CLUBMANAGEMENT_LINK_NR',$i), $newdata, $target_field);
 			}
 		}
-		echo "<br/>\n";
 	}
 
 	public static function calculateKey($row, $mode) {

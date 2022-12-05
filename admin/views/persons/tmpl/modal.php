@@ -15,17 +15,6 @@ defined('_JEXEC') or die('Restricted access');
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.multiselect');
 JHtml::_('formbehavior.chosen', 'select');
-use Joomla\CMS\Version;
-use Joomla\CMS\Language\Text;
-
-function translate($key) {
-    if (Version::MAJOR_VERSION == '3') {
-        return JText::_($key);
-    } elseif (Version::MAJOR_VERSION == '4') {
-        return Text::_($key);
-    }
-    return $key;
-}
 
 $app = JFactory::getApplication();
 $function	= $app->input->getCmd('function', 'jSelectPerson');

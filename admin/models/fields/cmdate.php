@@ -12,7 +12,6 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-use Joomla\CMS\Version;
 use Joomla\CMS\Language\Text;
 
 // The class name must always be the same as the filename (in camel case)
@@ -199,17 +198,9 @@ class JFormFieldCmDate extends JFormField {
 			$showTime = (string) $this->element['showtime'];
 
 			if ($showTime && $showTime != 'false') {
-                if (Version::MAJOR_VERSION == '3') {
-		    		$this->format = JText::_('DATE_FORMAT_CALENDAR_DATETIME');
-                } elseif (Version::MAJOR_VERSION == '4') {
-		    		$this->format = Text::_('DATE_FORMAT_CALENDAR_DATETIME');
-                }
+                $this->format = Text::_('DATE_FORMAT_CALENDAR_DATETIME');
 			} else {
-                if (Version::MAJOR_VERSION == '3') {
-    				$this->format = JText::_('DATE_FORMAT_CALENDAR_DATE');
-                } elseif (Version::MAJOR_VERSION == '4') {
-    				$this->format = Text::_('DATE_FORMAT_CALENDAR_DATE');
-                }
+                $this->format = Text::_('DATE_FORMAT_CALENDAR_DATE');
 			}
 		}
 

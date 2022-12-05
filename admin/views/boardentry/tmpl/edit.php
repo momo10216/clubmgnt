@@ -12,17 +12,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-use Joomla\CMS\Version;
 use Joomla\CMS\Language\Text;
-
-function translate($key) {
-    if (Version::MAJOR_VERSION == '3') {
-        return JText::_($key);
-    } elseif (Version::MAJOR_VERSION == '4') {
-        return Text::_($key);
-    }
-    return $key;
-}
 
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_clubmanagement&layout=edit&id=' . (int) $this->item->id); ?>"
@@ -30,7 +20,7 @@ function translate($key) {
     <div class="form-horizontal">
 	<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
 
-	<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', translate('COM_CLUBMANAGEMENT_BOARDENTRIES_TAB_COMMON', true)); ?>
+	<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', Text::_('COM_CLUBMANAGEMENT_BOARDENTRIES_TAB_COMMON', true)); ?>
 	<div class="row-fluid">
 		<div class="span9">
 			<div class="row-fluid form-horizontal-desktop">

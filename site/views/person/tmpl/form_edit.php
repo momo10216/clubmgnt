@@ -12,6 +12,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 
 $currentUrl = Uri::getInstance()->toString();
@@ -27,10 +28,10 @@ $cols = $this->getModel()->translateFieldsToColumns($confCols);
 <?php } ?>
 	<p align="center">
 		<button type="submit">
-			<?php echo translate('JSAVE') ?>
+			<?php echo Text::_('JSAVE') ?>
 		</button>
 		<button type="submit" onClick="document.adminForm.task.value='cancel';">
-			<?php echo translate('JCANCEL') ?>
+			<?php echo Text::_('JCANCEL') ?>
 		</button>
 	</p>
 	<input type="hidden" name="option" value="com_clubmanagement" />
