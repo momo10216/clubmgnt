@@ -85,7 +85,7 @@ if ($items) {
 			$borderStyle = "";
 			break;
 	}
-	$url = JRoute::_('index.php?option=com_clubmanagement&view=persons&layout='.$this->getLayout().'&id=');
+	$url = JRoute::_('index.php?option=com_clubmanagement&view=person&layout='.$this->getLayout().'&menuid='.$this->menuId.'&id=');
 	foreach($items as $item) {
 		$row = (array) $item;
 		echo "<tr>\n";

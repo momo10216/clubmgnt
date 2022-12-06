@@ -35,10 +35,16 @@ class ClubManagementViewPerson extends JViewLegacy {
 		$this->paramsComponent = $this->state->get('params');
 		$menu = $app->getMenu();
 		if (is_object($menu)) {
-			$currentMenu = $menu->getActive();
-			if (is_object($currentMenu)) {
-				$this->paramsMenuEntry = $currentMenu->getParams();
-			}
+            $menuId = JFactory::getApplication()->input->getString('menuid');
+			if ($menuId) {
+				$this->paramsMenuEntry = $menu->getParams($menuId);
+			} else {
+                $currentMenu = $menu->getActive();
+                if (is_object($currentMenu)) {
+                    $this->menuId = $currentMenu->id;
+                    $this->paramsMenuEntry = $currentMenu->getParams();
+                }
+            }
 		}
 		$id = JFactory::getApplication()->input->getString('id');
 		if (!$id) { $id = $this->state->get('person.id'); }

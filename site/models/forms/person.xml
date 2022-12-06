@@ -90,45 +90,51 @@
 			cols="40" rows="7"
 			required="false" />
 
-		<field name="image" type="imagelist" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_IMAGE_LABEL"
+		<field name="image" type="cmimagelist" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_IMAGE_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_IMAGE_DESC"
-			directory=""
 			required="false" />
 
-		<field name="birthday" type="cmdate" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL"
+		<field name="birthday" type="calendar" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_BIRTHDAY_DESC"
-			default=""
-			directory=""
+			translateformat="true"
+			showtime="false"
+			filter="user_utc"
 			required="false" />
 
-		<field name="deceased" type="cmdate" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_LABEL"
+		<field name="deceased" type="calendar" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_DECEASED_DESC"
-			default=""
-			directory=""
+			translateformat="true"
+			showtime="false"
+			filter="user_utc"
 			required="false" />
 
-		<field name="custom1" type="text" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM1_LABEL"
+		<field name="custom1" type="cmcustom" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM1_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM1_DESC"
+			default=""
 			size="40"
 			required="false" />
 
-		<field name="custom2" type="text" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM2_LABEL"
+		<field name="custom2" type="cmcustom" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM2_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM2_DESC"
+			default=""
 			size="40"
 			required="false" />
 
-		<field name="custom3" type="text" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM3_LABEL"
+		<field name="custom3" type="cmcustom" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM3_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM3_DESC"
+			default=""
 			size="40"
 			required="false" />
 
-		<field name="custom4" type="text" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM4_LABEL"
+		<field name="custom4" type="cmcustom" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM4_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM4_DESC"
+			default=""
 			size="40"
 			required="false" />
 
-		<field name="custom5" type="text" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM5_LABEL"
+		<field name="custom5" type="cmcustom" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM5_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CUSTOM5_DESC"
+			default=""
 			size="40"
 			required="false" />
 
@@ -138,7 +144,11 @@
 			size="40"
 			required="false"
 			household="true"
-			excludeCurrentId="true" />
+			excludeCurrentId="true"
+			select="true"
+			new="true"
+			edit="true"
+			clear="true" />
 
 		<field name="hh_salutation_override" type="text"
 			label="COM_CLUBMANAGEMENT_PERSONS_FIELD_HH_SALUTATION_OVERWRITE_LABEL"
@@ -160,7 +170,7 @@
 		<field name="createddate" type="calendar" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_CREATEDDATE_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_CREATEDDATE_DESC"
 			size="22"
-			format="%Y-%m-%d %H:%M:%S" filter="user_utc"
+			filter="user_utc"
 			required="false"
 			readonly="true" />
 
@@ -172,7 +182,7 @@
 		<field name="modifieddate" type="calendar" label="COM_CLUBMANAGEMENT_PERSONS_FIELD_MODIFIEDDATE_LABEL"
 			description="COM_CLUBMANAGEMENT_PERSONS_FIELD_MODIFIEDDATE_DESC"
 			size="22"
-			format="%Y-%m-%d %H:%M:%S" filter="user_utc"
+			filter="user_utc"
 			required="false"
 			readonly="true" />
 	</fieldset>

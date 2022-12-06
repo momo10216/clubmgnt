@@ -381,9 +381,6 @@ class ClubManagementModelPerson extends JModelForm {
 			->set($fields)
 			->where($conditions);
 		$db->setQuery($query);
-        if (Version::MAJOR_VERSION == '3') {
-	    	return $db->query();
-	    }
         return $db->execute();
 	}
 }

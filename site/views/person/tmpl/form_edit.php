@@ -18,8 +18,8 @@ use Joomla\CMS\Uri\Uri;
 $currentUrl = Uri::getInstance()->toString();
 
 // Get columns
-$confCols = $this->paramsMenuEntry->get("allow_columns");
-$cols = $this->getModel()->translateFieldsToColumns($confCols);
+$configCols = $this->paramsMenuEntry->get("allow_columns");
+$cols = $this->getModel()->translateFieldsToColumns($configCols);
 ?>
 
 <form action="<?php echo $currentUrl; ?>" method="post" name="adminForm" id="adminForm">
