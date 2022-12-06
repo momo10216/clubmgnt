@@ -14,7 +14,6 @@ defined('_JEXEC') or die('Restricted access');
  
 JHtml::_('bootstrap.tooltip');
 JHtml::_('behavior.multiselect');
-JHtml::_('formbehavior.chosen', 'select');
 
 $listDirn	= $this->escape($this->state->get('list.direction'));
 $listOrder	= $this->escape($this->state->get('list.ordering'));

@@ -1,47 +1,3 @@
-Joomla 3
-========
-Administrator:
-	- Person:
-		- Add: 
-		- Modify: 
-		- Delete: 
-		- Export: 
-		- Import: 
-	- Membership:
-		- Add: 
-		- Modify: 
-		- Delete: 
-		- Export: 
-		- Import: 
-	- Board:
-		- Add: 
-		- Modify: 
-		- Delete: 
-		- Export: 
-		- Import: 
-	- Categories: 
-
-Site:
-	- Person:
-		- Detail (HTML): 
-		- Edit (HTML): 
-	- Membership:
-		- Default (HTML): 
-		- Address (HTML): 
-		- Card (HTML): 
-		- Email (HTML): 
-		- Default (CSV): 
-		- Address (CSV): 
-	- Board:
-		- Default (HTML): 
-		- Address (HTML): 
-		- Card (HTML): 
-		- Email (HTML): 
-		- Default (CSV): 
-		- Address (CSV): 
-
-Joomla 4
-========
 Administrator:
 	- Person:
 		- Add: OK
@@ -90,8 +46,8 @@ Findings
 	COM_CLUBMANAGEMENT_MEMBERSHIPS_VIEW_ADDRESS_LABEL_LAYOUT_TITLE
 	COM_CLUBMANAGEMENT_MEMBERSHIPS_VIEW_ADDRESS_LABEL_LAYOUT_DESC
 - Card HTML multiselect type not working
+- Admin Lists Filter wrong size
 
 Done
 ====
 - No image warning meber/board
-

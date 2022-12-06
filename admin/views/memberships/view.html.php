@@ -18,6 +18,7 @@ use Joomla\CMS\Language\Text;
  * Memberships View
  */
 class ClubManagementViewMemberships extends JViewLegacy {
+	public $filterForm;
 	protected $items;
 	protected $pagination;
 	protected $state;
@@ -32,6 +33,7 @@ class ClubManagementViewMemberships extends JViewLegacy {
 		$this->items = $this->get('Items');
 		$this->pagination = $this->get('Pagination');
 		$this->state = $this->get('State');
+		$this->filterForm = $this->get('FilterForm');
 		// Check for errors.
 		if ($this->get('Errors') && count($errors = $this->get('Errors')) > 0) {
 			JError::raiseError(500, implode('<br />', $errors));
