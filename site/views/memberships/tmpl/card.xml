@@ -8,7 +8,7 @@
 	<fields name="params" addfieldpath="/administrator/components/com_clubmanagement/models/fields">
 		<!-- Basic options. -->
 		<fieldset name="basic" label="COM_CLUBMANAGEMENT_BASIC_OPTIONS_FIELDSET_LABEL">
-			<field name="membertype" type="cmselection" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_DESC" paramname="member_types" hide_none="true"/>
+			<field name="membertype" type="cmselection" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_DESC" paramname="member_types" hide_none="true" multiple="true"/>
 			<field name="memberstate" type="list" default="current" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_STATE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_STATE_DESC">
 				<option value="current">COM_CLUBMANAGEMENT_MEMBERSHIPS_STATE_CURRENT</option>
 				<option value="closed">COM_CLUBMANAGEMENT_MEMBERSHIPS_STATE_TERMINATED</option>
