@@ -80,4 +80,16 @@
 			<option value="DESC">JGLOBAL_ORDER_DESCENDING</option>
 		</field>
 	</fieldset>
+	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+		<field
+				name="rules"
+				type="rules"
+				label="JCONFIG_PERMISSIONS_LABEL"
+				class="inputbox"
+				validate="rules"
+				filter="rules"
+				component="com_clubmanagement"
+				section="component"
+		/>
+	</fieldset>
 </config>

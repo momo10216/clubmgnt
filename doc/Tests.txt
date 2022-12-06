@@ -40,7 +40,6 @@ Site:
 
 Findings
 ========
-- No Permissions in config
 - Translation
 	COM_CLUBMANAGEMENT_MEMBERSHIPS_VIEW_ADDRESS_LABEL_LAYOUT_TITLE
 	COM_CLUBMANAGEMENT_MEMBERSHIPS_VIEW_ADDRESS_LABEL_LAYOUT_DESC
@@ -51,3 +50,4 @@ Done
 - Admin Lists Filter wrong size
 - Person Details: Person Selection does not close
 - Membership Card HTML multiselect type not working
+- No Permissions in config
