@@ -40,14 +40,14 @@ Site:
 
 Findings
 ========
-- Person Details: Person Selection does not close
 - No Permissions in config
 - Translation
 	COM_CLUBMANAGEMENT_MEMBERSHIPS_VIEW_ADDRESS_LABEL_LAYOUT_TITLE
 	COM_CLUBMANAGEMENT_MEMBERSHIPS_VIEW_ADDRESS_LABEL_LAYOUT_DESC
 - Card HTML multiselect type not working
-- Admin Lists Filter wrong size
 
 Done
 ====
-- No image warning meber/board
+- No image warning member/board
+- Admin Lists Filter wrong size
+- Person Details: Person Selection does not close

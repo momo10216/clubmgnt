@@ -72,6 +72,9 @@ class JFormFieldModal_Persons extends JFormField {
 
 		// Select preparation
 		if ($allowSelect) {
+            $wa = JFactory::getDocument()->getWebAssetManager();
+            $wa->useScript('jquery');
+
             $html[] = HTMLHelper::_(
                 'bootstrap.renderModal',
                 'ModalSelect' . $modalId,
